@@ -16,47 +16,129 @@
 - **Responsive Design**: Mobile-friendly navigation
 
 ### Documentation Page (/docs)
-- **Comprehensive Technical Documentation**: ALL information from Circuit Digest LiteWing page
-- **Sticky Sidebar Navigation**: Easy navigation through 15+ sections
-- **Introduction & Overview**: Product introduction and key features
-- **Technical Specifications**: Complete specs table with all hardware details
-- **Hardware Design Overview**: PCB frame, components, design philosophy
-- **Detailed Circuit Schematics**: Complete circuit breakdowns
-  - USB Input & Power Path Control
-  - Battery Charging Circuit (TP4056)
-  - Voltage Regulation (SPX3819 LDO)
-  - Battery Monitoring System
-  - Programming Circuit (CH340K USB-UART)
-  - Motor Driver Circuits (4x IRLML6344 MOSFET)
-  - MPU6050 IMU Integration
-  - Status LED Circuits (6 indicators)
-  - Expansion Connectors & SMD Pads
-- **Complete GPIO Pinout**: Detailed 24-pin expansion pinout table
-  - General Purpose GPIO (IO15-IO20, IO1, IO13, IO48)
-  - I2C Interface (SCL/SDA for MPU6050)
-  - Auxiliary I2C (SCL1/SDA1 for VL53L1X)
-  - SPI Interface (MISO/CLK/MOSI/CS for PMW3901)
-  - UART Interface (TX/RX)
-  - Audio Pins (Buzzer +/-)
-  - Power Pins (3V3, GND, VBUS)
-  - Silkscreen correction notes
-- **Firmware Architecture**: ESP-Drone & Crazyflie based
-  - Flight Control Core
-  - Hardware Drivers
-  - Communication Modules
-  - DSP Libraries
-  - Firmware Features & Flashing
-- **Programming Options**: ESP-IDF, Arduino, Python SDK, CFClient
-- **Optional Sensors**: VL53L1X ToF, MS5611 Barometer, PMW3901 Optical Flow
-- **Assembly Guide**: Detailed step-by-step with propeller installation
-- **Battery Selection & Safety**: Complete LiPo battery guide
-  - Specifications (voltage, capacity, discharge rate)
-  - Safety warnings and best practices
-  - Why discharge rate matters (20C minimum, 30C recommended)
-- **Getting Started**: First flight, IMU calibration, app setup
-- **Troubleshooting**: 4 common issues with solutions
-- **Known Issues & Limitations**: Silkscreen errors, flight modes status
-- **Resources**: GitHub, store, community links
+**COMPREHENSIVE TECHNICAL REFERENCE** - ALL information from Circuit Digest LiteWing integrated!
+
+- **Sticky Sidebar Navigation**: Quick access to 20+ detailed sections
+- **Overview & Introduction**: Product purpose, design philosophy, key benefits
+- **Key Features Grid**: 6 highlighted features with visual cards
+- **Complete Technical Specifications**: Full specs table with all hardware parameters
+
+#### Hardware Design (Detailed)
+- **PCB Frame Architecture**: All-in-one design eliminating 3D printing needs
+- **ESP32-S3 Module**: Dual-core specs, capabilities, USB integration details
+- **MPU6050 IMU Sensor**: 6-axis motion tracking, calibration importance
+- **Power Management System**: 
+  - USB-C input with CCx pull-downs
+  - TP4056 1A Li-ion charger with status LEDs
+  - SPX3819 LDO voltage regulation
+  - Power path control with P-MOSFET
+  - Battery voltage monitoring via ADC
+  - Slide switch power control
+- **Motor Driver Circuits**: 4x IRLML6344 MOSFET with PWM control, flyback protection
+- **Programming Interface**: CH340K USB-UART bridge with 2N7002DW auto-reset
+- **Status LED System**: 6 LEDs (PWR, CHRG, FULL, SYS, LINK, ERR) with behavior table
+- **Audio Output**: Optional piezo buzzer connector
+
+#### Circuit Schematics (Complete with Images)
+- USB Input & Power Path Control schematic + explanation
+- Battery Charger Circuit (TP4056) schematic + explanation
+- Battery Monitoring & On/Off Switch schematic + explanation  
+- USB-UART Bridge & Auto-Reset schematic + explanation
+- ESP32-S3 SoC Connections schematic + explanation
+- MPU6050 IMU Circuit schematic + explanation
+- Motor Driver Circuits (4x) schematic + explanation
+- Status LED Circuit schematic + explanation
+- Expansion Connector Pinout schematic + explanation
+- Expansion Module SMD Pads schematic + explanation
+- GitHub links to download all design files
+
+#### GPIO Pinout Reference
+- **Complete 24-pin mapping table** with ESP32-S3 GPIO assignments
+- Pinout diagram image included
+- Connector groups (4 groups with 6 pins each)
+- Silkscreen labeling corrections documented (Rev 1 errors)
+- Interface breakdowns: I2C, Aux I2C, SPI, UART, Audio, Power
+
+#### Firmware & Development
+- **Firmware Architecture**: ESP-IDF + ESP-Drone + Crazyflie foundation
+- Flight Control Core components
+- Hardware driver organization
+- Communication modules overview
+- Software libraries included
+- Crazyflie compatibility (cfclient & cflib)
+- Firmware download links
+- Flashing procedures
+
+#### Programming Options (4 Methods)
+- ESP-IDF native development with commands
+- Arduino IDE with example code
+- Python SDK (cflib) with code examples
+- Crazyflie CFClient for PC control
+
+#### Optional Sensors & Expansion
+- **VL53L1X ToF**: Height hold (tested & working)
+- **MS5611 Barometer**: Altitude hold
+- **PMW3901 Optical Flow**: Position hold
+- SMD solder pad locations on PCB bottom
+- Assisted flight mode status (CFClient only currently)
+- Custom expansion options with 24-pin connector
+
+#### Assembly Guide (Comprehensive)
+- What's included in kit
+- Propeller identification (Type A CW, Type B CCW)
+- Critical propeller placement warnings
+- PCB marking reference images
+- 5-step assembly procedure with details
+- Correct vs incorrect assembly comparison
+- Multiple assembly reference images
+
+#### Battery Selection & Power
+- **Recommended battery**: 650mAh 1S LiPo 30C
+- Battery specifications table (min vs recommended)
+- Discharge rate importance (20C min, 30C+ recommended)
+- Flight time expectations (5-7 min)
+- Charging time (1-2 hours)
+- Payload capacity (~25g)
+- **7 Battery Safety Guidelines** (critical warnings)
+
+#### Getting Started (Detailed)
+- Pre-flight setup with 4-step checklist
+- IMU calibration procedure (critical!)
+- Connection setup (Android/iOS)
+- Safety warnings section
+- 8-step first flight procedure
+- Mobile app setup (Android & iOS separate guides)
+- PC control via CFClient setup
+
+#### Troubleshooting (7 Major Issues)
+- App won't connect (6 solutions)
+- Drone reboots during takeoff (battery issue)
+- No response when connected (calibration)
+- Wrong propeller orientation (visual guide)
+- Unstable flight/drifting (6 causes)
+- Short flight time (5 solutions)
+- Firmware upload fails (5 solutions)
+- Support contact options
+
+#### Tutorials & Projects
+- Gesture Control with Python (live link)
+- Arduino Flight Control (coming soon)
+- AI Object Tracking (coming soon)
+- Autonomous Waypoint Navigation (coming soon)
+
+#### Known Issues & Limitations
+- Silkscreen labeling errors (Rev 1)
+- Assisted flight features (CFClient only)
+- Wi-Fi range limitations (30-50m)
+- Wind sensitivity (indoor/calm weather only)
+- Battery discharge requirements
+
+#### Resources & Support
+- GitHub repository links
+- Official store (Passion 3D World)
+- WhatsApp community
+- Main website link
+- Email support contact
 
 ## 🎨 Design Theme
 **Color Scheme: Navy + Cyan + White (Option 2)**
