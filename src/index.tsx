@@ -202,6 +202,10 @@ app.get('/', (c) => {
                                 <i class="fas fa-shopping-cart mr-3"></i>
                                 Order Now
                             </a>
+                            <a href="/docs" class="border-2 border-sky-500 text-sky-400 px-10 py-5 rounded-xl font-black text-lg hover:bg-sky-500 hover:text-white transition-all inline-flex items-center justify-center">
+                                <i class="fas fa-book mr-3"></i>
+                                Documentation
+                            </a>
                             <a href="#features" class="border-2 border-sky-500 text-sky-400 px-10 py-5 rounded-xl font-black text-lg hover:bg-sky-500 hover:text-white transition-all inline-flex items-center justify-center">
                                 <i class="fas fa-rocket mr-3"></i>
                                 Explore
