@@ -229,9 +229,10 @@ app.get('/', (c) => {
                     <div class="relative">
                         <div class="absolute inset-0 bg-sky-500 opacity-15 blur-3xl rounded-full"></div>
                         <div class="relative z-10 float-animation">
-                            <img src="https://circuitdigest.com/sites/default/files/Litewing%20Wiki%20Banner-01.png" 
-                                 alt="FLYQ Air Drone" 
-                                 class="w-full h-auto drop-shadow-2xl rounded-2xl">
+                            <img src="https://page.gensparksite.com/v1/base64_upload/0d4fad85cedf49a8cc01d9cbeecdd85c" 
+                                 alt="FLYQ Air Drone Kit by Passion 3D World" 
+                                 class="w-full h-auto drop-shadow-2xl rounded-2xl"
+                                 onerror="this.src='https://circuitdigest.com/sites/default/files/Litewing%20Wiki%20Banner-01.png'">
                         </div>
                     </div>
                 </div>
@@ -862,9 +863,10 @@ app.get('/docs', (c) => {
                     <div class="bg-white p-8 rounded-2xl shadow-lg">
                         <!-- Hero Image -->
                         <div class="mb-12 text-center">
-                            <img src="https://circuitdigest.com/sites/default/files/Litewing%20Wiki%20Banner-01.png" 
-                                 alt="FLYQ Air Drone" 
-                                 class="w-full max-w-2xl mx-auto rounded-2xl shadow-xl">
+                            <img src="https://page.gensparksite.com/v1/base64_upload/0d4fad85cedf49a8cc01d9cbeecdd85c" 
+                                 alt="FLYQ Air Drone Kit by Passion 3D World" 
+                                 class="w-full max-w-2xl mx-auto rounded-2xl shadow-xl"
+                                 onerror="this.src='https://circuitdigest.com/sites/default/files/Litewing%20Wiki%20Banner-01.png'">
                             <h1 class="text-5xl font-black mt-8 mb-4" style="background: linear-gradient(135deg, #38BDF8 0%, #0EA5E9 50%, #0284C7 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
                                 FLYQ Air
                             </h1>
