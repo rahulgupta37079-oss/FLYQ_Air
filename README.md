@@ -15,10 +15,10 @@
 - **Smooth Animations**: Scroll reveals, hover effects, and floating animations
 
 ## 🎨 Design Theme
-**Color Scheme: Dark Blue + White + Black (Option 1)**
-- **Primary Dark Blue**: #0A1F44 (Professional navy)
-- **Electric Blue**: #3B82F6 (Vibrant accents)
-- **Light Blue**: #60A5FA (Highlights)
+**Color Scheme: Navy + Cyan + White (Option 2)**
+- **Navy Blue**: #0C1E3D (Deep professional navy)
+- **Cyan**: #00D9FF (Bright energetic cyan)
+- **Sky Blue**: #06B6D4 (Vibrant highlights)
 - **Black**: #000000 (Background)
 - **White**: #FFFFFF (Text and contrast)
 
@@ -27,10 +27,11 @@
 - Body: Inter (Clean, readable)
 
 **Effects**:
-- Blue glow effects on headings
-- Card hovers with electric blue borders
-- Smooth scroll animations
+- Cyan glow effects on headings
+- Card hovers with cyan borders
+- Native smooth scroll (no custom parallax)
 - Gradient text effects
+- Full-size hero image
 
 ## 🌐 Live URLs
 - **Development**: https://3000-i9dkuxqg07opw1sw23plt-d0b9e1e2.sandbox.novita.ai
@@ -99,13 +100,14 @@ flyq/
 8. **Footer** - Links to resources and community
 
 ## 🎨 Design Highlights
-- **Blue Glow Effects**: Text-shadow on main headings
-- **Gradient Text**: Blue gradient on brand elements
-- **Border Accents**: Electric blue borders on all cards
-- **Dark Theme**: Black backgrounds with blue highlights
-- **Professional Look**: Aviation and tech-inspired
-- **Card Animations**: Hover effects with blue glows
-- **Smooth Scrolling**: Parallax and reveal animations
+- **Cyan Glow Effects**: Bright text-shadow on FLYQ branding
+- **Gradient Text**: Cyan gradient on brand elements
+- **Border Accents**: Vibrant cyan borders on all cards
+- **Dark Theme**: Black backgrounds with cyan highlights
+- **Energetic Look**: Aviation and futuristic inspired
+- **Card Animations**: Hover effects with cyan glows
+- **Smooth Scrolling**: Native browser smooth scroll (no custom parallax)
+- **Full-Size Images**: Hero drone image at full resolution
 
 ## 🔗 Resources
 - **Documentation**: https://circuitdigest.com/litewing
@@ -114,12 +116,14 @@ flyq/
 
 ## 📝 Notes
 - Product name: **FLYQ** (short, memorable, aviation-inspired)
-- Color theme: **Dark Blue + White + Black** (Professional & Tech)
+- Color theme: **Navy + Cyan + White** (Dynamic & Modern - Option 2)
 - Store: **Passion 3D World** (Official dealer)
 - Fully responsive and mobile-friendly
 - Optimized for Cloudflare Pages deployment
-- Blue glow effects for premium feel
-- Aviation and technology aesthetic
+- Bright cyan glow effects for energetic feel
+- Aviation and futuristic aesthetic
+- Fixed scrolling issues - native smooth scroll only
+- Full-resolution hero image
 
 ## 🎨 Branding
 **FLYQ - The Programmable Drone**
