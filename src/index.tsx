@@ -157,6 +157,9 @@ app.get('/', (c) => {
                         <a href="#features" class="silver-text hover:text-sky-400 transition-colors">Features</a>
                         <a href="#specs" class="silver-text hover:text-sky-400 transition-colors">Specs</a>
                         <a href="#programmable" class="silver-text hover:text-sky-400 transition-colors">Programming</a>
+                        <a href="/docs" class="silver-text hover:text-sky-400 transition-colors flex items-center">
+                            <i class="fas fa-book mr-2"></i>Docs
+                        </a>
                         <a href="#buy" class="bg-gradient-to-r from-sky-500 to-blue-600 text-white px-6 py-2 rounded-full hover:shadow-lg transition-all font-black">Buy Now</a>
                     </div>
                     <button id="mobileMenuBtn" class="md:hidden text-sky-400 text-2xl">
@@ -168,6 +171,9 @@ app.get('/', (c) => {
                     <a href="#features" class="block silver-text hover:text-sky-400 transition-colors text-center py-2">Features</a>
                     <a href="#specs" class="block silver-text hover:text-sky-400 transition-colors text-center py-2">Specs</a>
                     <a href="#programmable" class="block silver-text hover:text-sky-400 transition-colors text-center py-2">Programming</a>
+                    <a href="/docs" class="block silver-text hover:text-sky-400 transition-colors text-center py-2">
+                        <i class="fas fa-book mr-2"></i>Documentation
+                    </a>
                     <a href="#buy" class="block bg-gradient-to-r from-sky-500 to-blue-600 text-white px-6 py-3 rounded-full hover:shadow-lg transition-all text-center font-black">Buy Now</a>
                 </div>
             </div>
@@ -223,9 +229,9 @@ app.get('/', (c) => {
                     <div class="relative">
                         <div class="absolute inset-0 bg-sky-500 opacity-15 blur-3xl rounded-full"></div>
                         <div class="relative z-10 float-animation">
-                            <img src="https://page.gensparksite.com/v1/base64_upload/00d2c5e736153de7279ec71d4681de51" 
+                            <img src="https://circuitdigest.com/sites/default/files/Litewing%20Wiki%20Banner-01.png" 
                                  alt="FLYQ Air Drone" 
-                                 class="w-full h-auto drop-shadow-2xl">
+                                 class="w-full h-auto drop-shadow-2xl rounded-2xl">
                         </div>
                     </div>
                 </div>
@@ -648,27 +654,27 @@ void loop() {
                 
                 <!-- Community Section -->
                 <div class="border-t border-gray-800 pt-16">
-                    <h3 class="text-3xl font-black mb-10 text-sky-400">Join Our Community</h3>
+                    <h3 class="text-3xl font-black mb-10 text-sky-400">Learn & Connect</h3>
                     <div class="flex flex-wrap justify-center gap-6">
-                        <a href="https://circuitdigest.com/litewing" target="_blank" 
-                           class="bg-midnight px-8 py-4 rounded-2xl hover:bg-sky-500 hover:text-white transition-all inline-flex items-center text-lg font-semibold border-2 border-sky-500 silver-text">
-                            <i class="fas fa-book mr-3"></i>
-                            Documentation
+                        <a href="/docs" 
+                           class="bg-gradient-to-br from-sky-500 to-blue-600 px-8 py-4 rounded-2xl hover:shadow-2xl transition-all inline-flex items-center text-lg font-semibold border-2 border-sky-400 text-white">
+                            <i class="fas fa-book-open mr-3"></i>
+                            Complete Documentation
                         </a>
-                        <a href="https://github.com/Circuit-Digest/LiteWing" target="_blank" 
+                        <a href="https://github.com/passion3d/flyq-air" target="_blank" 
                            class="bg-midnight px-8 py-4 rounded-2xl hover:bg-sky-500 hover:text-white transition-all inline-flex items-center text-lg font-semibold border-2 border-sky-500 silver-text">
                             <i class="fab fa-github mr-3"></i>
                             GitHub
+                        </a>
+                        <a href="https://circuitdigest.com/forum" target="_blank" 
+                           class="bg-midnight px-8 py-4 rounded-2xl hover:bg-sky-500 hover:text-white transition-all inline-flex items-center text-lg font-semibold border-2 border-sky-500 silver-text">
+                            <i class="fas fa-comments mr-3"></i>
+                            Forum
                         </a>
                         <a href="#" 
                            class="bg-midnight px-8 py-4 rounded-2xl hover:bg-sky-500 hover:text-white transition-all inline-flex items-center text-lg font-semibold border-2 border-sky-500 silver-text">
                             <i class="fab fa-whatsapp mr-3"></i>
                             Community
-                        </a>
-                        <a href="https://circuitdigest.com" target="_blank" 
-                           class="bg-midnight px-8 py-4 rounded-2xl hover:bg-sky-500 hover:text-white transition-all inline-flex items-center text-lg font-semibold border-2 border-sky-500 silver-text">
-                            <i class="fas fa-comments mr-3"></i>
-                            Forum
                         </a>
                     </div>
                 </div>
@@ -693,7 +699,7 @@ void loop() {
                             <li><a href="#features" class="hover:text-sky-400 transition">Features</a></li>
                             <li><a href="#specs" class="hover:text-sky-400 transition">Specs</a></li>
                             <li><a href="#programmable" class="hover:text-sky-400 transition">Programming</a></li>
-                            <li><a href="https://circuitdigest.com/litewing" class="hover:text-sky-400 transition">Docs</a></li>
+                            <li><a href="/docs" class="hover:text-sky-400 transition font-semibold"><i class="fas fa-book mr-2"></i>Documentation</a></li>
                         </ul>
                     </div>
                     
@@ -856,7 +862,7 @@ app.get('/docs', (c) => {
                     <div class="bg-white p-8 rounded-2xl shadow-lg">
                         <!-- Hero Image -->
                         <div class="mb-12 text-center">
-                            <img src="https://page.gensparksite.com/v1/base64_upload/00d2c5e736153de7279ec71d4681de51" 
+                            <img src="https://circuitdigest.com/sites/default/files/Litewing%20Wiki%20Banner-01.png" 
                                  alt="FLYQ Air Drone" 
                                  class="w-full max-w-2xl mx-auto rounded-2xl shadow-xl">
                             <h1 class="text-5xl font-black mt-8 mb-4" style="background: linear-gradient(135deg, #38BDF8 0%, #0EA5E9 50%, #0284C7 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
