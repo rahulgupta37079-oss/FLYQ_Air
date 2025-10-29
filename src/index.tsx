@@ -765,11 +765,11 @@ app.get('/docs', (c) => {
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>FLYQ Air - Documentation</title>
+        <title>FLYQ Air - Complete Technical Documentation</title>
         <script src="https://cdn.tailwindcss.com"></script>
         <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet">
         <style>
-            @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&family=Inter:wght@300;400;600;700;800&display=swap');
+            @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&family=Inter:wght@300;400;600;700;800&family=Fira+Code&display=swap');
             
             body {
                 font-family: 'Inter', sans-serif;
@@ -780,9 +780,24 @@ app.get('/docs', (c) => {
                 font-weight: 700;
             }
             
+            code, pre {
+                font-family: 'Fira Code', monospace;
+            }
+            
             .doc-nav {
                 position: sticky;
                 top: 80px;
+                max-height: calc(100vh - 100px);
+                overflow-y: auto;
+            }
+            
+            .doc-nav::-webkit-scrollbar {
+                width: 6px;
+            }
+            
+            .doc-nav::-webkit-scrollbar-thumb {
+                background: #0EA5E9;
+                border-radius: 3px;
             }
         </style>
     </head>
@@ -812,17 +827,26 @@ app.get('/docs', (c) => {
                 <aside class="lg:col-span-1">
                     <div class="doc-nav bg-white p-6 rounded-2xl shadow-lg">
                         <h3 class="text-xl font-black mb-4 text-gray-800">Contents</h3>
-                        <ul class="space-y-2">
-                            <li><a href="#overview" class="text-gray-600 hover:text-sky-500 transition">Overview</a></li>
-                            <li><a href="#features" class="text-gray-600 hover:text-sky-500 transition">Key Features</a></li>
-                            <li><a href="#specs" class="text-gray-600 hover:text-sky-500 transition">Specifications</a></li>
-                            <li><a href="#hardware" class="text-gray-600 hover:text-sky-500 transition">Hardware Design</a></li>
-                            <li><a href="#programming" class="text-gray-600 hover:text-sky-500 transition">Programming</a></li>
-                            <li><a href="#sensors" class="text-gray-600 hover:text-sky-500 transition">Sensors</a></li>
-                            <li><a href="#assembly" class="text-gray-600 hover:text-sky-500 transition">Assembly</a></li>
-                            <li><a href="#getting-started" class="text-gray-600 hover:text-sky-500 transition">Getting Started</a></li>
-                            <li><a href="#troubleshooting" class="text-gray-600 hover:text-sky-500 transition">Troubleshooting</a></li>
-                            <li><a href="#resources" class="text-gray-600 hover:text-sky-500 transition">Resources</a></li>
+                        <ul class="space-y-2 text-sm">
+                            <li><a href="#overview" class="text-gray-600 hover:text-sky-500 transition block">Overview</a></li>
+                            <li><a href="#features" class="text-gray-600 hover:text-sky-500 transition block">Key Features</a></li>
+                            <li><a href="#specs" class="text-gray-600 hover:text-sky-500 transition block">Specifications</a></li>
+                            <li><a href="#hardware" class="text-gray-600 hover:text-sky-500 transition block">Hardware Overview</a></li>
+                            <li><a href="#schematics" class="text-gray-600 hover:text-sky-500 transition block">Circuit Schematics</a></li>
+                            <li class="ml-3"><a href="#schematics" class="text-gray-500 hover:text-sky-500 transition block">• USB & Power Path</a></li>
+                            <li class="ml-3"><a href="#schematics" class="text-gray-500 hover:text-sky-500 transition block">• Battery Charging</a></li>
+                            <li class="ml-3"><a href="#schematics" class="text-gray-500 hover:text-sky-500 transition block">• Motor Drivers</a></li>
+                            <li class="ml-3"><a href="#schematics" class="text-gray-500 hover:text-sky-500 transition block">• Status LEDs</a></li>
+                            <li><a href="#pinout" class="text-gray-600 hover:text-sky-500 transition block">GPIO Pinout</a></li>
+                            <li><a href="#programming" class="text-gray-600 hover:text-sky-500 transition block">Programming</a></li>
+                            <li><a href="#firmware" class="text-gray-600 hover:text-sky-500 transition block">Firmware Details</a></li>
+                            <li><a href="#sensors" class="text-gray-600 hover:text-sky-500 transition block">Optional Sensors</a></li>
+                            <li><a href="#assembly" class="text-gray-600 hover:text-sky-500 transition block">Assembly Guide</a></li>
+                            <li><a href="#battery" class="text-gray-600 hover:text-sky-500 transition block">Battery Guide</a></li>
+                            <li><a href="#getting-started" class="text-gray-600 hover:text-sky-500 transition block">Getting Started</a></li>
+                            <li><a href="#troubleshooting" class="text-gray-600 hover:text-sky-500 transition block">Troubleshooting</a></li>
+                            <li><a href="#limitations" class="text-gray-600 hover:text-sky-500 transition block">Known Issues</a></li>
+                            <li><a href="#resources" class="text-gray-600 hover:text-sky-500 transition block">Resources</a></li>
                         </ul>
                     </div>
                 </aside>
@@ -1174,6 +1198,520 @@ with SyncCrazyflie(uri) as scf:<br>
                                         <li>Check PCB markings for correct CW/CCW placement</li>
                                         <li>Red propellers (A) go on motors marked CW</li>
                                         <li>Black propellers (B) go on motors marked CCW</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- Detailed Circuit Schematics -->
+                        <section id="schematics" class="mb-12">
+                            <h2 class="text-4xl font-black mb-6 text-gray-800 border-b-4 border-sky-500 pb-2">Detailed Circuit Schematics</h2>
+                            
+                            <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                                All hardware design files including schematics and gerber files are open-source under CC license. 
+                                Download from our <a href="https://github.com/passion3d/flyq-air" class="text-sky-600 hover:underline font-semibold">GitHub repository</a>.
+                            </p>
+
+                            <h3 class="text-2xl font-bold mb-4 text-gray-700 mt-8">USB Input & Power Path</h3>
+                            <p class="text-gray-700 mb-4">
+                                USB Type-C port handles both charging and programming. Pull-down resistors on CC lines ensure compatibility 
+                                with both USB-A and USB-C ports. Power path controller (P-Channel MOSFET + Schottky diode) automatically 
+                                switches between USB and battery power.
+                            </p>
+
+                            <h3 class="text-2xl font-bold mb-4 text-gray-700 mt-8">Battery Charging Circuit</h3>
+                            <p class="text-gray-700 mb-4">
+                                <strong>TP4056</strong> charge controller IC manages LiPo battery charging with maximum 1A current. 
+                                Charge current adjustable via programming resistor R5. Status outputs drive CHRG and FULL LED indicators.
+                            </p>
+                            <ul class="list-disc list-inside space-y-2 text-gray-700 ml-4 mb-4">
+                                <li>CHRG LED: Lights when battery is charging</li>
+                                <li>FULL LED: Lights when battery fully charged</li>
+                                <li>Temperature monitoring option (not used by default)</li>
+                            </ul>
+
+                            <h3 class="text-2xl font-bold mb-4 text-gray-700 mt-8">Voltage Regulation</h3>
+                            <p class="text-gray-700 mb-4">
+                                <strong>SPX3819 LDO</strong> provides stable 3.3V with ultra-low noise for ESP32, IMU and peripherals. 
+                                Capable of 500mA output with only 550mV dropout at full load. Enable pin controlled by slide switch for power control.
+                            </p>
+
+                            <h3 class="text-2xl font-bold mb-4 text-gray-700 mt-8">Battery Monitoring</h3>
+                            <p class="text-gray-700 mb-4">
+                                Voltage divider reduces battery voltage to safe ADC input level. ESP32 continuously monitors battery voltage 
+                                to provide low battery warnings via ERR LED.
+                            </p>
+
+                            <h3 class="text-2xl font-bold mb-4 text-gray-700 mt-8">Programming Circuit</h3>
+                            <p class="text-gray-700 mb-4">
+                                <strong>CH340K USB-UART Bridge</strong> from WCH provides programming interface. Integrated crystal oscillator 
+                                eliminates external components. Auto-reset circuit using 2N7002DW dual N-channel MOSFET enables automatic 
+                                firmware flashing without manual button presses.
+                            </p>
+                            <ul class="list-disc list-inside space-y-2 text-gray-700 ml-4 mb-4">
+                                <li>Hardware full duplex UART</li>
+                                <li>Baud rates: 50bps to 2Mbps</li>
+                                <li>Integrated TX/RX buffers</li>
+                                <li>Manual reset/boot buttons available for debugging</li>
+                            </ul>
+
+                            <h3 class="text-2xl font-bold mb-4 text-gray-700 mt-8">Motor Driver Circuits</h3>
+                            <p class="text-gray-700 mb-4">
+                                Each of 4 motors controlled by identical circuit:
+                            </p>
+                            <ul class="list-disc list-inside space-y-2 text-gray-700 ml-4 mb-4">
+                                <li><strong>IRLML6344 N-Channel MOSFET</strong> - Main switching element</li>
+                                <li><strong>Flyback diode</strong> - Protects against motor back-EMF</li>
+                                <li><strong>Pull-down resistor</strong> - Ensures MOSFET stays off when floating</li>
+                                <li><strong>Bypass capacitors</strong> - Suppress voltage spikes and noise</li>
+                                <li>PWM signals control motor speed via duty cycle modulation</li>
+                            </ul>
+
+                            <h3 class="text-2xl font-bold mb-4 text-gray-700 mt-8">MPU6050 IMU Integration</h3>
+                            <p class="text-gray-700 mb-4">
+                                <strong>MPU6050</strong> 6-axis motion sensor provides critical flight stabilization:
+                            </p>
+                            <ul class="list-disc list-inside space-y-2 text-gray-700 ml-4 mb-4">
+                                <li>3-axis gyroscope for angular velocity</li>
+                                <li>3-axis accelerometer for orientation</li>
+                                <li>I2C communication with ESP32</li>
+                                <li>Sensor fusion algorithms in firmware</li>
+                                <li>PID controller uses IMU data for motor speed adjustments</li>
+                                <li>Proper calibration essential for stable flight</li>
+                            </ul>
+
+                            <h3 class="text-2xl font-bold mb-4 text-gray-700 mt-8">Status LED Circuits</h3>
+                            <div class="overflow-x-auto mb-4">
+                                <table class="w-full border-collapse border border-gray-300">
+                                    <thead>
+                                        <tr class="bg-gray-100">
+                                            <th class="border border-gray-300 px-4 py-2 text-left">LED</th>
+                                            <th class="border border-gray-300 px-4 py-2 text-left">Color</th>
+                                            <th class="border border-gray-300 px-4 py-2 text-left">Function</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="border border-gray-300 px-4 py-2">PWR</td>
+                                            <td class="border border-gray-300 px-4 py-2">Green</td>
+                                            <td class="border border-gray-300 px-4 py-2">Power indicator - ON when drone powered</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="border border-gray-300 px-4 py-2">CHRG</td>
+                                            <td class="border border-gray-300 px-4 py-2">Red</td>
+                                            <td class="border border-gray-300 px-4 py-2">Charging indicator - ON when battery charging</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="border border-gray-300 px-4 py-2">FULL</td>
+                                            <td class="border border-gray-300 px-4 py-2">Blue</td>
+                                            <td class="border border-gray-300 px-4 py-2">Full charge indicator</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="border border-gray-300 px-4 py-2">SYS</td>
+                                            <td class="border border-gray-300 px-4 py-2">Green</td>
+                                            <td class="border border-gray-300 px-4 py-2">Slow blink: calibration | Fast blink: ready to fly</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="border border-gray-300 px-4 py-2">LINK</td>
+                                            <td class="border border-gray-300 px-4 py-2">Blue</td>
+                                            <td class="border border-gray-300 px-4 py-2">Blinks when UDP connection established</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="border border-gray-300 px-4 py-2">ERR</td>
+                                            <td class="border border-gray-300 px-4 py-2">Red</td>
+                                            <td class="border border-gray-300 px-4 py-2">Low battery warning and system errors</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <h3 class="text-2xl font-bold mb-4 text-gray-700 mt-8">Expansion Connectors</h3>
+                            <p class="text-gray-700 mb-4">
+                                Four expansion connectors provide 24 pins total:
+                            </p>
+                            <ul class="list-disc list-inside space-y-2 text-gray-700 ml-4 mb-4">
+                                <li>Power: VBUS, +3.3V, GND</li>
+                                <li>Communication: UART, I2C, Auxiliary I2C, SPI</li>
+                                <li>GPIO: 11 additional general purpose I/O pins</li>
+                                <li>Audio: 2-pin connector for optional piezo buzzer</li>
+                            </ul>
+
+                            <h3 class="text-2xl font-bold mb-4 text-gray-700 mt-8">SMD Solder Pads</h3>
+                            <p class="text-gray-700 mb-4">
+                                Bottom side features SMD solder pads for optional sensors:
+                            </p>
+                            <ul class="list-disc list-inside space-y-2 text-gray-700 ml-4">
+                                <li>PMW3901 optical flow sensor (SPI interface)</li>
+                                <li>MS5611 altitude sensor (I2C interface)</li>
+                                <li>VL53L1X ToF sensor (Auxiliary I2C)</li>
+                                <li>Note: Battery may need top mounting when using bottom sensors</li>
+                            </ul>
+                        </section>
+
+                        <!-- GPIO Pinout Details -->
+                        <section id="pinout" class="mb-12">
+                            <h2 class="text-4xl font-black mb-6 text-gray-800 border-b-4 border-sky-500 pb-2">Complete GPIO Pinout</h2>
+                            
+                            <div class="bg-yellow-50 border-l-4 border-yellow-500 p-6 rounded-xl mb-6">
+                                <p class="text-gray-700"><i class="fas fa-exclamation-triangle mr-2 text-yellow-600"></i>
+                                <strong>Silkscreen Labeling Correction (First Revision):</strong></p>
+                                <ul class="list-disc list-inside ml-4 mt-2 text-gray-700">
+                                    <li>IO48 incorrectly marked as IO42</li>
+                                    <li>CS/IO42 incorrectly marked as IO47</li>
+                                    <li>Refer to this documentation for correct pin functions</li>
+                                </ul>
+                            </div>
+
+                            <div class="overflow-x-auto">
+                                <table class="w-full border-collapse border border-gray-300">
+                                    <thead>
+                                        <tr class="bg-sky-100">
+                                            <th class="border border-gray-300 px-4 py-2 text-left">Pin Name</th>
+                                            <th class="border border-gray-300 px-4 py-2 text-left">GPIO</th>
+                                            <th class="border border-gray-300 px-4 py-2 text-left">Function</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="bg-gray-50">
+                                            <td colspan="3" class="border border-gray-300 px-4 py-2 font-bold">General Purpose GPIO</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="border border-gray-300 px-4 py-2">IO15</td>
+                                            <td class="border border-gray-300 px-4 py-2">GPIO15</td>
+                                            <td class="border border-gray-300 px-4 py-2">ESP32-S3 GPIO15</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="border border-gray-300 px-4 py-2">IO16</td>
+                                            <td class="border border-gray-300 px-4 py-2">GPIO16</td>
+                                            <td class="border border-gray-300 px-4 py-2">ESP32-S3 GPIO16</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="border border-gray-300 px-4 py-2">IO17</td>
+                                            <td class="border border-gray-300 px-4 py-2">GPIO17</td>
+                                            <td class="border border-gray-300 px-4 py-2">ESP32-S3 GPIO17</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="border border-gray-300 px-4 py-2">IO18</td>
+                                            <td class="border border-gray-300 px-4 py-2">GPIO18</td>
+                                            <td class="border border-gray-300 px-4 py-2">ESP32-S3 GPIO18</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="border border-gray-300 px-4 py-2">IO19</td>
+                                            <td class="border border-gray-300 px-4 py-2">GPIO19</td>
+                                            <td class="border border-gray-300 px-4 py-2">ESP32-S3 GPIO19</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="border border-gray-300 px-4 py-2">IO20</td>
+                                            <td class="border border-gray-300 px-4 py-2">GPIO20</td>
+                                            <td class="border border-gray-300 px-4 py-2">ESP32-S3 GPIO20</td>
+                                        </tr>
+                                        <tr class="bg-gray-50">
+                                            <td colspan="3" class="border border-gray-300 px-4 py-2 font-bold">UART Interface</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="border border-gray-300 px-4 py-2">IO1</td>
+                                            <td class="border border-gray-300 px-4 py-2">GPIO1</td>
+                                            <td class="border border-gray-300 px-4 py-2">ESP32-S3 GPIO1</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="border border-gray-300 px-4 py-2">TX</td>
+                                            <td class="border border-gray-300 px-4 py-2">TXD0</td>
+                                            <td class="border border-gray-300 px-4 py-2">UART0 TX Pin</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="border border-gray-300 px-4 py-2">RX</td>
+                                            <td class="border border-gray-300 px-4 py-2">RXD0</td>
+                                            <td class="border border-gray-300 px-4 py-2">UART0 RX Pin</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="border border-gray-300 px-4 py-2">IO48</td>
+                                            <td class="border border-gray-300 px-4 py-2">GPIO48</td>
+                                            <td class="border border-gray-300 px-4 py-2">ESP32-S3 GPIO48 (marked as IO42 on first rev)</td>
+                                        </tr>
+                                        <tr class="bg-gray-50">
+                                            <td colspan="3" class="border border-gray-300 px-4 py-2 font-bold">I2C Interface</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="border border-gray-300 px-4 py-2">SCL</td>
+                                            <td class="border border-gray-300 px-4 py-2">GPIO10</td>
+                                            <td class="border border-gray-300 px-4 py-2">I2C0 Clock (MPU6050)</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="border border-gray-300 px-4 py-2">SDA</td>
+                                            <td class="border border-gray-300 px-4 py-2">GPIO11</td>
+                                            <td class="border border-gray-300 px-4 py-2">I2C0 Data (MPU6050)</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="border border-gray-300 px-4 py-2">SCL1</td>
+                                            <td class="border border-gray-300 px-4 py-2">GPIO41</td>
+                                            <td class="border border-gray-300 px-4 py-2">Auxiliary I2C Clock (VL53L1X ToF)</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="border border-gray-300 px-4 py-2">SDA1</td>
+                                            <td class="border border-gray-300 px-4 py-2">GPIO40</td>
+                                            <td class="border border-gray-300 px-4 py-2">Auxiliary I2C Data (VL53L1X ToF)</td>
+                                        </tr>
+                                        <tr class="bg-gray-50">
+                                            <td colspan="3" class="border border-gray-300 px-4 py-2 font-bold">SPI Interface</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="border border-gray-300 px-4 py-2">MISO</td>
+                                            <td class="border border-gray-300 px-4 py-2">GPIO37</td>
+                                            <td class="border border-gray-300 px-4 py-2">SPI MISO (PMW3901 Optical Flow)</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="border border-gray-300 px-4 py-2">CLK</td>
+                                            <td class="border border-gray-300 px-4 py-2">GPIO36</td>
+                                            <td class="border border-gray-300 px-4 py-2">SPI Clock (PMW3901 Optical Flow)</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="border border-gray-300 px-4 py-2">MOSI</td>
+                                            <td class="border border-gray-300 px-4 py-2">GPIO35</td>
+                                            <td class="border border-gray-300 px-4 py-2">SPI MOSI (PMW3901 Optical Flow)</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="border border-gray-300 px-4 py-2">CS</td>
+                                            <td class="border border-gray-300 px-4 py-2">GPIO42</td>
+                                            <td class="border border-gray-300 px-4 py-2">SPI Chip Select (marked as IO47 on first rev)</td>
+                                        </tr>
+                                        <tr class="bg-gray-50">
+                                            <td colspan="3" class="border border-gray-300 px-4 py-2 font-bold">Audio & Miscellaneous</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="border border-gray-300 px-4 py-2">IO39</td>
+                                            <td class="border border-gray-300 px-4 py-2">GPIO39</td>
+                                            <td class="border border-gray-300 px-4 py-2">Buzzer + (Piezo buzzer positive)</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="border border-gray-300 px-4 py-2">IO38</td>
+                                            <td class="border border-gray-300 px-4 py-2">GPIO38</td>
+                                            <td class="border border-gray-300 px-4 py-2">Buzzer - (Piezo buzzer negative)</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="border border-gray-300 px-4 py-2">IO13</td>
+                                            <td class="border border-gray-300 px-4 py-2">GPIO13</td>
+                                            <td class="border border-gray-300 px-4 py-2">ESP32-S3 GPIO13</td>
+                                        </tr>
+                                        <tr class="bg-gray-50">
+                                            <td colspan="3" class="border border-gray-300 px-4 py-2 font-bold">Power Pins</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="border border-gray-300 px-4 py-2">3V3</td>
+                                            <td class="border border-gray-300 px-4 py-2">-</td>
+                                            <td class="border border-gray-300 px-4 py-2">3.3V Output</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="border border-gray-300 px-4 py-2">GND</td>
+                                            <td class="border border-gray-300 px-4 py-2">-</td>
+                                            <td class="border border-gray-300 px-4 py-2">Ground Connection</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="border border-gray-300 px-4 py-2">VBUS</td>
+                                            <td class="border border-gray-300 px-4 py-2">-</td>
+                                            <td class="border border-gray-300 px-4 py-2">USB 5V Connection</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </section>
+
+                        <!-- Firmware Details -->
+                        <section id="firmware" class="mb-12">
+                            <h2 class="text-4xl font-black mb-6 text-gray-800 border-b-4 border-sky-500 pb-2">Firmware Architecture</h2>
+                            
+                            <h3 class="text-2xl font-bold mb-4 text-gray-700">Based on ESP-Drone & Crazyflie</h3>
+                            <p class="text-lg text-gray-700 leading-relaxed mb-4">
+                                FLYQ Air firmware built on <strong>ESP-IDF</strong> (Espressif IoT Development Framework) and 
+                                <strong>ESP-Drone</strong> open-source project, which integrates Crazyflie flight control algorithms.
+                            </p>
+
+                            <h3 class="text-2xl font-bold mb-4 text-gray-700 mt-8">Core Components</h3>
+                            <div class="grid md:grid-cols-2 gap-6 mb-6">
+                                <div class="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-xl">
+                                    <h4 class="text-xl font-bold mb-3 text-blue-700">Flight Control Core</h4>
+                                    <ul class="list-disc list-inside space-y-2 text-gray-700">
+                                        <li>Sensor data processing</li>
+                                        <li>PID-based stabilization</li>
+                                        <li>Motor control algorithms</li>
+                                        <li>Attitude estimation</li>
+                                    </ul>
+                                </div>
+                                
+                                <div class="bg-green-50 border-l-4 border-green-500 p-6 rounded-xl">
+                                    <h4 class="text-xl font-bold mb-3 text-green-700">Hardware Drivers</h4>
+                                    <ul class="list-disc list-inside space-y-2 text-gray-700">
+                                        <li>I2C, SPI, UART interfaces</li>
+                                        <li>IMU sensor drivers</li>
+                                        <li>Motor PWM control</li>
+                                        <li>Peripheral management</li>
+                                    </ul>
+                                </div>
+                                
+                                <div class="bg-purple-50 border-l-4 border-purple-500 p-6 rounded-xl">
+                                    <h4 class="text-xl font-bold mb-3 text-purple-700">Communication Modules</h4>
+                                    <ul class="list-disc list-inside space-y-2 text-gray-700">
+                                        <li>CRTP over UDP protocol</li>
+                                        <li>Wi-Fi AP mode</li>
+                                        <li>Telemetry data streaming</li>
+                                        <li>Remote control interface</li>
+                                    </ul>
+                                </div>
+                                
+                                <div class="bg-yellow-50 border-l-4 border-yellow-500 p-6 rounded-xl">
+                                    <h4 class="text-xl font-bold mb-3 text-yellow-700">DSP Libraries</h4>
+                                    <ul class="list-disc list-inside space-y-2 text-gray-700">
+                                        <li>Signal filtering</li>
+                                        <li>Sensor fusion algorithms</li>
+                                        <li>Real-time data processing</li>
+                                        <li>ESP-IDF components</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <h3 class="text-2xl font-bold mb-4 text-gray-700 mt-8">Firmware Features</h3>
+                            <ul class="list-disc list-inside space-y-2 text-gray-700 ml-4 mb-6">
+                                <li>FreeRTOS multitasking for real-time operation</li>
+                                <li>Built-in Wi-Fi and Bluetooth support</li>
+                                <li>PID tuning for stable flight control</li>
+                                <li>Sensor calibration on startup</li>
+                                <li>Low battery monitoring and warnings</li>
+                                <li>Crazyflie cfclient and cflib compatibility</li>
+                                <li>Future support for autonomous modes (height-hold, position-hold)</li>
+                            </ul>
+
+                            <h3 class="text-2xl font-bold mb-4 text-gray-700 mt-8">Flashing Firmware</h3>
+                            <div class="bg-gray-50 border-2 border-gray-300 p-6 rounded-xl mb-4">
+                                <h4 class="font-bold text-lg mb-3">Using ESP-IDF:</h4>
+                                <code class="block bg-gray-800 text-green-400 p-4 rounded overflow-x-auto">
+                                    git clone https://github.com/passion3d/flyq-air-firmware<br>
+                                    cd flyq-air-firmware<br>
+                                    idf.py build<br>
+                                    idf.py -p /dev/ttyUSB0 flash monitor
+                                </code>
+                            </div>
+
+                            <div class="bg-gray-50 border-2 border-gray-300 p-6 rounded-xl">
+                                <h4 class="font-bold text-lg mb-3">Using Pre-built Binaries:</h4>
+                                <p class="text-gray-700 mb-3">Download firmware binaries from GitHub releases and flash using esptool:</p>
+                                <code class="block bg-gray-800 text-green-400 p-4 rounded overflow-x-auto text-sm">
+                                    esptool.py --chip esp32s3 --port /dev/ttyUSB0 write_flash 0x0 flyq-air-firmware.bin
+                                </code>
+                            </div>
+                        </section>
+
+                        <!-- Battery Guide -->
+                        <section id="battery" class="mb-12">
+                            <h2 class="text-4xl font-black mb-6 text-gray-800 border-b-4 border-sky-500 pb-2">Battery Selection & Safety</h2>
+                            
+                            <div class="bg-red-50 border-l-4 border-red-500 p-6 rounded-xl mb-6">
+                                <h3 class="text-xl font-bold mb-3 text-red-700"><i class="fas fa-exclamation-triangle mr-2"></i>LiPo Battery Safety</h3>
+                                <ul class="list-disc list-inside space-y-2 text-gray-700 ml-4">
+                                    <li>Never leave charging batteries unattended</li>
+                                    <li>Never charge damaged or swollen batteries</li>
+                                    <li>Store in LiPo safe bag when not in use</li>
+                                    <li>Dispose of damaged batteries properly at recycling centers</li>
+                                    <li>Never over-discharge below 3.0V</li>
+                                </ul>
+                            </div>
+
+                            <h3 class="text-2xl font-bold mb-4 text-gray-700">Recommended Battery Specifications</h3>
+                            <div class="overflow-x-auto mb-6">
+                                <table class="w-full border-collapse border border-gray-300">
+                                    <thead>
+                                        <tr class="bg-sky-100">
+                                            <th class="border border-gray-300 px-4 py-2 text-left">Parameter</th>
+                                            <th class="border border-gray-300 px-4 py-2 text-left">Specification</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="border border-gray-300 px-4 py-2 font-bold">Type</td>
+                                            <td class="border border-gray-300 px-4 py-2">1S LiPo (Lithium Polymer)</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="border border-gray-300 px-4 py-2 font-bold">Voltage</td>
+                                            <td class="border border-gray-300 px-4 py-2">3.7V nominal (3.0V-4.2V range)</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="border border-gray-300 px-4 py-2 font-bold">Capacity</td>
+                                            <td class="border border-gray-300 px-4 py-2">500-750mAh recommended</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="border border-gray-300 px-4 py-2 font-bold">Discharge Rate</td>
+                                            <td class="border border-gray-300 px-4 py-2"><strong>20C minimum, 30C+ recommended</strong></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="border border-gray-300 px-4 py-2 font-bold">Connector</td>
+                                            <td class="border border-gray-300 px-4 py-2">JST-PH 2.0mm or compatible</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="border border-gray-300 px-4 py-2 font-bold">Flight Time</td>
+                                            <td class="border border-gray-300 px-4 py-2">4-7 minutes (depending on capacity and flying style)</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <h3 class="text-2xl font-bold mb-4 text-gray-700">Why Discharge Rate Matters</h3>
+                            <p class="text-lg text-gray-700 leading-relaxed mb-4">
+                                Discharge rate (C rating) determines maximum current battery can safely deliver. 
+                                <strong>Low discharge batteries cause voltage sag during motor spin-up, leading to reboots.</strong>
+                            </p>
+                            <div class="bg-green-50 border-2 border-green-500 p-6 rounded-xl">
+                                <h4 class="font-bold text-lg mb-2 text-green-700">Recommended Battery Example:</h4>
+                                <p class="text-gray-700">650mAh 30C LiPo = 19.5A maximum discharge (650mAh × 30C)</p>
+                                <p class="text-gray-700 mt-2">This provides sufficient current for aggressive maneuvers without voltage drop.</p>
+                            </div>
+                        </section>
+
+                        <!-- Known Issues -->
+                        <section id="limitations" class="mb-12">
+                            <h2 class="text-4xl font-black mb-6 text-gray-800 border-b-4 border-sky-500 pb-2">Known Issues & Limitations</h2>
+                            
+                            <div class="space-y-6">
+                                <div class="bg-yellow-50 border-l-4 border-yellow-500 p-6 rounded-xl">
+                                    <h3 class="text-xl font-bold mb-2 text-yellow-800">Silkscreen Pin Labeling (First Revision)</h3>
+                                    <p class="text-gray-700 mb-2">
+                                        First revision PCBs have incorrect silkscreen markings for some GPIO pins:
+                                    </p>
+                                    <ul class="list-disc list-inside text-gray-700 ml-4">
+                                        <li>IO48 incorrectly marked as IO42</li>
+                                        <li>CS/IO42 incorrectly marked as IO47</li>
+                                        <li><strong>Solution:</strong> Refer to pinout diagram in this documentation</li>
+                                    </ul>
+                                </div>
+
+                                <div class="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-xl">
+                                    <h3 class="text-xl font-bold mb-2 text-blue-800">Assisted Flight Modes (In Development)</h3>
+                                    <p class="text-gray-700 mb-2">
+                                        Height-hold, position-hold, and altitude-hold features require optional sensor modules:
+                                    </p>
+                                    <ul class="list-disc list-inside text-gray-700 ml-4">
+                                        <li>Height-hold working with VL53L1X ToF sensor</li>
+                                        <li>Position-hold and altitude-hold support coming in future firmware</li>
+                                        <li>Currently supported only via CFClient and Python SDK (not mobile app)</li>
+                                    </ul>
+                                </div>
+
+                                <div class="bg-purple-50 border-l-4 border-purple-500 p-6 rounded-xl">
+                                    <h3 class="text-xl font-bold mb-2 text-purple-800">Wi-Fi Connection Requirements</h3>
+                                    <p class="text-gray-700 mb-2">
+                                        Some smartphones automatically disconnect from Wi-Fi networks without internet:
+                                    </p>
+                                    <ul class="list-disc list-inside text-gray-700 ml-4">
+                                        <li>Disable "Switch to mobile data" or "Auto network switch" feature</li>
+                                        <li>Turn off VPN before connecting</li>
+                                        <li>Keep mobile data off during flight</li>
+                                    </ul>
+                                </div>
+
+                                <div class="bg-red-50 border-l-4 border-red-500 p-6 rounded-xl">
+                                    <h3 class="text-xl font-bold mb-2 text-red-800">Flight Time & Payload</h3>
+                                    <ul class="list-disc list-inside text-gray-700 ml-4">
+                                        <li>Flight time: 4-7 minutes depending on battery and flying style</li>
+                                        <li>Max payload: ~25g with 55mm propellers</li>
+                                        <li>Aggressive flying reduces flight time significantly</li>
+                                        <li>Additional sensors reduce available payload capacity</li>
                                     </ul>
                                 </div>
                             </div>
