@@ -16,17 +16,47 @@
 - **Responsive Design**: Mobile-friendly navigation
 
 ### Documentation Page (/docs)
-- **Comprehensive Guide**: Complete technical documentation
-- **Sticky Sidebar**: Easy navigation through sections
-- **Overview**: Product introduction and key features
-- **Technical Specs**: Detailed specifications table
-- **Hardware Design**: PCB frame, power management, motor control
-- **Programming Options**: ESP-IDF, Arduino, Python, CFClient
-- **Sensor Integration**: Optional sensors and GPIO pinout
-- **Assembly Guide**: Step-by-step assembly instructions
-- **Getting Started**: First flight and app setup guide
-- **Troubleshooting**: Common issues and solutions
-- **Resources**: Links to GitHub, store, and community
+- **Comprehensive Technical Documentation**: ALL information from Circuit Digest LiteWing page
+- **Sticky Sidebar Navigation**: Easy navigation through 15+ sections
+- **Introduction & Overview**: Product introduction and key features
+- **Technical Specifications**: Complete specs table with all hardware details
+- **Hardware Design Overview**: PCB frame, components, design philosophy
+- **Detailed Circuit Schematics**: Complete circuit breakdowns
+  - USB Input & Power Path Control
+  - Battery Charging Circuit (TP4056)
+  - Voltage Regulation (SPX3819 LDO)
+  - Battery Monitoring System
+  - Programming Circuit (CH340K USB-UART)
+  - Motor Driver Circuits (4x IRLML6344 MOSFET)
+  - MPU6050 IMU Integration
+  - Status LED Circuits (6 indicators)
+  - Expansion Connectors & SMD Pads
+- **Complete GPIO Pinout**: Detailed 24-pin expansion pinout table
+  - General Purpose GPIO (IO15-IO20, IO1, IO13, IO48)
+  - I2C Interface (SCL/SDA for MPU6050)
+  - Auxiliary I2C (SCL1/SDA1 for VL53L1X)
+  - SPI Interface (MISO/CLK/MOSI/CS for PMW3901)
+  - UART Interface (TX/RX)
+  - Audio Pins (Buzzer +/-)
+  - Power Pins (3V3, GND, VBUS)
+  - Silkscreen correction notes
+- **Firmware Architecture**: ESP-Drone & Crazyflie based
+  - Flight Control Core
+  - Hardware Drivers
+  - Communication Modules
+  - DSP Libraries
+  - Firmware Features & Flashing
+- **Programming Options**: ESP-IDF, Arduino, Python SDK, CFClient
+- **Optional Sensors**: VL53L1X ToF, MS5611 Barometer, PMW3901 Optical Flow
+- **Assembly Guide**: Detailed step-by-step with propeller installation
+- **Battery Selection & Safety**: Complete LiPo battery guide
+  - Specifications (voltage, capacity, discharge rate)
+  - Safety warnings and best practices
+  - Why discharge rate matters (20C minimum, 30C recommended)
+- **Getting Started**: First flight, IMU calibration, app setup
+- **Troubleshooting**: 4 common issues with solutions
+- **Known Issues & Limitations**: Silkscreen errors, flight modes status
+- **Resources**: GitHub, store, community links
 
 ## 🎨 Design Theme
 **Color Scheme: Navy + Cyan + White (Option 2)**
@@ -134,13 +164,22 @@ flyq/
 - Color theme: **Midnight Blue + White + Silver** (Premium & Sleek - Option 3)
 - Store: **Passion 3D World** (Exclusive official dealer)
 - New drone image: High-quality red/black propeller design
-- Documentation page: Complete technical guide at `/docs`
+- **Documentation page**: **COMPLETE** technical documentation at `/docs`
+  - ALL information from https://circuitdigest.com/litewing integrated
+  - Detailed circuit schematics with component explanations
+  - Complete GPIO pinout table with 24 pins
+  - Firmware architecture breakdown
+  - Battery selection guide with safety warnings
+  - Known issues and limitations documented
+  - Assembly instructions with propeller placement diagrams
 - All "LiteWing" references changed to "FLYQ Air"
-- GitHub links updated to Passion 3D World repos
+- GitHub links updated to passion3d/flyq-air
+- Code examples updated to use "FLYQAir.h"
 - Fully responsive and mobile-friendly
 - Optimized for Cloudflare Pages deployment
 - Premium aerospace aesthetic with silver accents
 - Native smooth scrolling throughout
+- Sticky sidebar navigation for easy section access
 
 ## 🎨 Branding
 **FLYQ - The Programmable Drone**
