@@ -1,18 +1,32 @@
-# FLYQ - The Programmable Drone
+# FLYQ Air - The Programmable Drone
 
 ## 🚀 Project Overview
-**FLYQ** is a stunning product landing page for an ESP32-S3 based programmable drone platform. The page features a modern, professional design with a **Dark Blue, White, and Black** color scheme inspired by aviation and technology.
+**FLYQ Air** is a complete website for an ESP32-S3 based programmable drone platform. Features include a stunning landing page and comprehensive documentation page with a **Midnight Blue + White + Silver** premium color scheme inspired by aerospace and technology.
 
 ## ✨ Features
-- **Hero Section**: Powerful hero with animated drone image and compelling CTAs
+
+### Landing Page (/)
+- **Hero Section**: New FLYQ Air drone image with premium glow effects
 - **Features Grid**: 6 feature cards showcasing key product benefits
 - **Video Demo**: Embedded YouTube demonstration
-- **Programming Section**: Detailed explanation with code examples (ESP-IDF, Arduino, Python)
-- **Technical Specifications**: Complete hardware and expansion specs
+- **Programming Section**: Code examples (ESP-IDF, Arduino, Python)
+- **Technical Specifications**: Complete hardware specs
 - **Image Gallery**: High-quality product photos
-- **Call-to-Action**: Prominent "Buy Now" section featuring **Passion 3D World**
-- **Responsive Design**: Mobile-friendly with hamburger menu
-- **Smooth Animations**: Scroll reveals, hover effects, and floating animations
+- **Call-to-Action**: **Passion 3D World** as exclusive dealer
+- **Responsive Design**: Mobile-friendly navigation
+
+### Documentation Page (/docs)
+- **Comprehensive Guide**: Complete technical documentation
+- **Sticky Sidebar**: Easy navigation through sections
+- **Overview**: Product introduction and key features
+- **Technical Specs**: Detailed specifications table
+- **Hardware Design**: PCB frame, power management, motor control
+- **Programming Options**: ESP-IDF, Arduino, Python, CFClient
+- **Sensor Integration**: Optional sensors and GPIO pinout
+- **Assembly Guide**: Step-by-step assembly instructions
+- **Getting Started**: First flight and app setup guide
+- **Troubleshooting**: Common issues and solutions
+- **Resources**: Links to GitHub, store, and community
 
 ## 🎨 Design Theme
 **Color Scheme: Navy + Cyan + White (Option 2)**
@@ -34,7 +48,8 @@
 - Full-size hero image
 
 ## 🌐 Live URLs
-- **Development**: https://3000-i9dkuxqg07opw1sw23plt-d0b9e1e2.sandbox.novita.ai
+- **Homepage**: https://3000-i9dkuxqg07opw1sw23plt-d0b9e1e2.sandbox.novita.ai
+- **Documentation**: https://3000-i9dkuxqg07opw1sw23plt-d0b9e1e2.sandbox.novita.ai/docs
 - **Production**: (Deploy to Cloudflare Pages)
 
 ## 🛒 Purchase
@@ -115,15 +130,17 @@ flyq/
 - **Community**: Circuit Digest Forums & WhatsApp
 
 ## 📝 Notes
-- Product name: **FLYQ** (short, memorable, aviation-inspired)
-- Color theme: **Navy + Cyan + White** (Dynamic & Modern - Option 2)
-- Store: **Passion 3D World** (Official dealer)
+- Product name: **FLYQ Air** (aviation-inspired, programmable drone)
+- Color theme: **Midnight Blue + White + Silver** (Premium & Sleek - Option 3)
+- Store: **Passion 3D World** (Exclusive official dealer)
+- New drone image: High-quality red/black propeller design
+- Documentation page: Complete technical guide at `/docs`
+- All "LiteWing" references changed to "FLYQ Air"
+- GitHub links updated to Passion 3D World repos
 - Fully responsive and mobile-friendly
 - Optimized for Cloudflare Pages deployment
-- Bright cyan glow effects for energetic feel
-- Aviation and futuristic aesthetic
-- Fixed scrolling issues - native smooth scroll only
-- Full-resolution hero image
+- Premium aerospace aesthetic with silver accents
+- Native smooth scrolling throughout
 
 ## 🎨 Branding
 **FLYQ - The Programmable Drone**
