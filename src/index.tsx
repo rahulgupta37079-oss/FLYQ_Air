@@ -970,37 +970,392 @@ app.get('/docs', (c) => {
 
                         <!-- Hardware Design -->
                         <section id="hardware" class="mb-12">
-                            <h2 class="text-4xl font-black mb-6 text-gray-800 border-b-4 border-sky-500 pb-2">Hardware Design</h2>
+                            <h2 class="text-4xl font-black mb-6 text-gray-800 border-b-4 border-sky-500 pb-2">Hardware Design Overview</h2>
+                            
+                            <div class="mb-8">
+                                <img src="https://circuitdigest.com/sites/default/files/inlineimages/u5/LiteWing-PCB-Closeup-and-Starp-Hole.png" 
+                                     alt="FLYQ Air PCB Frame" 
+                                     class="w-full rounded-xl shadow-lg mb-4">
+                            </div>
+
                             <h3 class="text-2xl font-bold mb-4 text-gray-700">All-in-One PCB Frame</h3>
                             <p class="text-lg text-gray-700 leading-relaxed mb-4">
                                 FLYQ Air features an innovative all-in-one PCB frame design that eliminates the need for 3D printed parts. 
-                                The PCB itself serves as the frame, reducing cost, weight, and assembly complexity.
+                                The PCB itself serves as the structural frame, reducing cost, weight, and assembly complexity. 
+                                The frame includes hook & loop battery strap slots for easy battery mounting and removal.
                             </p>
                             
-                            <h3 class="text-2xl font-bold mb-4 text-gray-700 mt-8">Power Management</h3>
-                            <ul class="list-disc list-inside space-y-2 text-gray-700 ml-4">
-                                <li>USB-C port for charging and programming</li>
-                                <li>TP4056 Li-ion charger with charge status LEDs</li>
-                                <li>Battery voltage monitoring via ADC</li>
-                                <li>SPX3819 LDO for stable 3.3V power supply</li>
-                                <li>Automatic power path switching between USB and battery</li>
-                            </ul>
-
-                            <h3 class="text-2xl font-bold mb-4 text-gray-700 mt-8">Motor Control</h3>
+                            <h3 class="text-2xl font-bold mb-4 text-gray-700 mt-8">ESP32-S3 Microcontroller</h3>
+                            <div class="mb-4">
+                                <img src="https://circuitdigest.com/sites/default/files/inlineimages/u5/ESP32-S3-Module.png" 
+                                     alt="ESP32-S3 Module" 
+                                     class="w-full max-w-2xl rounded-xl shadow-lg mb-4">
+                            </div>
                             <p class="text-lg text-gray-700 leading-relaxed mb-4">
-                                Each motor is driven by an IRLML6344 N-channel MOSFET with PWM speed control. 
-                                Flyback diodes protect the circuit from motor back-EMF.
+                                Powered by the <strong>ESP32-S3</strong>, a highly efficient microcontroller with low power consumption and extensive GPIO expansion. 
+                                Features dual-core Xtensa LX7 processors running at 240MHz, 512KB internal SRAM, and integrated 2.4GHz Wi-Fi 802.11 b/g/n and Bluetooth 5 LE connectivity.
+                            </p>
+                            <p class="text-lg text-gray-700 leading-relaxed mb-4">
+                                The built-in USB interface simplifies programming, debugging, and firmware updates. Though ESP32-S3 has integrated USB peripheral, 
+                                an external USB-UART bridge (CH340K) is used to make debugging easier with auto-reset circuitry for hassle-free firmware flashing.
                             </p>
 
-                            <h3 class="text-2xl font-bold mb-4 text-gray-700 mt-8">Status LEDs</h3>
-                            <ul class="list-disc list-inside space-y-2 text-gray-700 ml-4">
-                                <li><span class="font-bold">PWR:</span> Power status</li>
-                                <li><span class="font-bold">CHRG:</span> Charging status</li>
-                                <li><span class="font-bold">FULL:</span> Battery full</li>
-                                <li><span class="font-bold">SYS:</span> System calibration/ready</li>
-                                <li><span class="font-bold">LINK:</span> Wi-Fi connection status</li>
-                                <li><span class="font-bold">ERR:</span> Low battery/errors</li>
+                            <h3 class="text-2xl font-bold mb-4 text-gray-700 mt-8">MPU6050 IMU Sensor</h3>
+                            <div class="mb-4">
+                                <img src="https://circuitdigest.com/sites/default/files/inlineimages/u5/LiteWing-MPU6050-Close-Up.png" 
+                                     alt="MPU6050 IMU" 
+                                     class="w-full max-w-2xl rounded-xl shadow-lg mb-4">
+                            </div>
+                            <p class="text-lg text-gray-700 leading-relaxed mb-4">
+                                The <strong>MPU6050</strong> provides 6-axis motion tracking with integrated 3-axis gyroscope and 3-axis accelerometer, 
+                                essential for precise flight stability and orientation detection. It communicates with ESP32 via I2C interface, 
+                                allowing the flight controller to process sensor data and apply sensor fusion algorithms for accurate attitude estimation.
+                            </p>
+                            <p class="text-lg text-gray-700 leading-relaxed mb-4">
+                                Proper IMU calibration is critical to minimize drift and improve flight accuracy. The sensor works alongside the PID controller 
+                                to adjust motor speeds based on pitch, roll, and yaw readings for smooth and stable flight.
+                            </p>
+                            
+                            <h3 class="text-2xl font-bold mb-4 text-gray-700 mt-8" id="power">Power Management System</h3>
+                            <div class="mb-4">
+                                <img src="https://circuitdigest.com/sites/default/files/inlineimages/u5/tp4056-ldo-and-USB-Connector.png" 
+                                     alt="Power Management Circuit" 
+                                     class="w-full max-w-2xl rounded-xl shadow-lg mb-4">
+                            </div>
+                            <p class="text-lg text-gray-700 leading-relaxed mb-4">
+                                FLYQ Air features a simple but efficient power management system:
+                            </p>
+                            <ul class="list-disc list-inside space-y-2 text-gray-700 ml-4 mb-6">
+                                <li><strong>USB-C Port:</strong> Type-C USB for both charging and programming with pull-down resistors on CCx lines for universal compatibility</li>
+                                <li><strong>TP4056 Charger:</strong> Li-ion charging IC capable of up to 1A charging current with charge status indicators (CHRG and FULL LEDs)</li>
+                                <li><strong>Battery Monitoring:</strong> Voltage divider for ADC-based battery voltage sensing with continuous monitoring</li>
+                                <li><strong>SPX3819 LDO:</strong> Ultra-low-noise 3.3V regulator providing 500mA with 550mV dropout at full load</li>
+                                <li><strong>Power Path Control:</strong> P-channel MOSFET and Schottky diode circuit for automatic switching between USB and battery power</li>
+                                <li><strong>On/Off Switch:</strong> Slide switch connected to LDO enable pin for complete system shutdown (except charging circuit)</li>
                             </ul>
+                            <p class="text-lg text-gray-700 leading-relaxed mb-4">
+                                When USB power is available, the device runs from USB while simultaneously charging the battery. 
+                                When unplugged, it automatically switches to battery power. The charging current can be adjusted by changing 
+                                the programming resistor value if needed.
+                            </p>
+
+                            <h3 class="text-2xl font-bold mb-4 text-gray-700 mt-8" id="motors">Motor Driver Circuit</h3>
+                            <div class="mb-4">
+                                <img src="https://circuitdigest.com/sites/default/files/inlineimages/u5/LiteWing-Motor-Driver.png" 
+                                     alt="Motor Driver Circuit" 
+                                     class="w-full max-w-2xl rounded-xl shadow-lg mb-4">
+                            </div>
+                            <p class="text-lg text-gray-700 leading-relaxed mb-4">
+                                FLYQ Air uses <strong>PWM-based motor control</strong> for smooth acceleration and precise maneuverability. 
+                                Each of the four motors is controlled by a dedicated driver circuit featuring:
+                            </p>
+                            <ul class="list-disc list-inside space-y-2 text-gray-700 ml-4 mb-6">
+                                <li><strong>IRLML6344 N-Channel MOSFET:</strong> High-efficiency switching transistor</li>
+                                <li><strong>Flyback Diode:</strong> Protection from motor back-EMF during switching</li>
+                                <li><strong>Pull-down Resistor:</strong> Ensures MOSFETs stay off when GPIO is floating</li>
+                                <li><strong>Filter Capacitors:</strong> Suppress voltage spikes for stable operation</li>
+                            </ul>
+                            <p class="text-lg text-gray-700 leading-relaxed mb-4">
+                                The minimal component count and circuit simplicity make this design cost-effective and easy to control. 
+                                When a high signal is applied to the MOSFET gate, it turns on and allows current flow to power the motor. 
+                                PWM signals vary the duty cycle to control motor speed precisely.
+                            </p>
+
+                            <h3 class="text-2xl font-bold mb-4 text-gray-700 mt-8" id="usb">Programming Interface</h3>
+                            <div class="mb-4">
+                                <img src="https://circuitdigest.com/sites/default/files/inlineimages/u5/Close-up-ch340-2n7002DW-area-LiteWing.png" 
+                                     alt="USB Programming Interface" 
+                                     class="w-full max-w-2xl rounded-xl shadow-lg mb-4">
+                            </div>
+                            <p class="text-lg text-gray-700 leading-relaxed mb-4">
+                                The programming circuit uses <strong>CH340K USB-UART bridge</strong> from WCH for reliable firmware flashing:
+                            </p>
+                            <ul class="list-disc list-inside space-y-2 text-gray-700 ml-4 mb-6">
+                                <li><strong>Hardware Full Duplex:</strong> UART interface with integrated buffers</li>
+                                <li><strong>Wide Baud Range:</strong> Supports 50bps to 2Mbps communication speeds</li>
+                                <li><strong>Integrated Crystal:</strong> No external oscillator needed, saves PCB space</li>
+                                <li><strong>Auto-Reset Circuit:</strong> 2N7002DW dual N-channel MOSFET enables automatic reset during programming</li>
+                            </ul>
+                            <p class="text-lg text-gray-700 leading-relaxed mb-4">
+                                The auto-reset circuitry eliminates manual button presses during firmware flashing, making the development process seamless. 
+                                Manual reset and boot buttons are still included for debugging purposes.
+                            </p>
+
+                            <h3 class="text-2xl font-bold mb-4 text-gray-700 mt-8" id="leds">Status LED Indicators</h3>
+                            <div class="mb-4">
+                                <img src="https://circuitdigest.com/sites/default/files/inlineimages/u5/LEDs-close-Up-shots.png" 
+                                     alt="LED Indicators" 
+                                     class="w-full max-w-2xl rounded-xl shadow-lg mb-4">
+                            </div>
+                            <p class="text-lg text-gray-700 leading-relaxed mb-4">
+                                FLYQ Air features an <strong>intuitive LED status system</strong> for real-time visual feedback:
+                            </p>
+                            <div class="overflow-x-auto mb-6">
+                                <table class="w-full border-collapse">
+                                    <thead class="bg-sky-500 text-white">
+                                        <tr>
+                                            <th class="py-3 px-4 text-left">LED</th>
+                                            <th class="py-3 px-4 text-left">Function</th>
+                                            <th class="py-3 px-4 text-left">Behavior</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="border-b">
+                                            <td class="py-3 px-4 font-bold">PWR (Green)</td>
+                                            <td class="py-3 px-4">Power Indicator</td>
+                                            <td class="py-3 px-4">ON when powered</td>
+                                        </tr>
+                                        <tr class="border-b">
+                                            <td class="py-3 px-4 font-bold">CHRG (Red)</td>
+                                            <td class="py-3 px-4">Charging Indicator</td>
+                                            <td class="py-3 px-4">ON during battery charging</td>
+                                        </tr>
+                                        <tr class="border-b">
+                                            <td class="py-3 px-4 font-bold">FULL (Blue)</td>
+                                            <td class="py-3 px-4">Full Charge Indicator</td>
+                                            <td class="py-3 px-4">ON when battery fully charged</td>
+                                        </tr>
+                                        <tr class="border-b">
+                                            <td class="py-3 px-4 font-bold">SYS (Yellow)</td>
+                                            <td class="py-3 px-4">System Status</td>
+                                            <td class="py-3 px-4">Slow blink = calibrating<br>Fast blink = ready to fly</td>
+                                        </tr>
+                                        <tr class="border-b">
+                                            <td class="py-3 px-4 font-bold">LINK (Blue)</td>
+                                            <td class="py-3 px-4">Connection Status</td>
+                                            <td class="py-3 px-4">Blinks when connected to app/cfclient</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="py-3 px-4 font-bold">ERR (Red)</td>
+                                            <td class="py-3 px-4">Error Indicator</td>
+                                            <td class="py-3 px-4">ON for low battery or system errors</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <h3 class="text-2xl font-bold mb-4 text-gray-700 mt-8">Audio Output (Optional)</h3>
+                            <div class="mb-4">
+                                <img src="https://circuitdigest.com/sites/default/files/inlineimages/u5/Audio-Connector.png" 
+                                     alt="Audio Connector" 
+                                     class="w-full max-w-xl rounded-xl shadow-lg mb-4">
+                            </div>
+                            <p class="text-lg text-gray-700 leading-relaxed mb-4">
+                                A 1.25mm pitch JST connector near the ESP32-S3 SoC allows connection of a passive piezo buzzer for audible status indications. 
+                                The buzzer provides additional feedback for events like low battery warnings, connection status, and system errors.
+                            </p>
+                        </section>
+
+                        <!-- Circuit Schematics -->
+                        <section id="schematics" class="mb-12">
+                            <h2 class="text-4xl font-black mb-6 text-gray-800 border-b-4 border-sky-500 pb-2">Circuit Schematics & Design Files</h2>
+                            
+                            <div class="bg-green-50 border-l-4 border-green-500 p-6 rounded-xl mb-6">
+                                <p class="text-gray-700"><i class="fas fa-download mr-2 text-green-600"></i>
+                                <strong>Open Source Hardware:</strong> Complete schematics, PCB files, and Gerber files are available on GitHub under CC license. 
+                                You're free to build, modify, and share!</p>
+                            </div>
+
+                            <h3 class="text-2xl font-bold mb-4 text-gray-700">USB Input & Power Control Circuit</h3>
+                            <div class="mb-4">
+                                <img src="https://circuitdigest.com/sites/default/files/inlineimages/u5/Schematics-USB-Input-Power-Path-Control-3-3V-LDO.png" 
+                                     alt="USB Power Circuit" 
+                                     class="w-full rounded-xl shadow-lg mb-4">
+                            </div>
+                            <p class="text-lg text-gray-700 leading-relaxed mb-4">
+                                Type-C USB port with pull-down resistors on CCx lines for universal compatibility. Power path controller built around 
+                                P-Channel MOSFET (U1) and Schottky diode (D1) automatically switches between USB and battery power. 
+                                SPX3819 LDO provides stable 3.3V with 500mA capability and 550mV dropout.
+                            </p>
+
+                            <h3 class="text-2xl font-bold mb-4 text-gray-700 mt-8">Battery Charger Circuit</h3>
+                            <div class="mb-4">
+                                <img src="https://circuitdigest.com/sites/default/files/inlineimages/u5/Schematics-Battery-Charger.png" 
+                                     alt="Battery Charger" 
+                                     class="w-full rounded-xl shadow-lg mb-4">
+                            </div>
+                            <p class="text-lg text-gray-700 leading-relaxed mb-4">
+                                TP4056 charge controller handles battery charging with up to 1A current capability. Charge current is set by programming resistor R5 
+                                and can be adjusted as needed. Two status outputs (CHRG and STDBY) drive LED indicators for charging and charge completion feedback.
+                            </p>
+
+                            <h3 class="text-2xl font-bold mb-4 text-gray-700 mt-8">Battery Monitoring & Power Switch</h3>
+                            <div class="mb-4">
+                                <img src="https://circuitdigest.com/sites/default/files/inlineimages/u5/Schematics-of-Battery-Monitoring-On-Off-Switch.png" 
+                                     alt="Battery Monitoring" 
+                                     class="w-full rounded-xl shadow-lg mb-4">
+                            </div>
+                            <p class="text-lg text-gray-700 leading-relaxed mb-4">
+                                Voltage divider reduces battery voltage to safe levels for ADC measurement. ESP32 continuously monitors battery voltage to detect low charge conditions. 
+                                Slide switch with pull-up resistor controls LDO enable pin for system power on/off (battery charging circuit remains active even when switched off).
+                            </p>
+
+                            <h3 class="text-2xl font-bold mb-4 text-gray-700 mt-8">USB-UART Bridge & Auto-Reset</h3>
+                            <div class="mb-4">
+                                <img src="https://circuitdigest.com/sites/default/files/inlineimages/u5/Schematics-USB-UART-Bridge-Programming-Circuit_1.png" 
+                                     alt="USB UART Bridge" 
+                                     class="w-full rounded-xl shadow-lg mb-4">
+                            </div>
+                            <p class="text-lg text-gray-700 leading-relaxed mb-4">
+                                CH340K USB-UART bridge with integrated crystal oscillator for firmware flashing. 2N7002DW dual N-channel MOSFET package provides 
+                                auto-reset functionality, eliminating manual button presses during programming while saving precious PCB space.
+                            </p>
+
+                            <h3 class="text-2xl font-bold mb-4 text-gray-700 mt-8">ESP32-S3 SoC Connections</h3>
+                            <div class="mb-4">
+                                <img src="https://circuitdigest.com/sites/default/files/inlineimages/u5/Schematics-ESP32-S3-SoC.png" 
+                                     alt="ESP32-S3 Schematic" 
+                                     class="w-full rounded-xl shadow-lg mb-4">
+                            </div>
+                            <p class="text-lg text-gray-700 leading-relaxed mb-4">
+                                ESP32-S3 module with manual reset and boot buttons for debugging. Two-pin connector for optional piezo buzzer audio output. 
+                                All connections clearly labeled with most GPIOs either used for functionality or brought out to expansion ports. 
+                                Standard bypass capacitors and pull-up resistors included as required by ESP32-S3.
+                            </p>
+
+                            <h3 class="text-2xl font-bold mb-4 text-gray-700 mt-8">MPU6050 IMU Circuit</h3>
+                            <div class="mb-4">
+                                <img src="https://circuitdigest.com/sites/default/files/inlineimages/u5/MPU6050-IMU-Schematics.png" 
+                                     alt="MPU6050 Schematic" 
+                                     class="w-full rounded-xl shadow-lg mb-4">
+                            </div>
+                            <p class="text-lg text-gray-700 leading-relaxed mb-4">
+                                MPU6050 provides 6-axis motion tracking via I2C interface. Proper calibration essential for accurate flight control. 
+                                Works with PID controller in firmware to adjust motor speeds based on pitch, roll, and yaw readings for stable flight performance.
+                            </p>
+
+                            <h3 class="text-2xl font-bold mb-4 text-gray-700 mt-8">Motor Driver Circuits</h3>
+                            <div class="mb-4">
+                                <img src="https://circuitdigest.com/sites/default/files/inlineimages/u5/Moyor-Drivers-Schematics.png" 
+                                     alt="Motor Drivers" 
+                                     class="w-full rounded-xl shadow-lg mb-4">
+                            </div>
+                            <p class="text-lg text-gray-700 leading-relaxed mb-4">
+                                Four identical motor driver circuits, one per motor. Each uses IRLML6344 N-channel MOSFET, flyback diode, and pull-down resistor. 
+                                PWM signals control motor speed by varying duty cycle. Flyback diodes prevent damage from back-EMF, capacitors suppress voltage spikes.
+                            </p>
+
+                            <h3 class="text-2xl font-bold mb-4 text-gray-700 mt-8">Status LED Circuit</h3>
+                            <div class="mb-4">
+                                <img src="https://circuitdigest.com/sites/default/files/inlineimages/u5/Schematics-Status-LED.png" 
+                                     alt="Status LEDs" 
+                                     class="w-full rounded-xl shadow-lg mb-4">
+                            </div>
+                            <p class="text-lg text-gray-700 leading-relaxed mb-4">
+                                Six LED indicators provide comprehensive visual feedback: power (green), charging (red), full charge (blue), 
+                                system status (yellow - slow blink during calibration, fast blink when ready), connection status (blue - blinks when connected), 
+                                and error indicator (red - for low battery and system errors).
+                            </p>
+
+                            <h3 class="text-2xl font-bold mb-4 text-gray-700 mt-8">Expansion Connector Pinout</h3>
+                            <div class="mb-4">
+                                <img src="https://circuitdigest.com/sites/default/files/inlineimages/u5/Schematics-of-Expansion-Connector.png" 
+                                     alt="Expansion Connector" 
+                                     class="w-full rounded-xl shadow-lg mb-4">
+                            </div>
+                            <p class="text-lg text-gray-700 leading-relaxed mb-4">
+                                Four expansion connectors totaling 24 pins bring out power (VBUS, +3.3V, GND), communication interfaces (UART, I2C, Aux I2C, SPI), 
+                                and eleven additional GPIOs for custom sensors, expansion modules, and DIY projects.
+                            </p>
+
+                            <h3 class="text-2xl font-bold mb-4 text-gray-700 mt-8">Expansion Module Pads</h3>
+                            <div class="mb-4">
+                                <img src="https://circuitdigest.com/sites/default/files/inlineimages/u5/Schematics-Expansion-Modules.png" 
+                                     alt="Expansion Modules" 
+                                     class="w-full rounded-xl shadow-lg mb-4">
+                            </div>
+                            <p class="text-lg text-gray-700 leading-relaxed mb-4">
+                                SMD solder pads on PCB bottom for optional sensors: SPI connections for PMW3901 optical flow sensor, 
+                                I2C for MS5611 altitude sensor, and Auxiliary I2C for VL53L1X ToF sensor. Enables height hold, position hold, and altitude hold features.
+                            </p>
+
+                            <div class="mt-8 p-6 bg-blue-50 rounded-xl border-2 border-blue-200">
+                                <h3 class="text-xl font-bold mb-3 text-blue-800">
+                                    <i class="fab fa-github mr-2"></i>Download Design Files
+                                </h3>
+                                <p class="text-gray-700 mb-3">Complete circuit diagrams, PCB files, Gerber files, and interactive BOM available on GitHub:</p>
+                                <a href="https://github.com/passion3d/flyq-air/tree/main/hardware" target="_blank" 
+                                   class="inline-flex items-center bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition">
+                                    <i class="fab fa-github mr-2"></i>
+                                    View Hardware Files
+                                    <i class="fas fa-external-link-alt ml-2 text-sm"></i>
+                                </a>
+                            </div>
+                        </section>
+
+                        <!-- GPIO Pinout -->
+                        <section id="pinout" class="mb-12">
+                            <h2 class="text-4xl font-black mb-6 text-gray-800 border-b-4 border-sky-500 pb-2">GPIO Pinout Reference</h2>
+                            
+                            <div class="mb-6">
+                                <img src="https://circuitdigest.com/sites/default/files/inlineimages/u5/Pinout-Diagram-LiteWing.png" 
+                                     alt="FLYQ Air Pinout Diagram" 
+                                     class="w-full rounded-xl shadow-lg">
+                            </div>
+
+                            <div class="bg-yellow-50 border-l-4 border-yellow-500 p-6 rounded-xl mb-6">
+                                <h3 class="text-lg font-bold mb-2 text-yellow-800"><i class="fas fa-exclamation-triangle mr-2"></i>Silkscreen Labeling Correction (Rev 1)</h3>
+                                <p class="text-gray-700 mb-2">First revision has incorrect silkscreen labeling for some IO pins:</p>
+                                <ul class="list-disc list-inside text-gray-700 ml-4">
+                                    <li><strong>IO48 is incorrectly marked as IO42</strong></li>
+                                    <li><strong>CS/IO42 is incorrectly marked as IO47</strong></li>
+                                </ul>
+                                <p class="text-gray-700 mt-2">Refer to the pinout diagram above for correct pin identification. This has been corrected in latest revision.</p>
+                            </div>
+
+                            <h3 class="text-2xl font-bold mb-4 text-gray-700">Complete Pin Mapping</h3>
+                            <div class="overflow-x-auto">
+                                <table class="w-full border-collapse">
+                                    <thead class="bg-sky-500 text-white">
+                                        <tr>
+                                            <th class="py-3 px-4 text-left">Pin Label</th>
+                                            <th class="py-3 px-4 text-left">ESP32-S3 GPIO</th>
+                                            <th class="py-3 px-4 text-left">Function</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="border-b bg-gray-50">
+                                            <td colspan="3" class="py-2 px-4 font-bold text-sky-700">Connector Group 1</td>
+                                        </tr>
+                                        <tr class="border-b"><td class="py-3 px-4 font-bold">IO15</td><td class="py-3 px-4">GPIO15</td><td class="py-3 px-4">General Purpose I/O</td></tr>
+                                        <tr class="border-b"><td class="py-3 px-4 font-bold">IO16</td><td class="py-3 px-4">GPIO16</td><td class="py-3 px-4">General Purpose I/O</td></tr>
+                                        <tr class="border-b"><td class="py-3 px-4 font-bold">IO17</td><td class="py-3 px-4">GPIO17</td><td class="py-3 px-4">General Purpose I/O</td></tr>
+                                        <tr class="border-b"><td class="py-3 px-4 font-bold">IO18</td><td class="py-3 px-4">GPIO18</td><td class="py-3 px-4">General Purpose I/O</td></tr>
+                                        <tr class="border-b"><td class="py-3 px-4 font-bold">IO19</td><td class="py-3 px-4">GPIO19</td><td class="py-3 px-4">General Purpose I/O</td></tr>
+                                        <tr class="border-b"><td class="py-3 px-4 font-bold">IO20</td><td class="py-3 px-4">GPIO20</td><td class="py-3 px-4">General Purpose I/O</td></tr>
+                                        
+                                        <tr class="border-b bg-gray-50">
+                                            <td colspan="3" class="py-2 px-4 font-bold text-sky-700">Connector Group 2</td>
+                                        </tr>
+                                        <tr class="border-b"><td class="py-3 px-4 font-bold">IO1</td><td class="py-3 px-4">GPIO1</td><td class="py-3 px-4">General Purpose I/O</td></tr>
+                                        <tr class="border-b"><td class="py-3 px-4 font-bold">TX</td><td class="py-3 px-4">TXD0</td><td class="py-3 px-4">UART0 TX Pin</td></tr>
+                                        <tr class="border-b"><td class="py-3 px-4 font-bold">RX</td><td class="py-3 px-4">RXD0</td><td class="py-3 px-4">UART0 RX Pin</td></tr>
+                                        <tr class="border-b"><td class="py-3 px-4 font-bold">IO48</td><td class="py-3 px-4">GPIO48</td><td class="py-3 px-4">General Purpose I/O (mislabeled as IO42 in Rev1)</td></tr>
+                                        <tr class="border-b"><td class="py-3 px-4 font-bold">SCL1</td><td class="py-3 px-4">GPIO41</td><td class="py-3 px-4">Auxiliary I2C Clock (for VL53L1X ToF)</td></tr>
+                                        <tr class="border-b"><td class="py-3 px-4 font-bold">SDA1</td><td class="py-3 px-4">GPIO40</td><td class="py-3 px-4">Auxiliary I2C Data (for VL53L1X ToF)</td></tr>
+                                        
+                                        <tr class="border-b bg-gray-50">
+                                            <td colspan="3" class="py-2 px-4 font-bold text-sky-700">Connector Group 3</td>
+                                        </tr>
+                                        <tr class="border-b"><td class="py-3 px-4 font-bold">SCL</td><td class="py-3 px-4">GPIO10</td><td class="py-3 px-4">I2C0 Clock (for MPU6050)</td></tr>
+                                        <tr class="border-b"><td class="py-3 px-4 font-bold">SDA</td><td class="py-3 px-4">GPIO11</td><td class="py-3 px-4">I2C0 Data (for MPU6050)</td></tr>
+                                        <tr class="border-b"><td class="py-3 px-4 font-bold">IO13</td><td class="py-3 px-4">GPIO13</td><td class="py-3 px-4">General Purpose I/O</td></tr>
+                                        <tr class="border-b"><td class="py-3 px-4 font-bold">3V3</td><td class="py-3 px-4">-</td><td class="py-3 px-4">3.3V Output (500mA max from LDO)</td></tr>
+                                        <tr class="border-b"><td class="py-3 px-4 font-bold">GND</td><td class="py-3 px-4">-</td><td class="py-3 px-4">Ground Connection</td></tr>
+                                        <tr class="border-b"><td class="py-3 px-4 font-bold">VBUS</td><td class="py-3 px-4">-</td><td class="py-3 px-4">USB VBUS Connection (5V when USB connected)</td></tr>
+                                        
+                                        <tr class="border-b bg-gray-50">
+                                            <td colspan="3" class="py-2 px-4 font-bold text-sky-700">Connector Group 4 (SPI & Audio)</td>
+                                        </tr>
+                                        <tr class="border-b"><td class="py-3 px-4 font-bold">IO39</td><td class="py-3 px-4">GPIO39</td><td class="py-3 px-4">Buzzer Positive</td></tr>
+                                        <tr class="border-b"><td class="py-3 px-4 font-bold">IO38</td><td class="py-3 px-4">GPIO38</td><td class="py-3 px-4">Buzzer Negative</td></tr>
+                                        <tr class="border-b"><td class="py-3 px-4 font-bold">MISO</td><td class="py-3 px-4">GPIO37</td><td class="py-3 px-4">SPI MISO (for PMW3901 Optical Flow)</td></tr>
+                                        <tr class="border-b"><td class="py-3 px-4 font-bold">CLK</td><td class="py-3 px-4">GPIO36</td><td class="py-3 px-4">SPI Clock (for PMW3901 Optical Flow)</td></tr>
+                                        <tr class="border-b"><td class="py-3 px-4 font-bold">MOSI</td><td class="py-3 px-4">GPIO35</td><td class="py-3 px-4">SPI MOSI (for PMW3901 Optical Flow)</td></tr>
+                                        <tr class="border-b"><td class="py-3 px-4 font-bold">CS</td><td class="py-3 px-4">GPIO42</td><td class="py-3 px-4">SPI CS (for PMW3901, mislabeled as IO47 in Rev1)</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </section>
 
                         <!-- Programming -->
@@ -1054,38 +1409,165 @@ with SyncCrazyflie(uri) as scf:<br>
                             </div>
                         </section>
 
-                        <!-- Optional Sensors -->
-                        <section id="sensors" class="mb-12">
-                            <h2 class="text-4xl font-black mb-6 text-gray-800 border-b-4 border-sky-500 pb-2">Optional Sensors & Expansion</h2>
+                        <!-- Firmware Details -->
+                        <section id="firmware" class="mb-12">
+                            <h2 class="text-4xl font-black mb-6 text-gray-800 border-b-4 border-sky-500 pb-2">Firmware Architecture</h2>
                             
-                            <div class="grid md:grid-cols-3 gap-6">
-                                <div class="border-2 border-sky-200 rounded-xl p-6">
-                                    <h3 class="text-xl font-bold mb-3 text-sky-600">VL53L1X ToF</h3>
-                                    <p class="text-gray-700 mb-2">Time-of-Flight sensor for height hold functionality.</p>
-                                    <p class="text-sm text-gray-500">Connected via Aux I2C (GPIO40/41)</p>
+                            <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                                FLYQ Air firmware is built using <strong>ESP-IDF</strong>, Espressif's official IoT Development Framework for ESP32-series microcontrollers. 
+                                The firmware is based on <strong>ESP-Drone</strong>, an open-source flight control firmware that integrates flight control algorithms 
+                                from the Crazyflie project.
+                            </p>
+
+                            <h3 class="text-2xl font-bold mb-4 text-gray-700">Core Components</h3>
+                            <div class="grid md:grid-cols-2 gap-6 mb-6">
+                                <div class="bg-gradient-to-br from-gray-50 to-gray-100 p-6 rounded-xl border-l-4 border-sky-500">
+                                    <h4 class="text-lg font-bold mb-2 text-sky-600">Flight Control Core</h4>
+                                    <ul class="list-disc list-inside text-gray-700 space-y-1 ml-2">
+                                        <li>Sensor data processing & fusion</li>
+                                        <li>Flight stabilization algorithms</li>
+                                        <li>Motor control & PWM generation</li>
+                                        <li>PID-based adjustments</li>
+                                    </ul>
                                 </div>
                                 
-                                <div class="border-2 border-sky-200 rounded-xl p-6">
-                                    <h3 class="text-xl font-bold mb-3 text-sky-600">MS5611 Barometer</h3>
-                                    <p class="text-gray-700 mb-2">Barometric pressure sensor for altitude hold.</p>
-                                    <p class="text-sm text-gray-500">Connected via I2C</p>
+                                <div class="bg-gradient-to-br from-gray-50 to-gray-100 p-6 rounded-xl border-l-4 border-sky-500">
+                                    <h4 class="text-lg font-bold mb-2 text-sky-600">Hardware Drivers</h4>
+                                    <ul class="list-disc list-inside text-gray-700 space-y-1 ml-2">
+                                        <li>IMU (gyro/accelerometer)</li>
+                                        <li>Barometer & magnetometer</li>
+                                        <li>Motor controllers</li>
+                                        <li>I2C, SPI, UART interfaces</li>
+                                    </ul>
                                 </div>
                                 
-                                <div class="border-2 border-sky-200 rounded-xl p-6">
-                                    <h3 class="text-xl font-bold mb-3 text-sky-600">PMW3901 Optical Flow</h3>
-                                    <p class="text-gray-700 mb-2">Optical flow sensor for position hold.</p>
-                                    <p class="text-sm text-gray-500">Connected via SPI</p>
+                                <div class="bg-gradient-to-br from-gray-50 to-gray-100 p-6 rounded-xl border-l-4 border-sky-500">
+                                    <h4 class="text-lg font-bold mb-2 text-sky-600">Communication Modules</h4>
+                                    <ul class="list-disc list-inside text-gray-700 space-y-1 ml-2">
+                                        <li>Wi-Fi control interface</li>
+                                        <li>Telemetry transmission</li>
+                                        <li>Remote control protocol</li>
+                                        <li>Data logging</li>
+                                    </ul>
+                                </div>
+                                
+                                <div class="bg-gradient-to-br from-gray-50 to-gray-100 p-6 rounded-xl border-l-4 border-sky-500">
+                                    <h4 class="text-lg font-bold mb-2 text-sky-600">Software Libraries</h4>
+                                    <ul class="list-disc list-inside text-gray-700 space-y-1 ml-2">
+                                        <li>ESP-IDF components</li>
+                                        <li>DSP signal filtering</li>
+                                        <li>Sensor fusion algorithms</li>
+                                        <li>Real-time data processing</li>
+                                    </ul>
                                 </div>
                             </div>
 
-                            <h3 class="text-2xl font-bold mb-4 text-gray-700 mt-8">GPIO Pinout</h3>
-                            <p class="text-gray-700 mb-4">24-pin expansion connector with I2C, SPI, UART interfaces and multiple GPIO pins for custom sensors and modules.</p>
+                            <h3 class="text-2xl font-bold mb-4 text-gray-700">Crazyflie Compatibility</h3>
+                            <p class="text-lg text-gray-700 leading-relaxed mb-4">
+                                FLYQ Air firmware supports <strong>Crazyflie cfclient and cflib</strong>, enabling control via Python scripts and PC. 
+                                This compatibility opens doors for advanced experiments with AI, computer vision, gesture control, and autonomous flight missions.
+                            </p>
+
+                            <div class="grid md:grid-cols-2 gap-6 mb-6">
+                                <div class="border-2 border-purple-200 bg-purple-50 rounded-xl p-6">
+                                    <h4 class="text-lg font-bold mb-3 text-purple-700"><i class="fas fa-desktop mr-2"></i>CFClient Control</h4>
+                                    <p class="text-gray-700">
+                                        Use Crazyflie PC client with Xbox/PS4/PS5 controller for manual flight control. Monitor real-time telemetry, 
+                                        flight parameters, and sensor data through comprehensive GUI.
+                                    </p>
+                                </div>
+                                
+                                <div class="border-2 border-purple-200 bg-purple-50 rounded-xl p-6">
+                                    <h4 class="text-lg font-bold mb-3 text-purple-700"><i class="fab fa-python mr-2"></i>Python cflib</h4>
+                                    <p class="text-gray-700">
+                                        Write Python scripts for autonomous behaviors. Integrate camera inputs, AI models, or sensor data 
+                                        to create intelligent flight patterns and mission automation.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-xl mb-6">
+                                <h3 class="text-lg font-bold mb-2 text-blue-800"><i class="fas fa-download mr-2"></i>Download Firmware</h3>
+                                <p class="text-gray-700 mb-3">Pre-compiled firmware binaries and source code available on GitHub:</p>
+                                <a href="https://github.com/passion3d/flyq-air/tree/main/firmware" target="_blank" 
+                                   class="inline-flex items-center bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition">
+                                    <i class="fab fa-github mr-2"></i>
+                                    Firmware Repository
+                                    <i class="fas fa-external-link-alt ml-2 text-sm"></i>
+                                </a>
+                            </div>
+
+                            <h3 class="text-2xl font-bold mb-4 text-gray-700">Flashing Firmware</h3>
+                            <p class="text-lg text-gray-700 leading-relaxed mb-4">
+                                Upload firmware via USB-C connection using ESP-IDF tools, Arduino IDE, or pre-built flash tools. 
+                                Auto-reset circuitry eliminates need for manual button presses during flashing process.
+                            </p>
+                        </section>
+
+                        <!-- Optional Sensors -->
+                        <section id="sensors" class="mb-12">
+                            <h2 class="text-4xl font-black mb-6 text-gray-800 border-b-4 border-sky-500 pb-2">Optional Sensors & Assisted Flight</h2>
+                            
+                            <div class="mb-6">
+                                <img src="https://circuitdigest.com/sites/default/files/inlineimages/u5/Optional-Modules-and-Assisted-Flight-Control.png" 
+                                     alt="Optional Modules" 
+                                     class="w-full rounded-xl shadow-lg">
+                            </div>
+
+                            <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                                FLYQ Air supports optional sensors for advanced flight modes including <strong>height hold, position hold, and altitude hold</strong>. 
+                                SMD solder pads on the PCB bottom allow easy mounting of sensor modules. Note: Battery may need to be mounted on top when using bottom sensors.
+                            </p>
+
+                            <div class="bg-yellow-50 border-l-4 border-yellow-500 p-6 rounded-xl mb-6">
+                                <p class="text-gray-700"><i class="fas fa-info-circle mr-2 text-yellow-600"></i>
+                                <strong>Note:</strong> Assisted flight control features currently supported with CFClient and custom Python SDK only. 
+                                Height hold functionality has been tested and is working. Additional module support being added to firmware.</p>
+                            </div>
+                            
+                            <div class="grid md:grid-cols-3 gap-6 mb-8">
+                                <div class="border-2 border-sky-200 rounded-xl p-6 hover:shadow-lg transition">
+                                    <div class="bg-sky-100 w-16 h-16 rounded-full flex items-center justify-center mb-4 mx-auto">
+                                        <i class="fas fa-ruler-vertical text-sky-600 text-2xl"></i>
+                                    </div>
+                                    <h3 class="text-xl font-bold mb-3 text-sky-600 text-center">VL53L1X ToF</h3>
+                                    <p class="text-gray-700 mb-3 text-center">Time-of-Flight distance sensor for precise height hold functionality up to 4 meters.</p>
+                                    <p class="text-sm text-gray-500 text-center font-semibold">Interface: Aux I2C</p>
+                                    <p class="text-xs text-gray-500 text-center">GPIO40 (SDA1) / GPIO41 (SCL1)</p>
+                                </div>
+                                
+                                <div class="border-2 border-sky-200 rounded-xl p-6 hover:shadow-lg transition">
+                                    <div class="bg-sky-100 w-16 h-16 rounded-full flex items-center justify-center mb-4 mx-auto">
+                                        <i class="fas fa-mountain text-sky-600 text-2xl"></i>
+                                    </div>
+                                    <h3 class="text-xl font-bold mb-3 text-sky-600 text-center">MS5611 Barometer</h3>
+                                    <p class="text-gray-700 mb-3 text-center">Barometric pressure sensor for accurate altitude hold and vertical positioning.</p>
+                                    <p class="text-sm text-gray-500 text-center font-semibold">Interface: I2C</p>
+                                    <p class="text-xs text-gray-500 text-center">GPIO10 (SCL) / GPIO11 (SDA)</p>
+                                </div>
+                                
+                                <div class="border-2 border-sky-200 rounded-xl p-6 hover:shadow-lg transition">
+                                    <div class="bg-sky-100 w-16 h-16 rounded-full flex items-center justify-center mb-4 mx-auto">
+                                        <i class="fas fa-crosshairs text-sky-600 text-2xl"></i>
+                                    </div>
+                                    <h3 class="text-xl font-bold mb-3 text-sky-600 text-center">PMW3901 Optical Flow</h3>
+                                    <p class="text-gray-700 mb-3 text-center">Optical flow sensor for position hold and stable hovering in place.</p>
+                                    <p class="text-sm text-gray-500 text-center font-semibold">Interface: SPI</p>
+                                    <p class="text-xs text-gray-500 text-center">GPIO35-37, GPIO42</p>
+                                </div>
+                            </div>
+
+                            <h3 class="text-2xl font-bold mb-4 text-gray-700">Custom Expansion Options</h3>
+                            <p class="text-gray-700 mb-4">
+                                The 24-pin expansion connector provides full access to communication interfaces and GPIOs for adding custom sensors:
+                            </p>
                             <ul class="list-disc list-inside space-y-2 text-gray-700 ml-4">
-                                <li>I2C0: SCL (GPIO10), SDA (GPIO11)</li>
-                                <li>Aux I2C: SCL1 (GPIO41), SDA1 (GPIO40)</li>
-                                <li>SPI: MISO (GPIO37), CLK (GPIO36), MOSI (GPIO35), CS (GPIO42)</li>
-                                <li>UART0: TX/RX exposed</li>
-                                <li>Additional GPIOs: IO15-IO20, IO1, IO13, IO48</li>
+                                <li><strong>I2C0:</strong> SCL (GPIO10), SDA (GPIO11) - Primary I2C for MPU6050 and additional I2C devices</li>
+                                <li><strong>Aux I2C:</strong> SCL1 (GPIO41), SDA1 (GPIO40) - Dedicated for VL53L1X ToF sensor</li>
+                                <li><strong>SPI:</strong> MISO (GPIO37), CLK (GPIO36), MOSI (GPIO35), CS (GPIO42) - For PMW3901 and other SPI devices</li>
+                                <li><strong>UART0:</strong> TX/RX exposed for serial communication with external modules</li>
+                                <li><strong>Power:</strong> VBUS (5V), 3V3 (500mA), GND available</li>
+                                <li><strong>Additional GPIOs:</strong> IO15-IO20, IO1, IO13, IO48 for custom sensors and peripherals</li>
                             </ul>
                         </section>
 
@@ -1095,110 +1577,599 @@ with SyncCrazyflie(uri) as scf:<br>
                             
                             <div class="bg-yellow-50 border-l-4 border-yellow-500 p-6 rounded-xl mb-6">
                                 <p class="text-gray-700"><i class="fas fa-info-circle mr-2 text-yellow-600"></i>
-                                <strong>Note:</strong> FLYQ Air comes as a DIY kit or fully assembled. Minimal soldering required for DIY assembly.</p>
+                                <strong>Note:</strong> FLYQ Air is available as a DIY kit or fully assembled. DIY kit requires minimal soldering for motors. 
+                                No 3D printing needed - PCB serves as the complete frame!</p>
                             </div>
 
                             <h3 class="text-2xl font-bold mb-4 text-gray-700">What's Included</h3>
+                            <div class="mb-6">
+                                <img src="https://circuitdigest.com/sites/default/files/inlineimages/u5/Lite-Wing-Mechanical-Parts.png" 
+                                     alt="FLYQ Air Assembly Parts" 
+                                     class="w-full rounded-xl shadow-lg mb-4">
+                            </div>
                             <ul class="list-disc list-inside space-y-2 text-gray-700 ml-4 mb-6">
-                                <li>All-in-one PCB frame with components</li>
-                                <li>4x 720 coreless motors</li>
-                                <li>2 sets of propellers (2 CW + 2 CCW labeled A and B)</li>
-                                <li>Battery strap</li>
-                                <li>USB-C cable</li>
+                                <li>All-in-one PCB frame with pre-mounted electronic components</li>
+                                <li>4× 720 coreless DC motors</li>
+                                <li>2 sets of propellers (2 CW marked 'A' + 2 CCW marked 'B')</li>
+                                <li>Hook & loop battery strap</li>
+                                <li>USB Type-C cable for charging and programming</li>
                             </ul>
 
+                            <h3 class="text-2xl font-bold mb-4 text-gray-700">Propeller Installation</h3>
+                            
+                            <div class="grid md:grid-cols-2 gap-6 mb-6">
+                                <div>
+                                    <img src="https://circuitdigest.com/sites/default/files/inlineimages/u5/LiteWing-Propellers.png" 
+                                         alt="FLYQ Air Propellers" 
+                                         class="w-full rounded-xl shadow-lg mb-4">
+                                    <p class="text-sm text-gray-600 text-center">Two sets of propellers included (CW and CCW)</p>
+                                </div>
+                                <div>
+                                    <img src="https://circuitdigest.com/sites/default/files/inlineimages/u5/Properller-Blades-Litewing.png" 
+                                         alt="Propeller Blade Marking" 
+                                         class="w-full rounded-xl shadow-lg mb-4">
+                                    <p class="text-sm text-gray-600 text-center">Propeller markings: A (CW) and B (CCW)</p>
+                                </div>
+                            </div>
+
+                            <div class="bg-red-50 border-l-4 border-red-500 p-6 rounded-xl mb-6">
+                                <h4 class="text-lg font-bold mb-2 text-red-800"><i class="fas fa-exclamation-triangle mr-2"></i>Critical: Correct Propeller Placement</h4>
+                                <p class="text-gray-700">Installing propellers incorrectly will prevent flight and may cause drone instability or crashes!</p>
+                            </div>
+
+                            <div class="mb-6">
+                                <img src="https://circuitdigest.com/sites/default/files/inlineimages/u5/Propeller-Installation-Markings-LiteWing.png" 
+                                     alt="PCB Propeller Markings" 
+                                     class="w-full rounded-xl shadow-lg mb-4">
+                                <p class="text-sm text-gray-600 text-center">PCB markings show correct propeller type and rotation direction for each motor</p>
+                            </div>
+
+                            <div class="mb-6">
+                                <img src="https://circuitdigest.com/sites/default/files/inlineimages/u5/Direction-and-Propeller-Marking.png" 
+                                     alt="Motor Direction Diagram" 
+                                     class="w-full max-w-2xl mx-auto rounded-xl shadow-lg mb-4">
+                                <p class="text-sm text-gray-600 text-center">Complete motor direction and propeller placement reference</p>
+                            </div>
+
                             <h3 class="text-2xl font-bold mb-4 text-gray-700">Assembly Steps</h3>
-                            <ol class="list-decimal list-inside space-y-3 text-gray-700 ml-4">
-                                <li class="mb-2">
-                                    <strong>Mount Motors:</strong> Solder the 4 motors to the designated pads on each arm.
+                            <ol class="list-decimal list-inside space-y-4 text-gray-700 ml-4">
+                                <li class="mb-3">
+                                    <strong class="text-lg">Motor Installation (DIY Kit Only):</strong>
+                                    <p class="mt-2">Solder the 4 coreless motors to designated pads on each PCB arm. Ensure correct polarity for proper rotation direction.</p>
                                 </li>
-                                <li class="mb-2">
-                                    <strong>Install Propellers:</strong> Attach propellers according to PCB markings:
-                                    <ul class="list-disc list-inside ml-8 mt-2">
-                                        <li>Red propellers (Type A) - Clockwise rotation</li>
-                                        <li>Black propellers (Type B) - Counter-clockwise rotation</li>
+                                
+                                <li class="mb-3">
+                                    <strong class="text-lg">Propeller Installation:</strong>
+                                    <p class="mt-2">Match propeller markings to PCB markings:</p>
+                                    <ul class="list-disc list-inside ml-8 mt-2 space-y-1">
+                                        <li><strong>Type A propellers (marked 'A'):</strong> Install on motors marked for clockwise (CW) rotation</li>
+                                        <li><strong>Type B propellers (marked 'B'):</strong> Install on motors marked for counter-clockwise (CCW) rotation</li>
+                                        <li>Press fit propellers firmly onto motor shafts until secure</li>
+                                        <li>Verify propellers spin freely without wobbling</li>
                                     </ul>
                                 </li>
-                                <li class="mb-2">
-                                    <strong>Attach Battery:</strong> Secure battery using provided strap through PCB slots.
+                                
+                                <li class="mb-3">
+                                    <strong class="text-lg">Battery Attachment:</strong>
+                                    <p class="mt-2">Secure 1S LiPo battery on bottom using provided hook & loop strap through PCB frame slots. 
+                                    Ensure battery is centered for balanced flight. Connect battery connector to PCB.</p>
                                 </li>
-                                <li class="mb-2">
-                                    <strong>Connect USB-C:</strong> For initial charging and programming.
+                                
+                                <li class="mb-3">
+                                    <strong class="text-lg">Initial Charging:</strong>
+                                    <p class="mt-2">Connect USB-C cable to charge battery before first flight. CHRG LED will illuminate during charging, 
+                                    FULL LED indicates charge complete. Initial charge may take 1-2 hours depending on battery capacity.</p>
                                 </li>
-                                <li class="mb-2">
-                                    <strong>Upload Firmware:</strong> Flash the firmware via USB-C connection.
+                                
+                                <li class="mb-3">
+                                    <strong class="text-lg">Firmware Upload (if needed):</strong>
+                                    <p class="mt-2">Flash firmware via USB-C connection using ESP-IDF tools or Arduino IDE. Latest firmware available on GitHub. 
+                                    Most units ship with firmware pre-installed.</p>
                                 </li>
                             </ol>
+
+                            <div class="mt-8 grid md:grid-cols-2 gap-6">
+                                <div class="border-2 border-green-300 bg-green-50 rounded-xl p-6">
+                                    <h4 class="text-lg font-bold mb-3 text-green-700"><i class="fas fa-check-circle mr-2"></i>Correct Assembly</h4>
+                                    <img src="https://circuitdigest.com/sites/default/files/inlineimages/u5/Correct-Incorrect-Propeller-Placement.png" 
+                                         alt="Correct Propeller Placement" 
+                                         class="w-full rounded-lg mb-3">
+                                    <ul class="list-disc list-inside text-gray-700 space-y-1 ml-2">
+                                        <li>Propellers match PCB markings</li>
+                                        <li>All blades spin freely</li>
+                                        <li>Battery centered and secure</li>
+                                        <li>No loose connections</li>
+                                    </ul>
+                                </div>
+                                
+                                <div class="border-2 border-red-300 bg-red-50 rounded-xl p-6">
+                                    <h4 class="text-lg font-bold mb-3 text-red-700"><i class="fas fa-times-circle mr-2"></i>Common Mistakes</h4>
+                                    <ul class="list-disc list-inside text-gray-700 space-y-2 ml-2">
+                                        <li>Wrong propeller type on motor (A on CCW position or vice versa)</li>
+                                        <li>Propellers not fully seated on motor shafts</li>
+                                        <li>Battery off-center causing imbalance</li>
+                                        <li>Loose battery strap during flight</li>
+                                        <li>Forgetting to calibrate on flat surface</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- Battery Selection -->
+                        <section id="battery" class="mb-12">
+                            <h2 class="text-4xl font-black mb-6 text-gray-800 border-b-4 border-sky-500 pb-2">Battery Selection & Power</h2>
+                            
+                            <h3 class="text-2xl font-bold mb-4 text-gray-700">Recommended Battery Specifications</h3>
+                            
+                            <div class="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-xl mb-6">
+                                <h4 class="text-lg font-bold mb-2 text-blue-800">Optimal Battery: 650mAh 1S LiPo 30C</h4>
+                                <p class="text-gray-700">For best performance and reliability, use a high-discharge battery with at least 20C rating, preferably 30C or higher.</p>
+                            </div>
+
+                            <div class="overflow-x-auto mb-6">
+                                <table class="w-full border-collapse">
+                                    <thead class="bg-sky-500 text-white">
+                                        <tr>
+                                            <th class="py-3 px-4 text-left">Specification</th>
+                                            <th class="py-3 px-4 text-left">Minimum</th>
+                                            <th class="py-3 px-4 text-left">Recommended</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="border-b">
+                                            <td class="py-3 px-4 font-bold">Voltage</td>
+                                            <td class="py-3 px-4">1S LiPo (3.7V nominal)</td>
+                                            <td class="py-3 px-4">1S LiPo (3.7V nominal)</td>
+                                        </tr>
+                                        <tr class="border-b">
+                                            <td class="py-3 px-4 font-bold">Capacity</td>
+                                            <td class="py-3 px-4">500mAh</td>
+                                            <td class="py-3 px-4">650mAh - 800mAh</td>
+                                        </tr>
+                                        <tr class="border-b">
+                                            <td class="py-3 px-4 font-bold">Discharge Rating</td>
+                                            <td class="py-3 px-4">20C</td>
+                                            <td class="py-3 px-4">30C or higher</td>
+                                        </tr>
+                                        <tr class="border-b">
+                                            <td class="py-3 px-4 font-bold">Connector</td>
+                                            <td class="py-3 px-4" colspan="2">Micro JST or compatible with drone connector</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="py-3 px-4 font-bold">Weight</td>
+                                            <td class="py-3 px-4" colspan="2">15-20g (within payload capacity)</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div class="bg-red-50 border-l-4 border-red-500 p-6 rounded-xl mb-6">
+                                <h4 class="text-lg font-bold mb-2 text-red-800"><i class="fas fa-exclamation-triangle mr-2"></i>Low Discharge Rate Warning</h4>
+                                <p class="text-gray-700 mb-2">
+                                    Using batteries with insufficient discharge rating (below 20C) will cause:
+                                </p>
+                                <ul class="list-disc list-inside text-gray-700 ml-4 space-y-1">
+                                    <li>Drone rebooting during takeoff or high throttle</li>
+                                    <li>Voltage drops under load causing system resets</li>
+                                    <li>Reduced flight performance and instability</li>
+                                    <li>Potential battery damage from over-discharge</li>
+                                </ul>
+                            </div>
+
+                            <h3 class="text-2xl font-bold mb-4 text-gray-700">Flight Time & Performance</h3>
+                            <div class="grid md:grid-cols-3 gap-6 mb-6">
+                                <div class="bg-gradient-to-br from-sky-50 to-blue-50 p-6 rounded-xl border-2 border-sky-200">
+                                    <div class="text-4xl font-black text-sky-600 mb-2">5-7 min</div>
+                                    <div class="text-sm text-gray-600 font-semibold">Flight Time</div>
+                                    <p class="text-xs text-gray-500 mt-2">With 650mAh 30C battery</p>
+                                </div>
+                                
+                                <div class="bg-gradient-to-br from-sky-50 to-blue-50 p-6 rounded-xl border-2 border-sky-200">
+                                    <div class="text-4xl font-black text-sky-600 mb-2">~25g</div>
+                                    <div class="text-sm text-gray-600 font-semibold">Payload Capacity</div>
+                                    <p class="text-xs text-gray-500 mt-2">With 55mm propellers</p>
+                                </div>
+                                
+                                <div class="bg-gradient-to-br from-sky-50 to-blue-50 p-6 rounded-xl border-2 border-sky-200">
+                                    <div class="text-4xl font-black text-sky-600 mb-2">1-2 hrs</div>
+                                    <div class="text-sm text-gray-600 font-semibold">Charge Time</div>
+                                    <p class="text-xs text-gray-500 mt-2">Up to 1A charging current</p>
+                                </div>
+                            </div>
+
+                            <h3 class="text-2xl font-bold mb-4 text-gray-700">Battery Safety Guidelines</h3>
+                            <div class="bg-orange-50 border-l-4 border-orange-500 p-6 rounded-xl">
+                                <ul class="list-disc list-inside text-gray-700 space-y-2 ml-2">
+                                    <li><strong>Never over-discharge:</strong> Land immediately when ERR LED illuminates (low battery warning)</li>
+                                    <li><strong>Storage voltage:</strong> Store LiPo batteries at 3.8V (storage charge) for longevity</li>
+                                    <li><strong>Temperature:</strong> Don't charge or fly batteries in extreme temperatures</li>
+                                    <li><strong>Physical damage:</strong> Never use swollen, punctured, or damaged batteries</li>
+                                    <li><strong>Charging supervision:</strong> Always supervise battery charging, never leave unattended</li>
+                                    <li><strong>Fire safety:</strong> Charge in fireproof LiPo bag or on non-flammable surface</li>
+                                    <li><strong>Disposal:</strong> Properly dispose of old batteries at recycling centers</li>
+                                </ul>
+                            </div>
                         </section>
 
                         <!-- Getting Started -->
                         <section id="getting-started" class="mb-12">
-                            <h2 class="text-4xl font-black mb-6 text-gray-800 border-b-4 border-sky-500 pb-2">Getting Started</h2>
+                            <h2 class="text-4xl font-black mb-6 text-gray-800 border-b-4 border-sky-500 pb-2">Getting Started Guide</h2>
                             
-                            <h3 class="text-2xl font-bold mb-4 text-gray-700">First Flight</h3>
-                            <ol class="list-decimal list-inside space-y-3 text-gray-700 ml-4 mb-6">
-                                <li><strong>Charge Battery:</strong> Fully charge your LiPo battery before first flight.</li>
-                                <li><strong>Calibrate IMU:</strong> Place drone on flat surface, power on, wait for SYS LED to indicate ready.</li>
-                                <li><strong>Connect Smartphone:</strong> Download FLYQ Air app, connect to drone's Wi-Fi AP.</li>
-                                <li><strong>Pre-flight Check:</strong> Verify all propellers spin freely and LEDs indicate proper status.</li>
-                                <li><strong>Test Flight:</strong> Start with low throttle in open area, gradually increase altitude.</li>
-                            </ol>
-
-                            <div class="bg-red-50 border-l-4 border-red-500 p-6 rounded-xl mb-6">
-                                <p class="text-gray-700"><i class="fas fa-exclamation-triangle mr-2 text-red-600"></i>
-                                <strong>Safety Warning:</strong> Always fly in open areas away from people. Remove propellers when testing indoors. Keep fingers away from spinning propellers.</p>
+                            <div class="mb-6">
+                                <img src="https://circuitdigest.com/sites/default/files/inlineimages/u5/LiteWing-Wireless-Communication-Illustration-app-cfclient-python-code.png" 
+                                     alt="FLYQ Air Control Options" 
+                                     class="w-full rounded-xl shadow-lg">
                             </div>
 
-                            <h3 class="text-2xl font-bold mb-4 text-gray-700">Mobile App Setup</h3>
-                            <ol class="list-decimal list-inside space-y-2 text-gray-700 ml-4">
-                                <li>Power on FLYQ Air</li>
-                                <li>Disable mobile data and VPN on your phone</li>
-                                <li>Connect to "FLYQ_Air_XXXX" Wi-Fi network</li>
-                                <li>Open FLYQ Air app</li>
-                                <li>App will automatically connect to the drone</li>
+                            <h3 class="text-2xl font-bold mb-4 text-gray-700">Pre-Flight Setup</h3>
+                            
+                            <div class="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-xl mb-6">
+                                <h4 class="text-lg font-bold mb-2 text-blue-800"><i class="fas fa-info-circle mr-2"></i>Important: Initial Calibration</h4>
+                                <p class="text-gray-700">
+                                    <strong>Always place FLYQ Air on a flat, level surface before powering on.</strong> The IMU calibrates during startup. 
+                                    If powered on while moving or tilted, calibration will be incorrect and drone will not fly properly. 
+                                    If you miss this, simply place on flat surface and reset the drone.
+                                </p>
+                            </div>
+
+                            <ol class="list-decimal list-inside space-y-4 text-gray-700 ml-4 mb-8">
+                                <li class="mb-2">
+                                    <strong class="text-lg">Battery Preparation:</strong>
+                                    <ul class="list-disc list-inside ml-8 mt-2 space-y-1">
+                                        <li>Fully charge LiPo battery using USB-C connection</li>
+                                        <li>Wait for FULL LED to illuminate (charge complete)</li>
+                                        <li>Ensure battery is 650mAh 30C or equivalent high-discharge type</li>
+                                        <li>Check battery for any physical damage before use</li>
+                                    </ul>
+                                </li>
+                                
+                                <li class="mb-2">
+                                    <strong class="text-lg">Propeller Verification:</strong>
+                                    <ul class="list-disc list-inside ml-8 mt-2 space-y-1">
+                                        <li>Verify Type A propellers on CW motors, Type B on CCW motors</li>
+                                        <li>Check all propellers are firmly seated on motor shafts</li>
+                                        <li>Spin each propeller by hand to ensure free rotation</li>
+                                        <li>Look for any cracks or damage on propeller blades</li>
+                                    </ul>
+                                </li>
+                                
+                                <li class="mb-2">
+                                    <strong class="text-lg">IMU Calibration:</strong>
+                                    <ul class="list-disc list-inside ml-8 mt-2 space-y-1">
+                                        <li>Place drone on flat, stable surface (table or floor)</li>
+                                        <li>Power on drone using slide switch</li>
+                                        <li>SYS LED will blink slowly during calibration (5-10 seconds)</li>
+                                        <li>Do not move or touch drone during calibration</li>
+                                        <li>SYS LED changes to fast blinking when ready to fly</li>
+                                    </ul>
+                                </li>
+                                
+                                <li class="mb-2">
+                                    <strong class="text-lg">Connection Setup:</strong>
+                                    <ul class="list-disc list-inside ml-8 mt-2 space-y-1">
+                                        <li>Drone creates Wi-Fi access point "FLYQ_Air_XXXX"</li>
+                                        <li>On smartphone: disable mobile data and VPN</li>
+                                        <li>Connect to FLYQ Air's Wi-Fi network</li>
+                                        <li>Open ESP-Drone app (Android/iOS)</li>
+                                        <li>LINK LED will blink when connection established</li>
+                                    </ul>
+                                </li>
                             </ol>
+
+                            <div class="bg-red-50 border-l-4 border-red-500 p-6 rounded-xl mb-8">
+                                <h4 class="text-lg font-bold mb-2 text-red-800"><i class="fas fa-exclamation-triangle mr-2"></i>Critical Safety Warnings</h4>
+                                <ul class="list-disc list-inside text-gray-700 space-y-2 ml-2">
+                                    <li><strong>Propeller Safety:</strong> Keep fingers, hair, and loose clothing away from spinning propellers at all times</li>
+                                    <li><strong>Flight Area:</strong> Always fly in open outdoor areas away from people, animals, and obstacles</li>
+                                    <li><strong>Indoor Testing:</strong> Remove all propellers when testing controls or motors indoors</li>
+                                    <li><strong>Line of Sight:</strong> Maintain visual contact with drone during flight</li>
+                                    <li><strong>Weather:</strong> Do not fly in rain, strong wind, or poor visibility</li>
+                                    <li><strong>Emergency Landing:</strong> Land immediately if ERR LED illuminates (low battery)</li>
+                                </ul>
+                            </div>
+
+                            <h3 class="text-2xl font-bold mb-4 text-gray-700">First Flight Procedure</h3>
+                            <ol class="list-decimal list-inside space-y-3 text-gray-700 ml-4 mb-6">
+                                <li><strong>Environment Check:</strong> Choose open area with at least 5m clearance in all directions. Check for wind conditions.</li>
+                                <li><strong>Pre-Flight Inspection:</strong> Verify all LEDs showing correct status, battery secure, propellers intact.</li>
+                                <li><strong>Test Motors:</strong> With propellers off, test motor response using app controls at low throttle.</li>
+                                <li><strong>Install Propellers:</strong> Attach all four propellers in correct orientation.</li>
+                                <li><strong>Initial Liftoff:</strong> Place drone on ground, slowly increase throttle until drone lifts ~30cm.</li>
+                                <li><strong>Hover Practice:</strong> Maintain stable hover for 10-20 seconds, practice small adjustments.</li>
+                                <li><strong>Basic Maneuvers:</strong> Try gentle forward/backward, left/right movements at low altitude.</li>
+                                <li><strong>Safe Landing:</strong> Reduce throttle gradually for controlled descent and landing.</li>
+                            </ol>
+
+                            <h3 class="text-2xl font-bold mb-4 text-gray-700">Mobile App Control</h3>
+                            <div class="grid md:grid-cols-2 gap-6 mb-6">
+                                <div class="border-2 border-sky-200 bg-sky-50 rounded-xl p-6">
+                                    <h4 class="text-lg font-bold mb-3 text-sky-700"><i class="fab fa-android mr-2"></i>Android Setup</h4>
+                                    <ol class="list-decimal list-inside text-gray-700 space-y-2 ml-2">
+                                        <li>Download ESP-Drone app from Play Store</li>
+                                        <li>Disable mobile data in phone settings</li>
+                                        <li>Turn off any active VPN connections</li>
+                                        <li>Disable "Switch to Wi-Fi with internet" option</li>
+                                        <li>Connect to FLYQ_Air_XXXX network</li>
+                                        <li>Open app - auto-connects to drone</li>
+                                    </ol>
+                                </div>
+                                
+                                <div class="border-2 border-sky-200 bg-sky-50 rounded-xl p-6">
+                                    <h4 class="text-lg font-bold mb-3 text-sky-700"><i class="fab fa-apple mr-2"></i>iOS Setup</h4>
+                                    <ol class="list-decimal list-inside text-gray-700 space-y-2 ml-2">
+                                        <li>Download ESP-Drone app from App Store</li>
+                                        <li>Disable cellular data in Settings</li>
+                                        <li>Turn off any active VPN connections</li>
+                                        <li>In Wi-Fi settings, disable auto-join for other networks</li>
+                                        <li>Connect to FLYQ_Air_XXXX network</li>
+                                        <li>Open app - auto-connects to drone</li>
+                                    </ol>
+                                </div>
+                            </div>
+
+                            <h3 class="text-2xl font-bold mb-4 text-gray-700">PC Control via CFClient</h3>
+                            <div class="bg-purple-50 border-l-4 border-purple-500 p-6 rounded-xl mb-6">
+                                <h4 class="text-lg font-bold mb-3 text-purple-800"><i class="fas fa-desktop mr-2"></i>Advanced Control Option</h4>
+                                <p class="text-gray-700 mb-4">
+                                    FLYQ Air supports Crazyflie's cfclient for PC-based control with game controllers (Xbox, PS4/PS5). 
+                                    This enables advanced features like telemetry monitoring, parameter tuning, and assisted flight modes.
+                                </p>
+                                <ol class="list-decimal list-inside text-gray-700 space-y-2 ml-2">
+                                    <li>Install Crazyflie client from <a href="https://github.com/bitcraze/crazyflie-clients-python" class="text-purple-600 hover:underline" target="_blank">GitHub</a></li>
+                                    <li>Connect PC to FLYQ Air's Wi-Fi network</li>
+                                    <li>Launch cfclient and scan for drones</li>
+                                    <li>Connect game controller via USB or Bluetooth</li>
+                                    <li>Configure controller mapping in cfclient settings</li>
+                                    <li>Connect to FLYQ Air and start flying</li>
+                                </ol>
+                            </div>
                         </section>
 
                         <!-- Troubleshooting -->
                         <section id="troubleshooting" class="mb-12">
-                            <h2 class="text-4xl font-black mb-6 text-gray-800 border-b-4 border-sky-500 pb-2">Troubleshooting</h2>
+                            <h2 class="text-4xl font-black mb-6 text-gray-800 border-b-4 border-sky-500 pb-2">Troubleshooting Guide</h2>
+                            
+                            <p class="text-lg text-gray-700 mb-6">Common issues and solutions for FLYQ Air. If problems persist after trying these solutions, contact support.</p>
                             
                             <div class="space-y-6">
-                                <div class="border-l-4 border-gray-400 bg-gray-50 p-6 rounded-r-xl">
-                                    <h3 class="text-xl font-bold mb-2 text-gray-800">App won't connect to drone</h3>
-                                    <ul class="list-disc list-inside text-gray-700 ml-4 space-y-1">
-                                        <li>Turn off mobile data and VPN</li>
-                                        <li>Disable "switch to Wi-Fi with no Internet" in phone settings</li>
-                                        <li>Restart the drone and reconnect</li>
-                                        <li>Restart the app</li>
+                                <div class="border-l-4 border-red-400 bg-red-50 p-6 rounded-r-xl">
+                                    <h3 class="text-xl font-bold mb-3 text-gray-800"><i class="fas fa-wifi text-red-500 mr-2"></i>App Won't Connect to Drone</h3>
+                                    <p class="text-gray-700 mb-2 font-semibold">Symptoms: App can't find drone or connection fails immediately</p>
+                                    <p class="text-gray-700 mb-3"><strong>Solutions:</strong></p>
+                                    <ul class="list-disc list-inside text-gray-700 ml-4 space-y-2">
+                                        <li><strong>Disable Mobile Data:</strong> Turn off cellular data completely in phone settings</li>
+                                        <li><strong>Disable VPN:</strong> Any VPN connection will prevent local network access</li>
+                                        <li><strong>Auto-Switch Setting:</strong> Disable "Switch to Wi-Fi with internet" or "Smart Network Switch" in Wi-Fi advanced settings</li>
+                                        <li><strong>Forget Other Networks:</strong> Temporarily forget other saved Wi-Fi networks to prevent auto-switching</li>
+                                        <li><strong>Restart Sequence:</strong> Power cycle drone, restart phone Wi-Fi, reconnect to FLYQ_Air network, then restart app</li>
+                                        <li><strong>Check LINK LED:</strong> Should blink when connection established</li>
+                                    </ul>
+                                </div>
+
+                                <div class="border-l-4 border-orange-400 bg-orange-50 p-6 rounded-r-xl">
+                                    <h3 class="text-xl font-bold mb-3 text-gray-800"><i class="fas fa-power-off text-orange-500 mr-2"></i>Drone Reboots/Shuts Down During Takeoff</h3>
+                                    <p class="text-gray-700 mb-2 font-semibold">Symptoms: Drone powers off or reboots when throttle increased, motors stop suddenly</p>
+                                    <p class="text-gray-700 mb-3"><strong>Root Cause:</strong> Insufficient battery discharge capability causing voltage drops</p>
+                                    <ul class="list-disc list-inside text-gray-700 ml-4 space-y-2">
+                                        <li><strong>Battery Rating Too Low:</strong> Must use minimum 20C discharge rating, 30C+ strongly recommended</li>
+                                        <li><strong>Recommended Battery:</strong> 650mAh 1S LiPo 30C or higher</li>
+                                        <li><strong>Check Battery Charge:</strong> Ensure battery is fully charged (FULL LED was lit during charging)</li>
+                                        <li><strong>Battery Age:</strong> Old batteries lose discharge capability over time - replace if issues persist</li>
+                                        <li><strong>Voltage Verification:</strong> Measure battery voltage - should be 4.2V when fully charged, 3.7V nominal</li>
+                                    </ul>
+                                </div>
+
+                                <div class="border-l-4 border-yellow-400 bg-yellow-50 p-6 rounded-r-xl">
+                                    <h3 class="text-xl font-bold mb-3 text-gray-800"><i class="fas fa-ban text-yellow-600 mr-2"></i>Connected But No Response to Controls</h3>
+                                    <p class="text-gray-700 mb-2 font-semibold">Symptoms: App shows connected but drone doesn't respond to stick inputs</p>
+                                    <p class="text-gray-700 mb-3"><strong>Solutions:</strong></p>
+                                    <ul class="list-disc list-inside text-gray-700 ml-4 space-y-2">
+                                        <li><strong>Check SYS LED:</strong> Slow blinking = still calibrating, fast blinking = ready to fly</li>
+                                        <li><strong>Calibration Issue:</strong> Drone must be on flat surface during power-on for proper IMU calibration</li>
+                                        <li><strong>Reset Procedure:</strong> Place on flat surface, power off, wait 3 seconds, power on again</li>
+                                        <li><strong>Wait for Ready:</strong> Allow 10-15 seconds after power-on for calibration completion</li>
+                                        <li><strong>Verify Connection:</strong> LINK LED should be blinking to indicate active connection</li>
+                                    </ul>
+                                </div>
+
+                                <div class="border-l-4 border-blue-400 bg-blue-50 p-6 rounded-r-xl">
+                                    <h3 class="text-xl font-bold mb-3 text-gray-800"><i class="fas fa-spinner text-blue-500 mr-2"></i>Wrong Propeller Rotation / Won't Take Off</h3>
+                                    <p class="text-gray-700 mb-2 font-semibold">Symptoms: Drone flips immediately on takeoff, motors spin but no lift, unstable flight</p>
+                                    <p class="text-gray-700 mb-3"><strong>Solutions:</strong></p>
+                                    <ul class="list-disc list-inside text-gray-700 ml-4 space-y-2">
+                                        <li><strong>Verify PCB Markings:</strong> Each motor position has letter (A or B) and rotation direction marked on PCB</li>
+                                        <li><strong>Type A Propellers:</strong> Install on motors marked with "A" and clockwise arrow</li>
+                                        <li><strong>Type B Propellers:</strong> Install on motors marked with "B" and counter-clockwise arrow</li>
+                                        <li><strong>Visual Check:</strong> Use the propeller placement diagram to verify correct configuration</li>
+                                        <li><strong>Blade Damage:</strong> Inspect propellers for cracks or bent blades, replace if damaged</li>
+                                    </ul>
+                                </div>
+
+                                <div class="border-l-4 border-purple-400 bg-purple-50 p-6 rounded-r-xl">
+                                    <h3 class="text-xl font-bold mb-3 text-gray-800"><i class="fas fa-tilted-exclamation text-purple-500 mr-2"></i>Unstable Flight / Drifting</h3>
+                                    <p class="text-gray-700 mb-2 font-semibold">Symptoms: Drone drifts in one direction, tilts during hover, requires constant correction</p>
+                                    <ul class="list-disc list-inside text-gray-700 ml-4 space-y-2">
+                                        <li><strong>Recalibrate IMU:</strong> Power on while on perfectly flat surface</li>
+                                        <li><strong>Check Propellers:</strong> Ensure all propellers undamaged and properly installed</li>
+                                        <li><strong>Motor Function:</strong> Test each motor individually - all should spin at same speed</li>
+                                        <li><strong>Battery Position:</strong> Verify battery is centered - off-center battery causes imbalance</li>
+                                        <li><strong>Propeller Balance:</strong> Check each propeller spins smoothly without wobble</li>
+                                        <li><strong>Wind Conditions:</strong> Avoid flying in winds above 5 mph (8 km/h)</li>
+                                    </ul>
+                                </div>
+
+                                <div class="border-l-4 border-green-400 bg-green-50 p-6 rounded-r-xl">
+                                    <h3 class="text-xl font-bold mb-3 text-gray-800"><i class="fas fa-battery-quarter text-green-600 mr-2"></i>Short Flight Time</h3>
+                                    <p class="text-gray-700 mb-2 font-semibold">Symptoms: ERR LED comes on quickly, flight time under 3 minutes</p>
+                                    <ul class="list-disc list-inside text-gray-700 ml-4 space-y-2">
+                                        <li><strong>Battery Capacity:</strong> Use minimum 650mAh battery for 5-7 minute flights</li>
+                                        <li><strong>Full Charge:</strong> Ensure FULL LED was lit - charge until complete</li>
+                                        <li><strong>Battery Age:</strong> Old batteries lose capacity - replace after 100-150 cycles</li>
+                                        <li><strong>Flight Style:</strong> Aggressive flying drains battery faster - use smooth inputs</li>
+                                        <li><strong>Propeller Condition:</strong> Damaged propellers reduce efficiency - replace worn propellers</li>
                                     </ul>
                                 </div>
 
                                 <div class="border-l-4 border-gray-400 bg-gray-50 p-6 rounded-r-xl">
-                                    <h3 class="text-xl font-bold mb-2 text-gray-800">Drone reboots during takeoff</h3>
-                                    <ul class="list-disc list-inside text-gray-700 ml-4 space-y-1">
-                                        <li>Battery discharge rating too low - use 20C or higher</li>
-                                        <li>Recommended: 650mAh 30C battery</li>
-                                        <li>Check battery is fully charged</li>
+                                    <h3 class="text-xl font-bold mb-3 text-gray-800"><i class="fas fa-usb text-gray-600 mr-2"></i>Firmware Upload Fails</h3>
+                                    <p class="text-gray-700 mb-2 font-semibold">Symptoms: Cannot flash firmware, USB not recognized, upload errors</p>
+                                    <ul class="list-disc list-inside text-gray-700 ml-4 space-y-2">
+                                        <li><strong>USB Cable:</strong> Use data-capable USB cable (not charge-only cable)</li>
+                                        <li><strong>Driver Installation:</strong> Install CH340 USB driver for your operating system</li>
+                                        <li><strong>Port Selection:</strong> Select correct COM port in Arduino IDE or ESP-IDF</li>
+                                        <li><strong>Manual Boot Mode:</strong> Hold BOOT button while connecting USB if auto-reset fails</li>
+                                        <li><strong>USB Power:</strong> Try different USB port or powered USB hub</li>
                                     </ul>
+                                </div>
+                            </div>
+
+                            <div class="mt-8 bg-sky-50 border-2 border-sky-200 rounded-xl p-6">
+                                <h3 class="text-xl font-bold mb-3 text-sky-800">
+                                    <i class="fas fa-life-ring mr-2"></i>Still Need Help?
+                                </h3>
+                                <p class="text-gray-700 mb-4">
+                                    If your issue isn't resolved by the above solutions, reach out to our community or support team:
+                                </p>
+                                <div class="grid md:grid-cols-3 gap-4">
+                                    <a href="#" class="flex items-center justify-center bg-green-500 text-white px-4 py-3 rounded-lg hover:bg-green-600 transition">
+                                        <i class="fab fa-whatsapp mr-2"></i>
+                                        WhatsApp Community
+                                    </a>
+                                    <a href="https://circuitdigest.com/forum" target="_blank" class="flex items-center justify-center bg-blue-500 text-white px-4 py-3 rounded-lg hover:bg-blue-600 transition">
+                                        <i class="fas fa-comments mr-2"></i>
+                                        Community Forum
+                                    </a>
+                                    <a href="mailto:support@passion3dworld.com" class="flex items-center justify-center bg-purple-500 text-white px-4 py-3 rounded-lg hover:bg-purple-600 transition">
+                                        <i class="fas fa-envelope mr-2"></i>
+                                        Email Support
+                                    </a>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- Tutorials -->
+                        <section id="tutorials" class="mb-12">
+                            <h2 class="text-4xl font-black mb-6 text-gray-800 border-b-4 border-sky-500 pb-2">Tutorials & Projects</h2>
+                            
+                            <p class="text-lg text-gray-700 mb-6">
+                                Explore advanced projects and tutorials to unleash FLYQ Air's full potential. More tutorials being added regularly!
+                            </p>
+
+                            <div class="grid md:grid-cols-2 gap-6">
+                                <a href="https://circuitdigest.com/microcontroller-projects/diy-gesture-controlled-drone-using-esp32-and-python-with-litewing" target="_blank" 
+                                   class="block border-2 border-sky-200 rounded-xl p-6 hover:shadow-xl hover:border-sky-400 transition">
+                                    <div class="bg-gradient-to-br from-sky-500 to-blue-600 w-16 h-16 rounded-full flex items-center justify-center mb-4">
+                                        <i class="fas fa-hand-paper text-white text-2xl"></i>
+                                    </div>
+                                    <h3 class="text-xl font-bold mb-3 text-sky-600">Gesture Control with Python</h3>
+                                    <p class="text-gray-700 mb-3">
+                                        Control FLYQ Air using hand gestures detected by camera and OpenCV. Learn computer vision integration 
+                                        with cflib Python library for intuitive flight control.
+                                    </p>
+                                    <div class="flex items-center text-sky-600 font-semibold">
+                                        <span>Read Tutorial</span>
+                                        <i class="fas fa-arrow-right ml-2"></i>
+                                    </div>
+                                </a>
+
+                                <div class="border-2 border-gray-300 rounded-xl p-6 bg-gray-50">
+                                    <div class="bg-gradient-to-br from-purple-500 to-pink-600 w-16 h-16 rounded-full flex items-center justify-center mb-4">
+                                        <i class="fab fa-arduino text-white text-2xl"></i>
+                                    </div>
+                                    <h3 class="text-xl font-bold mb-3 text-gray-600">Arduino Flight Control</h3>
+                                    <p class="text-gray-700 mb-3">
+                                        Program FLYQ Air using Arduino IDE with custom flight patterns and behaviors. 
+                                        Step-by-step Arduino tutorial coming soon!
+                                    </p>
+                                    <div class="flex items-center text-gray-500 font-semibold">
+                                        <span>Coming Soon</span>
+                                        <i class="fas fa-clock ml-2"></i>
+                                    </div>
+                                </div>
+
+                                <div class="border-2 border-gray-300 rounded-xl p-6 bg-gray-50">
+                                    <div class="bg-gradient-to-br from-green-500 to-teal-600 w-16 h-16 rounded-full flex items-center justify-center mb-4">
+                                        <i class="fas fa-robot text-white text-2xl"></i>
+                                    </div>
+                                    <h3 class="text-xl font-bold mb-3 text-gray-600">AI Object Tracking</h3>
+                                    <p class="text-gray-700 mb-3">
+                                        Implement autonomous object tracking using machine learning models and camera integration. 
+                                        Advanced AI tutorial in development.
+                                    </p>
+                                    <div class="flex items-center text-gray-500 font-semibold">
+                                        <span>Coming Soon</span>
+                                        <i class="fas fa-clock ml-2"></i>
+                                    </div>
+                                </div>
+
+                                <div class="border-2 border-gray-300 rounded-xl p-6 bg-gray-50">
+                                    <div class="bg-gradient-to-br from-orange-500 to-red-600 w-16 h-16 rounded-full flex items-center justify-center mb-4">
+                                        <i class="fas fa-route text-white text-2xl"></i>
+                                    </div>
+                                    <h3 class="text-xl font-bold mb-3 text-gray-600">Autonomous Waypoint Navigation</h3>
+                                    <p class="text-gray-700 mb-3">
+                                        Program autonomous flight paths with GPS waypoints and obstacle avoidance. 
+                                        Advanced navigation tutorial coming soon.
+                                    </p>
+                                    <div class="flex items-center text-gray-500 font-semibold">
+                                        <span>Coming Soon</span>
+                                        <i class="fas fa-clock ml-2"></i>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mt-8 bg-purple-50 border-l-4 border-purple-500 p-6 rounded-xl">
+                                <h3 class="text-lg font-bold mb-2 text-purple-800"><i class="fas fa-users mr-2"></i>Share Your Projects!</h3>
+                                <p class="text-gray-700">
+                                    Built something amazing with FLYQ Air? Share your projects, tutorials, and code with the community! 
+                                    Join our WhatsApp group or post on the forum to inspire other makers.
+                                </p>
+                            </div>
+                        </section>
+
+                        <!-- Known Issues -->
+                        <section id="limitations" class="mb-12">
+                            <h2 class="text-4xl font-black mb-6 text-gray-800 border-b-4 border-sky-500 pb-2">Known Issues & Limitations</h2>
+                            
+                            <div class="bg-yellow-50 border-l-4 border-yellow-500 p-6 rounded-xl mb-6">
+                                <h3 class="text-lg font-bold mb-2 text-yellow-800"><i class="fas fa-info-circle mr-2"></i>Silkscreen Labeling (First Revision)</h3>
+                                <p class="text-gray-700">
+                                    <strong>Affected Pins:</strong> IO48 incorrectly labeled as IO42, CS/IO42 incorrectly labeled as IO47. 
+                                    Refer to pinout diagram for correct pin identification. This has been corrected in latest hardware revision.
+                                </p>
+                            </div>
+
+                            <div class="space-y-6">
+                                <div class="border-l-4 border-gray-400 bg-gray-50 p-6 rounded-r-xl">
+                                    <h3 class="text-xl font-bold mb-2 text-gray-800">Assisted Flight Features</h3>
+                                    <p class="text-gray-700">
+                                        Height hold, position hold, and altitude hold currently supported <strong>only with CFClient and Python SDK</strong>. 
+                                        Mobile app support for these features coming in future firmware updates. Height hold with VL53L1X ToF sensor tested and working.
+                                    </p>
                                 </div>
 
                                 <div class="border-l-4 border-gray-400 bg-gray-50 p-6 rounded-r-xl">
-                                    <h3 class="text-xl font-bold mb-2 text-gray-800">No response when connected</h3>
-                                    <ul class="list-disc list-inside text-gray-700 ml-4 space-y-1">
-                                        <li>Check if SYS LED is slowly blinking (calibration mode)</li>
-                                        <li>Place drone on flat surface and reset</li>
-                                        <li>Wait for SYS LED to indicate ready status</li>
-                                    </ul>
+                                    <h3 class="text-xl font-bold mb-2 text-gray-800">Wi-Fi Range Limitations</h3>
+                                    <p class="text-gray-700">
+                                        2.4GHz Wi-Fi control range approximately 30-50 meters in open areas. Range significantly reduced by walls, interference, 
+                                        or obstacles. Always maintain line of sight and stay within comfortable range.
+                                    </p>
                                 </div>
 
                                 <div class="border-l-4 border-gray-400 bg-gray-50 p-6 rounded-r-xl">
-                                    <h3 class="text-xl font-bold mb-2 text-gray-800">Incorrect propeller orientation</h3>
-                                    <ul class="list-disc list-inside text-gray-700 ml-4 space-y-1">
-                                        <li>Check PCB markings for correct CW/CCW placement</li>
-                                        <li>Red propellers (A) go on motors marked CW</li>
-                                        <li>Black propellers (B) go on motors marked CCW</li>
-                                    </ul>
+                                    <h3 class="text-xl font-bold mb-2 text-gray-800">Wind Sensitivity</h3>
+                                    <p class="text-gray-700">
+                                        Due to light weight (~45g without battery), FLYQ Air is sensitive to wind. Recommended for indoor flight or 
+                                        outdoor use only in calm conditions (wind speed under 5 mph / 8 km/h).
+                                    </p>
+                                </div>
+
+                                <div class="border-l-4 border-gray-400 bg-gray-50 p-6 rounded-r-xl">
+                                    <h3 class="text-xl font-bold mb-2 text-gray-800">Battery Discharge Requirements</h3>
+                                    <p class="text-gray-700">
+                                        Requires high-discharge battery (minimum 20C, 30C+ recommended). Low-discharge batteries will cause voltage drops 
+                                        during flight, resulting in unexpected reboots or power loss. Always use quality batteries from reputable manufacturers.
+                                    </p>
                                 </div>
                             </div>
                         </section>
