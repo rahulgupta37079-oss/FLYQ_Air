@@ -160,9 +160,10 @@
 - Full-size hero image
 
 ## 🌐 Live URLs
-- **Homepage**: https://3000-i9dkuxqg07opw1sw23plt-d0b9e1e2.sandbox.novita.ai
-- **Documentation**: https://3000-i9dkuxqg07opw1sw23plt-d0b9e1e2.sandbox.novita.ai/docs
-- **Production**: (Deploy to Cloudflare Pages)
+- **Production Homepage**: https://flyq-air.pages.dev ⭐ **LIVE NOW!**
+- **Production Documentation**: https://flyq-air.pages.dev/docs ⭐ **LIVE NOW!**
+- **Latest Deployment**: https://6d69bbb0.flyq-air.pages.dev
+- **Sandbox (Dev)**: https://3000-i9dkuxqg07opw1sw23plt-d0b9e1e2.sandbox.novita.ai
 
 ## 🛒 Purchase
 Available exclusively at **Passion 3D World**: https://passion3dworld.com
