@@ -587,39 +587,39 @@ void loop() {
                 </div>
                 <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
                     <div class="bg-gradient-to-br from-gray-900 to-gray-800 overflow-hidden rounded-3xl border-4 border-sky-500 shadow-2xl p-6" style="box-shadow: 0 0 30px rgba(14, 165, 233, 0.3);">
-                        <img src="https://cdn1.genspark.ai/user-upload-image/rmbg_generated/0_659b46b4-044a-419a-a106-4fc160f33f38" 
-                             alt="FLYQ Air - Top View" 
+                        <img src="https://page.gensparksite.com/v1/base64_upload/d5a404913f11dc0c3413bf2529b1429b" 
+                             alt="FLYQ Air - Hero View" 
                              class="w-full h-80 object-contain hover:scale-110 transition-transform duration-500">
                         <div class="mt-4 text-center">
-                            <h3 class="text-xl font-bold text-sky-400">Top View</h3>
-                            <p class="text-sm silver-text">Complete assembly</p>
+                            <h3 class="text-xl font-bold text-sky-400">Hero View</h3>
+                            <p class="text-sm silver-text">Sleek design</p>
                         </div>
                     </div>
                     <div class="bg-gradient-to-br from-gray-900 to-gray-800 overflow-hidden rounded-3xl border-4 border-sky-500 shadow-2xl p-6" style="box-shadow: 0 0 30px rgba(14, 165, 233, 0.3);">
-                        <img src="https://cdn1.genspark.ai/user-upload-image/rmbg_generated/0_98743ea1-0ba8-4cad-8c35-5bd13eb785d9" 
-                             alt="Component Overview" 
+                        <img src="https://cdn1.genspark.ai/user-upload-image/rmbg_generated/0_3ba432db-9d3d-4a77-8589-afbfdae5d259" 
+                             alt="FLYQ Drone" 
                              class="w-full h-80 object-contain hover:scale-110 transition-transform duration-500">
                         <div class="mt-4 text-center">
-                            <h3 class="text-xl font-bold text-sky-400">Components</h3>
-                            <p class="text-sm silver-text">All parts included</p>
+                            <h3 class="text-xl font-bold text-sky-400">FLYQ Drone</h3>
+                            <p class="text-sm silver-text">Professional model</p>
                         </div>
                     </div>
                     <div class="bg-gradient-to-br from-gray-900 to-gray-800 overflow-hidden rounded-3xl border-4 border-sky-500 shadow-2xl p-6" style="box-shadow: 0 0 30px rgba(14, 165, 233, 0.3);">
-                        <img src="https://cdn1.genspark.ai/user-upload-image/rmbg_generated/0_82cdbb05-c833-443a-9269-06b9828e7958" 
-                             alt="Propeller Detail" 
+                        <img src="https://cdn1.genspark.ai/user-upload-image/gpt_image_edited/fa96ac19-c475-4ebb-97cf-51b21deb187d.png" 
+                             alt="Circuit Board" 
                              class="w-full h-80 object-contain hover:scale-110 transition-transform duration-500">
                         <div class="mt-4 text-center">
-                            <h3 class="text-xl font-bold text-sky-400">Propeller</h3>
-                            <p class="text-sm silver-text">With protective guard</p>
+                            <h3 class="text-xl font-bold text-sky-400">Circuit Board</h3>
+                            <p class="text-sm silver-text">ESP32-S2 PCB</p>
                         </div>
                     </div>
                     <div class="bg-gradient-to-br from-gray-900 to-gray-800 overflow-hidden rounded-3xl border-4 border-sky-500 shadow-2xl p-6" style="box-shadow: 0 0 30px rgba(14, 165, 233, 0.3);">
-                        <img src="https://cdn1.genspark.ai/user-upload-image/rmbg_generated/0_70c865d1-bde3-4f02-b0a2-9ec4054d5451" 
-                             alt="Motor Assembly" 
+                        <img src="https://page.gensparksite.com/v1/base64_upload/4914a7f5df2975828840a2aa2e6f5925" 
+                             alt="Components Kit" 
                              class="w-full h-80 object-contain hover:scale-110 transition-transform duration-500">
                         <div class="mt-4 text-center">
-                            <h3 class="text-xl font-bold text-sky-400">Motor Unit</h3>
-                            <p class="text-sm silver-text">716 brushed motor</p>
+                            <h3 class="text-xl font-bold text-sky-400">Parts Kit</h3>
+                            <p class="text-sm silver-text">Complete set</p>
                         </div>
                     </div>
                 </div>
