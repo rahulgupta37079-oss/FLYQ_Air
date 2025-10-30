@@ -229,13 +229,13 @@ app.get('/', (c) => {
                         </div>
                     </div>
                     
-                    <!-- Hero Image - Full Size -->
+                    <!-- Hero Image - Full Size with Transparent Background -->
                     <div class="relative">
                         <div class="absolute inset-0 bg-sky-500 opacity-15 blur-3xl rounded-full"></div>
                         <div class="relative z-10 float-animation">
-                            <img src="https://page.gensparksite.com/v1/base64_upload/e412797020c76e97bdf09d5aa6af13eb" 
-                                 alt="FLYQ Air Drone - Top View" 
-                                 class="w-full h-auto drop-shadow-2xl rounded-2xl"
+                            <img src="https://cdn1.genspark.ai/user-upload-image/rmbg_generated/0_435c9a66-800a-4537-80f8-cd513ea4bf15" 
+                                 alt="FLYQ Air Drone - Hero View with Transparent Background" 
+                                 class="w-full h-auto drop-shadow-2xl"
                                  onerror="this.src='https://circuitdigest.com/sites/default/files/Litewing%20Wiki%20Banner-01.png'">
                         </div>
                     </div>
