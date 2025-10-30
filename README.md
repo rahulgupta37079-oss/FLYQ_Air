@@ -1,5 +1,13 @@
 # FLYQ Air - The Programmable Drone Website
 
+## 📢 Latest Updates (2025-10-30)
+✅ **Hero Image Updated**: New drone assembly photo (top view with red/black propellers)
+✅ **Gallery Images Updated**: 
+   - Complete Assembly: Full drone with all components
+   - Components Kit: All parts laid out including PCB, motors, battery, propellers
+✅ **YouTube Video Removed**: Video demo section removed from landing page
+✅ **GitHub Synced**: All changes committed and pushed
+
 ## Project Overview
 - **Name**: FLYQ Air
 - **Goal**: Professional website for the FLYQ Air programmable drone powered by ESP32-S2
