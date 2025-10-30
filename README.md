@@ -1,16 +1,21 @@
 # FLYQ Air - The Programmable Drone Website
 
 ## 📢 Latest Updates (2025-10-30)
+✅ **NEW: FLYQ Vision Page Added** 🎥
+   - Advanced drone with HD camera & gesture control
+   - AI-powered object tracking and recognition
+   - Real-time video streaming (720p @ 30fps)
+   - Computer vision features and autonomous navigation
+   - Accessible at `/vision` route
 ✅ **New Sections Added**:
    - **8-Week Curriculum**: Complete 30-session training program breakdown
    - **Partners Section**: Trusted by industry leaders and institutions
    - **Testimonials**: Real WhatsApp reviews from students and professors
    - **FAQ Section**: 10 comprehensive questions and answers
-✅ **Hero Image Updated**: New drone assembly photo (top view with red/black propellers)
+✅ **Hero Image Updated**: Transparent background for cleaner look
 ✅ **Gallery Images Updated**: Complete assembly and components kit photos
-✅ **YouTube Video Removed**: Video demo section removed from landing page
-✅ **Navigation Updated**: Added Curriculum and FAQ links to main menu
-✅ **GitHub Synced**: All changes committed and pushed
+✅ **Navigation Updated**: Added Vision, Curriculum, and FAQ links
+✅ **GitHub Synced**: All changes automatically pushed
 
 ## Project Overview
 - **Name**: FLYQ Air
@@ -130,3 +135,30 @@ npm run deploy
 - **Latest Backup**: https://page.gensparksite.com/project_backups/flyq_air_complete_website.tar.gz
 
 **Last Updated**: October 30, 2025
+## FLYQ Vision Page (/vision)
+✨ **NEW ADVANCED MODEL** - Camera & Gesture Control Drone
+
+### Key Features
+- **HD Camera Module**: 720p @ 30fps streaming with photo/video recording
+- **Gesture Control**: AI-powered hand gesture recognition for intuitive control
+- **Object Tracking**: Face detection, color-based tracking, multi-object recognition
+- **AI Processing**: Edge AI inference with TensorFlow Lite models
+- **Autonomous Navigation**: Waypoint navigation with obstacle detection
+- **Mobile App Control**: iOS & Android app with live camera feed
+
+### Technical Specifications
+- **Camera**: 1280x720 HD, 30 FPS, 120° FOV, WiFi streaming
+- **Processor**: ESP32-S3 Dual-Core 240MHz with AI accelerator
+- **Memory**: 8MB PSRAM for vision processing
+- **Connectivity**: WiFi 802.11 b/g/n, < 200ms latency
+- **Range**: 50 meters with real-time video
+
+### Use Cases
+1. **Education & Research**: Computer vision, AI, and robotics teaching
+2. **Content Creation**: Aerial footage with gesture control
+3. **Inspection & Monitoring**: Autonomous patrol and surveillance
+4. **Interactive Gaming**: Gesture-controlled games and competitions
+
+### Color Theme
+- Purple & Pink gradient accents (vs. Sky Blue for FLYQ Air)
+- Distinct visual identity for the advanced Vision model
