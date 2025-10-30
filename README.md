@@ -1,6 +1,11 @@
 # FLYQ Air - The Programmable Drone Website
 
 ## 📢 Latest Updates (2025-10-30)
+✅ **Camera Drone Added to FLYQ Air Gallery** 📸
+   - **Transparent Background**: Professional background removal applied
+   - **Gallery Position**: Replaces first card (Hero View) with camera drone
+   - **Cross-Product Showcase**: Vision-enabled model now visible on main page
+   - **Unified Presentation**: Same camera drone on both Air and Vision pages
 ✅ **FLYQ Vision Theme Update** 🎨
    - **Unified Design**: Changed from purple/pink to sky-blue theme (matching FLYQ Air)
    - **Camera Drone Image**: Updated hero with black body + red propellers
@@ -54,12 +59,17 @@
 ✅ Professional gradient designs and animations
 
 ## Gallery Updates (Latest - October 30, 2025)
-✅ **Removed YouTube video** as requested
-✅ **Updated gallery with new processed images**:
-  1. **Hero View** - Original drone with sleek black body and dual-color propellers
-  2. **FLYQ Drone** - Professional drone extracted from Corizo package (transparent background)
+✅ **Current FLYQ Air Gallery** (4 images):
+  1. **Camera Drone** - Vision-enabled model with transparent background (NEW!)
+  2. **Complete Assembly** - Fully assembled drone
   3. **Circuit Board** - ESP32-S2 PCB with propellers and motors digitally removed
-  4. **Parts Kit** - Complete components diagram with original background preserved (as requested)
+  4. **Components Kit** - Complete components diagram with original background
+
+✅ **Current FLYQ Vision Gallery** (4 images):
+  1. **Camera Drone** - Same as Air page, showcasing camera capabilities
+  2. **Complete Assembly** - Fully assembled drone
+  3. **Circuit Board** - ESP32-S2 PCB board
+  4. **Components Kit** - All parts included
 
 ### Image Processing Completed:
 - Extracted drone from Corizo box image
