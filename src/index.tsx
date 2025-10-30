@@ -940,7 +940,7 @@ void loop() {
 
                     <!-- Partner 2 -->
                     <div class="card-hover p-8 rounded-3xl text-center">
-                        <div class="w-20 h-20 bg-gradient-to-br from-purple-500 to-pink-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                        <div class="w-20 h-20 bg-gradient-to-br from-sky-500 to-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
                             <i class="fas fa-microchip text-white text-3xl"></i>
                         </div>
                         <h3 class="text-xl font-bold mb-2 text-sky-400">Espressif Systems</h3>
@@ -1004,7 +1004,7 @@ void loop() {
                     <!-- Testimonial 2 -->
                     <div class="card-hover p-8 rounded-3xl">
                         <div class="flex items-center mb-6">
-                            <div class="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-600 rounded-full flex items-center justify-center mr-4">
+                            <div class="w-16 h-16 bg-gradient-to-br from-sky-500 to-blue-600 rounded-full flex items-center justify-center mr-4">
                                 <i class="fab fa-whatsapp text-white text-2xl"></i>
                             </div>
                             <div>
@@ -1380,8 +1380,8 @@ app.get('/vision', (c) => {
             :root {
                 --midnight: #0F172A;
                 --silver: #E5E7EB;
-                --purple: #8B5CF6;
-                --pink: #EC4899;
+                --sky-blue: #0EA5E9;
+                --light-blue: #38BDF8;
                 --black: #000000;
                 --white: #FFFFFF;
             }
@@ -1409,14 +1409,14 @@ app.get('/vision', (c) => {
             }
 
             .gradient-text {
-                background: linear-gradient(135deg, var(--purple) 0%, var(--pink) 100%);
+                background: linear-gradient(135deg, #38BDF8 0%, #0EA5E9 50%, #0284C7 100%);
                 -webkit-background-clip: text;
                 -webkit-text-fill-color: transparent;
                 background-clip: text;
             }
 
             .hero-gradient {
-                background: linear-gradient(135deg, #000000 0%, #1e1b4b 50%, #000000 100%);
+                background: linear-gradient(135deg, #000000 0%, #0F172A 50%, #000000 100%);
                 position: relative;
             }
             
@@ -1428,32 +1428,32 @@ app.get('/vision', (c) => {
                 right: 0;
                 bottom: 0;
                 background: 
-                    radial-gradient(circle at 20% 50%, rgba(139, 92, 246, 0.15) 0%, transparent 50%),
-                    radial-gradient(circle at 80% 50%, rgba(236, 72, 153, 0.15) 0%, transparent 50%);
+                    radial-gradient(circle at 20% 50%, rgba(14, 165, 233, 0.1) 0%, transparent 50%),
+                    radial-gradient(circle at 80% 50%, rgba(56, 189, 248, 0.1) 0%, transparent 50%);
                 pointer-events: none;
             }
             
             .premium-glow {
-                text-shadow: 0 0 40px rgba(139, 92, 246, 0.6), 0 0 80px rgba(236, 72, 153, 0.3);
+                text-shadow: 0 0 40px rgba(14, 165, 233, 0.6), 0 0 80px rgba(56, 189, 248, 0.3);
             }
 
             .card-hover {
                 transition: all 0.3s ease;
-                border: 2px solid rgba(139, 92, 246, 0.2);
+                border: 2px solid rgba(14, 165, 233, 0.2);
                 background: linear-gradient(135deg, rgba(15, 23, 42, 0.9) 0%, rgba(0, 0, 0, 0.9) 100%);
             }
 
             .card-hover:hover {
                 transform: translateY(-8px);
-                box-shadow: 0 20px 40px rgba(139, 92, 246, 0.3);
-                border-color: rgba(139, 92, 246, 0.6);
+                box-shadow: 0 20px 40px rgba(14, 165, 233, 0.3);
+                border-color: rgba(14, 165, 233, 0.6);
             }
             
-            .pulse-purple {
-                animation: pulse-purple 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+            .pulse-blue {
+                animation: pulse-blue 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
             }
             
-            @keyframes pulse-purple {
+            @keyframes pulse-blue {
                 0%, 100% {
                     opacity: 1;
                 }
@@ -1472,13 +1472,13 @@ app.get('/vision', (c) => {
             }
             
             .btn-premium {
-                box-shadow: 0 0 30px rgba(139, 92, 246, 0.5);
+                box-shadow: 0 0 30px rgba(14, 165, 233, 0.5);
                 transition: all 0.3s ease;
-                background: linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%);
+                background: linear-gradient(135deg, #0EA5E9 0%, #38BDF8 100%);
             }
             
             .btn-premium:hover {
-                box-shadow: 0 0 50px rgba(139, 92, 246, 0.8), 0 0 80px rgba(236, 72, 153, 0.4);
+                box-shadow: 0 0 50px rgba(14, 165, 233, 0.8), 0 0 80px rgba(56, 189, 248, 0.4);
                 transform: translateY(-2px);
             }
 
@@ -1488,7 +1488,7 @@ app.get('/vision', (c) => {
 
             .section-divider {
                 height: 2px;
-                background: linear-gradient(90deg, transparent, #8B5CF6, #EC4899, transparent);
+                background: linear-gradient(90deg, transparent, #0EA5E9, transparent);
             }
             
             .metallic-border {
@@ -1499,41 +1499,41 @@ app.get('/vision', (c) => {
     </head>
     <body class="bg-black text-white">
         <!-- Navigation -->
-        <nav class="fixed w-full z-50 bg-midnight bg-opacity-95 backdrop-blur-md border-b border-purple-500 shadow-2xl" style="box-shadow: 0 4px 20px rgba(139, 92, 246, 0.2);">
+        <nav class="fixed w-full z-50 bg-midnight bg-opacity-95 backdrop-blur-md border-b border-sky-500 shadow-2xl" style="box-shadow: 0 4px 20px rgba(14, 165, 233, 0.2);">
             <div class="container mx-auto px-6 py-4">
                 <div class="flex items-center justify-between">
                     <div class="flex items-center space-x-3">
-                        <i class="fas fa-drone text-purple-500 text-3xl pulse-purple"></i>
+                        <i class="fas fa-drone text-sky-500 text-3xl pulse-blue"></i>
                         <span class="text-3xl font-black gradient-text" style="font-family: 'Rajdhani', sans-serif;">FLYQ Vision</span>
                     </div>
                     <div class="hidden md:flex space-x-6 text-sm font-bold uppercase tracking-wider">
-                        <a href="/" class="silver-text hover:text-purple-400 transition-colors flex items-center">
+                        <a href="/" class="silver-text hover:text-sky-400 transition-colors flex items-center">
                             <i class="fas fa-home mr-2"></i>FLYQ Air
                         </a>
-                        <a href="#features" class="silver-text hover:text-purple-400 transition-colors">Features</a>
-                        <a href="#curriculum" class="silver-text hover:text-purple-400 transition-colors">Curriculum</a>
-                        <a href="#faq" class="silver-text hover:text-purple-400 transition-colors">FAQ</a>
-                        <a href="/docs" class="silver-text hover:text-purple-400 transition-colors flex items-center">
+                        <a href="#features" class="silver-text hover:text-sky-400 transition-colors">Features</a>
+                        <a href="#curriculum" class="silver-text hover:text-sky-400 transition-colors">Curriculum</a>
+                        <a href="#faq" class="silver-text hover:text-sky-400 transition-colors">FAQ</a>
+                        <a href="/docs" class="silver-text hover:text-sky-400 transition-colors flex items-center">
                             <i class="fas fa-book mr-2"></i>Docs
                         </a>
-                        <a href="#buy" class="bg-gradient-to-r from-purple-500 to-pink-600 text-white px-6 py-2 rounded-full hover:shadow-lg transition-all font-black">Buy Now</a>
+                        <a href="#buy" class="bg-gradient-to-r from-sky-500 to-blue-600 text-white px-6 py-2 rounded-full hover:shadow-lg transition-all font-black">Buy Now</a>
                     </div>
-                    <button id="mobileMenuBtn" class="md:hidden text-purple-400 text-2xl">
+                    <button id="mobileMenuBtn" class="md:hidden text-sky-400 text-2xl">
                         <i class="fas fa-bars"></i>
                     </button>
                 </div>
                 <!-- Mobile Menu -->
                 <div id="mobileMenu" class="hidden md:hidden mt-6 space-y-4 pb-4">
-                    <a href="/" class="block silver-text hover:text-purple-400 transition-colors text-center py-2">
+                    <a href="/" class="block silver-text hover:text-sky-400 transition-colors text-center py-2">
                         <i class="fas fa-home mr-2"></i>FLYQ Air
                     </a>
-                    <a href="#features" class="block silver-text hover:text-purple-400 transition-colors text-center py-2">Features</a>
-                    <a href="#curriculum" class="block silver-text hover:text-purple-400 transition-colors text-center py-2">Curriculum</a>
-                    <a href="#faq" class="block silver-text hover:text-purple-400 transition-colors text-center py-2">FAQ</a>
-                    <a href="/docs" class="block silver-text hover:text-purple-400 transition-colors text-center py-2">
+                    <a href="#features" class="block silver-text hover:text-sky-400 transition-colors text-center py-2">Features</a>
+                    <a href="#curriculum" class="block silver-text hover:text-sky-400 transition-colors text-center py-2">Curriculum</a>
+                    <a href="#faq" class="block silver-text hover:text-sky-400 transition-colors text-center py-2">FAQ</a>
+                    <a href="/docs" class="block silver-text hover:text-sky-400 transition-colors text-center py-2">
                         <i class="fas fa-book mr-2"></i>Documentation
                     </a>
-                    <a href="#buy" class="block bg-gradient-to-r from-purple-500 to-pink-600 text-white px-6 py-3 rounded-full hover:shadow-lg transition-all text-center font-black">Buy Now</a>
+                    <a href="#buy" class="block bg-gradient-to-r from-sky-500 to-blue-600 text-white px-6 py-3 rounded-full hover:shadow-lg transition-all text-center font-black">Buy Now</a>
                 </div>
             </div>
         </nav>
@@ -1543,13 +1543,13 @@ app.get('/vision', (c) => {
             <div class="container mx-auto px-6">
                 <div class="grid lg:grid-cols-2 gap-12 items-center">
                     <div>
-                        <div class="inline-block bg-gradient-to-r from-purple-500 to-pink-600 text-white px-6 py-2 rounded-full text-sm font-bold mb-6">
+                        <div class="inline-block bg-gradient-to-r from-sky-500 to-blue-600 text-white px-6 py-2 rounded-full text-sm font-bold mb-6">
                             <i class="fas fa-sparkles mr-2"></i>NEW ADVANCED MODEL
                         </div>
                         <h1 class="text-6xl md:text-7xl font-black mb-6" style="font-family: 'Rajdhani', sans-serif;">
                             FLYQ <span class="gradient-text">Vision</span>
                         </h1>
-                        <p class="text-3xl font-bold mb-6 text-purple-400">
+                        <p class="text-3xl font-bold mb-6 text-sky-400">
                             See. Control. Fly.
                         </p>
                         <p class="text-xl silver-text mb-8 leading-relaxed">
@@ -1558,15 +1558,15 @@ app.get('/vision', (c) => {
                         </p>
                         
                         <div class="flex flex-wrap gap-4 mb-8">
-                            <div class="flex items-center space-x-3 bg-midnight px-6 py-3 rounded-full border-2 border-purple-500">
-                                <i class="fas fa-camera text-purple-400 text-2xl"></i>
+                            <div class="flex items-center space-x-3 bg-midnight px-6 py-3 rounded-full border-2 border-sky-500">
+                                <i class="fas fa-camera text-sky-400 text-2xl"></i>
                                 <div>
                                     <div class="font-bold">HD Camera</div>
                                     <div class="text-sm silver-text">720p Streaming</div>
                                 </div>
                             </div>
-                            <div class="flex items-center space-x-3 bg-midnight px-6 py-3 rounded-full border-2 border-pink-500">
-                                <i class="fas fa-hand-paper text-pink-400 text-2xl"></i>
+                            <div class="flex items-center space-x-3 bg-midnight px-6 py-3 rounded-full border-2 border-sky-500">
+                                <i class="fas fa-hand-paper text-sky-400 text-2xl"></i>
                                 <div>
                                     <div class="font-bold">Gesture Control</div>
                                     <div class="text-sm silver-text">AI Recognition</div>
@@ -1582,20 +1582,20 @@ app.get('/vision', (c) => {
                         </div>
 
                         <div class="flex gap-4">
-                            <a href="#features" class="bg-gradient-to-r from-purple-500 to-pink-600 text-white px-8 py-4 rounded-full font-bold text-lg hover:shadow-2xl transition-all">
+                            <a href="#features" class="bg-gradient-to-r from-sky-500 to-blue-600 text-white px-8 py-4 rounded-full font-bold text-lg hover:shadow-2xl transition-all">
                                 <i class="fas fa-rocket mr-2"></i>Explore Features
                             </a>
-                            <a href="#buy" class="border-2 border-purple-500 text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-purple-500 transition-all">
+                            <a href="#buy" class="border-2 border-sky-500 text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-sky-500 transition-all">
                                 <i class="fas fa-shopping-cart mr-2"></i>Order Now
                             </a>
                         </div>
                     </div>
 
                     <div class="relative">
-                        <div class="absolute inset-0 bg-purple-500 opacity-20 blur-3xl rounded-full"></div>
+                        <div class="absolute inset-0 bg-sky-500 opacity-15 blur-3xl rounded-full"></div>
                         <div class="relative z-10 float-animation">
-                            <img src="https://cdn1.genspark.ai/user-upload-image/rmbg_generated/0_435c9a66-800a-4537-80f8-cd513ea4bf15" 
-                                 alt="FLYQ Vision Drone" 
+                            <img src="https://page.gensparksite.com/v1/base64_upload/11be147c5dc3414d2e1a18a72699ad3c" 
+                                 alt="FLYQ Vision Camera Drone" 
                                  class="w-full h-auto drop-shadow-2xl">
                         </div>
                     </div>
@@ -1617,10 +1617,10 @@ app.get('/vision', (c) => {
                 <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                     <!-- Feature 1 -->
                     <div class="card-hover p-8 rounded-3xl">
-                        <div class="w-20 h-20 bg-gradient-to-br from-purple-500 to-pink-600 rounded-2xl flex items-center justify-center mb-6">
+                        <div class="w-20 h-20 bg-gradient-to-br from-sky-500 to-blue-600 rounded-2xl flex items-center justify-center mb-6">
                             <i class="fas fa-camera text-white text-3xl"></i>
                         </div>
-                        <h3 class="text-2xl font-bold mb-4 text-purple-400">HD Camera Module</h3>
+                        <h3 class="text-2xl font-bold mb-4 text-sky-400">HD Camera Module</h3>
                         <p class="silver-text mb-4">
                             720p camera with real-time video streaming over WiFi. Capture photos and videos 
                             while flying with adjustable quality settings.
@@ -1634,10 +1634,10 @@ app.get('/vision', (c) => {
 
                     <!-- Feature 2 -->
                     <div class="card-hover p-8 rounded-3xl">
-                        <div class="w-20 h-20 bg-gradient-to-br from-pink-500 to-red-600 rounded-2xl flex items-center justify-center mb-6">
+                        <div class="w-20 h-20 bg-gradient-to-br from-blue-500 to-red-600 rounded-2xl flex items-center justify-center mb-6">
                             <i class="fas fa-hand-paper text-white text-3xl"></i>
                         </div>
-                        <h3 class="text-2xl font-bold mb-4 text-pink-400">Gesture Control</h3>
+                        <h3 class="text-2xl font-bold mb-4 text-blue-400">Gesture Control</h3>
                         <p class="silver-text mb-4">
                             Control your drone with hand gestures! AI-powered recognition detects your hand 
                             movements for intuitive flight control.
@@ -1702,7 +1702,7 @@ app.get('/vision', (c) => {
 
                     <!-- Feature 6 -->
                     <div class="card-hover p-8 rounded-3xl">
-                        <div class="w-20 h-20 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-2xl flex items-center justify-center mb-6">
+                        <div class="w-20 h-20 bg-gradient-to-br from-indigo-500 to-sky-600 rounded-2xl flex items-center justify-center mb-6">
                             <i class="fas fa-mobile-alt text-white text-3xl"></i>
                         </div>
                         <h3 class="text-2xl font-bold mb-4 text-indigo-400">Mobile App Control</h3>
@@ -1732,7 +1732,7 @@ app.get('/vision', (c) => {
 
                 <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                     <div class="card-hover p-8 rounded-3xl">
-                        <h3 class="text-2xl font-bold mb-6 text-purple-400">
+                        <h3 class="text-2xl font-bold mb-6 text-sky-400">
                             <i class="fas fa-camera mr-3"></i>Camera
                         </h3>
                         <div class="space-y-3 silver-text">
@@ -1756,7 +1756,7 @@ app.get('/vision', (c) => {
                     </div>
 
                     <div class="card-hover p-8 rounded-3xl">
-                        <h3 class="text-2xl font-bold mb-6 text-pink-400">
+                        <h3 class="text-2xl font-bold mb-6 text-blue-400">
                             <i class="fas fa-microchip mr-3"></i>Processor
                         </h3>
                         <div class="space-y-3 silver-text">
@@ -1817,39 +1817,39 @@ app.get('/vision', (c) => {
                     <p class="text-xl silver-text">FLYQ Vision from every angle</p>
                 </div>
                 <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-                    <div class="bg-gradient-to-br from-gray-900 to-gray-800 overflow-hidden rounded-3xl border-4 border-purple-500 shadow-2xl p-6" style="box-shadow: 0 0 30px rgba(139, 92, 246, 0.3);">
-                        <img src="https://page.gensparksite.com/v1/base64_upload/11be147c5dc3414d2e1a18a72699ad3cadd" 
+                    <div class="bg-gradient-to-br from-gray-900 to-gray-800 overflow-hidden rounded-3xl border-4 border-sky-500 shadow-2xl p-6" style="box-shadow: 0 0 30px rgba(14, 165, 233, 0.3);">
+                        <img src="https://page.gensparksite.com/v1/base64_upload/11be147c5dc3414d2e1a18a72699ad3c" 
                              alt="FLYQ Vision - Camera Drone" 
                              class="w-full h-80 object-contain hover:scale-110 transition-transform duration-500">
                         <div class="mt-4 text-center">
-                            <h3 class="text-xl font-bold text-purple-400">Camera Drone</h3>
+                            <h3 class="text-xl font-bold text-sky-400">Camera Drone</h3>
                             <p class="text-sm silver-text">Vision-enabled flight</p>
                         </div>
                     </div>
-                    <div class="bg-gradient-to-br from-gray-900 to-gray-800 overflow-hidden rounded-3xl border-4 border-purple-500 shadow-2xl p-6" style="box-shadow: 0 0 30px rgba(139, 92, 246, 0.3);">
+                    <div class="bg-gradient-to-br from-gray-900 to-gray-800 overflow-hidden rounded-3xl border-4 border-sky-500 shadow-2xl p-6" style="box-shadow: 0 0 30px rgba(14, 165, 233, 0.3);">
                         <img src="https://page.gensparksite.com/v1/base64_upload/e412797020c76e97bdf09d5aa6af13eb" 
                              alt="FLYQ Vision - Complete Assembly" 
                              class="w-full h-80 object-contain hover:scale-110 transition-transform duration-500">
                         <div class="mt-4 text-center">
-                            <h3 class="text-xl font-bold text-purple-400">Complete Assembly</h3>
+                            <h3 class="text-xl font-bold text-sky-400">Complete Assembly</h3>
                             <p class="text-sm silver-text">Fully assembled drone</p>
                         </div>
                     </div>
-                    <div class="bg-gradient-to-br from-gray-900 to-gray-800 overflow-hidden rounded-3xl border-4 border-purple-500 shadow-2xl p-6" style="box-shadow: 0 0 30px rgba(139, 92, 246, 0.3);">
+                    <div class="bg-gradient-to-br from-gray-900 to-gray-800 overflow-hidden rounded-3xl border-4 border-sky-500 shadow-2xl p-6" style="box-shadow: 0 0 30px rgba(14, 165, 233, 0.3);">
                         <img src="https://cdn1.genspark.ai/user-upload-image/gpt_image_edited/fa96ac19-c475-4ebb-97cf-51b21deb187d.png" 
                              alt="Circuit Board" 
                              class="w-full h-80 object-contain hover:scale-110 transition-transform duration-500">
                         <div class="mt-4 text-center">
-                            <h3 class="text-xl font-bold text-purple-400">Circuit Board</h3>
+                            <h3 class="text-xl font-bold text-sky-400">Circuit Board</h3>
                             <p class="text-sm silver-text">ESP32-S3 PCB</p>
                         </div>
                     </div>
-                    <div class="bg-gradient-to-br from-gray-900 to-gray-800 overflow-hidden rounded-3xl border-4 border-purple-500 shadow-2xl p-6" style="box-shadow: 0 0 30px rgba(139, 92, 246, 0.3);">
+                    <div class="bg-gradient-to-br from-gray-900 to-gray-800 overflow-hidden rounded-3xl border-4 border-sky-500 shadow-2xl p-6" style="box-shadow: 0 0 30px rgba(14, 165, 233, 0.3);">
                         <img src="https://page.gensparksite.com/v1/base64_upload/7cf111fa8837a58342db2d9bc542a114" 
                              alt="FLYQ Vision - All Components" 
                              class="w-full h-80 object-contain hover:scale-110 transition-transform duration-500">
                         <div class="mt-4 text-center">
-                            <h3 class="text-xl font-bold text-purple-400">Components Kit</h3>
+                            <h3 class="text-xl font-bold text-sky-400">Components Kit</h3>
                             <p class="text-sm silver-text">All parts included</p>
                         </div>
                     </div>
@@ -1872,29 +1872,29 @@ app.get('/vision', (c) => {
                     <!-- Week 1 -->
                     <div class="card-hover p-8 rounded-3xl">
                         <div class="flex items-center mb-6">
-                            <div class="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-600 rounded-2xl flex items-center justify-center mr-4">
+                            <div class="w-16 h-16 bg-gradient-to-br from-sky-500 to-blue-600 rounded-2xl flex items-center justify-center mr-4">
                                 <span class="text-2xl font-black text-white">1</span>
                             </div>
                             <div>
-                                <h3 class="text-2xl font-black text-purple-400">Week 1</h3>
+                                <h3 class="text-2xl font-black text-sky-400">Week 1</h3>
                                 <p class="silver-text">Introduction & Platform Setup</p>
                             </div>
                         </div>
                         <ul class="space-y-3 silver-text">
                             <li class="flex items-start">
-                                <i class="fas fa-check-circle text-purple-400 mt-1 mr-3"></i>
+                                <i class="fas fa-check-circle text-sky-400 mt-1 mr-3"></i>
                                 <span><strong>Session 1:</strong> Course kickoff, FLYQ Vision overview & camera features</span>
                             </li>
                             <li class="flex items-start">
-                                <i class="fas fa-check-circle text-purple-400 mt-1 mr-3"></i>
+                                <i class="fas fa-check-circle text-sky-400 mt-1 mr-3"></i>
                                 <span><strong>Session 2:</strong> Hardware overview: PCB, ESP32-S3, camera module</span>
                             </li>
                             <li class="flex items-start">
-                                <i class="fas fa-check-circle text-purple-400 mt-1 mr-3"></i>
+                                <i class="fas fa-check-circle text-sky-400 mt-1 mr-3"></i>
                                 <span><strong>Session 3:</strong> Circuit schematics & vision system</span>
                             </li>
                             <li class="flex items-start">
-                                <i class="fas fa-check-circle text-purple-400 mt-1 mr-3"></i>
+                                <i class="fas fa-check-circle text-sky-400 mt-1 mr-3"></i>
                                 <span><strong>Session 4:</strong> Hands-on: Unboxing & component identification</span>
                             </li>
                         </ul>
@@ -1903,29 +1903,29 @@ app.get('/vision', (c) => {
                     <!-- Week 2 -->
                     <div class="card-hover p-8 rounded-3xl">
                         <div class="flex items-center mb-6">
-                            <div class="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-600 rounded-2xl flex items-center justify-center mr-4">
+                            <div class="w-16 h-16 bg-gradient-to-br from-sky-500 to-blue-600 rounded-2xl flex items-center justify-center mr-4">
                                 <span class="text-2xl font-black text-white">2</span>
                             </div>
                             <div>
-                                <h3 class="text-2xl font-black text-purple-400">Week 2</h3>
+                                <h3 class="text-2xl font-black text-sky-400">Week 2</h3>
                                 <p class="silver-text">Camera & Vision Systems</p>
                             </div>
                         </div>
                         <ul class="space-y-3 silver-text">
                             <li class="flex items-start">
-                                <i class="fas fa-check-circle text-purple-400 mt-1 mr-3"></i>
+                                <i class="fas fa-check-circle text-sky-400 mt-1 mr-3"></i>
                                 <span><strong>Session 5:</strong> Camera module setup & configuration</span>
                             </li>
                             <li class="flex items-start">
-                                <i class="fas fa-check-circle text-purple-400 mt-1 mr-3"></i>
+                                <i class="fas fa-check-circle text-sky-400 mt-1 mr-3"></i>
                                 <span><strong>Session 6:</strong> Video streaming & image processing basics</span>
                             </li>
                             <li class="flex items-start">
-                                <i class="fas fa-check-circle text-purple-400 mt-1 mr-3"></i>
+                                <i class="fas fa-check-circle text-sky-400 mt-1 mr-3"></i>
                                 <span><strong>Session 7:</strong> IMU (MPU6050) and motion sensing</span>
                             </li>
                             <li class="flex items-start">
-                                <i class="fas fa-check-circle text-purple-400 mt-1 mr-3"></i>
+                                <i class="fas fa-check-circle text-sky-400 mt-1 mr-3"></i>
                                 <span><strong>Session 8:</strong> Hands-on: Soldering & assembly</span>
                             </li>
                         </ul>
@@ -1934,29 +1934,29 @@ app.get('/vision', (c) => {
                     <!-- Week 3 -->
                     <div class="card-hover p-8 rounded-3xl">
                         <div class="flex items-center mb-6">
-                            <div class="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-600 rounded-2xl flex items-center justify-center mr-4">
+                            <div class="w-16 h-16 bg-gradient-to-br from-sky-500 to-blue-600 rounded-2xl flex items-center justify-center mr-4">
                                 <span class="text-2xl font-black text-white">3</span>
                             </div>
                             <div>
-                                <h3 class="text-2xl font-black text-purple-400">Week 3</h3>
+                                <h3 class="text-2xl font-black text-sky-400">Week 3</h3>
                                 <p class="silver-text">Computer Vision Basics</p>
                             </div>
                         </div>
                         <ul class="space-y-3 silver-text">
                             <li class="flex items-start">
-                                <i class="fas fa-check-circle text-purple-400 mt-1 mr-3"></i>
+                                <i class="fas fa-check-circle text-sky-400 mt-1 mr-3"></i>
                                 <span><strong>Session 9:</strong> Image processing fundamentals</span>
                             </li>
                             <li class="flex items-start">
-                                <i class="fas fa-check-circle text-purple-400 mt-1 mr-3"></i>
+                                <i class="fas fa-check-circle text-sky-400 mt-1 mr-3"></i>
                                 <span><strong>Session 10:</strong> Object detection algorithms</span>
                             </li>
                             <li class="flex items-start">
-                                <i class="fas fa-check-circle text-purple-400 mt-1 mr-3"></i>
+                                <i class="fas fa-check-circle text-sky-400 mt-1 mr-3"></i>
                                 <span><strong>Session 11:</strong> Color tracking & face detection</span>
                             </li>
                             <li class="flex items-start">
-                                <i class="fas fa-check-circle text-purple-400 mt-1 mr-3"></i>
+                                <i class="fas fa-check-circle text-sky-400 mt-1 mr-3"></i>
                                 <span><strong>Session 12:</strong> Live demo: Camera streaming test</span>
                             </li>
                         </ul>
@@ -1965,29 +1965,29 @@ app.get('/vision', (c) => {
                     <!-- Week 4 -->
                     <div class="card-hover p-8 rounded-3xl">
                         <div class="flex items-center mb-6">
-                            <div class="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-600 rounded-2xl flex items-center justify-center mr-4">
+                            <div class="w-16 h-16 bg-gradient-to-br from-sky-500 to-blue-600 rounded-2xl flex items-center justify-center mr-4">
                                 <span class="text-2xl font-black text-white">4</span>
                             </div>
                             <div>
-                                <h3 class="text-2xl font-black text-purple-400">Week 4</h3>
+                                <h3 class="text-2xl font-black text-sky-400">Week 4</h3>
                                 <p class="silver-text">Gesture Recognition</p>
                             </div>
                         </div>
                         <ul class="space-y-3 silver-text">
                             <li class="flex items-start">
-                                <i class="fas fa-check-circle text-purple-400 mt-1 mr-3"></i>
+                                <i class="fas fa-check-circle text-sky-400 mt-1 mr-3"></i>
                                 <span><strong>Session 13:</strong> Hand detection & tracking</span>
                             </li>
                             <li class="flex items-start">
-                                <i class="fas fa-check-circle text-purple-400 mt-1 mr-3"></i>
+                                <i class="fas fa-check-circle text-sky-400 mt-1 mr-3"></i>
                                 <span><strong>Session 14:</strong> Gesture recognition algorithms</span>
                             </li>
                             <li class="flex items-start">
-                                <i class="fas fa-check-circle text-purple-400 mt-1 mr-3"></i>
+                                <i class="fas fa-check-circle text-sky-400 mt-1 mr-3"></i>
                                 <span><strong>Session 15:</strong> Mapping gestures to drone control</span>
                             </li>
                             <li class="flex items-start">
-                                <i class="fas fa-check-circle text-purple-400 mt-1 mr-3"></i>
+                                <i class="fas fa-check-circle text-sky-400 mt-1 mr-3"></i>
                                 <span><strong>Session 16:</strong> First gesture-controlled flight</span>
                             </li>
                         </ul>
@@ -1996,29 +1996,29 @@ app.get('/vision', (c) => {
                     <!-- Week 5 -->
                     <div class="card-hover p-8 rounded-3xl">
                         <div class="flex items-center mb-6">
-                            <div class="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-600 rounded-2xl flex items-center justify-center mr-4">
+                            <div class="w-16 h-16 bg-gradient-to-br from-sky-500 to-blue-600 rounded-2xl flex items-center justify-center mr-4">
                                 <span class="text-2xl font-black text-white">5</span>
                             </div>
                             <div>
-                                <h3 class="text-2xl font-black text-purple-400">Week 5</h3>
+                                <h3 class="text-2xl font-black text-sky-400">Week 5</h3>
                                 <p class="silver-text">AI & Machine Learning</p>
                             </div>
                         </div>
                         <ul class="space-y-3 silver-text">
                             <li class="flex items-start">
-                                <i class="fas fa-check-circle text-purple-400 mt-1 mr-3"></i>
+                                <i class="fas fa-check-circle text-sky-400 mt-1 mr-3"></i>
                                 <span><strong>Session 17:</strong> Introduction to TensorFlow Lite</span>
                             </li>
                             <li class="flex items-start">
-                                <i class="fas fa-check-circle text-purple-400 mt-1 mr-3"></i>
+                                <i class="fas fa-check-circle text-sky-400 mt-1 mr-3"></i>
                                 <span><strong>Session 18:</strong> Edge AI processing on ESP32-S3</span>
                             </li>
                             <li class="flex items-start">
-                                <i class="fas fa-check-circle text-purple-400 mt-1 mr-3"></i>
+                                <i class="fas fa-check-circle text-sky-400 mt-1 mr-3"></i>
                                 <span><strong>Session 19:</strong> Custom ML model training</span>
                             </li>
                             <li class="flex items-start">
-                                <i class="fas fa-check-circle text-purple-400 mt-1 mr-3"></i>
+                                <i class="fas fa-check-circle text-sky-400 mt-1 mr-3"></i>
                                 <span><strong>Session 20:</strong> Hands-on: Deploy ML models</span>
                             </li>
                         </ul>
@@ -2027,29 +2027,29 @@ app.get('/vision', (c) => {
                     <!-- Week 6 -->
                     <div class="card-hover p-8 rounded-3xl">
                         <div class="flex items-center mb-6">
-                            <div class="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-600 rounded-2xl flex items-center justify-center mr-4">
+                            <div class="w-16 h-16 bg-gradient-to-br from-sky-500 to-blue-600 rounded-2xl flex items-center justify-center mr-4">
                                 <span class="text-2xl font-black text-white">6</span>
                             </div>
                             <div>
-                                <h3 class="text-2xl font-black text-purple-400">Week 6</h3>
+                                <h3 class="text-2xl font-black text-sky-400">Week 6</h3>
                                 <p class="silver-text">Autonomous Flight with Vision</p>
                             </div>
                         </div>
                         <ul class="space-y-3 silver-text">
                             <li class="flex items-start">
-                                <i class="fas fa-check-circle text-purple-400 mt-1 mr-3"></i>
+                                <i class="fas fa-check-circle text-sky-400 mt-1 mr-3"></i>
                                 <span><strong>Session 21:</strong> Vision-guided navigation</span>
                             </li>
                             <li class="flex items-start">
-                                <i class="fas fa-check-circle text-purple-400 mt-1 mr-3"></i>
+                                <i class="fas fa-check-circle text-sky-400 mt-1 mr-3"></i>
                                 <span><strong>Session 22:</strong> Object tracking & following</span>
                             </li>
                             <li class="flex items-start">
-                                <i class="fas fa-check-circle text-purple-400 mt-1 mr-3"></i>
+                                <i class="fas fa-check-circle text-sky-400 mt-1 mr-3"></i>
                                 <span><strong>Session 23:</strong> Obstacle avoidance with camera</span>
                             </li>
                             <li class="flex items-start">
-                                <i class="fas fa-check-circle text-purple-400 mt-1 mr-3"></i>
+                                <i class="fas fa-check-circle text-sky-400 mt-1 mr-3"></i>
                                 <span><strong>Session 24:</strong> Live demo: Autonomous tracking</span>
                             </li>
                         </ul>
@@ -2058,29 +2058,29 @@ app.get('/vision', (c) => {
                     <!-- Week 7 -->
                     <div class="card-hover p-8 rounded-3xl">
                         <div class="flex items-center mb-6">
-                            <div class="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-600 rounded-2xl flex items-center justify-center mr-4">
+                            <div class="w-16 h-16 bg-gradient-to-br from-sky-500 to-blue-600 rounded-2xl flex items-center justify-center mr-4">
                                 <span class="text-2xl font-black text-white">7</span>
                             </div>
                             <div>
-                                <h3 class="text-2xl font-black text-purple-400">Week 7</h3>
+                                <h3 class="text-2xl font-black text-sky-400">Week 7</h3>
                                 <p class="silver-text">Mobile App Development</p>
                             </div>
                         </div>
                         <ul class="space-y-3 silver-text">
                             <li class="flex items-start">
-                                <i class="fas fa-check-circle text-purple-400 mt-1 mr-3"></i>
+                                <i class="fas fa-check-circle text-sky-400 mt-1 mr-3"></i>
                                 <span><strong>Session 25:</strong> Mobile app architecture</span>
                             </li>
                             <li class="flex items-start">
-                                <i class="fas fa-check-circle text-purple-400 mt-1 mr-3"></i>
+                                <i class="fas fa-check-circle text-sky-400 mt-1 mr-3"></i>
                                 <span><strong>Session 26:</strong> Live video feed integration</span>
                             </li>
                             <li class="flex items-start">
-                                <i class="fas fa-check-circle text-purple-400 mt-1 mr-3"></i>
+                                <i class="fas fa-check-circle text-sky-400 mt-1 mr-3"></i>
                                 <span><strong>Session 27:</strong> Gesture control UI/UX</span>
                             </li>
                             <li class="flex items-start">
-                                <i class="fas fa-check-circle text-purple-400 mt-1 mr-3"></i>
+                                <i class="fas fa-check-circle text-sky-400 mt-1 mr-3"></i>
                                 <span><strong>Session 28:</strong> Workshop: Custom app features</span>
                             </li>
                         </ul>
@@ -2089,21 +2089,21 @@ app.get('/vision', (c) => {
                     <!-- Week 8 -->
                     <div class="card-hover p-8 rounded-3xl">
                         <div class="flex items-center mb-6">
-                            <div class="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-600 rounded-2xl flex items-center justify-center mr-4">
+                            <div class="w-16 h-16 bg-gradient-to-br from-sky-500 to-blue-600 rounded-2xl flex items-center justify-center mr-4">
                                 <span class="text-2xl font-black text-white">8</span>
                             </div>
                             <div>
-                                <h3 class="text-2xl font-black text-purple-400">Week 8</h3>
+                                <h3 class="text-2xl font-black text-sky-400">Week 8</h3>
                                 <p class="silver-text">Vision Projects & Wrap-Up</p>
                             </div>
                         </div>
                         <ul class="space-y-3 silver-text">
                             <li class="flex items-start">
-                                <i class="fas fa-check-circle text-purple-400 mt-1 mr-3"></i>
+                                <i class="fas fa-check-circle text-sky-400 mt-1 mr-3"></i>
                                 <span><strong>Session 29:</strong> Final vision project execution</span>
                             </li>
                             <li class="flex items-start">
-                                <i class="fas fa-check-circle text-purple-400 mt-1 mr-3"></i>
+                                <i class="fas fa-check-circle text-sky-400 mt-1 mr-3"></i>
                                 <span><strong>Session 30:</strong> Project presentations & review</span>
                             </li>
                             <li class="flex items-start">
@@ -2119,20 +2119,20 @@ app.get('/vision', (c) => {
                 </div>
 
                 <div class="mt-16 text-center">
-                    <div class="inline-block bg-gradient-to-r from-purple-500 to-pink-600 p-1 rounded-3xl">
+                    <div class="inline-block bg-gradient-to-r from-sky-500 to-blue-600 p-1 rounded-3xl">
                         <div class="bg-black px-12 py-8 rounded-3xl">
-                            <h3 class="text-3xl font-black text-purple-400 mb-4">Course Highlights</h3>
+                            <h3 class="text-3xl font-black text-sky-400 mb-4">Course Highlights</h3>
                             <div class="grid md:grid-cols-3 gap-8 text-left">
                                 <div>
-                                    <i class="fas fa-clock text-purple-400 text-2xl mb-2"></i>
+                                    <i class="fas fa-clock text-sky-400 text-2xl mb-2"></i>
                                     <p class="silver-text"><strong class="text-white">30 Sessions</strong><br>8 weeks of intensive training</p>
                                 </div>
                                 <div>
-                                    <i class="fas fa-hands-helping text-purple-400 text-2xl mb-2"></i>
+                                    <i class="fas fa-hands-helping text-sky-400 text-2xl mb-2"></i>
                                     <p class="silver-text"><strong class="text-white">Hands-on Labs</strong><br>Build & fly with camera</p>
                                 </div>
                                 <div>
-                                    <i class="fas fa-certificate text-purple-400 text-2xl mb-2"></i>
+                                    <i class="fas fa-certificate text-sky-400 text-2xl mb-2"></i>
                                     <p class="silver-text"><strong class="text-white">Certification</strong><br>Vision specialist certificate</p>
                                 </div>
                             </div>
@@ -2156,19 +2156,19 @@ app.get('/vision', (c) => {
                 <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
                     <!-- Partner 1 -->
                     <div class="card-hover p-8 rounded-3xl text-center">
-                        <div class="w-20 h-20 bg-gradient-to-br from-purple-500 to-pink-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                        <div class="w-20 h-20 bg-gradient-to-br from-sky-500 to-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
                             <i class="fas fa-store text-white text-3xl"></i>
                         </div>
-                        <h3 class="text-xl font-bold mb-2 text-purple-400">Passion 3D World</h3>
+                        <h3 class="text-xl font-bold mb-2 text-sky-400">Passion 3D World</h3>
                         <p class="text-sm silver-text">Official Authorized Dealer</p>
                     </div>
 
                     <!-- Partner 2 -->
                     <div class="card-hover p-8 rounded-3xl text-center">
-                        <div class="w-20 h-20 bg-gradient-to-br from-pink-500 to-red-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                        <div class="w-20 h-20 bg-gradient-to-br from-blue-500 to-red-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
                             <i class="fas fa-microchip text-white text-3xl"></i>
                         </div>
-                        <h3 class="text-xl font-bold mb-2 text-purple-400">Espressif Systems</h3>
+                        <h3 class="text-xl font-bold mb-2 text-sky-400">Espressif Systems</h3>
                         <p class="text-sm silver-text">ESP32-S3 Technology Partner</p>
                     </div>
 
@@ -2177,7 +2177,7 @@ app.get('/vision', (c) => {
                         <div class="w-20 h-20 bg-gradient-to-br from-green-500 to-teal-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
                             <i class="fas fa-graduation-cap text-white text-3xl"></i>
                         </div>
-                        <h3 class="text-xl font-bold mb-2 text-purple-400">Educational Institutions</h3>
+                        <h3 class="text-xl font-bold mb-2 text-sky-400">Educational Institutions</h3>
                         <p class="text-sm silver-text">Universities & Colleges Worldwide</p>
                     </div>
 
@@ -2186,7 +2186,7 @@ app.get('/vision', (c) => {
                         <div class="w-20 h-20 bg-gradient-to-br from-orange-500 to-red-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
                             <i class="fas fa-code text-white text-3xl"></i>
                         </div>
-                        <h3 class="text-xl font-bold mb-2 text-purple-400">Open Source Community</h3>
+                        <h3 class="text-xl font-bold mb-2 text-sky-400">Open Source Community</h3>
                         <p class="text-sm silver-text">Computer Vision Projects</p>
                     </div>
                 </div>
@@ -2208,11 +2208,11 @@ app.get('/vision', (c) => {
                     <!-- Testimonial 1 -->
                     <div class="card-hover p-8 rounded-3xl">
                         <div class="flex items-center mb-6">
-                            <div class="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-600 rounded-full flex items-center justify-center mr-4">
+                            <div class="w-16 h-16 bg-gradient-to-br from-sky-500 to-blue-600 rounded-full flex items-center justify-center mr-4">
                                 <i class="fab fa-whatsapp text-white text-2xl"></i>
                             </div>
                             <div>
-                                <h4 class="font-bold text-purple-400">Ananya Singh</h4>
+                                <h4 class="font-bold text-sky-400">Ananya Singh</h4>
                                 <p class="text-sm silver-text">Computer Vision Engineer</p>
                                 <div class="flex text-yellow-400 text-sm mt-1">
                                     <i class="fas fa-star"></i>
@@ -2229,11 +2229,11 @@ app.get('/vision', (c) => {
                     <!-- Testimonial 2 -->
                     <div class="card-hover p-8 rounded-3xl">
                         <div class="flex items-center mb-6">
-                            <div class="w-16 h-16 bg-gradient-to-br from-pink-500 to-red-600 rounded-full flex items-center justify-center mr-4">
+                            <div class="w-16 h-16 bg-gradient-to-br from-blue-500 to-red-600 rounded-full flex items-center justify-center mr-4">
                                 <i class="fab fa-whatsapp text-white text-2xl"></i>
                             </div>
                             <div>
-                                <h4 class="font-bold text-purple-400">Karan Mehta</h4>
+                                <h4 class="font-bold text-sky-400">Karan Mehta</h4>
                                 <p class="text-sm silver-text">Content Creator</p>
                                 <div class="flex text-yellow-400 text-sm mt-1">
                                     <i class="fas fa-star"></i>
@@ -2254,7 +2254,7 @@ app.get('/vision', (c) => {
                                 <i class="fab fa-whatsapp text-white text-2xl"></i>
                             </div>
                             <div>
-                                <h4 class="font-bold text-purple-400">Dr. Priya Sharma</h4>
+                                <h4 class="font-bold text-sky-400">Dr. Priya Sharma</h4>
                                 <p class="text-sm silver-text">AI Researcher</p>
                                 <div class="flex text-yellow-400 text-sm mt-1">
                                     <i class="fas fa-star"></i>
@@ -2275,7 +2275,7 @@ app.get('/vision', (c) => {
                                 <i class="fab fa-whatsapp text-white text-2xl"></i>
                             </div>
                             <div>
-                                <h4 class="font-bold text-purple-400">Vikram Patel</h4>
+                                <h4 class="font-bold text-sky-400">Vikram Patel</h4>
                                 <p class="text-sm silver-text">Robotics Enthusiast</p>
                                 <div class="flex text-yellow-400 text-sm mt-1">
                                     <i class="fas fa-star"></i>
@@ -2296,7 +2296,7 @@ app.get('/vision', (c) => {
                                 <i class="fab fa-whatsapp text-white text-2xl"></i>
                             </div>
                             <div>
-                                <h4 class="font-bold text-purple-400">Neha Gupta</h4>
+                                <h4 class="font-bold text-sky-400">Neha Gupta</h4>
                                 <p class="text-sm silver-text">Engineering Student</p>
                                 <div class="flex text-yellow-400 text-sm mt-1">
                                     <i class="fas fa-star"></i>
@@ -2317,7 +2317,7 @@ app.get('/vision', (c) => {
                                 <i class="fab fa-whatsapp text-white text-2xl"></i>
                             </div>
                             <div>
-                                <h4 class="font-bold text-purple-400">Arjun Rao</h4>
+                                <h4 class="font-bold text-sky-400">Arjun Rao</h4>
                                 <p class="text-sm silver-text">Maker & Tinkerer</p>
                                 <div class="flex text-yellow-400 text-sm mt-1">
                                     <i class="fas fa-star"></i>
@@ -2355,7 +2355,7 @@ app.get('/vision', (c) => {
                 <div class="space-y-4">
                     <!-- FAQ 1 -->
                     <div class="card-hover p-6 rounded-2xl">
-                        <h3 class="text-xl font-bold text-purple-400 mb-3 flex items-center">
+                        <h3 class="text-xl font-bold text-sky-400 mb-3 flex items-center">
                             <i class="fas fa-question-circle mr-3"></i>
                             What makes FLYQ Vision different from FLYQ Air?
                         </h3>
@@ -2364,7 +2364,7 @@ app.get('/vision', (c) => {
 
                     <!-- FAQ 2 -->
                     <div class="card-hover p-6 rounded-2xl">
-                        <h3 class="text-xl font-bold text-purple-400 mb-3 flex items-center">
+                        <h3 class="text-xl font-bold text-sky-400 mb-3 flex items-center">
                             <i class="fas fa-question-circle mr-3"></i>
                             How does gesture control work?
                         </h3>
@@ -2373,7 +2373,7 @@ app.get('/vision', (c) => {
 
                     <!-- FAQ 3 -->
                     <div class="card-hover p-6 rounded-2xl">
-                        <h3 class="text-xl font-bold text-purple-400 mb-3 flex items-center">
+                        <h3 class="text-xl font-bold text-sky-400 mb-3 flex items-center">
                             <i class="fas fa-question-circle mr-3"></i>
                             What is the camera quality and latency?
                         </h3>
@@ -2382,7 +2382,7 @@ app.get('/vision', (c) => {
 
                     <!-- FAQ 4 -->
                     <div class="card-hover p-6 rounded-2xl">
-                        <h3 class="text-xl font-bold text-purple-400 mb-3 flex items-center">
+                        <h3 class="text-xl font-bold text-sky-400 mb-3 flex items-center">
                             <i class="fas fa-question-circle mr-3"></i>
                             Can I deploy custom ML models?
                         </h3>
@@ -2391,7 +2391,7 @@ app.get('/vision', (c) => {
 
                     <!-- FAQ 5 -->
                     <div class="card-hover p-6 rounded-2xl">
-                        <h3 class="text-xl font-bold text-purple-400 mb-3 flex items-center">
+                        <h3 class="text-xl font-bold text-sky-400 mb-3 flex items-center">
                             <i class="fas fa-question-circle mr-3"></i>
                             What object tracking features are included?
                         </h3>
@@ -2400,7 +2400,7 @@ app.get('/vision', (c) => {
 
                     <!-- FAQ 6 -->
                     <div class="card-hover p-6 rounded-2xl">
-                        <h3 class="text-xl font-bold text-purple-400 mb-3 flex items-center">
+                        <h3 class="text-xl font-bold text-sky-400 mb-3 flex items-center">
                             <i class="fas fa-question-circle mr-3"></i>
                             Is there a mobile app?
                         </h3>
@@ -2409,7 +2409,7 @@ app.get('/vision', (c) => {
 
                     <!-- FAQ 7 -->
                     <div class="card-hover p-6 rounded-2xl">
-                        <h3 class="text-xl font-bold text-purple-400 mb-3 flex items-center">
+                        <h3 class="text-xl font-bold text-sky-400 mb-3 flex items-center">
                             <i class="fas fa-question-circle mr-3"></i>
                             What is the processing power for vision tasks?
                         </h3>
@@ -2418,7 +2418,7 @@ app.get('/vision', (c) => {
 
                     <!-- FAQ 8 -->
                     <div class="card-hover p-6 rounded-2xl">
-                        <h3 class="text-xl font-bold text-purple-400 mb-3 flex items-center">
+                        <h3 class="text-xl font-bold text-sky-400 mb-3 flex items-center">
                             <i class="fas fa-question-circle mr-3"></i>
                             Do I need prior computer vision experience?
                         </h3>
@@ -2427,7 +2427,7 @@ app.get('/vision', (c) => {
 
                     <!-- FAQ 9 -->
                     <div class="card-hover p-6 rounded-2xl">
-                        <h3 class="text-xl font-bold text-purple-400 mb-3 flex items-center">
+                        <h3 class="text-xl font-bold text-sky-400 mb-3 flex items-center">
                             <i class="fas fa-question-circle mr-3"></i>
                             Is FLYQ Vision open source?
                         </h3>
@@ -2436,11 +2436,11 @@ app.get('/vision', (c) => {
 
                     <!-- FAQ 10 -->
                     <div class="card-hover p-6 rounded-2xl">
-                        <h3 class="text-xl font-bold text-purple-400 mb-3 flex items-center">
+                        <h3 class="text-xl font-bold text-sky-400 mb-3 flex items-center">
                             <i class="fas fa-question-circle mr-3"></i>
                             Where can I purchase FLYQ Vision?
                         </h3>
-                        <p class="silver-text ml-9">FLYQ Vision is available exclusively through our official partner <strong class="text-purple-400">Passion 3D World</strong>. Visit <a href="https://passion3dworld.com" class="text-purple-400 underline" target="_blank">passion3dworld.com</a> to order today!</p>
+                        <p class="silver-text ml-9">FLYQ Vision is available exclusively through our official partner <strong class="text-sky-400">Passion 3D World</strong>. Visit <a href="https://passion3dworld.com" class="text-sky-400 underline" target="_blank">passion3dworld.com</a> to order today!</p>
                     </div>
                 </div>
             </div>
@@ -2449,8 +2449,8 @@ app.get('/vision', (c) => {
         <!-- CTA / Buy Section -->
         <section id="buy" class="py-24 px-6 bg-black relative overflow-hidden">
             <div class="absolute inset-0 opacity-10">
-                <div class="absolute top-0 left-0 w-96 h-96 bg-purple-500 rounded-full blur-3xl"></div>
-                <div class="absolute bottom-0 right-0 w-96 h-96 bg-pink-600 rounded-full blur-3xl"></div>
+                <div class="absolute top-0 left-0 w-96 h-96 bg-sky-500 rounded-full blur-3xl"></div>
+                <div class="absolute bottom-0 right-0 w-96 h-96 bg-blue-600 rounded-full blur-3xl"></div>
             </div>
             
             <div class="container mx-auto text-center relative z-10">
@@ -2466,11 +2466,11 @@ app.get('/vision', (c) => {
                 <!-- Main Store CTA -->
                 <div class="max-w-2xl mx-auto mb-16">
                     <a href="https://passion3dworld.com" target="_blank" 
-                       class="block bg-gradient-to-br from-purple-500 to-pink-600 text-white p-12 rounded-3xl hover:shadow-2xl transition-all transform hover:scale-105 border-4 border-purple-500" style="box-shadow: 0 0 60px rgba(139, 92, 246, 0.4);">
+                       class="block bg-gradient-to-br from-sky-500 to-blue-600 text-white p-12 rounded-3xl hover:shadow-2xl transition-all transform hover:scale-105 border-4 border-sky-500" style="box-shadow: 0 0 60px rgba(14, 165, 233, 0.4);">
                         <i class="fas fa-store text-6xl mb-6"></i>
                         <h3 class="text-4xl font-black mb-4">Passion 3D World</h3>
                         <p class="text-xl font-semibold mb-4">Official Authorized Dealer</p>
-                        <div class="inline-flex items-center bg-white text-purple-600 px-8 py-4 rounded-full font-black text-xl shadow-lg">
+                        <div class="inline-flex items-center bg-white text-sky-600 px-8 py-4 rounded-full font-black text-xl shadow-lg">
                             <span>Order Now</span>
                             <i class="fas fa-arrow-right ml-3"></i>
                         </div>
@@ -2482,22 +2482,22 @@ app.get('/vision', (c) => {
                     <h3 class="text-3xl font-black mb-10 gradient-text">Learn & Connect</h3>
                     <div class="flex flex-wrap justify-center gap-6">
                         <a href="/docs" 
-                           class="bg-gradient-to-br from-purple-500 to-pink-600 px-8 py-4 rounded-2xl hover:shadow-2xl transition-all inline-flex items-center text-lg font-semibold border-2 border-purple-400 text-white">
+                           class="bg-gradient-to-br from-sky-500 to-blue-600 px-8 py-4 rounded-2xl hover:shadow-2xl transition-all inline-flex items-center text-lg font-semibold border-2 border-sky-400 text-white">
                             <i class="fas fa-book-open mr-3"></i>
                             Complete Documentation
                         </a>
                         <a href="https://github.com/passion3d/flyq-vision" target="_blank" 
-                           class="bg-midnight px-8 py-4 rounded-2xl hover:bg-purple-500 hover:text-white transition-all inline-flex items-center text-lg font-semibold border-2 border-purple-500 silver-text">
+                           class="bg-midnight px-8 py-4 rounded-2xl hover:bg-sky-500 hover:text-white transition-all inline-flex items-center text-lg font-semibold border-2 border-sky-500 silver-text">
                             <i class="fab fa-github mr-3"></i>
                             GitHub
                         </a>
                         <a href="https://circuitdigest.com/forum" target="_blank" 
-                           class="bg-midnight px-8 py-4 rounded-2xl hover:bg-purple-500 hover:text-white transition-all inline-flex items-center text-lg font-semibold border-2 border-purple-500 silver-text">
+                           class="bg-midnight px-8 py-4 rounded-2xl hover:bg-sky-500 hover:text-white transition-all inline-flex items-center text-lg font-semibold border-2 border-sky-500 silver-text">
                             <i class="fas fa-comments mr-3"></i>
                             Forum
                         </a>
                         <a href="#" 
-                           class="bg-midnight px-8 py-4 rounded-2xl hover:bg-purple-500 hover:text-white transition-all inline-flex items-center text-lg font-semibold border-2 border-purple-500 silver-text">
+                           class="bg-midnight px-8 py-4 rounded-2xl hover:bg-sky-500 hover:text-white transition-all inline-flex items-center text-lg font-semibold border-2 border-sky-500 silver-text">
                             <i class="fab fa-whatsapp mr-3"></i>
                             Community
                         </a>
@@ -2507,44 +2507,44 @@ app.get('/vision', (c) => {
         </section>
 
         <!-- Footer -->
-        <footer class="bg-midnight border-t-4 border-purple-500 py-16 px-6">
+        <footer class="bg-midnight border-t-4 border-sky-500 py-16 px-6">
             <div class="container mx-auto">
                 <div class="grid md:grid-cols-4 gap-12 mb-12">
                     <div>
                         <div class="flex items-center space-x-3 mb-6">
-                            <i class="fas fa-drone text-purple-400 text-3xl"></i>
+                            <i class="fas fa-drone text-sky-400 text-3xl"></i>
                             <span class="text-2xl font-black gradient-text">FLYQ Vision</span>
                         </div>
                         <p class="silver-text leading-relaxed">Advanced programmable drone with camera & gesture control for makers, developers, and innovators.</p>
                     </div>
                     
                     <div>
-                        <h4 class="font-black mb-6 text-purple-400 text-lg">Product</h4>
+                        <h4 class="font-black mb-6 text-sky-400 text-lg">Product</h4>
                         <ul class="space-y-3 silver-text">
-                            <li><a href="#features" class="hover:text-purple-400 transition">Features</a></li>
-                            <li><a href="#specs" class="hover:text-purple-400 transition">Specs</a></li>
-                            <li><a href="#curriculum" class="hover:text-purple-400 transition">Training</a></li>
-                            <li><a href="/docs" class="hover:text-purple-400 transition font-semibold"><i class="fas fa-book mr-2"></i>Documentation</a></li>
+                            <li><a href="#features" class="hover:text-sky-400 transition">Features</a></li>
+                            <li><a href="#specs" class="hover:text-sky-400 transition">Specs</a></li>
+                            <li><a href="#curriculum" class="hover:text-sky-400 transition">Training</a></li>
+                            <li><a href="/docs" class="hover:text-sky-400 transition font-semibold"><i class="fas fa-book mr-2"></i>Documentation</a></li>
                         </ul>
                     </div>
                     
                     <div>
-                        <h4 class="font-black mb-6 text-purple-400 text-lg">Resources</h4>
+                        <h4 class="font-black mb-6 text-sky-400 text-lg">Resources</h4>
                         <ul class="space-y-3 silver-text">
-                            <li><a href="https://github.com/passion3d/flyq-vision" class="hover:text-purple-400 transition">GitHub</a></li>
-                            <li><a href="#" class="hover:text-purple-400 transition">Tutorials</a></li>
-                            <li><a href="#" class="hover:text-purple-400 transition">Community</a></li>
-                            <li><a href="/" class="hover:text-purple-400 transition">FLYQ Air</a></li>
+                            <li><a href="https://github.com/passion3d/flyq-vision" class="hover:text-sky-400 transition">GitHub</a></li>
+                            <li><a href="#" class="hover:text-sky-400 transition">Tutorials</a></li>
+                            <li><a href="#" class="hover:text-sky-400 transition">Community</a></li>
+                            <li><a href="/" class="hover:text-sky-400 transition">FLYQ Air</a></li>
                         </ul>
                     </div>
                     
                     <div>
-                        <h4 class="font-black mb-6 text-purple-400 text-lg">Support</h4>
+                        <h4 class="font-black mb-6 text-sky-400 text-lg">Support</h4>
                         <ul class="space-y-3 silver-text">
-                            <li><a href="#" class="hover:text-purple-400 transition">Contact</a></li>
-                            <li><a href="#faq" class="hover:text-purple-400 transition">FAQ</a></li>
-                            <li><a href="https://passion3dworld.com" class="hover:text-purple-400 transition">Buy Now</a></li>
-                            <li><a href="#" class="hover:text-purple-400 transition">Returns</a></li>
+                            <li><a href="#" class="hover:text-sky-400 transition">Contact</a></li>
+                            <li><a href="#faq" class="hover:text-sky-400 transition">FAQ</a></li>
+                            <li><a href="https://passion3dworld.com" class="hover:text-sky-400 transition">Buy Now</a></li>
+                            <li><a href="#" class="hover:text-sky-400 transition">Returns</a></li>
                         </ul>
                     </div>
                 </div>
@@ -3221,7 +3221,7 @@ void loop() {<br>
                                 </code>
                             </div>
 
-                            <div class="bg-purple-50 border-l-4 border-purple-500 p-6 rounded-xl mb-6">
+                            <div class="bg-purple-50 border-l-4 border-sky-500 p-6 rounded-xl mb-6">
                                 <h3 class="text-2xl font-bold mb-4 text-purple-700"><i class="fab fa-python mr-2"></i>Python SDK (cflib)</h3>
                                 <p class="text-gray-700 mb-2">Script autonomous behaviors and AI experiments with Python.</p>
                                 <code class="block bg-gray-800 text-green-400 p-4 rounded mt-3 overflow-x-auto text-sm">
@@ -3740,14 +3740,14 @@ with SyncCrazyflie(uri) as scf:<br>
                             </div>
 
                             <h3 class="text-2xl font-bold mb-4 text-gray-700">PC Control via CFClient</h3>
-                            <div class="bg-purple-50 border-l-4 border-purple-500 p-6 rounded-xl mb-6">
+                            <div class="bg-purple-50 border-l-4 border-sky-500 p-6 rounded-xl mb-6">
                                 <h4 class="text-lg font-bold mb-3 text-purple-800"><i class="fas fa-desktop mr-2"></i>Advanced Control Option</h4>
                                 <p class="text-gray-700 mb-4">
                                     FLYQ Air supports Crazyflie's cfclient for PC-based control with game controllers (Xbox, PS4/PS5). 
                                     This enables advanced features like telemetry monitoring, parameter tuning, and assisted flight modes.
                                 </p>
                                 <ol class="list-decimal list-inside text-gray-700 space-y-2 ml-2">
-                                    <li>Install Crazyflie client from <a href="https://github.com/bitcraze/crazyflie-clients-python" class="text-purple-600 hover:underline" target="_blank">GitHub</a></li>
+                                    <li>Install Crazyflie client from <a href="https://github.com/bitcraze/crazyflie-clients-python" class="text-sky-600 hover:underline" target="_blank">GitHub</a></li>
                                     <li>Connect PC to FLYQ Air's Wi-Fi network</li>
                                     <li>Launch cfclient and scan for drones</li>
                                     <li>Connect game controller via USB or Bluetooth</li>
@@ -3817,8 +3817,8 @@ with SyncCrazyflie(uri) as scf:<br>
                                     </ul>
                                 </div>
 
-                                <div class="border-l-4 border-purple-400 bg-purple-50 p-6 rounded-r-xl">
-                                    <h3 class="text-xl font-bold mb-3 text-gray-800"><i class="fas fa-tilted-exclamation text-purple-500 mr-2"></i>Unstable Flight / Drifting</h3>
+                                <div class="border-l-4 border-sky-400 bg-purple-50 p-6 rounded-r-xl">
+                                    <h3 class="text-xl font-bold mb-3 text-gray-800"><i class="fas fa-tilted-exclamation text-sky-500 mr-2"></i>Unstable Flight / Drifting</h3>
                                     <p class="text-gray-700 mb-2 font-semibold">Symptoms: Drone drifts in one direction, tilts during hover, requires constant correction</p>
                                     <ul class="list-disc list-inside text-gray-700 ml-4 space-y-2">
                                         <li><strong>Recalibrate IMU:</strong> Power on while on perfectly flat surface</li>
@@ -3871,7 +3871,7 @@ with SyncCrazyflie(uri) as scf:<br>
                                         <i class="fas fa-comments mr-2"></i>
                                         Community Forum
                                     </a>
-                                    <a href="mailto:support@passion3dworld.com" class="flex items-center justify-center bg-purple-500 text-white px-4 py-3 rounded-lg hover:bg-purple-600 transition">
+                                    <a href="mailto:support@passion3dworld.com" class="flex items-center justify-center bg-sky-500 text-white px-4 py-3 rounded-lg hover:bg-sky-600 transition">
                                         <i class="fas fa-envelope mr-2"></i>
                                         Email Support
                                     </a>
@@ -3905,7 +3905,7 @@ with SyncCrazyflie(uri) as scf:<br>
                                 </a>
 
                                 <div class="border-2 border-gray-300 rounded-xl p-6 bg-gray-50">
-                                    <div class="bg-gradient-to-br from-purple-500 to-pink-600 w-16 h-16 rounded-full flex items-center justify-center mb-4">
+                                    <div class="bg-gradient-to-br from-sky-500 to-blue-600 w-16 h-16 rounded-full flex items-center justify-center mb-4">
                                         <i class="fab fa-arduino text-white text-2xl"></i>
                                     </div>
                                     <h3 class="text-xl font-bold mb-3 text-gray-600">Arduino Flight Control</h3>
@@ -3950,7 +3950,7 @@ with SyncCrazyflie(uri) as scf:<br>
                                 </div>
                             </div>
 
-                            <div class="mt-8 bg-purple-50 border-l-4 border-purple-500 p-6 rounded-xl">
+                            <div class="mt-8 bg-purple-50 border-l-4 border-sky-500 p-6 rounded-xl">
                                 <h3 class="text-lg font-bold mb-2 text-purple-800"><i class="fas fa-users mr-2"></i>Share Your Projects!</h3>
                                 <p class="text-gray-700">
                                     Built something amazing with FLYQ Air? Share your projects, tutorials, and code with the community! 
@@ -4350,7 +4350,7 @@ with SyncCrazyflie(uri) as scf:<br>
                                     </ul>
                                 </div>
                                 
-                                <div class="bg-purple-50 border-l-4 border-purple-500 p-6 rounded-xl">
+                                <div class="bg-purple-50 border-l-4 border-sky-500 p-6 rounded-xl">
                                     <h4 class="text-xl font-bold mb-3 text-purple-700">Communication Modules</h4>
                                     <ul class="list-disc list-inside space-y-2 text-gray-700">
                                         <li>CRTP over UDP protocol</li>
@@ -4496,7 +4496,7 @@ with SyncCrazyflie(uri) as scf:<br>
                                     </ul>
                                 </div>
 
-                                <div class="bg-purple-50 border-l-4 border-purple-500 p-6 rounded-xl">
+                                <div class="bg-purple-50 border-l-4 border-sky-500 p-6 rounded-xl">
                                     <h3 class="text-xl font-bold mb-2 text-purple-800">Wi-Fi Connection Requirements</h3>
                                     <p class="text-gray-700 mb-2">
                                         Some smartphones automatically disconnect from Wi-Fi networks without internet:
@@ -4543,7 +4543,7 @@ with SyncCrazyflie(uri) as scf:<br>
                                     <p class="text-gray-100">Join our maker community</p>
                                 </a>
                                 
-                                <a href="/" class="block p-6 bg-purple-500 text-white rounded-xl hover:bg-purple-600 transition">
+                                <a href="/" class="block p-6 bg-sky-500 text-white rounded-xl hover:bg-sky-600 transition">
                                     <i class="fas fa-home text-4xl mb-3"></i>
                                     <h3 class="text-xl font-bold mb-2">Main Website</h3>
                                     <p class="text-gray-100">Back to FLYQ Air homepage</p>
