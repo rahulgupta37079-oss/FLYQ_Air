@@ -155,6 +155,9 @@ app.get('/', (c) => {
                     </div>
                     <div class="hidden md:flex space-x-6 text-sm font-bold uppercase tracking-wider">
                         <a href="#features" class="silver-text hover:text-sky-400 transition-colors">Features</a>
+                        <a href="/vision" class="silver-text hover:text-sky-400 transition-colors flex items-center">
+                            <i class="fas fa-camera mr-2"></i>Vision
+                        </a>
                         <a href="#curriculum" class="silver-text hover:text-sky-400 transition-colors">Curriculum</a>
                         <a href="#faq" class="silver-text hover:text-sky-400 transition-colors">FAQ</a>
                         <a href="/docs" class="silver-text hover:text-sky-400 transition-colors flex items-center">
@@ -169,6 +172,9 @@ app.get('/', (c) => {
                 <!-- Mobile Menu -->
                 <div id="mobileMenu" class="hidden md:hidden mt-6 space-y-4 pb-4">
                     <a href="#features" class="block silver-text hover:text-sky-400 transition-colors text-center py-2">Features</a>
+                    <a href="/vision" class="block silver-text hover:text-sky-400 transition-colors text-center py-2">
+                        <i class="fas fa-camera mr-2"></i>FLYQ Vision
+                    </a>
                     <a href="#curriculum" class="block silver-text hover:text-sky-400 transition-colors text-center py-2">Curriculum</a>
                     <a href="#faq" class="block silver-text hover:text-sky-400 transition-colors text-center py-2">FAQ</a>
                     <a href="/docs" class="block silver-text hover:text-sky-400 transition-colors text-center py-2">
@@ -1348,6 +1354,501 @@ void loop() {
                             block: 'start'
                         });
                         mobileMenu.classList.add('hidden');
+                    }
+                });
+            });
+        </script>
+    </body>
+    </html>
+  `)
+})
+
+// FLYQ Vision Page - Camera & Gesture Control
+app.get('/vision', (c) => {
+  return c.html(`
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>FLYQ Vision - Camera & Gesture Control Drone</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet">
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&family=Inter:wght@300;400;600;700;800&display=swap');
+            
+            :root {
+                --midnight: #0F172A;
+                --sky-blue: #0EA5E9;
+                --light-blue: #38BDF8;
+                --silver: #E5E7EB;
+                --purple: #8B5CF6;
+                --pink: #EC4899;
+            }
+
+            body {
+                font-family: 'Inter', sans-serif;
+                background: #000000;
+                color: #FFFFFF;
+            }
+
+            .gradient-text {
+                background: linear-gradient(135deg, var(--purple) 0%, var(--pink) 100%);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+            }
+
+            .hero-gradient {
+                background: linear-gradient(135deg, #000000 0%, #1e1b4b 50%, #000000 100%);
+            }
+
+            .card-hover {
+                transition: all 0.3s ease;
+                border: 2px solid rgba(139, 92, 246, 0.3);
+                background: linear-gradient(135deg, rgba(15, 23, 42, 0.9) 0%, rgba(0, 0, 0, 0.9) 100%);
+            }
+
+            .card-hover:hover {
+                transform: translateY(-8px);
+                box-shadow: 0 20px 40px rgba(139, 92, 246, 0.3);
+                border-color: rgba(139, 92, 246, 0.8);
+            }
+
+            .float-animation {
+                animation: float 6s ease-in-out infinite;
+            }
+
+            @keyframes float {
+                0%, 100% { transform: translateY(0px); }
+                50% { transform: translateY(-20px); }
+            }
+
+            .silver-text {
+                color: var(--silver);
+            }
+
+            .section-divider {
+                height: 4px;
+                background: linear-gradient(90deg, var(--purple), var(--pink));
+                border-radius: 2px;
+            }
+        </style>
+    </head>
+    <body>
+        <!-- Navigation -->
+        <nav class="fixed w-full z-50 bg-midnight bg-opacity-95 backdrop-blur-md border-b border-purple-500 shadow-2xl">
+            <div class="container mx-auto px-6 py-4">
+                <div class="flex items-center justify-between">
+                    <a href="/" class="flex items-center space-x-3">
+                        <i class="fas fa-drone text-purple-500 text-3xl"></i>
+                        <span class="text-3xl font-black gradient-text" style="font-family: 'Rajdhani', sans-serif;">FLYQ Vision</span>
+                    </a>
+                    <div class="flex items-center space-x-6">
+                        <a href="/" class="silver-text hover:text-purple-400 transition-colors">
+                            <i class="fas fa-home mr-2"></i>Home
+                        </a>
+                        <a href="/docs" class="silver-text hover:text-purple-400 transition-colors">
+                            <i class="fas fa-book mr-2"></i>Docs
+                        </a>
+                        <a href="#buy" class="bg-gradient-to-r from-purple-500 to-pink-600 text-white px-6 py-2 rounded-full hover:shadow-lg transition-all font-black">
+                            Order Now
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Hero Section -->
+        <section class="hero-gradient min-h-screen flex items-center pt-20">
+            <div class="container mx-auto px-6">
+                <div class="grid lg:grid-cols-2 gap-12 items-center">
+                    <div>
+                        <div class="inline-block bg-gradient-to-r from-purple-500 to-pink-600 text-white px-6 py-2 rounded-full text-sm font-bold mb-6">
+                            <i class="fas fa-sparkles mr-2"></i>NEW ADVANCED MODEL
+                        </div>
+                        <h1 class="text-6xl md:text-7xl font-black mb-6" style="font-family: 'Rajdhani', sans-serif;">
+                            FLYQ <span class="gradient-text">Vision</span>
+                        </h1>
+                        <p class="text-3xl font-bold mb-6 text-purple-400">
+                            See. Control. Fly.
+                        </p>
+                        <p class="text-xl silver-text mb-8 leading-relaxed">
+                            Experience the future of drone control with integrated camera, real-time vision processing, 
+                            and intuitive gesture control. FLYQ Vision brings AI-powered flight to your fingertips.
+                        </p>
+                        
+                        <div class="flex flex-wrap gap-4 mb-8">
+                            <div class="flex items-center space-x-3 bg-midnight px-6 py-3 rounded-full border-2 border-purple-500">
+                                <i class="fas fa-camera text-purple-400 text-2xl"></i>
+                                <div>
+                                    <div class="font-bold">HD Camera</div>
+                                    <div class="text-sm silver-text">720p Streaming</div>
+                                </div>
+                            </div>
+                            <div class="flex items-center space-x-3 bg-midnight px-6 py-3 rounded-full border-2 border-pink-500">
+                                <i class="fas fa-hand-paper text-pink-400 text-2xl"></i>
+                                <div>
+                                    <div class="font-bold">Gesture Control</div>
+                                    <div class="text-sm silver-text">AI Recognition</div>
+                                </div>
+                            </div>
+                            <div class="flex items-center space-x-3 bg-midnight px-6 py-3 rounded-full border-2 border-sky-500">
+                                <i class="fas fa-brain text-sky-400 text-2xl"></i>
+                                <div>
+                                    <div class="font-bold">Computer Vision</div>
+                                    <div class="text-sm silver-text">Object Tracking</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex gap-4">
+                            <a href="#features" class="bg-gradient-to-r from-purple-500 to-pink-600 text-white px-8 py-4 rounded-full font-bold text-lg hover:shadow-2xl transition-all">
+                                <i class="fas fa-rocket mr-2"></i>Explore Features
+                            </a>
+                            <a href="#buy" class="border-2 border-purple-500 text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-purple-500 transition-all">
+                                <i class="fas fa-shopping-cart mr-2"></i>Order Now
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="relative">
+                        <div class="absolute inset-0 bg-purple-500 opacity-20 blur-3xl rounded-full"></div>
+                        <div class="relative z-10 float-animation">
+                            <img src="https://cdn1.genspark.ai/user-upload-image/rmbg_generated/0_435c9a66-800a-4537-80f8-cd513ea4bf15" 
+                                 alt="FLYQ Vision Drone" 
+                                 class="w-full h-auto drop-shadow-2xl">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section id="features" class="py-24 px-6 bg-midnight">
+            <div class="container mx-auto">
+                <div class="text-center mb-20">
+                    <h2 class="text-6xl font-black mb-6">
+                        <span class="gradient-text">Vision Features</span>
+                    </h2>
+                    <div class="section-divider w-32 mx-auto mb-6"></div>
+                    <p class="text-2xl silver-text">Advanced capabilities powered by computer vision & AI</p>
+                </div>
+
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Feature 1 -->
+                    <div class="card-hover p-8 rounded-3xl">
+                        <div class="w-20 h-20 bg-gradient-to-br from-purple-500 to-pink-600 rounded-2xl flex items-center justify-center mb-6">
+                            <i class="fas fa-camera text-white text-3xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-4 text-purple-400">HD Camera Module</h3>
+                        <p class="silver-text mb-4">
+                            720p camera with real-time video streaming over WiFi. Capture photos and videos 
+                            while flying with adjustable quality settings.
+                        </p>
+                        <ul class="space-y-2 text-sm silver-text">
+                            <li><i class="fas fa-check text-green-500 mr-2"></i>720p @ 30fps streaming</li>
+                            <li><i class="fas fa-check text-green-500 mr-2"></i>Photo & video recording</li>
+                            <li><i class="fas fa-check text-green-500 mr-2"></i>Low-latency transmission</li>
+                        </ul>
+                    </div>
+
+                    <!-- Feature 2 -->
+                    <div class="card-hover p-8 rounded-3xl">
+                        <div class="w-20 h-20 bg-gradient-to-br from-pink-500 to-red-600 rounded-2xl flex items-center justify-center mb-6">
+                            <i class="fas fa-hand-paper text-white text-3xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-4 text-pink-400">Gesture Control</h3>
+                        <p class="silver-text mb-4">
+                            Control your drone with hand gestures! AI-powered recognition detects your hand 
+                            movements for intuitive flight control.
+                        </p>
+                        <ul class="space-y-2 text-sm silver-text">
+                            <li><i class="fas fa-check text-green-500 mr-2"></i>Palm gesture recognition</li>
+                            <li><i class="fas fa-check text-green-500 mr-2"></i>Directional hand movements</li>
+                            <li><i class="fas fa-check text-green-500 mr-2"></i>Custom gesture mapping</li>
+                        </ul>
+                    </div>
+
+                    <!-- Feature 3 -->
+                    <div class="card-hover p-8 rounded-3xl">
+                        <div class="w-20 h-20 bg-gradient-to-br from-blue-500 to-cyan-600 rounded-2xl flex items-center justify-center mb-6">
+                            <i class="fas fa-crosshairs text-white text-3xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-4 text-blue-400">Object Tracking</h3>
+                        <p class="silver-text mb-4">
+                            Advanced computer vision enables automatic object tracking. Lock onto targets 
+                            and let FLYQ Vision follow autonomously.
+                        </p>
+                        <ul class="space-y-2 text-sm silver-text">
+                            <li><i class="fas fa-check text-green-500 mr-2"></i>Face detection & tracking</li>
+                            <li><i class="fas fa-check text-green-500 mr-2"></i>Color-based tracking</li>
+                            <li><i class="fas fa-check text-green-500 mr-2"></i>Multi-object recognition</li>
+                        </ul>
+                    </div>
+
+                    <!-- Feature 4 -->
+                    <div class="card-hover p-8 rounded-3xl">
+                        <div class="w-20 h-20 bg-gradient-to-br from-green-500 to-emerald-600 rounded-2xl flex items-center justify-center mb-6">
+                            <i class="fas fa-brain text-white text-3xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-4 text-green-400">AI Processing</h3>
+                        <p class="silver-text mb-4">
+                            Onboard AI processing powered by ESP32-S3 enables real-time vision analysis 
+                            and intelligent decision making.
+                        </p>
+                        <ul class="space-y-2 text-sm silver-text">
+                            <li><i class="fas fa-check text-green-500 mr-2"></i>Edge AI inference</li>
+                            <li><i class="fas fa-check text-green-500 mr-2"></i>TensorFlow Lite models</li>
+                            <li><i class="fas fa-check text-green-500 mr-2"></i>Custom ML training</li>
+                        </ul>
+                    </div>
+
+                    <!-- Feature 5 -->
+                    <div class="card-hover p-8 rounded-3xl">
+                        <div class="w-20 h-20 bg-gradient-to-br from-yellow-500 to-orange-600 rounded-2xl flex items-center justify-center mb-6">
+                            <i class="fas fa-route text-white text-3xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-4 text-yellow-400">Autonomous Navigation</h3>
+                        <p class="silver-text mb-4">
+                            Vision-guided autonomous flight with obstacle avoidance and path planning 
+                            capabilities for safe navigation.
+                        </p>
+                        <ul class="space-y-2 text-sm silver-text">
+                            <li><i class="fas fa-check text-green-500 mr-2"></i>Waypoint navigation</li>
+                            <li><i class="fas fa-check text-green-500 mr-2"></i>Obstacle detection</li>
+                            <li><i class="fas fa-check text-green-500 mr-2"></i>Return to home</li>
+                        </ul>
+                    </div>
+
+                    <!-- Feature 6 -->
+                    <div class="card-hover p-8 rounded-3xl">
+                        <div class="w-20 h-20 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-2xl flex items-center justify-center mb-6">
+                            <i class="fas fa-mobile-alt text-white text-3xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-4 text-indigo-400">Mobile App Control</h3>
+                        <p class="silver-text mb-4">
+                            Comprehensive mobile app for iOS and Android with live video feed, 
+                            settings, and full drone control.
+                        </p>
+                        <ul class="space-y-2 text-sm silver-text">
+                            <li><i class="fas fa-check text-green-500 mr-2"></i>Live camera view</li>
+                            <li><i class="fas fa-check text-green-500 mr-2"></i>Gesture mode toggle</li>
+                            <li><i class="fas fa-check text-green-500 mr-2"></i>Media gallery</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Specifications -->
+        <section id="specs" class="py-24 px-6 bg-black">
+            <div class="container mx-auto">
+                <div class="text-center mb-16">
+                    <h2 class="text-6xl font-black mb-6">
+                        Technical <span class="gradient-text">Specifications</span>
+                    </h2>
+                    <div class="section-divider w-32 mx-auto mb-6"></div>
+                </div>
+
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="card-hover p-8 rounded-3xl">
+                        <h3 class="text-2xl font-bold mb-6 text-purple-400">
+                            <i class="fas fa-camera mr-3"></i>Camera
+                        </h3>
+                        <div class="space-y-3 silver-text">
+                            <div class="flex justify-between">
+                                <span>Resolution</span>
+                                <span class="font-bold">1280x720 (HD)</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>Frame Rate</span>
+                                <span class="font-bold">30 FPS</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>Field of View</span>
+                                <span class="font-bold">120°</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>Streaming</span>
+                                <span class="font-bold">WiFi Real-time</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-hover p-8 rounded-3xl">
+                        <h3 class="text-2xl font-bold mb-6 text-pink-400">
+                            <i class="fas fa-microchip mr-3"></i>Processor
+                        </h3>
+                        <div class="space-y-3 silver-text">
+                            <div class="flex justify-between">
+                                <span>CPU</span>
+                                <span class="font-bold">ESP32-S3 Dual-Core</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>Clock Speed</span>
+                                <span class="font-bold">240MHz</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>AI Accelerator</span>
+                                <span class="font-bold">Vector Instructions</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>Memory</span>
+                                <span class="font-bold">8MB PSRAM</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-hover p-8 rounded-3xl">
+                        <h3 class="text-2xl font-bold mb-6 text-blue-400">
+                            <i class="fas fa-wifi mr-3"></i>Connectivity
+                        </h3>
+                        <div class="space-y-3 silver-text">
+                            <div class="flex justify-between">
+                                <span>WiFi</span>
+                                <span class="font-bold">802.11 b/g/n</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>Frequency</span>
+                                <span class="font-bold">2.4 GHz</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>Range</span>
+                                <span class="font-bold">50 meters</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>Latency</span>
+                                <span class="font-bold">< 200ms</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Use Cases -->
+        <section class="py-24 px-6 bg-midnight">
+            <div class="container mx-auto">
+                <div class="text-center mb-16">
+                    <h2 class="text-6xl font-black mb-6">
+                        <span class="gradient-text">Use Cases</span>
+                    </h2>
+                    <div class="section-divider w-32 mx-auto mb-6"></div>
+                    <p class="text-xl silver-text">Endless possibilities with vision-enabled flight</p>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="card-hover p-8 rounded-3xl">
+                        <i class="fas fa-graduation-cap text-purple-400 text-5xl mb-6"></i>
+                        <h3 class="text-3xl font-bold mb-4">Education & Research</h3>
+                        <p class="silver-text leading-relaxed">
+                            Perfect for teaching computer vision, AI, and robotics. Students can experiment 
+                            with real-time image processing, machine learning models, and autonomous systems.
+                        </p>
+                    </div>
+
+                    <div class="card-hover p-8 rounded-3xl">
+                        <i class="fas fa-video text-pink-400 text-5xl mb-6"></i>
+                        <h3 class="text-3xl font-bold mb-4">Content Creation</h3>
+                        <p class="silver-text leading-relaxed">
+                            Capture unique aerial footage with gesture control. Create hands-free videos, 
+                            selfies, and creative content with tracking features.
+                        </p>
+                    </div>
+
+                    <div class="card-hover p-8 rounded-3xl">
+                        <i class="fas fa-search text-blue-400 text-5xl mb-6"></i>
+                        <h3 class="text-3xl font-bold mb-4">Inspection & Monitoring</h3>
+                        <p class="silver-text leading-relaxed">
+                            Use for indoor inspection, monitoring, and surveillance. AI-powered navigation 
+                            enables autonomous patrol routes and anomaly detection.
+                        </p>
+                    </div>
+
+                    <div class="card-hover p-8 rounded-3xl">
+                        <i class="fas fa-gamepad text-green-400 text-5xl mb-6"></i>
+                        <h3 class="text-3xl font-bold mb-4">Interactive Gaming</h3>
+                        <p class="silver-text leading-relaxed">
+                            Create interactive games and experiences using gesture control. Perfect for 
+                            competitions, obstacle courses, and interactive demonstrations.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section id="buy" class="py-24 px-6 bg-black">
+            <div class="container mx-auto text-center">
+                <h2 class="text-6xl font-black mb-8">
+                    <span class="gradient-text">Ready to Experience Vision?</span>
+                </h2>
+                <p class="text-2xl silver-text mb-12 max-w-3xl mx-auto">
+                    Join the future of intelligent drone flight with FLYQ Vision
+                </p>
+                
+                <div class="max-w-2xl mx-auto">
+                    <a href="https://passion3dworld.com" target="_blank" 
+                       class="block bg-gradient-to-br from-purple-500 to-pink-600 text-white p-12 rounded-3xl hover:shadow-2xl transition-all transform hover:scale-105">
+                        <i class="fas fa-store text-6xl mb-6"></i>
+                        <h3 class="text-4xl font-black mb-4">Passion 3D World</h3>
+                        <p class="text-xl font-semibold mb-4">Official Authorized Dealer</p>
+                        <div class="inline-flex items-center bg-white text-purple-600 px-8 py-4 rounded-full font-black text-xl">
+                            <span>Order FLYQ Vision Now</span>
+                            <i class="fas fa-arrow-right ml-3"></i>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="bg-midnight py-12 border-t border-purple-500">
+            <div class="container mx-auto px-6">
+                <div class="grid md:grid-cols-3 gap-8 mb-8">
+                    <div>
+                        <h4 class="font-bold mb-4 text-purple-400">FLYQ Vision</h4>
+                        <p class="silver-text text-sm">Advanced drone with camera & gesture control</p>
+                    </div>
+                    <div>
+                        <h4 class="font-bold mb-4 text-purple-400">Quick Links</h4>
+                        <div class="space-y-2">
+                            <a href="/" class="block silver-text hover:text-purple-400 transition text-sm">FLYQ Air</a>
+                            <a href="/docs" class="block silver-text hover:text-purple-400 transition text-sm">Documentation</a>
+                            <a href="https://passion3dworld.com" class="block silver-text hover:text-purple-400 transition text-sm">Store</a>
+                        </div>
+                    </div>
+                    <div>
+                        <h4 class="font-bold mb-4 text-purple-400">Contact</h4>
+                        <p class="silver-text text-sm">support@flyqair.com</p>
+                    </div>
+                </div>
+                <div class="text-center silver-text text-sm pt-8 border-t border-gray-800">
+                    © 2024 FLYQ Vision. All rights reserved.
+                </div>
+            </div>
+        </footer>
+
+        <script>
+            // Mobile menu toggle
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            const mobileMenu = document.getElementById('mobileMenu');
+            
+            if (mobileMenuBtn) {
+                mobileMenuBtn.addEventListener('click', () => {
+                    mobileMenu.classList.toggle('hidden');
+                });
+            }
+
+            // Smooth scroll
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth'
+                        });
                     }
                 });
             });
