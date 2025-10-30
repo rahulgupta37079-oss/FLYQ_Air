@@ -307,29 +307,7 @@ app.get('/', (c) => {
             </div>
         </section>
 
-        <!-- Video Section -->
-        <section class="py-24 px-6 bg-midnight">
-            <div class="container mx-auto">
-                <div class="text-center mb-16">
-                    <h2 class="text-6xl font-black mb-6">
-                        See FLYQ Air In <span class="text-sky-400">Flight</span>
-                    </h2>
-                    <div class="section-divider w-32 mx-auto mb-6"></div>
-                    <p class="text-xl silver-text">Watch FLYQ Air in action</p>
-                </div>
-                <div class="max-w-5xl mx-auto">
-                    <div class="relative rounded-3xl overflow-hidden border-4 border-sky-500 shadow-2xl" style="padding-bottom: 56.25%; box-shadow: 0 0 40px rgba(14, 165, 233, 0.3);">
-                        <iframe class="absolute top-0 left-0 w-full h-full" 
-                                src="https://www.youtube.com/embed/esmYcBHqBK8" 
-                                title="FLYQ Demo" 
-                                frameborder="0" 
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                                allowfullscreen>
-                        </iframe>
-                    </div>
-                </div>
-            </div>
-        </section>
+
 
         <!-- Programmability Section -->
         <section id="programmable" class="py-24 px-6 bg-black">
@@ -602,25 +580,47 @@ void loop() {
             <div class="container mx-auto">
                 <div class="text-center mb-16">
                     <h2 class="text-6xl font-black mb-6">
-                        <span class="text-sky-400">Gallery</span>
+                        <span class="text-sky-400">Product Gallery</span>
                     </h2>
                     <div class="section-divider w-32 mx-auto mb-6"></div>
+                    <p class="text-xl silver-text">FLYQ Air from every angle</p>
                 </div>
-                <div class="grid md:grid-cols-3 gap-8">
-                    <div class="overflow-hidden rounded-3xl border-4 border-sky-500 shadow-2xl" style="box-shadow: 0 0 30px rgba(14, 165, 233, 0.3);">
-                        <img src="https://circuitdigest.com/sites/default/files/inlineimages/u5/LiteWing-PCB-Closeup-and-Starp-Hole.png" 
-                             alt="PCB Design" 
-                             class="w-full h-80 object-cover hover:scale-110 transition-transform duration-500">
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div class="bg-gradient-to-br from-gray-900 to-gray-800 overflow-hidden rounded-3xl border-4 border-sky-500 shadow-2xl p-6" style="box-shadow: 0 0 30px rgba(14, 165, 233, 0.3);">
+                        <img src="https://cdn1.genspark.ai/user-upload-image/rmbg_generated/0_659b46b4-044a-419a-a106-4fc160f33f38" 
+                             alt="FLYQ Air - Top View" 
+                             class="w-full h-80 object-contain hover:scale-110 transition-transform duration-500">
+                        <div class="mt-4 text-center">
+                            <h3 class="text-xl font-bold text-sky-400">Top View</h3>
+                            <p class="text-sm silver-text">Complete assembly</p>
+                        </div>
                     </div>
-                    <div class="overflow-hidden rounded-3xl border-4 border-sky-500 shadow-2xl" style="box-shadow: 0 0 30px rgba(14, 165, 233, 0.3);">
-                        <img src="https://circuitdigest.com/sites/default/files/inlineimages/u5/ESP32-S3-Module.png" 
-                             alt="ESP32-S3" 
-                             class="w-full h-80 object-cover hover:scale-110 transition-transform duration-500">
+                    <div class="bg-gradient-to-br from-gray-900 to-gray-800 overflow-hidden rounded-3xl border-4 border-sky-500 shadow-2xl p-6" style="box-shadow: 0 0 30px rgba(14, 165, 233, 0.3);">
+                        <img src="https://cdn1.genspark.ai/user-upload-image/rmbg_generated/0_98743ea1-0ba8-4cad-8c35-5bd13eb785d9" 
+                             alt="Component Overview" 
+                             class="w-full h-80 object-contain hover:scale-110 transition-transform duration-500">
+                        <div class="mt-4 text-center">
+                            <h3 class="text-xl font-bold text-sky-400">Components</h3>
+                            <p class="text-sm silver-text">All parts included</p>
+                        </div>
                     </div>
-                    <div class="overflow-hidden rounded-3xl border-4 border-sky-500 shadow-2xl" style="box-shadow: 0 0 30px rgba(14, 165, 233, 0.3);">
-                        <img src="https://circuitdigest.com/sites/default/files/inlineimages/u5/LiteWing-MPU6050-Close-Up.png" 
-                             alt="MPU6050" 
-                             class="w-full h-80 object-cover hover:scale-110 transition-transform duration-500">
+                    <div class="bg-gradient-to-br from-gray-900 to-gray-800 overflow-hidden rounded-3xl border-4 border-sky-500 shadow-2xl p-6" style="box-shadow: 0 0 30px rgba(14, 165, 233, 0.3);">
+                        <img src="https://cdn1.genspark.ai/user-upload-image/rmbg_generated/0_82cdbb05-c833-443a-9269-06b9828e7958" 
+                             alt="Propeller Detail" 
+                             class="w-full h-80 object-contain hover:scale-110 transition-transform duration-500">
+                        <div class="mt-4 text-center">
+                            <h3 class="text-xl font-bold text-sky-400">Propeller</h3>
+                            <p class="text-sm silver-text">With protective guard</p>
+                        </div>
+                    </div>
+                    <div class="bg-gradient-to-br from-gray-900 to-gray-800 overflow-hidden rounded-3xl border-4 border-sky-500 shadow-2xl p-6" style="box-shadow: 0 0 30px rgba(14, 165, 233, 0.3);">
+                        <img src="https://cdn1.genspark.ai/user-upload-image/rmbg_generated/0_70c865d1-bde3-4f02-b0a2-9ec4054d5451" 
+                             alt="Motor Assembly" 
+                             class="w-full h-80 object-contain hover:scale-110 transition-transform duration-500">
+                        <div class="mt-4 text-center">
+                            <h3 class="text-xl font-bold text-sky-400">Motor Unit</h3>
+                            <p class="text-sm silver-text">716 brushed motor</p>
+                        </div>
                     </div>
                 </div>
             </div>
