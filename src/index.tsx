@@ -1379,81 +1379,161 @@ app.get('/vision', (c) => {
             
             :root {
                 --midnight: #0F172A;
-                --sky-blue: #0EA5E9;
-                --light-blue: #38BDF8;
                 --silver: #E5E7EB;
                 --purple: #8B5CF6;
                 --pink: #EC4899;
+                --black: #000000;
+                --white: #FFFFFF;
+            }
+            
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+            
+            html {
+                scroll-behavior: smooth;
             }
 
             body {
                 font-family: 'Inter', sans-serif;
-                background: #000000;
-                color: #FFFFFF;
+                overflow-x: hidden;
+                background: var(--black);
+                color: var(--white);
+            }
+            
+            h1, h2, h3, h4 {
+                font-family: 'Rajdhani', sans-serif;
+                font-weight: 700;
             }
 
             .gradient-text {
                 background: linear-gradient(135deg, var(--purple) 0%, var(--pink) 100%);
                 -webkit-background-clip: text;
                 -webkit-text-fill-color: transparent;
+                background-clip: text;
             }
 
             .hero-gradient {
                 background: linear-gradient(135deg, #000000 0%, #1e1b4b 50%, #000000 100%);
+                position: relative;
+            }
+            
+            .hero-gradient::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: 
+                    radial-gradient(circle at 20% 50%, rgba(139, 92, 246, 0.15) 0%, transparent 50%),
+                    radial-gradient(circle at 80% 50%, rgba(236, 72, 153, 0.15) 0%, transparent 50%);
+                pointer-events: none;
+            }
+            
+            .premium-glow {
+                text-shadow: 0 0 40px rgba(139, 92, 246, 0.6), 0 0 80px rgba(236, 72, 153, 0.3);
             }
 
             .card-hover {
                 transition: all 0.3s ease;
-                border: 2px solid rgba(139, 92, 246, 0.3);
+                border: 2px solid rgba(139, 92, 246, 0.2);
                 background: linear-gradient(135deg, rgba(15, 23, 42, 0.9) 0%, rgba(0, 0, 0, 0.9) 100%);
             }
 
             .card-hover:hover {
                 transform: translateY(-8px);
                 box-shadow: 0 20px 40px rgba(139, 92, 246, 0.3);
-                border-color: rgba(139, 92, 246, 0.8);
+                border-color: rgba(139, 92, 246, 0.6);
+            }
+            
+            .pulse-purple {
+                animation: pulse-purple 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+            }
+            
+            @keyframes pulse-purple {
+                0%, 100% {
+                    opacity: 1;
+                }
+                50% {
+                    opacity: .6;
+                }
             }
 
             .float-animation {
-                animation: float 6s ease-in-out infinite;
+                animation: float 4s ease-in-out infinite;
             }
 
             @keyframes float {
                 0%, 100% { transform: translateY(0px); }
                 50% { transform: translateY(-20px); }
             }
+            
+            .btn-premium {
+                box-shadow: 0 0 30px rgba(139, 92, 246, 0.5);
+                transition: all 0.3s ease;
+                background: linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%);
+            }
+            
+            .btn-premium:hover {
+                box-shadow: 0 0 50px rgba(139, 92, 246, 0.8), 0 0 80px rgba(236, 72, 153, 0.4);
+                transform: translateY(-2px);
+            }
 
             .silver-text {
-                color: var(--silver);
+                color: #E5E7EB;
             }
 
             .section-divider {
-                height: 4px;
-                background: linear-gradient(90deg, var(--purple), var(--pink));
-                border-radius: 2px;
+                height: 2px;
+                background: linear-gradient(90deg, transparent, #8B5CF6, #EC4899, transparent);
+            }
+            
+            .metallic-border {
+                border: 2px solid;
+                border-image: linear-gradient(135deg, #E5E7EB 0%, #8B5CF6 50%, #E5E7EB 100%) 1;
             }
         </style>
     </head>
-    <body>
+    <body class="bg-black text-white">
         <!-- Navigation -->
-        <nav class="fixed w-full z-50 bg-midnight bg-opacity-95 backdrop-blur-md border-b border-purple-500 shadow-2xl">
+        <nav class="fixed w-full z-50 bg-midnight bg-opacity-95 backdrop-blur-md border-b border-purple-500 shadow-2xl" style="box-shadow: 0 4px 20px rgba(139, 92, 246, 0.2);">
             <div class="container mx-auto px-6 py-4">
                 <div class="flex items-center justify-between">
-                    <a href="/" class="flex items-center space-x-3">
-                        <i class="fas fa-drone text-purple-500 text-3xl"></i>
+                    <div class="flex items-center space-x-3">
+                        <i class="fas fa-drone text-purple-500 text-3xl pulse-purple"></i>
                         <span class="text-3xl font-black gradient-text" style="font-family: 'Rajdhani', sans-serif;">FLYQ Vision</span>
-                    </a>
-                    <div class="flex items-center space-x-6">
-                        <a href="/" class="silver-text hover:text-purple-400 transition-colors">
-                            <i class="fas fa-home mr-2"></i>Home
+                    </div>
+                    <div class="hidden md:flex space-x-6 text-sm font-bold uppercase tracking-wider">
+                        <a href="/" class="silver-text hover:text-purple-400 transition-colors flex items-center">
+                            <i class="fas fa-home mr-2"></i>FLYQ Air
                         </a>
-                        <a href="/docs" class="silver-text hover:text-purple-400 transition-colors">
+                        <a href="#features" class="silver-text hover:text-purple-400 transition-colors">Features</a>
+                        <a href="#curriculum" class="silver-text hover:text-purple-400 transition-colors">Curriculum</a>
+                        <a href="#faq" class="silver-text hover:text-purple-400 transition-colors">FAQ</a>
+                        <a href="/docs" class="silver-text hover:text-purple-400 transition-colors flex items-center">
                             <i class="fas fa-book mr-2"></i>Docs
                         </a>
-                        <a href="#buy" class="bg-gradient-to-r from-purple-500 to-pink-600 text-white px-6 py-2 rounded-full hover:shadow-lg transition-all font-black">
-                            Order Now
-                        </a>
+                        <a href="#buy" class="bg-gradient-to-r from-purple-500 to-pink-600 text-white px-6 py-2 rounded-full hover:shadow-lg transition-all font-black">Buy Now</a>
                     </div>
+                    <button id="mobileMenuBtn" class="md:hidden text-purple-400 text-2xl">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+                <!-- Mobile Menu -->
+                <div id="mobileMenu" class="hidden md:hidden mt-6 space-y-4 pb-4">
+                    <a href="/" class="block silver-text hover:text-purple-400 transition-colors text-center py-2">
+                        <i class="fas fa-home mr-2"></i>FLYQ Air
+                    </a>
+                    <a href="#features" class="block silver-text hover:text-purple-400 transition-colors text-center py-2">Features</a>
+                    <a href="#curriculum" class="block silver-text hover:text-purple-400 transition-colors text-center py-2">Curriculum</a>
+                    <a href="#faq" class="block silver-text hover:text-purple-400 transition-colors text-center py-2">FAQ</a>
+                    <a href="/docs" class="block silver-text hover:text-purple-400 transition-colors text-center py-2">
+                        <i class="fas fa-book mr-2"></i>Documentation
+                    </a>
+                    <a href="#buy" class="block bg-gradient-to-r from-purple-500 to-pink-600 text-white px-6 py-3 rounded-full hover:shadow-lg transition-all text-center font-black">Buy Now</a>
                 </div>
             </div>
         </nav>
@@ -1726,105 +1806,755 @@ app.get('/vision', (c) => {
             </div>
         </section>
 
-        <!-- Use Cases -->
+        <!-- Gallery -->
         <section class="py-24 px-6 bg-midnight">
             <div class="container mx-auto">
                 <div class="text-center mb-16">
                     <h2 class="text-6xl font-black mb-6">
-                        <span class="gradient-text">Use Cases</span>
+                        <span class="gradient-text">Product Gallery</span>
                     </h2>
                     <div class="section-divider w-32 mx-auto mb-6"></div>
-                    <p class="text-xl silver-text">Endless possibilities with vision-enabled flight</p>
+                    <p class="text-xl silver-text">FLYQ Vision from every angle</p>
                 </div>
-
-                <div class="grid md:grid-cols-2 gap-8">
-                    <div class="card-hover p-8 rounded-3xl">
-                        <i class="fas fa-graduation-cap text-purple-400 text-5xl mb-6"></i>
-                        <h3 class="text-3xl font-bold mb-4">Education & Research</h3>
-                        <p class="silver-text leading-relaxed">
-                            Perfect for teaching computer vision, AI, and robotics. Students can experiment 
-                            with real-time image processing, machine learning models, and autonomous systems.
-                        </p>
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div class="bg-gradient-to-br from-gray-900 to-gray-800 overflow-hidden rounded-3xl border-4 border-purple-500 shadow-2xl p-6" style="box-shadow: 0 0 30px rgba(139, 92, 246, 0.3);">
+                        <img src="https://page.gensparksite.com/v1/base64_upload/11be147c5dc3414d2e1a18a72699ad3cadd" 
+                             alt="FLYQ Vision - Camera Drone" 
+                             class="w-full h-80 object-contain hover:scale-110 transition-transform duration-500">
+                        <div class="mt-4 text-center">
+                            <h3 class="text-xl font-bold text-purple-400">Camera Drone</h3>
+                            <p class="text-sm silver-text">Vision-enabled flight</p>
+                        </div>
                     </div>
-
-                    <div class="card-hover p-8 rounded-3xl">
-                        <i class="fas fa-video text-pink-400 text-5xl mb-6"></i>
-                        <h3 class="text-3xl font-bold mb-4">Content Creation</h3>
-                        <p class="silver-text leading-relaxed">
-                            Capture unique aerial footage with gesture control. Create hands-free videos, 
-                            selfies, and creative content with tracking features.
-                        </p>
+                    <div class="bg-gradient-to-br from-gray-900 to-gray-800 overflow-hidden rounded-3xl border-4 border-purple-500 shadow-2xl p-6" style="box-shadow: 0 0 30px rgba(139, 92, 246, 0.3);">
+                        <img src="https://page.gensparksite.com/v1/base64_upload/e412797020c76e97bdf09d5aa6af13eb" 
+                             alt="FLYQ Vision - Complete Assembly" 
+                             class="w-full h-80 object-contain hover:scale-110 transition-transform duration-500">
+                        <div class="mt-4 text-center">
+                            <h3 class="text-xl font-bold text-purple-400">Complete Assembly</h3>
+                            <p class="text-sm silver-text">Fully assembled drone</p>
+                        </div>
                     </div>
-
-                    <div class="card-hover p-8 rounded-3xl">
-                        <i class="fas fa-search text-blue-400 text-5xl mb-6"></i>
-                        <h3 class="text-3xl font-bold mb-4">Inspection & Monitoring</h3>
-                        <p class="silver-text leading-relaxed">
-                            Use for indoor inspection, monitoring, and surveillance. AI-powered navigation 
-                            enables autonomous patrol routes and anomaly detection.
-                        </p>
+                    <div class="bg-gradient-to-br from-gray-900 to-gray-800 overflow-hidden rounded-3xl border-4 border-purple-500 shadow-2xl p-6" style="box-shadow: 0 0 30px rgba(139, 92, 246, 0.3);">
+                        <img src="https://cdn1.genspark.ai/user-upload-image/gpt_image_edited/fa96ac19-c475-4ebb-97cf-51b21deb187d.png" 
+                             alt="Circuit Board" 
+                             class="w-full h-80 object-contain hover:scale-110 transition-transform duration-500">
+                        <div class="mt-4 text-center">
+                            <h3 class="text-xl font-bold text-purple-400">Circuit Board</h3>
+                            <p class="text-sm silver-text">ESP32-S3 PCB</p>
+                        </div>
                     </div>
-
-                    <div class="card-hover p-8 rounded-3xl">
-                        <i class="fas fa-gamepad text-green-400 text-5xl mb-6"></i>
-                        <h3 class="text-3xl font-bold mb-4">Interactive Gaming</h3>
-                        <p class="silver-text leading-relaxed">
-                            Create interactive games and experiences using gesture control. Perfect for 
-                            competitions, obstacle courses, and interactive demonstrations.
-                        </p>
+                    <div class="bg-gradient-to-br from-gray-900 to-gray-800 overflow-hidden rounded-3xl border-4 border-purple-500 shadow-2xl p-6" style="box-shadow: 0 0 30px rgba(139, 92, 246, 0.3);">
+                        <img src="https://page.gensparksite.com/v1/base64_upload/7cf111fa8837a58342db2d9bc542a114" 
+                             alt="FLYQ Vision - All Components" 
+                             class="w-full h-80 object-contain hover:scale-110 transition-transform duration-500">
+                        <div class="mt-4 text-center">
+                            <h3 class="text-xl font-bold text-purple-400">Components Kit</h3>
+                            <p class="text-sm silver-text">All parts included</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- CTA Section -->
-        <section id="buy" class="py-24 px-6 bg-black">
-            <div class="container mx-auto text-center">
-                <h2 class="text-6xl font-black mb-8">
-                    <span class="gradient-text">Ready to Experience Vision?</span>
-                </h2>
-                <p class="text-2xl silver-text mb-12 max-w-3xl mx-auto">
-                    Join the future of intelligent drone flight with FLYQ Vision
-                </p>
-                
-                <div class="max-w-2xl mx-auto">
-                    <a href="https://passion3dworld.com" target="_blank" 
-                       class="block bg-gradient-to-br from-purple-500 to-pink-600 text-white p-12 rounded-3xl hover:shadow-2xl transition-all transform hover:scale-105">
-                        <i class="fas fa-store text-6xl mb-6"></i>
-                        <h3 class="text-4xl font-black mb-4">Passion 3D World</h3>
-                        <p class="text-xl font-semibold mb-4">Official Authorized Dealer</p>
-                        <div class="inline-flex items-center bg-white text-purple-600 px-8 py-4 rounded-full font-black text-xl">
-                            <span>Order FLYQ Vision Now</span>
-                            <i class="fas fa-arrow-right ml-3"></i>
+        <!-- Curriculum Section -->
+        <section id="curriculum" class="py-24 px-6 bg-black">
+            <div class="container mx-auto">
+                <div class="text-center mb-20">
+                    <h2 class="text-6xl font-black mb-6">
+                        <span class="gradient-text">8-Week Training</span> Program
+                    </h2>
+                    <div class="section-divider w-32 mx-auto mb-6"></div>
+                    <p class="text-2xl silver-text max-w-3xl mx-auto">Master drone development with camera & AI vision capabilities</p>
+                </div>
+
+                <div class="grid lg:grid-cols-2 gap-6">
+                    <!-- Week 1 -->
+                    <div class="card-hover p-8 rounded-3xl">
+                        <div class="flex items-center mb-6">
+                            <div class="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-600 rounded-2xl flex items-center justify-center mr-4">
+                                <span class="text-2xl font-black text-white">1</span>
+                            </div>
+                            <div>
+                                <h3 class="text-2xl font-black text-purple-400">Week 1</h3>
+                                <p class="silver-text">Introduction & Platform Setup</p>
+                            </div>
                         </div>
+                        <ul class="space-y-3 silver-text">
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-purple-400 mt-1 mr-3"></i>
+                                <span><strong>Session 1:</strong> Course kickoff, FLYQ Vision overview & camera features</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-purple-400 mt-1 mr-3"></i>
+                                <span><strong>Session 2:</strong> Hardware overview: PCB, ESP32-S3, camera module</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-purple-400 mt-1 mr-3"></i>
+                                <span><strong>Session 3:</strong> Circuit schematics & vision system</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-purple-400 mt-1 mr-3"></i>
+                                <span><strong>Session 4:</strong> Hands-on: Unboxing & component identification</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Week 2 -->
+                    <div class="card-hover p-8 rounded-3xl">
+                        <div class="flex items-center mb-6">
+                            <div class="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-600 rounded-2xl flex items-center justify-center mr-4">
+                                <span class="text-2xl font-black text-white">2</span>
+                            </div>
+                            <div>
+                                <h3 class="text-2xl font-black text-purple-400">Week 2</h3>
+                                <p class="silver-text">Camera & Vision Systems</p>
+                            </div>
+                        </div>
+                        <ul class="space-y-3 silver-text">
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-purple-400 mt-1 mr-3"></i>
+                                <span><strong>Session 5:</strong> Camera module setup & configuration</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-purple-400 mt-1 mr-3"></i>
+                                <span><strong>Session 6:</strong> Video streaming & image processing basics</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-purple-400 mt-1 mr-3"></i>
+                                <span><strong>Session 7:</strong> IMU (MPU6050) and motion sensing</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-purple-400 mt-1 mr-3"></i>
+                                <span><strong>Session 8:</strong> Hands-on: Soldering & assembly</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Week 3 -->
+                    <div class="card-hover p-8 rounded-3xl">
+                        <div class="flex items-center mb-6">
+                            <div class="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-600 rounded-2xl flex items-center justify-center mr-4">
+                                <span class="text-2xl font-black text-white">3</span>
+                            </div>
+                            <div>
+                                <h3 class="text-2xl font-black text-purple-400">Week 3</h3>
+                                <p class="silver-text">Computer Vision Basics</p>
+                            </div>
+                        </div>
+                        <ul class="space-y-3 silver-text">
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-purple-400 mt-1 mr-3"></i>
+                                <span><strong>Session 9:</strong> Image processing fundamentals</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-purple-400 mt-1 mr-3"></i>
+                                <span><strong>Session 10:</strong> Object detection algorithms</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-purple-400 mt-1 mr-3"></i>
+                                <span><strong>Session 11:</strong> Color tracking & face detection</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-purple-400 mt-1 mr-3"></i>
+                                <span><strong>Session 12:</strong> Live demo: Camera streaming test</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Week 4 -->
+                    <div class="card-hover p-8 rounded-3xl">
+                        <div class="flex items-center mb-6">
+                            <div class="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-600 rounded-2xl flex items-center justify-center mr-4">
+                                <span class="text-2xl font-black text-white">4</span>
+                            </div>
+                            <div>
+                                <h3 class="text-2xl font-black text-purple-400">Week 4</h3>
+                                <p class="silver-text">Gesture Recognition</p>
+                            </div>
+                        </div>
+                        <ul class="space-y-3 silver-text">
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-purple-400 mt-1 mr-3"></i>
+                                <span><strong>Session 13:</strong> Hand detection & tracking</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-purple-400 mt-1 mr-3"></i>
+                                <span><strong>Session 14:</strong> Gesture recognition algorithms</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-purple-400 mt-1 mr-3"></i>
+                                <span><strong>Session 15:</strong> Mapping gestures to drone control</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-purple-400 mt-1 mr-3"></i>
+                                <span><strong>Session 16:</strong> First gesture-controlled flight</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Week 5 -->
+                    <div class="card-hover p-8 rounded-3xl">
+                        <div class="flex items-center mb-6">
+                            <div class="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-600 rounded-2xl flex items-center justify-center mr-4">
+                                <span class="text-2xl font-black text-white">5</span>
+                            </div>
+                            <div>
+                                <h3 class="text-2xl font-black text-purple-400">Week 5</h3>
+                                <p class="silver-text">AI & Machine Learning</p>
+                            </div>
+                        </div>
+                        <ul class="space-y-3 silver-text">
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-purple-400 mt-1 mr-3"></i>
+                                <span><strong>Session 17:</strong> Introduction to TensorFlow Lite</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-purple-400 mt-1 mr-3"></i>
+                                <span><strong>Session 18:</strong> Edge AI processing on ESP32-S3</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-purple-400 mt-1 mr-3"></i>
+                                <span><strong>Session 19:</strong> Custom ML model training</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-purple-400 mt-1 mr-3"></i>
+                                <span><strong>Session 20:</strong> Hands-on: Deploy ML models</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Week 6 -->
+                    <div class="card-hover p-8 rounded-3xl">
+                        <div class="flex items-center mb-6">
+                            <div class="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-600 rounded-2xl flex items-center justify-center mr-4">
+                                <span class="text-2xl font-black text-white">6</span>
+                            </div>
+                            <div>
+                                <h3 class="text-2xl font-black text-purple-400">Week 6</h3>
+                                <p class="silver-text">Autonomous Flight with Vision</p>
+                            </div>
+                        </div>
+                        <ul class="space-y-3 silver-text">
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-purple-400 mt-1 mr-3"></i>
+                                <span><strong>Session 21:</strong> Vision-guided navigation</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-purple-400 mt-1 mr-3"></i>
+                                <span><strong>Session 22:</strong> Object tracking & following</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-purple-400 mt-1 mr-3"></i>
+                                <span><strong>Session 23:</strong> Obstacle avoidance with camera</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-purple-400 mt-1 mr-3"></i>
+                                <span><strong>Session 24:</strong> Live demo: Autonomous tracking</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Week 7 -->
+                    <div class="card-hover p-8 rounded-3xl">
+                        <div class="flex items-center mb-6">
+                            <div class="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-600 rounded-2xl flex items-center justify-center mr-4">
+                                <span class="text-2xl font-black text-white">7</span>
+                            </div>
+                            <div>
+                                <h3 class="text-2xl font-black text-purple-400">Week 7</h3>
+                                <p class="silver-text">Mobile App Development</p>
+                            </div>
+                        </div>
+                        <ul class="space-y-3 silver-text">
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-purple-400 mt-1 mr-3"></i>
+                                <span><strong>Session 25:</strong> Mobile app architecture</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-purple-400 mt-1 mr-3"></i>
+                                <span><strong>Session 26:</strong> Live video feed integration</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-purple-400 mt-1 mr-3"></i>
+                                <span><strong>Session 27:</strong> Gesture control UI/UX</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-purple-400 mt-1 mr-3"></i>
+                                <span><strong>Session 28:</strong> Workshop: Custom app features</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Week 8 -->
+                    <div class="card-hover p-8 rounded-3xl">
+                        <div class="flex items-center mb-6">
+                            <div class="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-600 rounded-2xl flex items-center justify-center mr-4">
+                                <span class="text-2xl font-black text-white">8</span>
+                            </div>
+                            <div>
+                                <h3 class="text-2xl font-black text-purple-400">Week 8</h3>
+                                <p class="silver-text">Vision Projects & Wrap-Up</p>
+                            </div>
+                        </div>
+                        <ul class="space-y-3 silver-text">
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-purple-400 mt-1 mr-3"></i>
+                                <span><strong>Session 29:</strong> Final vision project execution</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-purple-400 mt-1 mr-3"></i>
+                                <span><strong>Session 30:</strong> Project presentations & review</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-trophy text-yellow-400 mt-1 mr-3"></i>
+                                <span><strong>Certificate:</strong> Vision specialist certificate</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-users text-green-400 mt-1 mr-3"></i>
+                                <span><strong>Community:</strong> Join our alumni network</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="mt-16 text-center">
+                    <div class="inline-block bg-gradient-to-r from-purple-500 to-pink-600 p-1 rounded-3xl">
+                        <div class="bg-black px-12 py-8 rounded-3xl">
+                            <h3 class="text-3xl font-black text-purple-400 mb-4">Course Highlights</h3>
+                            <div class="grid md:grid-cols-3 gap-8 text-left">
+                                <div>
+                                    <i class="fas fa-clock text-purple-400 text-2xl mb-2"></i>
+                                    <p class="silver-text"><strong class="text-white">30 Sessions</strong><br>8 weeks of intensive training</p>
+                                </div>
+                                <div>
+                                    <i class="fas fa-hands-helping text-purple-400 text-2xl mb-2"></i>
+                                    <p class="silver-text"><strong class="text-white">Hands-on Labs</strong><br>Build & fly with camera</p>
+                                </div>
+                                <div>
+                                    <i class="fas fa-certificate text-purple-400 text-2xl mb-2"></i>
+                                    <p class="silver-text"><strong class="text-white">Certification</strong><br>Vision specialist certificate</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Partners Section -->
+        <section class="py-24 px-6 bg-midnight">
+            <div class="container mx-auto">
+                <div class="text-center mb-16">
+                    <h2 class="text-6xl font-black mb-6">
+                        <span class="gradient-text">Trusted By</span> Industry Leaders
+                    </h2>
+                    <div class="section-divider w-32 mx-auto mb-6"></div>
+                    <p class="text-xl silver-text">Partnering with leading technology and education institutions</p>
+                </div>
+
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
+                    <!-- Partner 1 -->
+                    <div class="card-hover p-8 rounded-3xl text-center">
+                        <div class="w-20 h-20 bg-gradient-to-br from-purple-500 to-pink-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-store text-white text-3xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2 text-purple-400">Passion 3D World</h3>
+                        <p class="text-sm silver-text">Official Authorized Dealer</p>
+                    </div>
+
+                    <!-- Partner 2 -->
+                    <div class="card-hover p-8 rounded-3xl text-center">
+                        <div class="w-20 h-20 bg-gradient-to-br from-pink-500 to-red-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-microchip text-white text-3xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2 text-purple-400">Espressif Systems</h3>
+                        <p class="text-sm silver-text">ESP32-S3 Technology Partner</p>
+                    </div>
+
+                    <!-- Partner 3 -->
+                    <div class="card-hover p-8 rounded-3xl text-center">
+                        <div class="w-20 h-20 bg-gradient-to-br from-green-500 to-teal-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-graduation-cap text-white text-3xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2 text-purple-400">Educational Institutions</h3>
+                        <p class="text-sm silver-text">Universities & Colleges Worldwide</p>
+                    </div>
+
+                    <!-- Partner 4 -->
+                    <div class="card-hover p-8 rounded-3xl text-center">
+                        <div class="w-20 h-20 bg-gradient-to-br from-orange-500 to-red-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-code text-white text-3xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2 text-purple-400">Open Source Community</h3>
+                        <p class="text-sm silver-text">Computer Vision Projects</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials Section -->
+        <section class="py-24 px-6 bg-black">
+            <div class="container mx-auto">
+                <div class="text-center mb-16">
+                    <h2 class="text-6xl font-black mb-6">
+                        What Our <span class="gradient-text">Students Say</span>
+                    </h2>
+                    <div class="section-divider w-32 mx-auto mb-6"></div>
+                    <p class="text-xl silver-text">Real experiences from our vision community</p>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-8">
+                    <!-- Testimonial 1 -->
+                    <div class="card-hover p-8 rounded-3xl">
+                        <div class="flex items-center mb-6">
+                            <div class="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-600 rounded-full flex items-center justify-center mr-4">
+                                <i class="fab fa-whatsapp text-white text-2xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-purple-400">Ananya Singh</h4>
+                                <p class="text-sm silver-text">Computer Vision Engineer</p>
+                                <div class="flex text-yellow-400 text-sm mt-1">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="silver-text italic">"FLYQ Vision is incredible! Gesture control works seamlessly. The camera quality is impressive for a drone this size. Perfect for my AI research projects."</p>
+                    </div>
+
+                    <!-- Testimonial 2 -->
+                    <div class="card-hover p-8 rounded-3xl">
+                        <div class="flex items-center mb-6">
+                            <div class="w-16 h-16 bg-gradient-to-br from-pink-500 to-red-600 rounded-full flex items-center justify-center mr-4">
+                                <i class="fab fa-whatsapp text-white text-2xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-purple-400">Karan Mehta</h4>
+                                <p class="text-sm silver-text">Content Creator</p>
+                                <div class="flex text-yellow-400 text-sm mt-1">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="silver-text italic">"The object tracking feature is a game-changer! I can create amazing follow-me shots without any extra equipment. Highly recommend for creators!"</p>
+                    </div>
+
+                    <!-- Testimonial 3 -->
+                    <div class="card-hover p-8 rounded-3xl">
+                        <div class="flex items-center mb-6">
+                            <div class="w-16 h-16 bg-gradient-to-br from-green-500 to-teal-600 rounded-full flex items-center justify-center mr-4">
+                                <i class="fab fa-whatsapp text-white text-2xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-purple-400">Dr. Priya Sharma</h4>
+                                <p class="text-sm silver-text">AI Researcher</p>
+                                <div class="flex text-yellow-400 text-sm mt-1">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="silver-text italic">"Perfect platform for teaching computer vision concepts. Students love the hands-on experience with real-time image processing and ML models."</p>
+                    </div>
+
+                    <!-- Testimonial 4 -->
+                    <div class="card-hover p-8 rounded-3xl">
+                        <div class="flex items-center mb-6">
+                            <div class="w-16 h-16 bg-gradient-to-br from-orange-500 to-red-600 rounded-full flex items-center justify-center mr-4">
+                                <i class="fab fa-whatsapp text-white text-2xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-purple-400">Vikram Patel</h4>
+                                <p class="text-sm silver-text">Robotics Enthusiast</p>
+                                <div class="flex text-yellow-400 text-sm mt-1">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="silver-text italic">"The TensorFlow Lite integration is fantastic! I deployed my custom ML model in minutes. Edge AI on ESP32-S3 is surprisingly powerful!"</p>
+                    </div>
+
+                    <!-- Testimonial 5 -->
+                    <div class="card-hover p-8 rounded-3xl">
+                        <div class="flex items-center mb-6">
+                            <div class="w-16 h-16 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-full flex items-center justify-center mr-4">
+                                <i class="fab fa-whatsapp text-white text-2xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-purple-400">Neha Gupta</h4>
+                                <p class="text-sm silver-text">Engineering Student</p>
+                                <div class="flex text-yellow-400 text-sm mt-1">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="silver-text italic">"Best investment for my final year project! The mobile app makes controlling the drone super easy. Face tracking works brilliantly!"</p>
+                    </div>
+
+                    <!-- Testimonial 6 -->
+                    <div class="card-hover p-8 rounded-3xl">
+                        <div class="flex items-center mb-6">
+                            <div class="w-16 h-16 bg-gradient-to-br from-yellow-500 to-orange-600 rounded-full flex items-center justify-center mr-4">
+                                <i class="fab fa-whatsapp text-white text-2xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-purple-400">Arjun Rao</h4>
+                                <p class="text-sm silver-text">Maker & Tinkerer</p>
+                                <div class="flex text-yellow-400 text-sm mt-1">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="silver-text italic">"The gesture control is mind-blowing! Controlling a drone with hand movements feels futuristic. Great documentation and community support!"</p>
+                    </div>
+                </div>
+
+                <div class="text-center mt-16">
+                    <a href="https://wa.me/1234567890" target="_blank" class="inline-flex items-center bg-gradient-to-r from-green-500 to-green-600 text-white px-8 py-4 rounded-full font-bold text-xl hover:shadow-2xl transition-all transform hover:scale-105">
+                        <i class="fab fa-whatsapp text-3xl mr-3"></i>
+                        Join Our WhatsApp Community
                     </a>
                 </div>
             </div>
         </section>
 
-        <!-- Footer -->
-        <footer class="bg-midnight py-12 border-t border-purple-500">
-            <div class="container mx-auto px-6">
-                <div class="grid md:grid-cols-3 gap-8 mb-8">
-                    <div>
-                        <h4 class="font-bold mb-4 text-purple-400">FLYQ Vision</h4>
-                        <p class="silver-text text-sm">Advanced drone with camera & gesture control</p>
+        <!-- FAQ Section -->
+        <section id="faq" class="py-24 px-6 bg-midnight">
+            <div class="container mx-auto max-w-4xl">
+                <div class="text-center mb-16">
+                    <h2 class="text-6xl font-black mb-6">
+                        <span class="gradient-text">Frequently Asked</span> Questions
+                    </h2>
+                    <div class="section-divider w-32 mx-auto mb-6"></div>
+                    <p class="text-xl silver-text">Everything you need to know about FLYQ Vision</p>
+                </div>
+
+                <div class="space-y-4">
+                    <!-- FAQ 1 -->
+                    <div class="card-hover p-6 rounded-2xl">
+                        <h3 class="text-xl font-bold text-purple-400 mb-3 flex items-center">
+                            <i class="fas fa-question-circle mr-3"></i>
+                            What makes FLYQ Vision different from FLYQ Air?
+                        </h3>
+                        <p class="silver-text ml-9">FLYQ Vision features an integrated HD camera module (720p @ 30fps), AI-powered gesture recognition, computer vision capabilities, and advanced object tracking. Perfect for vision-based projects and content creation.</p>
                     </div>
-                    <div>
-                        <h4 class="font-bold mb-4 text-purple-400">Quick Links</h4>
-                        <div class="space-y-2">
-                            <a href="/" class="block silver-text hover:text-purple-400 transition text-sm">FLYQ Air</a>
-                            <a href="/docs" class="block silver-text hover:text-purple-400 transition text-sm">Documentation</a>
-                            <a href="https://passion3dworld.com" class="block silver-text hover:text-purple-400 transition text-sm">Store</a>
-                        </div>
+
+                    <!-- FAQ 2 -->
+                    <div class="card-hover p-6 rounded-2xl">
+                        <h3 class="text-xl font-bold text-purple-400 mb-3 flex items-center">
+                            <i class="fas fa-question-circle mr-3"></i>
+                            How does gesture control work?
+                        </h3>
+                        <p class="silver-text ml-9">The camera captures your hand movements, and onboard AI processes them in real-time using TensorFlow Lite models. Recognize palm gestures, directional hand movements, and custom gestures you can map to drone controls.</p>
                     </div>
-                    <div>
-                        <h4 class="font-bold mb-4 text-purple-400">Contact</h4>
-                        <p class="silver-text text-sm">support@flyqair.com</p>
+
+                    <!-- FAQ 3 -->
+                    <div class="card-hover p-6 rounded-2xl">
+                        <h3 class="text-xl font-bold text-purple-400 mb-3 flex items-center">
+                            <i class="fas fa-question-circle mr-3"></i>
+                            What is the camera quality and latency?
+                        </h3>
+                        <p class="silver-text ml-9">720p HD resolution at 30fps with 120° field of view. Video streams over WiFi with less than 200ms latency. Supports photo & video recording with adjustable quality settings.</p>
+                    </div>
+
+                    <!-- FAQ 4 -->
+                    <div class="card-hover p-6 rounded-2xl">
+                        <h3 class="text-xl font-bold text-purple-400 mb-3 flex items-center">
+                            <i class="fas fa-question-circle mr-3"></i>
+                            Can I deploy custom ML models?
+                        </h3>
+                        <p class="silver-text ml-9">Yes! The ESP32-S3 supports TensorFlow Lite models. You can train your own models for specific recognition tasks and deploy them for edge AI processing directly on the drone.</p>
+                    </div>
+
+                    <!-- FAQ 5 -->
+                    <div class="card-hover p-6 rounded-2xl">
+                        <h3 class="text-xl font-bold text-purple-400 mb-3 flex items-center">
+                            <i class="fas fa-question-circle mr-3"></i>
+                            What object tracking features are included?
+                        </h3>
+                        <p class="silver-text ml-9">Face detection & tracking, color-based object tracking, multi-object recognition, and autonomous following. Perfect for selfie drones, security monitoring, and creative videography.</p>
+                    </div>
+
+                    <!-- FAQ 6 -->
+                    <div class="card-hover p-6 rounded-2xl">
+                        <h3 class="text-xl font-bold text-purple-400 mb-3 flex items-center">
+                            <i class="fas fa-question-circle mr-3"></i>
+                            Is there a mobile app?
+                        </h3>
+                        <p class="silver-text ml-9">Yes! Comprehensive iOS and Android apps with live camera feed, gesture mode toggle, media gallery, flight controls, and settings. Full source code available for customization.</p>
+                    </div>
+
+                    <!-- FAQ 7 -->
+                    <div class="card-hover p-6 rounded-2xl">
+                        <h3 class="text-xl font-bold text-purple-400 mb-3 flex items-center">
+                            <i class="fas fa-question-circle mr-3"></i>
+                            What is the processing power for vision tasks?
+                        </h3>
+                        <p class="silver-text ml-9">ESP32-S3 dual-core 240MHz with vector instructions for AI acceleration plus 8MB PSRAM for vision processing. Capable of real-time image processing and ML inference at the edge.</p>
+                    </div>
+
+                    <!-- FAQ 8 -->
+                    <div class="card-hover p-6 rounded-2xl">
+                        <h3 class="text-xl font-bold text-purple-400 mb-3 flex items-center">
+                            <i class="fas fa-question-circle mr-3"></i>
+                            Do I need prior computer vision experience?
+                        </h3>
+                        <p class="silver-text ml-9">No! Our 8-week curriculum covers everything from basics to advanced topics. We provide pre-trained models to get started, and teach you how to customize them for your projects.</p>
+                    </div>
+
+                    <!-- FAQ 9 -->
+                    <div class="card-hover p-6 rounded-2xl">
+                        <h3 class="text-xl font-bold text-purple-400 mb-3 flex items-center">
+                            <i class="fas fa-question-circle mr-3"></i>
+                            Is FLYQ Vision open source?
+                        </h3>
+                        <p class="silver-text ml-9">Yes! 100% open source hardware and firmware. Access schematics, PCB files, camera integration code, ML models, and mobile app source on GitHub. Perfect for learning and customization.</p>
+                    </div>
+
+                    <!-- FAQ 10 -->
+                    <div class="card-hover p-6 rounded-2xl">
+                        <h3 class="text-xl font-bold text-purple-400 mb-3 flex items-center">
+                            <i class="fas fa-question-circle mr-3"></i>
+                            Where can I purchase FLYQ Vision?
+                        </h3>
+                        <p class="silver-text ml-9">FLYQ Vision is available exclusively through our official partner <strong class="text-purple-400">Passion 3D World</strong>. Visit <a href="https://passion3dworld.com" class="text-purple-400 underline" target="_blank">passion3dworld.com</a> to order today!</p>
                     </div>
                 </div>
-                <div class="text-center silver-text text-sm pt-8 border-t border-gray-800">
-                    © 2024 FLYQ Vision. All rights reserved.
+            </div>
+        </section>
+
+        <!-- CTA / Buy Section -->
+        <section id="buy" class="py-24 px-6 bg-black relative overflow-hidden">
+            <div class="absolute inset-0 opacity-10">
+                <div class="absolute top-0 left-0 w-96 h-96 bg-purple-500 rounded-full blur-3xl"></div>
+                <div class="absolute bottom-0 right-0 w-96 h-96 bg-pink-600 rounded-full blur-3xl"></div>
+            </div>
+            
+            <div class="container mx-auto text-center relative z-10">
+                <h2 class="text-6xl md:text-7xl font-black mb-8 premium-glow">
+                    Start Your Vision Journey Today
+                </h2>
+                <p class="text-2xl silver-text mb-16 max-w-4xl mx-auto leading-relaxed">
+                    Join thousands of makers, developers, and educators building intelligent systems with 
+                    <span class="gradient-text font-bold">FLYQ Vision</span>. 
+                    Premium camera technology meets limitless AI possibilities.
+                </p>
+                
+                <!-- Main Store CTA -->
+                <div class="max-w-2xl mx-auto mb-16">
+                    <a href="https://passion3dworld.com" target="_blank" 
+                       class="block bg-gradient-to-br from-purple-500 to-pink-600 text-white p-12 rounded-3xl hover:shadow-2xl transition-all transform hover:scale-105 border-4 border-purple-500" style="box-shadow: 0 0 60px rgba(139, 92, 246, 0.4);">
+                        <i class="fas fa-store text-6xl mb-6"></i>
+                        <h3 class="text-4xl font-black mb-4">Passion 3D World</h3>
+                        <p class="text-xl font-semibold mb-4">Official Authorized Dealer</p>
+                        <div class="inline-flex items-center bg-white text-purple-600 px-8 py-4 rounded-full font-black text-xl shadow-lg">
+                            <span>Order Now</span>
+                            <i class="fas fa-arrow-right ml-3"></i>
+                        </div>
+                    </a>
+                </div>
+                
+                <!-- Community Section -->
+                <div class="border-t border-gray-800 pt-16">
+                    <h3 class="text-3xl font-black mb-10 gradient-text">Learn & Connect</h3>
+                    <div class="flex flex-wrap justify-center gap-6">
+                        <a href="/docs" 
+                           class="bg-gradient-to-br from-purple-500 to-pink-600 px-8 py-4 rounded-2xl hover:shadow-2xl transition-all inline-flex items-center text-lg font-semibold border-2 border-purple-400 text-white">
+                            <i class="fas fa-book-open mr-3"></i>
+                            Complete Documentation
+                        </a>
+                        <a href="https://github.com/passion3d/flyq-vision" target="_blank" 
+                           class="bg-midnight px-8 py-4 rounded-2xl hover:bg-purple-500 hover:text-white transition-all inline-flex items-center text-lg font-semibold border-2 border-purple-500 silver-text">
+                            <i class="fab fa-github mr-3"></i>
+                            GitHub
+                        </a>
+                        <a href="https://circuitdigest.com/forum" target="_blank" 
+                           class="bg-midnight px-8 py-4 rounded-2xl hover:bg-purple-500 hover:text-white transition-all inline-flex items-center text-lg font-semibold border-2 border-purple-500 silver-text">
+                            <i class="fas fa-comments mr-3"></i>
+                            Forum
+                        </a>
+                        <a href="#" 
+                           class="bg-midnight px-8 py-4 rounded-2xl hover:bg-purple-500 hover:text-white transition-all inline-flex items-center text-lg font-semibold border-2 border-purple-500 silver-text">
+                            <i class="fab fa-whatsapp mr-3"></i>
+                            Community
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="bg-midnight border-t-4 border-purple-500 py-16 px-6">
+            <div class="container mx-auto">
+                <div class="grid md:grid-cols-4 gap-12 mb-12">
+                    <div>
+                        <div class="flex items-center space-x-3 mb-6">
+                            <i class="fas fa-drone text-purple-400 text-3xl"></i>
+                            <span class="text-2xl font-black gradient-text">FLYQ Vision</span>
+                        </div>
+                        <p class="silver-text leading-relaxed">Advanced programmable drone with camera & gesture control for makers, developers, and innovators.</p>
+                    </div>
+                    
+                    <div>
+                        <h4 class="font-black mb-6 text-purple-400 text-lg">Product</h4>
+                        <ul class="space-y-3 silver-text">
+                            <li><a href="#features" class="hover:text-purple-400 transition">Features</a></li>
+                            <li><a href="#specs" class="hover:text-purple-400 transition">Specs</a></li>
+                            <li><a href="#curriculum" class="hover:text-purple-400 transition">Training</a></li>
+                            <li><a href="/docs" class="hover:text-purple-400 transition font-semibold"><i class="fas fa-book mr-2"></i>Documentation</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div>
+                        <h4 class="font-black mb-6 text-purple-400 text-lg">Resources</h4>
+                        <ul class="space-y-3 silver-text">
+                            <li><a href="https://github.com/passion3d/flyq-vision" class="hover:text-purple-400 transition">GitHub</a></li>
+                            <li><a href="#" class="hover:text-purple-400 transition">Tutorials</a></li>
+                            <li><a href="#" class="hover:text-purple-400 transition">Community</a></li>
+                            <li><a href="/" class="hover:text-purple-400 transition">FLYQ Air</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div>
+                        <h4 class="font-black mb-6 text-purple-400 text-lg">Support</h4>
+                        <ul class="space-y-3 silver-text">
+                            <li><a href="#" class="hover:text-purple-400 transition">Contact</a></li>
+                            <li><a href="#faq" class="hover:text-purple-400 transition">FAQ</a></li>
+                            <li><a href="https://passion3dworld.com" class="hover:text-purple-400 transition">Buy Now</a></li>
+                            <li><a href="#" class="hover:text-purple-400 transition">Returns</a></li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="border-t border-gray-800 pt-8 text-center">
+                    <p class="silver-text">
+                        &copy; 2025 Circuit Digest. All rights reserved. | 
+                        <span class="gradient-text font-semibold">100% Open Source Hardware</span> | 
+                        CC Licensed
+                    </p>
                 </div>
             </div>
         </footer>
@@ -1834,21 +2564,21 @@ app.get('/vision', (c) => {
             const mobileMenuBtn = document.getElementById('mobileMenuBtn');
             const mobileMenu = document.getElementById('mobileMenu');
             
-            if (mobileMenuBtn) {
-                mobileMenuBtn.addEventListener('click', () => {
-                    mobileMenu.classList.toggle('hidden');
-                });
-            }
-
-            // Smooth scroll
+            mobileMenuBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+            
+            // Smooth scrolling
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 anchor.addEventListener('click', function (e) {
                     e.preventDefault();
                     const target = document.querySelector(this.getAttribute('href'));
                     if (target) {
                         target.scrollIntoView({
-                            behavior: 'smooth'
+                            behavior: 'smooth',
+                            block: 'start'
                         });
+                        mobileMenu.classList.add('hidden');
                     }
                 });
             });
