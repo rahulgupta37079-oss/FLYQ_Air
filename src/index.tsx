@@ -593,12 +593,12 @@ void loop() {
                 </div>
                 <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
                     <div class="bg-gradient-to-br from-gray-900 to-gray-800 overflow-hidden rounded-3xl border-4 border-sky-500 shadow-2xl p-6" style="box-shadow: 0 0 30px rgba(14, 165, 233, 0.3);">
-                        <img src="https://page.gensparksite.com/v1/base64_upload/d5a404913f11dc0c3413bf2529b1429b" 
-                             alt="FLYQ Air - Hero View" 
+                        <img src="https://cdn1.genspark.ai/user-upload-image/rmbg_generated/0_ec274673-f343-4370-aa8c-2340dda416bd" 
+                             alt="FLYQ Air - Camera Drone" 
                              class="w-full h-80 object-contain hover:scale-110 transition-transform duration-500">
                         <div class="mt-4 text-center">
-                            <h3 class="text-xl font-bold text-sky-400">Hero View</h3>
-                            <p class="text-sm silver-text">Sleek design</p>
+                            <h3 class="text-xl font-bold text-sky-400">Camera Drone</h3>
+                            <p class="text-sm silver-text">Vision-enabled model</p>
                         </div>
                     </div>
                     <div class="bg-gradient-to-br from-gray-900 to-gray-800 overflow-hidden rounded-3xl border-4 border-sky-500 shadow-2xl p-6" style="box-shadow: 0 0 30px rgba(14, 165, 233, 0.3);">
