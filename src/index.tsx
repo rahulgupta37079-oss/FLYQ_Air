@@ -1594,7 +1594,7 @@ app.get('/vision', (c) => {
                     <div class="relative">
                         <div class="absolute inset-0 bg-sky-500 opacity-15 blur-3xl rounded-full"></div>
                         <div class="relative z-10 float-animation">
-                            <img src="https://cdn1.genspark.ai/user-upload-image/rmbg_generated/0_ec274673-f343-4370-aa8c-2340dda416bd" 
+                            <img src="https://cdn1.genspark.ai/user-upload-image/rmbg_generated/0_f1a47aea-7dd7-431f-bfe8-e82d7d001b38" 
                                  alt="FLYQ Vision Camera Drone" 
                                  class="w-full h-auto drop-shadow-2xl">
                         </div>
@@ -1818,7 +1818,7 @@ app.get('/vision', (c) => {
                 </div>
                 <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
                     <div class="bg-gradient-to-br from-gray-900 to-gray-800 overflow-hidden rounded-3xl border-4 border-sky-500 shadow-2xl p-6" style="box-shadow: 0 0 30px rgba(14, 165, 233, 0.3);">
-                        <img src="https://cdn1.genspark.ai/user-upload-image/rmbg_generated/0_ec274673-f343-4370-aa8c-2340dda416bd" 
+                        <img src="https://cdn1.genspark.ai/user-upload-image/rmbg_generated/0_f1a47aea-7dd7-431f-bfe8-e82d7d001b38" 
                              alt="FLYQ Vision - Camera Drone" 
                              class="w-full h-80 object-contain hover:scale-110 transition-transform duration-500">
                         <div class="mt-4 text-center">
