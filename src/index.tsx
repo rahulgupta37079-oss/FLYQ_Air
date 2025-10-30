@@ -1266,10 +1266,10 @@ void loop() {
                             <i class="fab fa-github mr-3"></i>
                             GitHub
                         </a>
-                        <a href="https://circuitdigest.com/forum" target="_blank" 
+                        <a href="https://passion3dworld.com" target="_blank" 
                            class="bg-midnight px-8 py-4 rounded-2xl hover:bg-sky-500 hover:text-white transition-all inline-flex items-center text-lg font-semibold border-2 border-sky-500 silver-text">
-                            <i class="fas fa-comments mr-3"></i>
-                            Forum
+                            <i class="fas fa-store mr-3"></i>
+                            Store
                         </a>
                         <a href="#" 
                            class="bg-midnight px-8 py-4 rounded-2xl hover:bg-sky-500 hover:text-white transition-all inline-flex items-center text-lg font-semibold border-2 border-sky-500 silver-text">
@@ -1306,10 +1306,10 @@ void loop() {
                     <div>
                         <h4 class="font-black mb-6 text-sky-400 text-lg">Resources</h4>
                         <ul class="space-y-3 silver-text">
-                            <li><a href="https://github.com/Circuit-Digest/LiteWing" class="hover:text-sky-400 transition">GitHub</a></li>
+                            <li><a href="https://github.com/passion3d/flyq-air" class="hover:text-sky-400 transition">GitHub</a></li>
                             <li><a href="#" class="hover:text-sky-400 transition">Tutorials</a></li>
                             <li><a href="#" class="hover:text-sky-400 transition">Community</a></li>
-                            <li><a href="https://circuitdigest.com" class="hover:text-sky-400 transition">Circuit Digest</a></li>
+                            <li><a href="https://passion3dworld.com" class="hover:text-sky-400 transition">Store</a></li>
                         </ul>
                     </div>
                     
@@ -1326,7 +1326,7 @@ void loop() {
                 
                 <div class="border-t border-gray-800 pt-8 text-center">
                     <p class="silver-text">
-                        &copy; 2025 Circuit Digest. All rights reserved. | 
+                        &copy; 2025 FLYQ Air. All rights reserved. | 
                         <span class="text-sky-400 font-semibold">100% Open Source Hardware</span> | 
                         CC Licensed
                     </p>
@@ -2491,10 +2491,10 @@ app.get('/vision', (c) => {
                             <i class="fab fa-github mr-3"></i>
                             GitHub
                         </a>
-                        <a href="https://circuitdigest.com/forum" target="_blank" 
+                        <a href="https://passion3dworld.com" target="_blank" 
                            class="bg-midnight px-8 py-4 rounded-2xl hover:bg-sky-500 hover:text-white transition-all inline-flex items-center text-lg font-semibold border-2 border-sky-500 silver-text">
-                            <i class="fas fa-comments mr-3"></i>
-                            Forum
+                            <i class="fas fa-store mr-3"></i>
+                            Store
                         </a>
                         <a href="#" 
                            class="bg-midnight px-8 py-4 rounded-2xl hover:bg-sky-500 hover:text-white transition-all inline-flex items-center text-lg font-semibold border-2 border-sky-500 silver-text">
@@ -2551,7 +2551,7 @@ app.get('/vision', (c) => {
                 
                 <div class="border-t border-gray-800 pt-8 text-center">
                     <p class="silver-text">
-                        &copy; 2025 Circuit Digest. All rights reserved. | 
+                        &copy; 2025 FLYQ Vision. All rights reserved. | 
                         <span class="gradient-text font-semibold">100% Open Source Hardware</span> | 
                         CC Licensed
                     </p>
