@@ -153,10 +153,10 @@ app.get('/', (c) => {
                         <i class="fas fa-drone text-sky-500 text-3xl pulse-blue"></i>
                         <span class="text-3xl font-black gradient-text" style="font-family: 'Rajdhani', sans-serif;">FLYQ Air</span>
                     </div>
-                    <div class="hidden md:flex space-x-8 text-sm font-bold uppercase tracking-wider">
+                    <div class="hidden md:flex space-x-6 text-sm font-bold uppercase tracking-wider">
                         <a href="#features" class="silver-text hover:text-sky-400 transition-colors">Features</a>
-                        <a href="#specs" class="silver-text hover:text-sky-400 transition-colors">Specs</a>
-                        <a href="#programmable" class="silver-text hover:text-sky-400 transition-colors">Programming</a>
+                        <a href="#curriculum" class="silver-text hover:text-sky-400 transition-colors">Curriculum</a>
+                        <a href="#faq" class="silver-text hover:text-sky-400 transition-colors">FAQ</a>
                         <a href="/docs" class="silver-text hover:text-sky-400 transition-colors flex items-center">
                             <i class="fas fa-book mr-2"></i>Docs
                         </a>
@@ -169,8 +169,8 @@ app.get('/', (c) => {
                 <!-- Mobile Menu -->
                 <div id="mobileMenu" class="hidden md:hidden mt-6 space-y-4 pb-4">
                     <a href="#features" class="block silver-text hover:text-sky-400 transition-colors text-center py-2">Features</a>
-                    <a href="#specs" class="block silver-text hover:text-sky-400 transition-colors text-center py-2">Specs</a>
-                    <a href="#programmable" class="block silver-text hover:text-sky-400 transition-colors text-center py-2">Programming</a>
+                    <a href="#curriculum" class="block silver-text hover:text-sky-400 transition-colors text-center py-2">Curriculum</a>
+                    <a href="#faq" class="block silver-text hover:text-sky-400 transition-colors text-center py-2">FAQ</a>
                     <a href="/docs" class="block silver-text hover:text-sky-400 transition-colors text-center py-2">
                         <i class="fas fa-book mr-2"></i>Documentation
                     </a>
@@ -621,6 +621,595 @@ void loop() {
                             <h3 class="text-xl font-bold text-sky-400">Components Kit</h3>
                             <p class="text-sm silver-text">All parts included</p>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Curriculum Section -->
+        <section id="curriculum" class="py-24 px-6 bg-black">
+            <div class="container mx-auto">
+                <div class="text-center mb-20">
+                    <h2 class="text-6xl font-black mb-6">
+                        <span class="text-sky-400">8-Week Training</span> Program
+                    </h2>
+                    <div class="section-divider w-32 mx-auto mb-6"></div>
+                    <p class="text-2xl silver-text max-w-3xl mx-auto">Master drone development from basics to autonomous flight with our comprehensive curriculum</p>
+                </div>
+
+                <div class="grid lg:grid-cols-2 gap-6">
+                    <!-- Week 1 -->
+                    <div class="card-hover p-8 rounded-3xl">
+                        <div class="flex items-center mb-6">
+                            <div class="w-16 h-16 bg-gradient-to-br from-sky-500 to-blue-600 rounded-2xl flex items-center justify-center mr-4">
+                                <span class="text-2xl font-black text-white">1</span>
+                            </div>
+                            <div>
+                                <h3 class="text-2xl font-black text-sky-400">Week 1</h3>
+                                <p class="silver-text">Introduction & Platform Setup</p>
+                            </div>
+                        </div>
+                        <ul class="space-y-3 silver-text">
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-sky-400 mt-1 mr-3"></i>
+                                <span><strong>Session 1:</strong> Course kickoff, FLYQ Air overview & applications</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-sky-400 mt-1 mr-3"></i>
+                                <span><strong>Session 2:</strong> Hardware overview: PCB, ESP32-S3, key features</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-sky-400 mt-1 mr-3"></i>
+                                <span><strong>Session 3:</strong> Circuit schematics & power system</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-sky-400 mt-1 mr-3"></i>
+                                <span><strong>Session 4:</strong> Hands-on: Unboxing & component identification</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Week 2 -->
+                    <div class="card-hover p-8 rounded-3xl">
+                        <div class="flex items-center mb-6">
+                            <div class="w-16 h-16 bg-gradient-to-br from-sky-500 to-blue-600 rounded-2xl flex items-center justify-center mr-4">
+                                <span class="text-2xl font-black text-white">2</span>
+                            </div>
+                            <div>
+                                <h3 class="text-2xl font-black text-sky-400">Week 2</h3>
+                                <p class="silver-text">Sensor & Motor Systems</p>
+                            </div>
+                        </div>
+                        <ul class="space-y-3 silver-text">
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-sky-400 mt-1 mr-3"></i>
+                                <span><strong>Session 5:</strong> IMU (MPU6050) and motion sensing</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-sky-400 mt-1 mr-3"></i>
+                                <span><strong>Session 6:</strong> Motor driver circuit: MOSFETs & PWM</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-sky-400 mt-1 mr-3"></i>
+                                <span><strong>Session 7:</strong> Pinout & expansion connector</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-sky-400 mt-1 mr-3"></i>
+                                <span><strong>Session 8:</strong> Hands-on: Soldering & assembly</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Week 3 -->
+                    <div class="card-hover p-8 rounded-3xl">
+                        <div class="flex items-center mb-6">
+                            <div class="w-16 h-16 bg-gradient-to-br from-sky-500 to-blue-600 rounded-2xl flex items-center justify-center mr-4">
+                                <span class="text-2xl font-black text-white">3</span>
+                            </div>
+                            <div>
+                                <h3 class="text-2xl font-black text-sky-400">Week 3</h3>
+                                <p class="silver-text">Firmware & Programming</p>
+                            </div>
+                        </div>
+                        <ul class="space-y-3 silver-text">
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-sky-400 mt-1 mr-3"></i>
+                                <span><strong>Session 9:</strong> Firmware architecture: ESP-IDF, RTOS, PID</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-sky-400 mt-1 mr-3"></i>
+                                <span><strong>Session 10:</strong> Arduino IDE & ESP-IDF development</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-sky-400 mt-1 mr-3"></i>
+                                <span><strong>Session 11:</strong> Python SDK & PC control (cfclient)</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-sky-400 mt-1 mr-3"></i>
+                                <span><strong>Session 12:</strong> Live demo: Flashing firmware</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Week 4 -->
+                    <div class="card-hover p-8 rounded-3xl">
+                        <div class="flex items-center mb-6">
+                            <div class="w-16 h-16 bg-gradient-to-br from-sky-500 to-blue-600 rounded-2xl flex items-center justify-center mr-4">
+                                <span class="text-2xl font-black text-white">4</span>
+                            </div>
+                            <div>
+                                <h3 class="text-2xl font-black text-sky-400">Week 4</h3>
+                                <p class="silver-text">Flight Basics & Safety</p>
+                            </div>
+                        </div>
+                        <ul class="space-y-3 silver-text">
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-sky-400 mt-1 mr-3"></i>
+                                <span><strong>Session 13:</strong> Pre-flight setup & calibration</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-sky-400 mt-1 mr-3"></i>
+                                <span><strong>Session 14:</strong> Safety guidelines: Battery & propeller safety</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-sky-400 mt-1 mr-3"></i>
+                                <span><strong>Session 15:</strong> First flight procedure & live demo</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-sky-400 mt-1 mr-3"></i>
+                                <span><strong>Session 16:</strong> Troubleshooting common issues</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Week 5 -->
+                    <div class="card-hover p-8 rounded-3xl">
+                        <div class="flex items-center mb-6">
+                            <div class="w-16 h-16 bg-gradient-to-br from-sky-500 to-blue-600 rounded-2xl flex items-center justify-center mr-4">
+                                <span class="text-2xl font-black text-white">5</span>
+                            </div>
+                            <div>
+                                <h3 class="text-2xl font-black text-sky-400">Week 5</h3>
+                                <p class="silver-text">Advanced Features & Sensors</p>
+                            </div>
+                        </div>
+                        <ul class="space-y-3 silver-text">
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-sky-400 mt-1 mr-3"></i>
+                                <span><strong>Session 17:</strong> Optional sensors: ToF, barometer, optical flow</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-sky-400 mt-1 mr-3"></i>
+                                <span><strong>Session 18:</strong> Expansion modules & 24-pin connector</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-sky-400 mt-1 mr-3"></i>
+                                <span><strong>Session 19:</strong> Assisted flight modes integration</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-sky-400 mt-1 mr-3"></i>
+                                <span><strong>Session 20:</strong> Hands-on: Install & test sensors</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Week 6 -->
+                    <div class="card-hover p-8 rounded-3xl">
+                        <div class="flex items-center mb-6">
+                            <div class="w-16 h-16 bg-gradient-to-br from-sky-500 to-blue-600 rounded-2xl flex items-center justify-center mr-4">
+                                <span class="text-2xl font-black text-white">6</span>
+                            </div>
+                            <div>
+                                <h3 class="text-2xl font-black text-sky-400">Week 6</h3>
+                                <p class="silver-text">Autonomous Flight & Control</p>
+                            </div>
+                        </div>
+                        <ul class="space-y-3 silver-text">
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-sky-400 mt-1 mr-3"></i>
+                                <span><strong>Session 21:</strong> Autonomous behavior with Python (cflib)</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-sky-400 mt-1 mr-3"></i>
+                                <span><strong>Session 22:</strong> Telemetry & WiFi control interface</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-sky-400 mt-1 mr-3"></i>
+                                <span><strong>Session 23:</strong> Drone programming patterns & missions</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-sky-400 mt-1 mr-3"></i>
+                                <span><strong>Session 24:</strong> Live demo: Autonomous flight path</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Week 7 -->
+                    <div class="card-hover p-8 rounded-3xl">
+                        <div class="flex items-center mb-6">
+                            <div class="w-16 h-16 bg-gradient-to-br from-sky-500 to-blue-600 rounded-2xl flex items-center justify-center mr-4">
+                                <span class="text-2xl font-black text-white">7</span>
+                            </div>
+                            <div>
+                                <h3 class="text-2xl font-black text-sky-400">Week 7</h3>
+                                <p class="silver-text">Customization & Expansion</p>
+                            </div>
+                        </div>
+                        <ul class="space-y-3 silver-text">
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-sky-400 mt-1 mr-3"></i>
+                                <span><strong>Session 25:</strong> Firmware customization: PID tuning</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-sky-400 mt-1 mr-3"></i>
+                                <span><strong>Session 26:</strong> Hardware modifications & payloads</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-sky-400 mt-1 mr-3"></i>
+                                <span><strong>Session 27:</strong> Advanced features: Vision & gesture control</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-sky-400 mt-1 mr-3"></i>
+                                <span><strong>Session 28:</strong> Workshop: Custom project presentations</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Week 8 -->
+                    <div class="card-hover p-8 rounded-3xl">
+                        <div class="flex items-center mb-6">
+                            <div class="w-16 h-16 bg-gradient-to-br from-sky-500 to-blue-600 rounded-2xl flex items-center justify-center mr-4">
+                                <span class="text-2xl font-black text-white">8</span>
+                            </div>
+                            <div>
+                                <h3 class="text-2xl font-black text-sky-400">Week 8</h3>
+                                <p class="silver-text">Projects & Wrap-Up</p>
+                            </div>
+                        </div>
+                        <ul class="space-y-3 silver-text">
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-sky-400 mt-1 mr-3"></i>
+                                <span><strong>Session 29:</strong> Project execution & rehearsal</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-sky-400 mt-1 mr-3"></i>
+                                <span><strong>Session 30:</strong> Final presentations & course review</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-trophy text-yellow-400 mt-1 mr-3"></i>
+                                <span><strong>Certificate:</strong> Course completion certificate</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-users text-green-400 mt-1 mr-3"></i>
+                                <span><strong>Community:</strong> Join our alumni network</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="mt-16 text-center">
+                    <div class="inline-block bg-gradient-to-r from-sky-500 to-blue-600 p-1 rounded-3xl">
+                        <div class="bg-black px-12 py-8 rounded-3xl">
+                            <h3 class="text-3xl font-black text-sky-400 mb-4">Course Highlights</h3>
+                            <div class="grid md:grid-cols-3 gap-8 text-left">
+                                <div>
+                                    <i class="fas fa-clock text-sky-400 text-2xl mb-2"></i>
+                                    <p class="silver-text"><strong class="text-white">30 Sessions</strong><br>8 weeks of intensive training</p>
+                                </div>
+                                <div>
+                                    <i class="fas fa-hands-helping text-sky-400 text-2xl mb-2"></i>
+                                    <p class="silver-text"><strong class="text-white">Hands-on Labs</strong><br>Build & fly your own drone</p>
+                                </div>
+                                <div>
+                                    <i class="fas fa-certificate text-sky-400 text-2xl mb-2"></i>
+                                    <p class="silver-text"><strong class="text-white">Certification</strong><br>Industry-recognized certificate</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Partners Section -->
+        <section class="py-24 px-6 bg-midnight">
+            <div class="container mx-auto">
+                <div class="text-center mb-16">
+                    <h2 class="text-6xl font-black mb-6">
+                        <span class="text-sky-400">Trusted By</span> Industry Leaders
+                    </h2>
+                    <div class="section-divider w-32 mx-auto mb-6"></div>
+                    <p class="text-xl silver-text">Partnering with leading technology and education institutions</p>
+                </div>
+
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
+                    <!-- Partner 1 -->
+                    <div class="card-hover p-8 rounded-3xl text-center">
+                        <div class="w-20 h-20 bg-gradient-to-br from-sky-500 to-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-store text-white text-3xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2 text-sky-400">Passion 3D World</h3>
+                        <p class="text-sm silver-text">Official Authorized Dealer</p>
+                    </div>
+
+                    <!-- Partner 2 -->
+                    <div class="card-hover p-8 rounded-3xl text-center">
+                        <div class="w-20 h-20 bg-gradient-to-br from-purple-500 to-pink-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-microchip text-white text-3xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2 text-sky-400">Espressif Systems</h3>
+                        <p class="text-sm silver-text">ESP32-S3 Technology Partner</p>
+                    </div>
+
+                    <!-- Partner 3 -->
+                    <div class="card-hover p-8 rounded-3xl text-center">
+                        <div class="w-20 h-20 bg-gradient-to-br from-green-500 to-teal-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-graduation-cap text-white text-3xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2 text-sky-400">Educational Institutions</h3>
+                        <p class="text-sm silver-text">Universities & Colleges Worldwide</p>
+                    </div>
+
+                    <!-- Partner 4 -->
+                    <div class="card-hover p-8 rounded-3xl text-center">
+                        <div class="w-20 h-20 bg-gradient-to-br from-orange-500 to-red-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-code text-white text-3xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2 text-sky-400">Open Source Community</h3>
+                        <p class="text-sm silver-text">Crazyflie Compatible Ecosystem</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials Section -->
+        <section class="py-24 px-6 bg-black">
+            <div class="container mx-auto">
+                <div class="text-center mb-16">
+                    <h2 class="text-6xl font-black mb-6">
+                        What Our <span class="text-sky-400">Students Say</span>
+                    </h2>
+                    <div class="section-divider w-32 mx-auto mb-6"></div>
+                    <p class="text-xl silver-text">Real experiences from our community</p>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-8">
+                    <!-- Testimonial 1 -->
+                    <div class="card-hover p-8 rounded-3xl">
+                        <div class="flex items-center mb-6">
+                            <div class="w-16 h-16 bg-gradient-to-br from-sky-500 to-blue-600 rounded-full flex items-center justify-center mr-4">
+                                <i class="fab fa-whatsapp text-white text-2xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-sky-400">Rahul Sharma</h4>
+                                <p class="text-sm silver-text">Engineering Student</p>
+                                <div class="flex text-yellow-400 text-sm mt-1">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="silver-text italic">"Amazing course! I went from zero knowledge to building my own autonomous drone in 8 weeks. The hands-on sessions were incredibly valuable. Highly recommend FLYQ Air!"</p>
+                    </div>
+
+                    <!-- Testimonial 2 -->
+                    <div class="card-hover p-8 rounded-3xl">
+                        <div class="flex items-center mb-6">
+                            <div class="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-600 rounded-full flex items-center justify-center mr-4">
+                                <i class="fab fa-whatsapp text-white text-2xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-sky-400">Priya Patel</h4>
+                                <p class="text-sm silver-text">Robotics Enthusiast</p>
+                                <div class="flex text-yellow-400 text-sm mt-1">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="silver-text italic">"The ESP32-S3 platform is powerful and the curriculum is well-structured. I love how they teach both hardware and software aspects. Perfect for makers!"</p>
+                    </div>
+
+                    <!-- Testimonial 3 -->
+                    <div class="card-hover p-8 rounded-3xl">
+                        <div class="flex items-center mb-6">
+                            <div class="w-16 h-16 bg-gradient-to-br from-green-500 to-teal-600 rounded-full flex items-center justify-center mr-4">
+                                <i class="fab fa-whatsapp text-white text-2xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-sky-400">Dr. Amit Kumar</h4>
+                                <p class="text-sm silver-text">Professor, IIT</p>
+                                <div class="flex text-yellow-400 text-sm mt-1">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="silver-text italic">"Excellent platform for teaching robotics and embedded systems. We've integrated FLYQ Air into our curriculum. Students absolutely love the hands-on experience!"</p>
+                    </div>
+
+                    <!-- Testimonial 4 -->
+                    <div class="card-hover p-8 rounded-3xl">
+                        <div class="flex items-center mb-6">
+                            <div class="w-16 h-16 bg-gradient-to-br from-orange-500 to-red-600 rounded-full flex items-center justify-center mr-4">
+                                <i class="fab fa-whatsapp text-white text-2xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-sky-400">Sneha Desai</h4>
+                                <p class="text-sm silver-text">Software Developer</p>
+                                <div class="flex text-yellow-400 text-sm mt-1">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="silver-text italic">"The Python SDK makes it so easy to program autonomous missions. I built a gesture-controlled drone as my final project. The support team is fantastic!"</p>
+                    </div>
+
+                    <!-- Testimonial 5 -->
+                    <div class="card-hover p-8 rounded-3xl">
+                        <div class="flex items-center mb-6">
+                            <div class="w-16 h-16 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-full flex items-center justify-center mr-4">
+                                <i class="fab fa-whatsapp text-white text-2xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-sky-400">Arjun Reddy</h4>
+                                <p class="text-sm silver-text">Maker & DIY Enthusiast</p>
+                                <div class="flex text-yellow-400 text-sm mt-1">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="silver-text italic">"Great value for money! The kit quality is excellent and the documentation is comprehensive. I've learned so much about drone technology."</p>
+                    </div>
+
+                    <!-- Testimonial 6 -->
+                    <div class="card-hover p-8 rounded-3xl">
+                        <div class="flex items-center mb-6">
+                            <div class="w-16 h-16 bg-gradient-to-br from-yellow-500 to-orange-600 rounded-full flex items-center justify-center mr-4">
+                                <i class="fab fa-whatsapp text-white text-2xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-sky-400">Meera Singh</h4>
+                                <p class="text-sm silver-text">Research Scholar</p>
+                                <div class="flex text-yellow-400 text-sm mt-1">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="silver-text italic">"Perfect for research projects! The open-source firmware and expandability make it ideal for experimenting with new algorithms and sensors."</p>
+                    </div>
+                </div>
+
+                <div class="text-center mt-16">
+                    <a href="https://wa.me/1234567890" target="_blank" class="inline-flex items-center bg-gradient-to-r from-green-500 to-green-600 text-white px-8 py-4 rounded-full font-bold text-xl hover:shadow-2xl transition-all transform hover:scale-105">
+                        <i class="fab fa-whatsapp text-3xl mr-3"></i>
+                        Join Our WhatsApp Community
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section id="faq" class="py-24 px-6 bg-midnight">
+            <div class="container mx-auto max-w-4xl">
+                <div class="text-center mb-16">
+                    <h2 class="text-6xl font-black mb-6">
+                        <span class="text-sky-400">Frequently Asked</span> Questions
+                    </h2>
+                    <div class="section-divider w-32 mx-auto mb-6"></div>
+                    <p class="text-xl silver-text">Everything you need to know about FLYQ Air</p>
+                </div>
+
+                <div class="space-y-4">
+                    <!-- FAQ 1 -->
+                    <div class="card-hover p-6 rounded-2xl">
+                        <h3 class="text-xl font-bold text-sky-400 mb-3 flex items-center">
+                            <i class="fas fa-question-circle mr-3"></i>
+                            What programming languages are supported?
+                        </h3>
+                        <p class="silver-text ml-9">FLYQ Air supports multiple programming options: ESP-IDF (C/C++), Arduino IDE, Python SDK (cflib), and visual programming through Crazyflie Client. Choose the one that fits your skill level!</p>
+                    </div>
+
+                    <!-- FAQ 2 -->
+                    <div class="card-hover p-6 rounded-2xl">
+                        <h3 class="text-xl font-bold text-sky-400 mb-3 flex items-center">
+                            <i class="fas fa-question-circle mr-3"></i>
+                            Do I need prior drone experience?
+                        </h3>
+                        <p class="silver-text ml-9">No prior experience required! Our 8-week curriculum starts from basics and gradually progresses to advanced topics. Perfect for beginners and experienced developers alike.</p>
+                    </div>
+
+                    <!-- FAQ 3 -->
+                    <div class="card-hover p-6 rounded-2xl">
+                        <h3 class="text-xl font-bold text-sky-400 mb-3 flex items-center">
+                            <i class="fas fa-question-circle mr-3"></i>
+                            What's included in the kit?
+                        </h3>
+                        <p class="silver-text ml-9">The kit includes: PCB frame with integrated ESP32-S3, 4x motors with propellers, battery, USB-C cable, propeller guards, and all necessary mounting hardware. Ready to assemble and fly!</p>
+                    </div>
+
+                    <!-- FAQ 4 -->
+                    <div class="card-hover p-6 rounded-2xl">
+                        <h3 class="text-xl font-bold text-sky-400 mb-3 flex items-center">
+                            <i class="fas fa-question-circle mr-3"></i>
+                            How long does the battery last?
+                        </h3>
+                        <p class="silver-text ml-9">Flight time is approximately 5-7 minutes with the included 650mAh battery. Charging takes 1-2 hours. We recommend getting extra batteries for extended flying sessions.</p>
+                    </div>
+
+                    <!-- FAQ 5 -->
+                    <div class="card-hover p-6 rounded-2xl">
+                        <h3 class="text-xl font-bold text-sky-400 mb-3 flex items-center">
+                            <i class="fas fa-question-circle mr-3"></i>
+                            Can I add sensors and expand functionality?
+                        </h3>
+                        <p class="silver-text ml-9">Yes! FLYQ Air features a 24-pin expansion connector supporting I²C, SPI, UART, and GPIO. Compatible sensors include VL53L1X ToF (height hold), MS5611 barometer, and PMW3901 optical flow.</p>
+                    </div>
+
+                    <!-- FAQ 6 -->
+                    <div class="card-hover p-6 rounded-2xl">
+                        <h3 class="text-xl font-bold text-sky-400 mb-3 flex items-center">
+                            <i class="fas fa-question-circle mr-3"></i>
+                            Is it safe for indoor flying?
+                        </h3>
+                        <p class="silver-text ml-9">Absolutely! FLYQ Air is designed for indoor use with built-in propeller guards, auto-stabilization, and lightweight construction (~45g). Perfect for homes, classrooms, and labs.</p>
+                    </div>
+
+                    <!-- FAQ 7 -->
+                    <div class="card-hover p-6 rounded-2xl">
+                        <h3 class="text-xl font-bold text-sky-400 mb-3 flex items-center">
+                            <i class="fas fa-question-circle mr-3"></i>
+                            What's the Wi-Fi range?
+                        </h3>
+                        <p class="silver-text ml-9">The effective Wi-Fi control range is 30-50 meters indoors. Range may vary based on environmental factors and interference. Best suited for indoor or calm outdoor environments.</p>
+                    </div>
+
+                    <!-- FAQ 8 -->
+                    <div class="card-hover p-6 rounded-2xl">
+                        <h3 class="text-xl font-bold text-sky-400 mb-3 flex items-center">
+                            <i class="fas fa-question-circle mr-3"></i>
+                            Do you offer technical support?
+                        </h3>
+                        <p class="silver-text ml-9">Yes! We provide comprehensive support through our WhatsApp community, email support, detailed documentation, video tutorials, and GitHub repository. You're never alone on your drone journey!</p>
+                    </div>
+
+                    <!-- FAQ 9 -->
+                    <div class="card-hover p-6 rounded-2xl">
+                        <h3 class="text-xl font-bold text-sky-400 mb-3 flex items-center">
+                            <i class="fas fa-question-circle mr-3"></i>
+                            Is FLYQ Air open source?
+                        </h3>
+                        <p class="silver-text ml-9">Yes! Both hardware designs and firmware are 100% open source. Access schematics, PCB files, and code on GitHub. Perfect for learning, customization, and research projects.</p>
+                    </div>
+
+                    <!-- FAQ 10 -->
+                    <div class="card-hover p-6 rounded-2xl">
+                        <h3 class="text-xl font-bold text-sky-400 mb-3 flex items-center">
+                            <i class="fas fa-question-circle mr-3"></i>
+                            Where can I purchase FLYQ Air?
+                        </h3>
+                        <p class="silver-text ml-9">FLYQ Air is available exclusively through our official partner <strong class="text-sky-400">Passion 3D World</strong>. Visit <a href="https://passion3dworld.com" class="text-sky-400 underline" target="_blank">passion3dworld.com</a> to order your kit today!</p>
                     </div>
                 </div>
             </div>
