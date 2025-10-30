@@ -233,8 +233,8 @@ app.get('/', (c) => {
                     <div class="relative">
                         <div class="absolute inset-0 bg-sky-500 opacity-15 blur-3xl rounded-full"></div>
                         <div class="relative z-10 float-animation">
-                            <img src="https://page.gensparksite.com/v1/base64_upload/0d4fad85cedf49a8cc01d9cbeecdd85c" 
-                                 alt="FLYQ Air Drone Kit by Passion 3D World" 
+                            <img src="https://page.gensparksite.com/v1/base64_upload/e412797020c76e97bdf09d5aa6af13eb" 
+                                 alt="FLYQ Air Drone - Top View" 
                                  class="w-full h-auto drop-shadow-2xl rounded-2xl"
                                  onerror="this.src='https://circuitdigest.com/sites/default/files/Litewing%20Wiki%20Banner-01.png'">
                         </div>
@@ -596,12 +596,12 @@ void loop() {
                         </div>
                     </div>
                     <div class="bg-gradient-to-br from-gray-900 to-gray-800 overflow-hidden rounded-3xl border-4 border-sky-500 shadow-2xl p-6" style="box-shadow: 0 0 30px rgba(14, 165, 233, 0.3);">
-                        <img src="https://cdn1.genspark.ai/user-upload-image/rmbg_generated/0_3ba432db-9d3d-4a77-8589-afbfdae5d259" 
-                             alt="FLYQ Drone" 
+                        <img src="https://page.gensparksite.com/v1/base64_upload/e412797020c76e97bdf09d5aa6af13eb" 
+                             alt="FLYQ Air - Complete Assembly" 
                              class="w-full h-80 object-contain hover:scale-110 transition-transform duration-500">
                         <div class="mt-4 text-center">
-                            <h3 class="text-xl font-bold text-sky-400">FLYQ Drone</h3>
-                            <p class="text-sm silver-text">Professional model</p>
+                            <h3 class="text-xl font-bold text-sky-400">Complete Assembly</h3>
+                            <p class="text-sm silver-text">Fully assembled drone</p>
                         </div>
                     </div>
                     <div class="bg-gradient-to-br from-gray-900 to-gray-800 overflow-hidden rounded-3xl border-4 border-sky-500 shadow-2xl p-6" style="box-shadow: 0 0 30px rgba(14, 165, 233, 0.3);">
@@ -614,12 +614,12 @@ void loop() {
                         </div>
                     </div>
                     <div class="bg-gradient-to-br from-gray-900 to-gray-800 overflow-hidden rounded-3xl border-4 border-sky-500 shadow-2xl p-6" style="box-shadow: 0 0 30px rgba(14, 165, 233, 0.3);">
-                        <img src="https://page.gensparksite.com/v1/base64_upload/4914a7f5df2975828840a2aa2e6f5925" 
-                             alt="Components Kit" 
+                        <img src="https://page.gensparksite.com/v1/base64_upload/7cf111fa8837a58342db2d9bc542a114" 
+                             alt="FLYQ Air - All Components" 
                              class="w-full h-80 object-contain hover:scale-110 transition-transform duration-500">
                         <div class="mt-4 text-center">
-                            <h3 class="text-xl font-bold text-sky-400">Parts Kit</h3>
-                            <p class="text-sm silver-text">Complete set</p>
+                            <h3 class="text-xl font-bold text-sky-400">Components Kit</h3>
+                            <p class="text-sm silver-text">All parts included</p>
                         </div>
                     </div>
                 </div>
