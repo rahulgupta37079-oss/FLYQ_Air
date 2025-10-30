@@ -1,6 +1,11 @@
 # FLYQ Air - The Programmable Drone Website
 
 ## 📢 Latest Updates (2025-10-30)
+✅ **FLYQ Vision Transparent Camera Drone Update** 🎯
+   - **Hero Section**: Updated with transparent background camera drone image
+   - **Gallery Update**: First card now shows transparent camera drone (matching Air page)
+   - **Professional Consistency**: Both products now use same high-quality transparent images
+   - **Navigation**: Menus remain properly organized and aligned across both pages
 ✅ **Camera Drone Added to FLYQ Air Gallery** 📸
    - **Transparent Background**: Professional background removal applied
    - **Gallery Position**: Replaces first card (Hero View) with camera drone
@@ -8,7 +13,6 @@
    - **Unified Presentation**: Same camera drone on both Air and Vision pages
 ✅ **FLYQ Vision Theme Update** 🎨
    - **Unified Design**: Changed from purple/pink to sky-blue theme (matching FLYQ Air)
-   - **Camera Drone Image**: Updated hero with black body + red propellers
    - **Brand Consistency**: Both products now share same visual language
    - **All sections updated**: Gallery, features, curriculum, partners, testimonials, FAQ
 ✅ **FLYQ Vision Complete Page** 🎥
@@ -66,7 +70,7 @@
   4. **Components Kit** - Complete components diagram with original background
 
 ✅ **Current FLYQ Vision Gallery** (4 images):
-  1. **Camera Drone** - Same as Air page, showcasing camera capabilities
+  1. **Camera Drone** - Transparent background version, showcasing camera capabilities (UPDATED!)
   2. **Complete Assembly** - Fully assembled drone
   3. **Circuit Board** - ESP32-S2 PCB board
   4. **Components Kit** - All parts included
@@ -204,5 +208,5 @@ npm run deploy
 - **Sky Blue & Light Blue gradient** - Same theme as FLYQ Air for unified brand experience
 - **Same card hover effects** and animations across both products
 - **Consistent layout structure** and design patterns
-- **Camera drone hero image** - Black body with red propellers showcasing Vision model
-- **Unified brand experience** - Both products share the same visual language
+- **Transparent camera drone** - Professional background removal for clean presentation
+- **Unified brand experience** - Both products share the same visual language and images
