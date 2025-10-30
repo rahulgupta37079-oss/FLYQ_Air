@@ -1,20 +1,24 @@
 # FLYQ Air - The Programmable Drone Website
 
 ## 📢 Latest Updates (2025-10-30)
-✅ **NEW: FLYQ Vision Page Added** 🎥
+✅ **FLYQ Vision Theme Update** 🎨
+   - **Unified Design**: Changed from purple/pink to sky-blue theme (matching FLYQ Air)
+   - **Camera Drone Image**: Updated hero with black body + red propellers
+   - **Brand Consistency**: Both products now share same visual language
+   - **All sections updated**: Gallery, features, curriculum, partners, testimonials, FAQ
+✅ **FLYQ Vision Complete Page** 🎥
    - Advanced drone with HD camera & gesture control
    - AI-powered object tracking and recognition
    - Real-time video streaming (720p @ 30fps)
    - Computer vision features and autonomous navigation
    - Accessible at `/vision` route
-✅ **New Sections Added**:
+✅ **Comprehensive Sections**:
    - **8-Week Curriculum**: Complete 30-session training program breakdown
    - **Partners Section**: Trusted by industry leaders and institutions
    - **Testimonials**: Real WhatsApp reviews from students and professors
    - **FAQ Section**: 10 comprehensive questions and answers
-✅ **Hero Image Updated**: Transparent background for cleaner look
-✅ **Gallery Images Updated**: Complete assembly and components kit photos
-✅ **Navigation Updated**: Added Vision, Curriculum, and FAQ links
+✅ **Hero Images**: Both products with transparent backgrounds
+✅ **Navigation**: Unified menus across both products
 ✅ **GitHub Synced**: All changes automatically pushed
 
 ## Project Overview
@@ -186,8 +190,9 @@ npm run deploy
 - **FLYQ Air Page**: Features, Vision, Curriculum, FAQ, Docs, Buy Now
 - **FLYQ Vision Page**: FLYQ Air (home), Features, Curriculum, FAQ, Docs, Buy Now
 
-### Color Theme
-- **Purple & Pink gradient** accents (vs. Sky Blue for FLYQ Air)
-- **Same card hover effects** and animations as FLYQ Air
-- **Consistent layout structure** for unified brand experience
-- **Distinct visual identity** for the advanced Vision model
+### Color Theme & Visual Identity
+- **Sky Blue & Light Blue gradient** - Same theme as FLYQ Air for unified brand experience
+- **Same card hover effects** and animations across both products
+- **Consistent layout structure** and design patterns
+- **Camera drone hero image** - Black body with red propellers showcasing Vision model
+- **Unified brand experience** - Both products share the same visual language
