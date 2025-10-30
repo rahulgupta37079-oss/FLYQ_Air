@@ -1,11 +1,15 @@
 # FLYQ Air - The Programmable Drone Website
 
 ## 📢 Latest Updates (2025-10-30)
+✅ **New Sections Added**:
+   - **8-Week Curriculum**: Complete 30-session training program breakdown
+   - **Partners Section**: Trusted by industry leaders and institutions
+   - **Testimonials**: Real WhatsApp reviews from students and professors
+   - **FAQ Section**: 10 comprehensive questions and answers
 ✅ **Hero Image Updated**: New drone assembly photo (top view with red/black propellers)
-✅ **Gallery Images Updated**: 
-   - Complete Assembly: Full drone with all components
-   - Components Kit: All parts laid out including PCB, motors, battery, propellers
+✅ **Gallery Images Updated**: Complete assembly and components kit photos
 ✅ **YouTube Video Removed**: Video demo section removed from landing page
+✅ **Navigation Updated**: Added Curriculum and FAQ links to main menu
 ✅ **GitHub Synced**: All changes committed and pushed
 
 ## Project Overview
@@ -31,9 +35,13 @@
 ✅ Features section highlighting ESP32-S2, programmability, and safety
 ✅ Technical specifications in organized grid layout
 ✅ Product gallery with custom processed images
+✅ **8-Week Training Curriculum** (30 sessions) - NEW!
+✅ **Partners Section** - Industry leaders and institutions
+✅ **Testimonials Section** - 6 WhatsApp reviews from community
+✅ **FAQ Section** - 10 comprehensive Q&A
 ✅ Contact form with API integration
 ✅ Newsletter subscription functionality
-✅ Responsive navigation with mobile menu
+✅ Responsive navigation with mobile menu (updated with Curriculum & FAQ links)
 ✅ Professional gradient designs and animations
 
 ## Gallery Updates (Latest - October 30, 2025)
