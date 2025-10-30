@@ -1,5 +1,11 @@
 # FLYQ Air - The Programmable Drone
 
+## 📢 Recent Updates (2025-10-30)
+✅ **Gallery Updated**: Replaced gallery images with 4 transparent PNG drone images (backgrounds removed)
+✅ **YouTube Video Removed**: Video demo section completely removed from landing page
+✅ **GitHub Synced**: All changes pushed to repository
+✅ **Backup Created**: Project backup available
+
 ## 🚀 Project Overview
 **FLYQ Air** is a complete website for an ESP32-S3 based programmable drone platform. Features include a stunning landing page and comprehensive documentation page with a **Midnight Blue + White + Silver** premium color scheme inspired by aerospace and technology.
 
@@ -8,10 +14,14 @@
 ### Landing Page (/)
 - **Hero Section**: New FLYQ Air drone image with premium glow effects
 - **Features Grid**: 6 feature cards showcasing key product benefits
-- **Video Demo**: Embedded YouTube demonstration
+- **Video Demo**: ✅ REMOVED - YouTube video section removed as requested
 - **Programming Section**: Code examples (ESP-IDF, Arduino, Python)
 - **Technical Specifications**: Complete hardware specs
-- **Image Gallery**: High-quality product photos
+- **Image Gallery**: ✅ UPDATED - 4 transparent PNG drone images with removed backgrounds:
+  1. FLYQ Air - Top View (complete assembly)
+  2. Component Overview (all parts included)
+  3. Propeller Detail (with protective guard)
+  4. Motor Assembly (716 brushed motor)
 - **Call-to-Action**: **Passion 3D World** as exclusive dealer
 - **Responsive Design**: Mobile-friendly navigation
 
