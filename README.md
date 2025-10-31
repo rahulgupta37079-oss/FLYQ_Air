@@ -1,16 +1,16 @@
 # FLYQ Air - The Programmable Drone Website
 
 ## 📢 Latest Updates (2025-10-30)
-✅ **FLYQ Vision Transparent Camera Drone Update** 🎯
+✅ **FLYQ Air Gallery Correction** 🎯
+   - **Hero View Image**: First gallery card now shows FLYQ Air hero view (WITHOUT camera)
+   - **Accurate Representation**: FLYQ Air doesn't have camera - that's FLYQ Vision feature
+   - **Gallery Structure**: Hero View, Complete Assembly, Circuit Board, Components Kit
+   - **Product Differentiation**: Clear distinction between Air (basic) and Vision (camera-enabled)
+✅ **FLYQ Vision Transparent Camera Drone Update** 📸
    - **Hero Section**: Updated with transparent background camera drone image
-   - **Gallery Update**: First card now shows transparent camera drone (matching Air page)
-   - **Professional Consistency**: Both products now use same high-quality transparent images
-   - **Navigation**: Menus remain properly organized and aligned across both pages
-✅ **Camera Drone Added to FLYQ Air Gallery** 📸
-   - **Transparent Background**: Professional background removal applied
-   - **Gallery Position**: Replaces first card (Hero View) with camera drone
-   - **Cross-Product Showcase**: Vision-enabled model now visible on main page
-   - **Unified Presentation**: Same camera drone on both Air and Vision pages
+   - **Gallery Update**: First card shows transparent camera drone with Vision branding
+   - **Professional Consistency**: High-quality transparent images on both products
+   - **Navigation**: Menus properly organized and aligned across both pages
 ✅ **FLYQ Vision Theme Update** 🎨
    - **Unified Design**: Changed from purple/pink to sky-blue theme (matching FLYQ Air)
    - **Brand Consistency**: Both products now share same visual language
@@ -64,16 +64,20 @@
 
 ## Gallery Updates (Latest - October 30, 2025)
 ✅ **Current FLYQ Air Gallery** (4 images):
-  1. **Camera Drone** - Vision-enabled model with transparent background (NEW!)
+  1. **Hero View** - FLYQ Air drone WITHOUT camera (transparent background) ✨
   2. **Complete Assembly** - Fully assembled drone
   3. **Circuit Board** - ESP32-S2 PCB with propellers and motors digitally removed
   4. **Components Kit** - Complete components diagram with original background
 
 ✅ **Current FLYQ Vision Gallery** (4 images):
-  1. **Camera Drone** - Transparent background version, showcasing camera capabilities (UPDATED!)
+  1. **Camera Drone** - Vision model WITH camera (transparent background) 📸
   2. **Complete Assembly** - Fully assembled drone
   3. **Circuit Board** - ESP32-S2 PCB board
   4. **Components Kit** - All parts included
+
+### Key Difference:
+- **FLYQ Air** = No camera (basic programmable drone)
+- **FLYQ Vision** = With camera (advanced AI-powered vision drone)
 
 ### Image Processing Completed:
 - Extracted drone from Corizo box image
