@@ -42,6 +42,7 @@
   - Smooth animations and transitions
 
 ## URLs
+- **Custom Domain**: flyqdrone.in (⏳ DNS Setup in Progress - See DOMAIN_SETUP_GUIDE.md)
 - **Production (Live)**: https://6ea3369a.flyq-air.pages.dev ✨
 - **Vision Page**: https://6ea3369a.flyq-air.pages.dev/vision 📸
 - **Local Development**: http://localhost:3000
