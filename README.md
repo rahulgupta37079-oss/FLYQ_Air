@@ -42,10 +42,10 @@
   - Smooth animations and transitions
 
 ## URLs
+- **Production (Live)**: https://6ea3369a.flyq-air.pages.dev ✨
+- **Vision Page**: https://6ea3369a.flyq-air.pages.dev/vision 📸
 - **Local Development**: http://localhost:3000
-- **Public Access**: https://3000-i9dkuxqg07opw1sw23plt-d0b9e1e2.sandbox.novita.ai
-- **Production**: Not deployed yet
-- **GitHub**: Not configured yet
+- **GitHub**: https://github.com/rahulgupta37079-oss/FLYQ_Air
 
 ## Features Implemented
 ✅ Complete FLYQ Air drone website with all sections
@@ -120,11 +120,12 @@
 4. Subscribe to newsletter for updates
 
 ## Tech Stack
-- **Platform**: Cloudflare Pages
+- **Platform**: Cloudflare Pages ✅ **DEPLOYED**
 - **Framework**: Hono + TypeScript
 - **Styling**: Tailwind CSS + Custom CSS
 - **Icons**: Font Awesome
-- **Status**: ✅ Running successfully
+- **Build Tool**: Vite
+- **Status**: ✅ Live in Production
 
 ## Installation & Development
 ```bash
@@ -142,9 +143,16 @@ open http://localhost:3000
 ```
 
 ## Deployment
+✅ **Currently Deployed to Cloudflare Pages**
+- **Live URL**: https://6ea3369a.flyq-air.pages.dev
+- **Platform**: Cloudflare Pages
+- **Status**: ✅ Active and Running
+- **Last Deployed**: October 30, 2025
+
 ```bash
 # Deploy to Cloudflare Pages
-npm run deploy
+npm run build
+npx wrangler pages deploy dist --project-name flyq-air
 ```
 
 ## Recent Updates
