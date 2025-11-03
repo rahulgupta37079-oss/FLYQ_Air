@@ -13,7 +13,10 @@
     "test": "curl http://localhost:3000"
   },
   "dependencies": {
-    "hono": "^4.10.3"
+    "@types/bcryptjs": "^2.4.6",
+    "bcryptjs": "^3.0.3",
+    "hono": "^4.10.3",
+    "hono-sessions": "^0.8.0"
   },
   "devDependencies": {
     "@hono/vite-build": "^1.2.0",

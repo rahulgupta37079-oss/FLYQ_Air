@@ -110,6 +110,47 @@ const renderPage = (title: string, content: string, includeCart: boolean = true)
                 font-size: 12px;
                 font-weight: bold;
             }
+            
+            /* Additional styles for original content sections */
+            :root {
+                --midnight: #0F172A;
+                --silver: #E5E7EB;
+                --black: #000000;
+                --white: #FFFFFF;
+            }
+            
+            .silver-text {
+                color: var(--silver);
+            }
+            
+            .card-hover {
+                transition: all 0.3s ease;
+                border: 2px solid rgba(14, 165, 233, 0.2);
+                background: linear-gradient(135deg, rgba(15, 23, 42, 0.9) 0%, rgba(0, 0, 0, 0.9) 100%);
+            }
+            
+            .card-hover:hover {
+                transform: translateY(-8px);
+                box-shadow: 0 20px 40px rgba(14, 165, 233, 0.3);
+                border-color: rgba(14, 165, 233, 0.6);
+            }
+            
+            .section-divider {
+                height: 4px;
+                background: linear-gradient(90deg, transparent, var(--sky-blue), transparent);
+            }
+            
+            .bg-midnight {
+                background-color: var(--midnight);
+            }
+            
+            .bg-black {
+                background-color: var(--black);
+            }
+            
+            .text-sky-400 {
+                color: #38BDF8;
+            }
         </style>
     </head>
     <body class="bg-gray-50">
@@ -124,6 +165,8 @@ const renderPage = (title: string, content: string, includeCart: boolean = true)
                     <div class="hidden md:flex items-center space-x-8">
                         <a href="/" class="text-gray-700 hover:text-sky-500 font-semibold">Home</a>
                         <a href="/products" class="text-gray-700 hover:text-sky-500 font-semibold">Products</a>
+                        <a href="/curriculum" class="text-gray-700 hover:text-sky-500 font-semibold">Curriculum</a>
+                        <a href="/docs" class="text-gray-700 hover:text-sky-500 font-semibold">Docs</a>
                         <a href="/about" class="text-gray-700 hover:text-sky-500 font-semibold">About</a>
                         <a href="/contact" class="text-gray-700 hover:text-sky-500 font-semibold">Contact</a>
                         ${includeCart ? `
@@ -143,6 +186,8 @@ const renderPage = (title: string, content: string, includeCart: boolean = true)
                 <div id="mobile-menu" class="hidden md:hidden mt-4 pb-4 space-y-4">
                     <a href="/" class="block text-gray-700 hover:text-sky-500 font-semibold">Home</a>
                     <a href="/products" class="block text-gray-700 hover:text-sky-500 font-semibold">Products</a>
+                    <a href="/curriculum" class="block text-gray-700 hover:text-sky-500 font-semibold">Curriculum</a>
+                    <a href="/docs" class="block text-gray-700 hover:text-sky-500 font-semibold">Docs</a>
                     <a href="/about" class="block text-gray-700 hover:text-sky-500 font-semibold">About</a>
                     <a href="/contact" class="block text-gray-700 hover:text-sky-500 font-semibold">Contact</a>
                     ${includeCart ? `<a href="/cart" class="block text-gray-700 hover:text-sky-500 font-semibold">Cart (<span class="cart-count-mobile">0</span>)</a>` : ''}
@@ -363,6 +408,364 @@ app.get('/', (c) => {
                         </div>
                         <h3 class="text-2xl font-bold mb-3">Learning Resources</h3>
                         <p class="text-gray-600">Comprehensive curriculum and documentation for all skill levels</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Gallery Section -->
+        <section class="py-20 bg-midnight">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-16">
+                    <h2 class="text-5xl font-black mb-4 text-white">
+                        Product <span class="text-sky-400">Gallery</span>
+                    </h2>
+                    <div class="section-divider w-32 mx-auto mb-6"></div>
+                    <p class="text-xl silver-text">FLYQ Air from every angle</p>
+                </div>
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div class="bg-gradient-to-br from-gray-900 to-gray-800 overflow-hidden rounded-3xl border-4 border-sky-500 shadow-2xl p-6" style="box-shadow: 0 0 30px rgba(14, 165, 233, 0.3);">
+                        <img src="https://cdn1.genspark.ai/user-upload-image/rmbg_generated/0_435c9a66-800a-4537-80f8-cd513ea4bf15" 
+                             alt="FLYQ Air - Hero View" 
+                             class="w-full h-80 object-contain hover:scale-110 transition-transform duration-500">
+                        <div class="mt-4 text-center">
+                            <h3 class="text-xl font-bold text-sky-400">Hero View</h3>
+                            <p class="text-sm silver-text">FLYQ Air Drone</p>
+                        </div>
+                    </div>
+                    <div class="bg-gradient-to-br from-gray-900 to-gray-800 overflow-hidden rounded-3xl border-4 border-sky-500 shadow-2xl p-6" style="box-shadow: 0 0 30px rgba(14, 165, 233, 0.3);">
+                        <img src="https://page.gensparksite.com/v1/base64_upload/e412797020c76e97bdf09d5aa6af13eb" 
+                             alt="FLYQ Air - Complete Assembly" 
+                             class="w-full h-80 object-contain hover:scale-110 transition-transform duration-500">
+                        <div class="mt-4 text-center">
+                            <h3 class="text-xl font-bold text-sky-400">Complete Assembly</h3>
+                            <p class="text-sm silver-text">Fully assembled drone</p>
+                        </div>
+                    </div>
+                    <div class="bg-gradient-to-br from-gray-900 to-gray-800 overflow-hidden rounded-3xl border-4 border-sky-500 shadow-2xl p-6" style="box-shadow: 0 0 30px rgba(14, 165, 233, 0.3);">
+                        <img src="https://cdn1.genspark.ai/user-upload-image/gpt_image_edited/fa96ac19-c475-4ebb-97cf-51b21deb187d.png" 
+                             alt="Circuit Board" 
+                             class="w-full h-80 object-contain hover:scale-110 transition-transform duration-500">
+                        <div class="mt-4 text-center">
+                            <h3 class="text-xl font-bold text-sky-400">Circuit Board</h3>
+                            <p class="text-sm silver-text">ESP32-S2 PCB</p>
+                        </div>
+                    </div>
+                    <div class="bg-gradient-to-br from-gray-900 to-gray-800 overflow-hidden rounded-3xl border-4 border-sky-500 shadow-2xl p-6" style="box-shadow: 0 0 30px rgba(14, 165, 233, 0.3);">
+                        <img src="https://page.gensparksite.com/v1/base64_upload/7cf111fa8837a58342db2d9bc542a114" 
+                             alt="FLYQ Air - All Components" 
+                             class="w-full h-80 object-contain hover:scale-110 transition-transform duration-500">
+                        <div class="mt-4 text-center">
+                            <h3 class="text-xl font-bold text-sky-400">Components Kit</h3>
+                            <p class="text-sm silver-text">All parts included</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Curriculum Preview Section -->
+        <section class="py-20 bg-black">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-16">
+                    <h2 class="text-5xl font-black mb-4 text-white">
+                        <span class="text-sky-400">8-Week Training</span> Program
+                    </h2>
+                    <div class="section-divider w-32 mx-auto mb-6"></div>
+                    <p class="text-xl silver-text max-w-3xl mx-auto">Master drone development from basics to autonomous flight</p>
+                </div>
+
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+                    <div class="card-hover p-6 rounded-3xl text-center">
+                        <div class="w-16 h-16 bg-gradient-to-br from-sky-500 to-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                            <span class="text-2xl font-black text-white">8</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-sky-400 mb-2">Weeks</h3>
+                        <p class="silver-text text-sm">Intensive Training</p>
+                    </div>
+                    <div class="card-hover p-6 rounded-3xl text-center">
+                        <div class="w-16 h-16 bg-gradient-to-br from-sky-500 to-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                            <span class="text-2xl font-black text-white">30</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-sky-400 mb-2">Sessions</h3>
+                        <p class="silver-text text-sm">Hands-on Labs</p>
+                    </div>
+                    <div class="card-hover p-6 rounded-3xl text-center">
+                        <div class="w-16 h-16 bg-gradient-to-br from-green-500 to-teal-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-certificate text-white text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-sky-400 mb-2">Certificate</h3>
+                        <p class="silver-text text-sm">Industry Recognized</p>
+                    </div>
+                    <div class="card-hover p-6 rounded-3xl text-center">
+                        <div class="w-16 h-16 bg-gradient-to-br from-orange-500 to-red-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-users text-white text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-sky-400 mb-2">Community</h3>
+                        <p class="silver-text text-sm">Alumni Network</p>
+                    </div>
+                </div>
+
+                <div class="text-center">
+                    <a href="/curriculum" class="btn-primary text-white px-10 py-4 rounded-full font-bold text-lg inline-flex items-center">
+                        <i class="fas fa-graduation-cap mr-2"></i>
+                        View Full Curriculum
+                    </a>
+                    <p class="silver-text mt-4 text-sm">
+                        <i class="fas fa-lock mr-2"></i>
+                        Access full curriculum after purchase
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Partners Section -->
+        <section class="py-20 bg-midnight">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-16">
+                    <h2 class="text-5xl font-black mb-4 text-white">
+                        <span class="text-sky-400">Trusted By</span> Industry Leaders
+                    </h2>
+                    <div class="section-divider w-32 mx-auto mb-6"></div>
+                    <p class="text-xl silver-text">Partnering with leading technology and education institutions</p>
+                </div>
+
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div class="card-hover p-8 rounded-3xl text-center">
+                        <div class="w-20 h-20 bg-gradient-to-br from-sky-500 to-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-store text-white text-3xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2 text-sky-400">Passion 3D World</h3>
+                        <p class="text-sm silver-text">Official Authorized Dealer</p>
+                    </div>
+
+                    <div class="card-hover p-8 rounded-3xl text-center">
+                        <div class="w-20 h-20 bg-gradient-to-br from-sky-500 to-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-microchip text-white text-3xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2 text-sky-400">Espressif Systems</h3>
+                        <p class="text-sm silver-text">ESP32-S3 Technology Partner</p>
+                    </div>
+
+                    <div class="card-hover p-8 rounded-3xl text-center">
+                        <div class="w-20 h-20 bg-gradient-to-br from-green-500 to-teal-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-graduation-cap text-white text-3xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2 text-sky-400">Educational Institutions</h3>
+                        <p class="text-sm silver-text">Universities & Colleges Worldwide</p>
+                    </div>
+
+                    <div class="card-hover p-8 rounded-3xl text-center">
+                        <div class="w-20 h-20 bg-gradient-to-br from-orange-500 to-red-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-code text-white text-3xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2 text-sky-400">Open Source Community</h3>
+                        <p class="text-sm silver-text">Crazyflie Compatible Ecosystem</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials Section -->
+        <section class="py-20 bg-black">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-16">
+                    <h2 class="text-5xl font-black mb-4 text-white">
+                        What Our <span class="text-sky-400">Students Say</span>
+                    </h2>
+                    <div class="section-divider w-32 mx-auto mb-6"></div>
+                    <p class="text-xl silver-text">Real experiences from our community</p>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="card-hover p-8 rounded-3xl">
+                        <div class="flex items-center mb-6">
+                            <div class="w-16 h-16 bg-gradient-to-br from-sky-500 to-blue-600 rounded-full flex items-center justify-center mr-4">
+                                <i class="fab fa-whatsapp text-white text-2xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-sky-400">Rahul Sharma</h4>
+                                <p class="text-sm silver-text">Engineering Student</p>
+                                <div class="flex text-yellow-400 text-sm mt-1">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="silver-text italic">"Amazing course! I went from zero knowledge to building my own autonomous drone in 8 weeks. The hands-on sessions were incredibly valuable."</p>
+                    </div>
+
+                    <div class="card-hover p-8 rounded-3xl">
+                        <div class="flex items-center mb-6">
+                            <div class="w-16 h-16 bg-gradient-to-br from-sky-500 to-blue-600 rounded-full flex items-center justify-center mr-4">
+                                <i class="fab fa-whatsapp text-white text-2xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-sky-400">Priya Patel</h4>
+                                <p class="text-sm silver-text">Robotics Enthusiast</p>
+                                <div class="flex text-yellow-400 text-sm mt-1">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="silver-text italic">"The ESP32-S3 platform is powerful and the curriculum is well-structured. I love how they teach both hardware and software aspects."</p>
+                    </div>
+
+                    <div class="card-hover p-8 rounded-3xl">
+                        <div class="flex items-center mb-6">
+                            <div class="w-16 h-16 bg-gradient-to-br from-green-500 to-teal-600 rounded-full flex items-center justify-center mr-4">
+                                <i class="fab fa-whatsapp text-white text-2xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-sky-400">Dr. Amit Kumar</h4>
+                                <p class="text-sm silver-text">Professor, IIT</p>
+                                <div class="flex text-yellow-400 text-sm mt-1">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="silver-text italic">"Excellent platform for teaching robotics and embedded systems. We've integrated FLYQ Air into our curriculum. Students love it!"</p>
+                    </div>
+
+                    <div class="card-hover p-8 rounded-3xl">
+                        <div class="flex items-center mb-6">
+                            <div class="w-16 h-16 bg-gradient-to-br from-orange-500 to-red-600 rounded-full flex items-center justify-center mr-4">
+                                <i class="fab fa-whatsapp text-white text-2xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-sky-400">Sneha Desai</h4>
+                                <p class="text-sm silver-text">Software Developer</p>
+                                <div class="flex text-yellow-400 text-sm mt-1">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="silver-text italic">"The Python SDK makes it so easy to program autonomous missions. I built a gesture-controlled drone as my final project!"</p>
+                    </div>
+
+                    <div class="card-hover p-8 rounded-3xl">
+                        <div class="flex items-center mb-6">
+                            <div class="w-16 h-16 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-full flex items-center justify-center mr-4">
+                                <i class="fab fa-whatsapp text-white text-2xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-sky-400">Arjun Reddy</h4>
+                                <p class="text-sm silver-text">Maker & DIY Enthusiast</p>
+                                <div class="flex text-yellow-400 text-sm mt-1">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="silver-text italic">"Great value for money! The kit quality is excellent and the documentation is comprehensive. I've learned so much!"</p>
+                    </div>
+
+                    <div class="card-hover p-8 rounded-3xl">
+                        <div class="flex items-center mb-6">
+                            <div class="w-16 h-16 bg-gradient-to-br from-yellow-500 to-orange-600 rounded-full flex items-center justify-center mr-4">
+                                <i class="fab fa-whatsapp text-white text-2xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-sky-400">Meera Singh</h4>
+                                <p class="text-sm silver-text">Research Scholar</p>
+                                <div class="flex text-yellow-400 text-sm mt-1">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="silver-text italic">"Perfect for research projects! The open-source firmware and expandability make it ideal for experimenting with new algorithms."</p>
+                    </div>
+                </div>
+
+                <div class="text-center mt-16">
+                    <a href="https://wa.me/1234567890" target="_blank" class="inline-flex items-center bg-gradient-to-r from-green-500 to-green-600 text-white px-8 py-4 rounded-full font-bold text-xl hover:shadow-2xl transition-all transform hover:scale-105">
+                        <i class="fab fa-whatsapp text-3xl mr-3"></i>
+                        Join Our WhatsApp Community
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section class="py-20 bg-midnight">
+            <div class="container mx-auto px-6 max-w-4xl">
+                <div class="text-center mb-16">
+                    <h2 class="text-5xl font-black mb-4 text-white">
+                        <span class="text-sky-400">Frequently Asked</span> Questions
+                    </h2>
+                    <div class="section-divider w-32 mx-auto mb-6"></div>
+                    <p class="text-xl silver-text">Everything you need to know about FLYQ Air</p>
+                </div>
+
+                <div class="space-y-4">
+                    <div class="card-hover p-6 rounded-2xl">
+                        <h3 class="text-xl font-bold text-sky-400 mb-3 flex items-center">
+                            <i class="fas fa-question-circle mr-3"></i>
+                            What programming languages are supported?
+                        </h3>
+                        <p class="silver-text ml-9">FLYQ Air supports multiple programming options: ESP-IDF (C/C++), Arduino IDE, Python SDK (cflib), and visual programming through Crazyflie Client.</p>
+                    </div>
+
+                    <div class="card-hover p-6 rounded-2xl">
+                        <h3 class="text-xl font-bold text-sky-400 mb-3 flex items-center">
+                            <i class="fas fa-question-circle mr-3"></i>
+                            Do I need prior drone experience?
+                        </h3>
+                        <p class="silver-text ml-9">No prior experience required! Our 8-week curriculum starts from basics and gradually progresses to advanced topics.</p>
+                    </div>
+
+                    <div class="card-hover p-6 rounded-2xl">
+                        <h3 class="text-xl font-bold text-sky-400 mb-3 flex items-center">
+                            <i class="fas fa-question-circle mr-3"></i>
+                            What's included in the kit?
+                        </h3>
+                        <p class="silver-text ml-9">The kit includes: PCB frame with integrated ESP32-S3, 4x motors with propellers, battery, USB-C cable, propeller guards, and all necessary mounting hardware.</p>
+                    </div>
+
+                    <div class="card-hover p-6 rounded-2xl">
+                        <h3 class="text-xl font-bold text-sky-400 mb-3 flex items-center">
+                            <i class="fas fa-question-circle mr-3"></i>
+                            How long does the battery last?
+                        </h3>
+                        <p class="silver-text ml-9">Flight time is approximately 5-7 minutes with the included 650mAh battery. Charging takes 1-2 hours.</p>
+                    </div>
+
+                    <div class="card-hover p-6 rounded-2xl">
+                        <h3 class="text-xl font-bold text-sky-400 mb-3 flex items-center">
+                            <i class="fas fa-question-circle mr-3"></i>
+                            Can I add sensors and expand functionality?
+                        </h3>
+                        <p class="silver-text ml-9">Yes! FLYQ Air features a 24-pin expansion connector supporting I²C, SPI, UART, and GPIO. Compatible sensors include VL53L1X ToF, MS5611 barometer, and PMW3901 optical flow.</p>
+                    </div>
+
+                    <div class="card-hover p-6 rounded-2xl">
+                        <h3 class="text-xl font-bold text-sky-400 mb-3 flex items-center">
+                            <i class="fas fa-question-circle mr-3"></i>
+                            Is FLYQ Air open source?
+                        </h3>
+                        <p class="silver-text ml-9">Yes! Both hardware designs and firmware are 100% open source. Access schematics, PCB files, and code on GitHub.</p>
                     </div>
                 </div>
             </div>
@@ -896,6 +1299,353 @@ app.get('/contact', (c) => {
   return c.html(renderPage('Contact Us', content));
 });
 
+// Curriculum page with authentication protection
+app.get('/curriculum', async (c) => {
+  // Check if user is logged in (we'll implement this properly with D1 later)
+  // For now, show curriculum preview with lock message
+  const content = `
+    <div class="pt-20">
+        <!-- Hero Section -->
+        <section class="bg-gradient-to-br from-gray-900 via-blue-900 to-gray-900 text-white py-16">
+            <div class="container mx-auto px-6 text-center">
+                <h1 class="text-6xl font-black mb-6">
+                    <span class="text-sky-400">8-Week Training</span> Curriculum
+                </h1>
+                <p class="text-2xl text-gray-300 max-w-3xl mx-auto">
+                    Master drone development from basics to autonomous flight with our comprehensive curriculum
+                </p>
+            </div>
+        </section>
+
+        <!-- Lock Notice (shown when not authenticated/purchased) -->
+        <section class="py-12 bg-yellow-50 border-y-4 border-yellow-400">
+            <div class="container mx-auto px-6">
+                <div class="max-w-4xl mx-auto text-center">
+                    <i class="fas fa-lock text-yellow-600 text-5xl mb-4"></i>
+                    <h2 class="text-3xl font-bold text-gray-900 mb-4">
+                        Full Curriculum Access Required
+                    </h2>
+                    <p class="text-lg text-gray-700 mb-6">
+                        The complete 8-week curriculum with downloadable materials is available to customers who have purchased FLYQ Air or FLYQ Vision.
+                    </p>
+                    <div class="flex justify-center gap-4">
+                        <a href="/products" class="btn-primary text-white px-8 py-4 rounded-full font-bold text-lg inline-flex items-center">
+                            <i class="fas fa-shopping-cart mr-2"></i>
+                            Purchase Drone
+                        </a>
+                        <a href="/login" class="border-2 border-sky-500 text-sky-600 px-8 py-4 rounded-full font-bold text-lg hover:bg-sky-50 transition inline-flex items-center">
+                            <i class="fas fa-sign-in-alt mr-2"></i>
+                            Already Purchased? Login
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Curriculum Overview (Free Preview) -->
+        <section class="py-20 bg-black">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-16">
+                    <h2 class="text-5xl font-black mb-6 text-white">
+                        Curriculum <span class="text-sky-400">Overview</span>
+                    </h2>
+                    <div class="section-divider w-32 mx-auto mb-6"></div>
+                    <p class="text-xl silver-text max-w-3xl mx-auto">30 sessions covering hardware, programming, flight, and autonomous systems</p>
+                </div>
+
+                <div class="grid lg:grid-cols-2 gap-6">
+                    <!-- Week 1 -->
+                    <div class="card-hover p-8 rounded-3xl">
+                        <div class="flex items-center mb-6">
+                            <div class="w-16 h-16 bg-gradient-to-br from-sky-500 to-blue-600 rounded-2xl flex items-center justify-center mr-4">
+                                <span class="text-2xl font-black text-white">1</span>
+                            </div>
+                            <div>
+                                <h3 class="text-2xl font-black text-sky-400">Week 1</h3>
+                                <p class="silver-text">Introduction & Platform Setup</p>
+                            </div>
+                        </div>
+                        <ul class="space-y-3 silver-text">
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-sky-400 mt-1 mr-3"></i>
+                                <span><strong>Session 1:</strong> Course kickoff, FLYQ Air overview & applications</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-sky-400 mt-1 mr-3"></i>
+                                <span><strong>Session 2:</strong> Hardware overview: PCB, ESP32-S3, key features</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-sky-400 mt-1 mr-3"></i>
+                                <span><strong>Session 3:</strong> Circuit schematics & power system</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-sky-400 mt-1 mr-3"></i>
+                                <span><strong>Session 4:</strong> Hands-on: Unboxing & component identification</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Week 2 -->
+                    <div class="card-hover p-8 rounded-3xl">
+                        <div class="flex items-center mb-6">
+                            <div class="w-16 h-16 bg-gradient-to-br from-sky-500 to-blue-600 rounded-2xl flex items-center justify-center mr-4">
+                                <span class="text-2xl font-black text-white">2</span>
+                            </div>
+                            <div>
+                                <h3 class="text-2xl font-black text-sky-400">Week 2</h3>
+                                <p class="silver-text">Sensor & Motor Systems</p>
+                            </div>
+                        </div>
+                        <ul class="space-y-3 silver-text">
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-sky-400 mt-1 mr-3"></i>
+                                <span><strong>Session 5:</strong> IMU (MPU6050) and motion sensing</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-sky-400 mt-1 mr-3"></i>
+                                <span><strong>Session 6:</strong> Motor driver circuit: MOSFETs & PWM</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-sky-400 mt-1 mr-3"></i>
+                                <span><strong>Session 7:</strong> Pinout & expansion connector</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-sky-400 mt-1 mr-3"></i>
+                                <span><strong>Session 8:</strong> Hands-on: Soldering & assembly</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Week 3 -->
+                    <div class="card-hover p-8 rounded-3xl">
+                        <div class="flex items-center mb-6">
+                            <div class="w-16 h-16 bg-gradient-to-br from-sky-500 to-blue-600 rounded-2xl flex items-center justify-center mr-4">
+                                <span class="text-2xl font-black text-white">3</span>
+                            </div>
+                            <div>
+                                <h3 class="text-2xl font-black text-sky-400">Week 3</h3>
+                                <p class="silver-text">Firmware & Programming</p>
+                            </div>
+                        </div>
+                        <ul class="space-y-3 silver-text">
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-sky-400 mt-1 mr-3"></i>
+                                <span><strong>Session 9:</strong> Firmware architecture: ESP-IDF, RTOS, PID</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-sky-400 mt-1 mr-3"></i>
+                                <span><strong>Session 10:</strong> Arduino IDE & ESP-IDF development</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-sky-400 mt-1 mr-3"></i>
+                                <span><strong>Session 11:</strong> Python SDK & PC control (cfclient)</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-sky-400 mt-1 mr-3"></i>
+                                <span><strong>Session 12:</strong> Live demo: Flashing firmware</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Week 4 -->
+                    <div class="card-hover p-8 rounded-3xl">
+                        <div class="flex items-center mb-6">
+                            <div class="w-16 h-16 bg-gradient-to-br from-sky-500 to-blue-600 rounded-2xl flex items-center justify-center mr-4">
+                                <span class="text-2xl font-black text-white">4</span>
+                            </div>
+                            <div>
+                                <h3 class="text-2xl font-black text-sky-400">Week 4</h3>
+                                <p class="silver-text">Flight Basics & Safety</p>
+                            </div>
+                        </div>
+                        <ul class="space-y-3 silver-text">
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-sky-400 mt-1 mr-3"></i>
+                                <span><strong>Session 13:</strong> Pre-flight setup & calibration</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-sky-400 mt-1 mr-3"></i>
+                                <span><strong>Session 14:</strong> Safety guidelines: Battery & propeller safety</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-sky-400 mt-1 mr-3"></i>
+                                <span><strong>Session 15:</strong> First flight procedure & live demo</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-sky-400 mt-1 mr-3"></i>
+                                <span><strong>Session 16:</strong> Troubleshooting common issues</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Week 5 -->
+                    <div class="card-hover p-8 rounded-3xl">
+                        <div class="flex items-center mb-6">
+                            <div class="w-16 h-16 bg-gradient-to-br from-sky-500 to-blue-600 rounded-2xl flex items-center justify-center mr-4">
+                                <span class="text-2xl font-black text-white">5</span>
+                            </div>
+                            <div>
+                                <h3 class="text-2xl font-black text-sky-400">Week 5</h3>
+                                <p class="silver-text">Advanced Features & Sensors</p>
+                            </div>
+                        </div>
+                        <ul class="space-y-3 silver-text">
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-sky-400 mt-1 mr-3"></i>
+                                <span><strong>Session 17:</strong> Optional sensors: ToF, barometer, optical flow</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-sky-400 mt-1 mr-3"></i>
+                                <span><strong>Session 18:</strong> Expansion modules & 24-pin connector</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-sky-400 mt-1 mr-3"></i>
+                                <span><strong>Session 19:</strong> Assisted flight modes integration</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-sky-400 mt-1 mr-3"></i>
+                                <span><strong>Session 20:</strong> Hands-on: Install & test sensors</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Week 6 -->
+                    <div class="card-hover p-8 rounded-3xl">
+                        <div class="flex items-center mb-6">
+                            <div class="w-16 h-16 bg-gradient-to-br from-sky-500 to-blue-600 rounded-2xl flex items-center justify-center mr-4">
+                                <span class="text-2xl font-black text-white">6</span>
+                            </div>
+                            <div>
+                                <h3 class="text-2xl font-black text-sky-400">Week 6</h3>
+                                <p class="silver-text">Autonomous Flight & Control</p>
+                            </div>
+                        </div>
+                        <ul class="space-y-3 silver-text">
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-sky-400 mt-1 mr-3"></i>
+                                <span><strong>Session 21:</strong> Autonomous behavior with Python (cflib)</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-sky-400 mt-1 mr-3"></i>
+                                <span><strong>Session 22:</strong> Telemetry & WiFi control interface</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-sky-400 mt-1 mr-3"></i>
+                                <span><strong>Session 23:</strong> Drone programming patterns & missions</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-sky-400 mt-1 mr-3"></i>
+                                <span><strong>Session 24:</strong> Live demo: Autonomous flight path</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Week 7 -->
+                    <div class="card-hover p-8 rounded-3xl">
+                        <div class="flex items-center mb-6">
+                            <div class="w-16 h-16 bg-gradient-to-br from-sky-500 to-blue-600 rounded-2xl flex items-center justify-center mr-4">
+                                <span class="text-2xl font-black text-white">7</span>
+                            </div>
+                            <div>
+                                <h3 class="text-2xl font-black text-sky-400">Week 7</h3>
+                                <p class="silver-text">Customization & Expansion</p>
+                            </div>
+                        </div>
+                        <ul class="space-y-3 silver-text">
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-sky-400 mt-1 mr-3"></i>
+                                <span><strong>Session 25:</strong> Firmware customization: PID tuning</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-sky-400 mt-1 mr-3"></i>
+                                <span><strong>Session 26:</strong> Hardware modifications & payloads</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-sky-400 mt-1 mr-3"></i>
+                                <span><strong>Session 27:</strong> Advanced features: Vision & gesture control</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-sky-400 mt-1 mr-3"></i>
+                                <span><strong>Session 28:</strong> Workshop: Custom project presentations</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Week 8 -->
+                    <div class="card-hover p-8 rounded-3xl">
+                        <div class="flex items-center mb-6">
+                            <div class="w-16 h-16 bg-gradient-to-br from-sky-500 to-blue-600 rounded-2xl flex items-center justify-center mr-4">
+                                <span class="text-2xl font-black text-white">8</span>
+                            </div>
+                            <div>
+                                <h3 class="text-2xl font-black text-sky-400">Week 8</h3>
+                                <p class="silver-text">Projects & Wrap-Up</p>
+                            </div>
+                        </div>
+                        <ul class="space-y-3 silver-text">
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-sky-400 mt-1 mr-3"></i>
+                                <span><strong>Session 29:</strong> Project execution & rehearsal</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-sky-400 mt-1 mr-3"></i>
+                                <span><strong>Session 30:</strong> Final presentations & course review</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-trophy text-yellow-400 mt-1 mr-3"></i>
+                                <span><strong>Certificate:</strong> Course completion certificate</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-users text-green-400 mt-1 mr-3"></i>
+                                <span><strong>Community:</strong> Join our alumni network</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="mt-16 text-center">
+                    <div class="inline-block bg-gradient-to-r from-sky-500 to-blue-600 p-1 rounded-3xl">
+                        <div class="bg-black px-12 py-8 rounded-3xl">
+                            <h3 class="text-3xl font-black text-sky-400 mb-4">Course Highlights</h3>
+                            <div class="grid md:grid-cols-3 gap-8 text-left">
+                                <div>
+                                    <i class="fas fa-clock text-sky-400 text-2xl mb-2"></i>
+                                    <p class="silver-text"><strong class="text-white">30 Sessions</strong><br>8 weeks of intensive training</p>
+                                </div>
+                                <div>
+                                    <i class="fas fa-hands-helping text-sky-400 text-2xl mb-2"></i>
+                                    <p class="silver-text"><strong class="text-white">Hands-on Labs</strong><br>Build & fly your own drone</p>
+                                </div>
+                                <div>
+                                    <i class="fas fa-certificate text-sky-400 text-2xl mb-2"></i>
+                                    <p class="silver-text"><strong class="text-white">Certification</strong><br>Industry-recognized certificate</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA -->
+        <section class="py-20 bg-gradient-to-br from-sky-500 to-blue-600 text-white">
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="text-5xl font-black mb-6">Ready to Start Learning?</h2>
+                <p class="text-2xl mb-8 max-w-2xl mx-auto">
+                    Purchase FLYQ Air or FLYQ Vision to get instant access to the complete curriculum
+                </p>
+                <a href="/products" class="bg-white text-sky-600 px-10 py-4 rounded-full font-bold text-lg hover:shadow-2xl transition inline-flex items-center">
+                    <i class="fas fa-shopping-cart mr-2"></i>
+                    View Products
+                </a>
+            </div>
+        </section>
+    </div>
+  `;
+
+  return c.html(renderPage('Curriculum', content));
+});
+
 // Docs placeholder
 app.get('/docs', (c) => {
   const content = `
@@ -918,6 +1668,395 @@ app.get('/docs', (c) => {
   `;
 
   return c.html(renderPage('Documentation', content));
+});
+
+// Import auth utilities
+import { hashPassword, verifyPassword, createSession, deleteSession, getCurrentUser } from './lib/auth'
+import { isValidEmail, isValidPassword, isValidName, sanitizeInput } from './lib/validation'
+import { isDatabaseAvailable, createUser, getUserByEmail, createOrder, getOrdersByUserId, getOrderWithItems, updateOrderStatus, grantCurriculumAccess, hasCurriculumAccess } from './lib/db'
+
+// ==================== AUTHENTICATION API ROUTES ====================
+
+// Register API
+app.post('/api/auth/register', async (c) => {
+  try {
+    const body = await c.req.json();
+    const { name, email, password, confirmPassword } = body;
+
+    // Validation
+    if (!name || !email || !password || !confirmPassword) {
+      return c.json({ success: false, message: 'All fields are required' }, 400);
+    }
+
+    if (password !== confirmPassword) {
+      return c.json({ success: false, message: 'Passwords do not match' }, 400);
+    }
+
+    if (!isValidEmail(email)) {
+      return c.json({ success: false, message: 'Invalid email address' }, 400);
+    }
+
+    if (!isValidName(name)) {
+      return c.json({ success: false, message: 'Name must be 2-100 characters' }, 400);
+    }
+
+    const passwordCheck = isValidPassword(password);
+    if (!passwordCheck.valid) {
+      return c.json({ success: false, message: passwordCheck.message }, 400);
+    }
+
+    // Check if database is available
+    if (!isDatabaseAvailable(c)) {
+      return c.json({ success: false, message: 'Service temporarily unavailable. Please try again later.' }, 503);
+    }
+
+    // Check if user exists
+    const existingUser = await getUserByEmail(c, email.toLowerCase());
+    if (existingUser) {
+      return c.json({ success: false, message: 'Email already registered' }, 400);
+    }
+
+    // Hash password and create user
+    const passwordHash = await hashPassword(password);
+    const userId = await createUser(c, email.toLowerCase(), passwordHash, sanitizeInput(name));
+
+    // Create session
+    await createSession(c, userId as number);
+
+    return c.json({
+      success: true,
+      message: 'Registration successful',
+      redirect: '/account'
+    });
+
+  } catch (error) {
+    console.error('Registration error:', error);
+    return c.json({ success: false, message: 'Registration failed. Please try again.' }, 500);
+  }
+});
+
+// Login API
+app.post('/api/auth/login', async (c) => {
+  try {
+    const body = await c.req.json();
+    const { email, password } = body;
+
+    if (!email || !password) {
+      return c.json({ success: false, message: 'Email and password are required' }, 400);
+    }
+
+    if (!isDatabaseAvailable(c)) {
+      return c.json({ success: false, message: 'Service temporarily unavailable' }, 503);
+    }
+
+    // Get user
+    const user: any = await getUserByEmail(c, email.toLowerCase());
+    if (!user) {
+      return c.json({ success: false, message: 'Invalid email or password' }, 401);
+    }
+
+    // Verify password
+    const isValid = await verifyPassword(password, user.password_hash);
+    if (!isValid) {
+      return c.json({ success: false, message: 'Invalid email or password' }, 401);
+    }
+
+    // Create session
+    await createSession(c, user.id);
+
+    return c.json({
+      success: true,
+      message: 'Login successful',
+      redirect: '/account'
+    });
+
+  } catch (error) {
+    console.error('Login error:', error);
+    return c.json({ success: false, message: 'Login failed. Please try again.' }, 500);
+  }
+});
+
+// Logout API
+app.post('/api/auth/logout', async (c) => {
+  await deleteSession(c);
+  return c.json({ success: true, redirect: '/' });
+});
+
+// Check auth status API
+app.get('/api/auth/status', async (c) => {
+  const user = await getCurrentUser(c);
+  if (user) {
+    return c.json({
+      authenticated: true,
+      user: {
+        id: user.id,
+        name: user.name,
+        email: user.email
+      }
+    });
+  }
+  return c.json({ authenticated: false });
+});
+
+// ==================== CHECKOUT & ORDERS API ====================
+
+// Create order API
+app.post('/api/orders/create', async (c) => {
+  try {
+    const user = await getCurrentUser(c);
+    if (!user) {
+      return c.json({ success: false, message: 'Please login to place an order' }, 401);
+    }
+
+    if (!isDatabaseAvailable(c)) {
+      return c.json({ success: false, message: 'Service temporarily unavailable' }, 503);
+    }
+
+    const body = await c.req.json();
+    const { items, shippingAddress } = body;
+
+    if (!items || items.length === 0) {
+      return c.json({ success: false, message: 'Cart is empty' }, 400);
+    }
+
+    // Calculate total
+    const total = items.reduce((sum: number, item: any) => sum + (item.price * item.quantity), 0);
+
+    // Create order
+    const { orderId, orderNumber } = await createOrder(c, user.id, items, total);
+
+    return c.json({
+      success: true,
+      orderId,
+      orderNumber,
+      total,
+      message: 'Order created successfully'
+    });
+
+  } catch (error) {
+    console.error('Create order error:', error);
+    return c.json({ success: false, message: 'Failed to create order' }, 500);
+  }
+});
+
+// Get user orders API
+app.get('/api/orders', async (c) => {
+  try {
+    const user = await getCurrentUser(c);
+    if (!user) {
+      return c.json({ success: false, message: 'Unauthorized' }, 401);
+    }
+
+    if (!isDatabaseAvailable(c)) {
+      return c.json({ orders: [] });
+    }
+
+    const orders = await getOrdersByUserId(c, user.id);
+    return c.json({ success: true, orders });
+
+  } catch (error) {
+    console.error('Get orders error:', error);
+    return c.json({ success: false, message: 'Failed to fetch orders' }, 500);
+  }
+});
+
+// Get single order API
+app.get('/api/orders/:id', async (c) => {
+  try {
+    const user = await getCurrentUser(c);
+    if (!user) {
+      return c.json({ success: false, message: 'Unauthorized' }, 401);
+    }
+
+    const orderId = parseInt(c.req.param('id'));
+    const order: any = await getOrderWithItems(c, orderId);
+
+    if (!order || order.user_id !== user.id) {
+      return c.json({ success: false, message: 'Order not found' }, 404);
+    }
+
+    return c.json({ success: true, order });
+
+  } catch (error) {
+    console.error('Get order error:', error);
+    return c.json({ success: false, message: 'Failed to fetch order' }, 500);
+  }
+});
+
+// Razorpay payment verification API (placeholder for now)
+app.post('/api/payment/verify', async (c) => {
+  try {
+    const user = await getCurrentUser(c);
+    if (!user) {
+      return c.json({ success: false, message: 'Unauthorized' }, 401);
+    }
+
+    const body = await c.req.json();
+    const { orderId, paymentId, razorpayOrderId, razorpaySignature } = body;
+
+    // TODO: Verify Razorpay signature
+    // For now, mark order as paid
+    if (isDatabaseAvailable(c)) {
+      await updateOrderStatus(c, orderId, 'paid', paymentId);
+
+      // Grant curriculum access for products in order
+      const order: any = await getOrderWithItems(c, orderId);
+      if (order && order.items) {
+        for (const item of order.items) {
+          await grantCurriculumAccess(c, user.id, item.product_id, orderId);
+        }
+      }
+    }
+
+    return c.json({
+      success: true,
+      message: 'Payment verified successfully'
+    });
+
+  } catch (error) {
+    console.error('Payment verification error:', error);
+    return c.json({ success: false, message: 'Payment verification failed' }, 500);
+  }
+});
+
+// Check curriculum access API
+app.get('/api/curriculum/access/:productId', async (c) => {
+  try {
+    const user = await getCurrentUser(c);
+    if (!user) {
+      return c.json({ hasAccess: false, message: 'Please login' }, 401);
+    }
+
+    const productId = parseInt(c.req.param('productId'));
+    
+    if (!isDatabaseAvailable(c)) {
+      return c.json({ hasAccess: false, message: 'Service unavailable' }, 503);
+    }
+
+    const hasAccess = await hasCurriculumAccess(c, user.id, productId);
+
+    return c.json({ hasAccess });
+
+  } catch (error) {
+    console.error('Check access error:', error);
+    return c.json({ hasAccess: false, message: 'Error checking access' }, 500);
+  }
+});
+
+// ==================== PROTECTED PAGES ====================
+
+// Account Dashboard
+app.get('/account', async (c) => {
+  const user = await getCurrentUser(c);
+  
+  if (!user) {
+    return c.redirect('/login?redirect=/account');
+  }
+
+  const orders = isDatabaseAvailable(c) ? await getOrdersByUserId(c, user.id) : [];
+
+  const content = `
+    <div class="pt-32 pb-20">
+        <div class="container mx-auto px-6 max-w-6xl">
+            <div class="mb-8 flex items-center justify-between">
+                <div>
+                    <h1 class="text-5xl font-black mb-2">My Account</h1>
+                    <p class="text-gray-600">Welcome back, ${user.name}!</p>
+                </div>
+                <button onclick="logout()" class="text-red-500 hover:text-red-700 font-semibold">
+                    <i class="fas fa-sign-out-alt mr-2"></i>Logout
+                </button>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Sidebar -->
+                <div class="space-y-4">
+                    <a href="/account" class="block bg-sky-500 text-white px-6 py-3 rounded-xl font-bold">
+                        <i class="fas fa-user mr-2"></i>Dashboard
+                    </a>
+                    <a href="/account/orders" class="block bg-white border-2 border-gray-200 px-6 py-3 rounded-xl font-semibold hover:border-sky-500 transition">
+                        <i class="fas fa-shopping-bag mr-2"></i>Orders
+                    </a>
+                    <a href="/account/curriculum" class="block bg-white border-2 border-gray-200 px-6 py-3 rounded-xl font-semibold hover:border-sky-500 transition">
+                        <i class="fas fa-book mr-2"></i>Curriculum
+                    </a>
+                    <a href="/account/profile" class="block bg-white border-2 border-gray-200 px-6 py-3 rounded-xl font-semibold hover:border-sky-500 transition">
+                        <i class="fas fa-cog mr-2"></i>Settings
+                    </a>
+                </div>
+
+                <!-- Main Content -->
+                <div class="md:col-span-2">
+                    <div class="bg-white rounded-3xl p-8 shadow-lg mb-8">
+                        <h2 class="text-2xl font-bold mb-6">Account Overview</h2>
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div class="bg-gray-50 p-6 rounded-2xl">
+                                <i class="fas fa-shopping-cart text-sky-500 text-3xl mb-3"></i>
+                                <div class="text-3xl font-black mb-1">${orders.length}</div>
+                                <div class="text-gray-600">Total Orders</div>
+                            </div>
+                            <div class="bg-gray-50 p-6 rounded-2xl">
+                                <i class="fas fa-book text-green-500 text-3xl mb-3"></i>
+                                <div class="text-3xl font-black mb-1">0</div>
+                                <div class="text-gray-600">Curriculum Access</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-3xl p-8 shadow-lg">
+                        <h2 class="text-2xl font-bold mb-6">Recent Orders</h2>
+                        ${orders.length > 0 ? `
+                            <div class="space-y-4">
+                                ${orders.slice(0, 3).map((order: any) => `
+                                    <div class="border-2 border-gray-200 rounded-xl p-4 hover:border-sky-500 transition">
+                                        <div class="flex justify-between items-start">
+                                            <div>
+                                                <div class="font-bold">${order.order_number}</div>
+                                                <div class="text-sm text-gray-600">${new Date(order.created_at).toLocaleDateString()}</div>
+                                            </div>
+                                            <div class="text-right">
+                                                <div class="font-bold text-sky-500">₹${order.total.toLocaleString()}</div>
+                                                <div class="text-sm">
+                                                    <span class="px-3 py-1 rounded-full text-xs font-bold ${order.status === 'paid' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'}">
+                                                        ${order.status}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        ` : `
+                            <p class="text-gray-500 text-center py-8">
+                                No orders yet. <a href="/products" class="text-sky-500 hover:underline">Start shopping!</a>
+                            </p>
+                        `}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        async function logout() {
+            try {
+                const response = await fetch('/api/auth/logout', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' }
+                });
+                const data = await response.json();
+                if (data.success) {
+                    window.location.href = data.redirect;
+                }
+            } catch (error) {
+                console.error('Logout error:', error);
+                alert('Logout failed');
+            }
+        }
+    </script>
+  `;
+
+  return c.html(renderPage('My Account', content));
 });
 
 export default app
