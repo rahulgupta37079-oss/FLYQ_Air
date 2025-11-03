@@ -1588,24 +1588,284 @@ app.get('/curriculum', async (c) => {
   return c.html(renderPage('Curriculum', content));
 });
 
-// Docs placeholder
+// Documentation page
 app.get('/docs', (c) => {
   const content = `
-    <div class="pt-32 pb-20">
-        <div class="container mx-auto px-6 max-w-4xl text-center">
-            <i class="fas fa-book text-sky-500 text-6xl mb-6"></i>
-            <h1 class="text-5xl font-black mb-6">Documentation</h1>
-            <p class="text-xl text-gray-600 mb-8">
-                Comprehensive guides and tutorials for FLYQ drones
-            </p>
-            <p class="text-gray-600 mb-8">
-                Access to full documentation and curriculum will be available after purchase and registration.
-            </p>
-            <a href="https://github.com/passion3d/flyq-air" class="btn-primary text-white px-8 py-4 rounded-full font-bold inline-flex items-center">
-                <i class="fab fa-github mr-2"></i>
-                View on GitHub
-            </a>
-        </div>
+    <div class="pt-20">
+        <!-- Hero Section -->
+        <section class="bg-gradient-to-br from-gray-900 via-blue-900 to-gray-900 text-white py-16">
+            <div class="container mx-auto px-6 text-center">
+                <i class="fas fa-book text-sky-400 text-6xl mb-6"></i>
+                <h1 class="text-6xl font-black mb-6">
+                    <span class="text-sky-400">Documentation</span> & Resources
+                </h1>
+                <p class="text-2xl text-gray-300 max-w-3xl mx-auto">
+                    Complete guides and resources for FLYQ Air and FLYQ Vision
+                </p>
+            </div>
+        </section>
+
+        <!-- Quick Links -->
+        <section class="py-16 bg-gray-50">
+            <div class="container mx-auto px-6">
+                <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                    <a href="https://github.com/passion3d/flyq-air" target="_blank" class="bg-white p-8 rounded-3xl shadow-lg hover:shadow-2xl transition-all transform hover:scale-105 border-2 border-transparent hover:border-sky-500">
+                        <i class="fab fa-github text-sky-500 text-5xl mb-4"></i>
+                        <h3 class="text-2xl font-bold mb-3">GitHub Repository</h3>
+                        <p class="text-gray-600 mb-4">Access open-source hardware designs, firmware code, and schematics</p>
+                        <span class="text-sky-500 font-bold">View on GitHub →</span>
+                    </a>
+
+                    <a href="/curriculum" class="bg-white p-8 rounded-3xl shadow-lg hover:shadow-2xl transition-all transform hover:scale-105 border-2 border-transparent hover:border-sky-500">
+                        <i class="fas fa-graduation-cap text-sky-500 text-5xl mb-4"></i>
+                        <h3 class="text-2xl font-bold mb-3">Training Curriculum</h3>
+                        <p class="text-gray-600 mb-4">8-week comprehensive program covering hardware, programming, and flight</p>
+                        <span class="text-sky-500 font-bold">View Curriculum →</span>
+                    </a>
+
+                    <a href="https://passion3dworld.com" target="_blank" class="bg-white p-8 rounded-3xl shadow-lg hover:shadow-2xl transition-all transform hover:scale-105 border-2 border-transparent hover:border-sky-500">
+                        <i class="fas fa-store text-sky-500 text-5xl mb-4"></i>
+                        <h3 class="text-2xl font-bold mb-3">Official Store</h3>
+                        <p class="text-gray-600 mb-4">Purchase FLYQ drones from our authorized dealer Passion 3D World</p>
+                        <span class="text-sky-500 font-bold">Visit Store →</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Getting Started -->
+        <section class="py-16 bg-white">
+            <div class="container mx-auto px-6 max-w-4xl">
+                <h2 class="text-5xl font-black mb-12 text-center">
+                    <span class="text-sky-500">Getting</span> Started
+                </h2>
+
+                <div class="space-y-8">
+                    <div class="bg-gray-50 p-8 rounded-3xl border-l-4 border-sky-500">
+                        <h3 class="text-2xl font-bold mb-4 flex items-center">
+                            <span class="bg-sky-500 text-white w-10 h-10 rounded-full flex items-center justify-center mr-3">1</span>
+                            Unbox Your Drone
+                        </h3>
+                        <p class="text-gray-700 ml-13">
+                            Carefully unpack your FLYQ drone kit. Verify all components are included: drone frame, motors, propellers, battery, USB-C cable, and propeller guards.
+                        </p>
+                    </div>
+
+                    <div class="bg-gray-50 p-8 rounded-3xl border-l-4 border-sky-500">
+                        <h3 class="text-2xl font-bold mb-4 flex items-center">
+                            <span class="bg-sky-500 text-white w-10 h-10 rounded-full flex items-center justify-center mr-3">2</span>
+                            Install Development Tools
+                        </h3>
+                        <ul class="text-gray-700 ml-13 space-y-2">
+                            <li>• <strong>Arduino IDE</strong>: For easy programming with Arduino libraries</li>
+                            <li>• <strong>ESP-IDF</strong>: For advanced firmware development</li>
+                            <li>• <strong>Python & cflib</strong>: For autonomous flight programming</li>
+                            <li>• <strong>Crazyflie Client</strong>: For PC-based control</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-gray-50 p-8 rounded-3xl border-l-4 border-sky-500">
+                        <h3 class="text-2xl font-bold mb-4 flex items-center">
+                            <span class="bg-sky-500 text-white w-10 h-10 rounded-full flex items-center justify-center mr-3">3</span>
+                            First Flight
+                        </h3>
+                        <p class="text-gray-700 ml-13">
+                            Charge the battery fully, calibrate the IMU sensor, connect via Wi-Fi, and perform your first test flight in a safe indoor environment.
+                        </p>
+                    </div>
+
+                    <div class="bg-gray-50 p-8 rounded-3xl border-l-4 border-sky-500">
+                        <h3 class="text-2xl font-bold mb-4 flex items-center">
+                            <span class="bg-sky-500 text-white w-10 h-10 rounded-full flex items-center justify-center mr-3">4</span>
+                            Start Learning
+                        </h3>
+                        <p class="text-gray-700 ml-13">
+                            Follow our 8-week curriculum to master drone development from basics to autonomous flight. Access available after purchase and login.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Technical Specifications -->
+        <section class="py-16 bg-gray-50">
+            <div class="container mx-auto px-6 max-w-6xl">
+                <h2 class="text-5xl font-black mb-12 text-center">
+                    <span class="text-sky-500">Technical</span> Specifications
+                </h2>
+
+                <div class="grid md:grid-cols-2 gap-8">
+                    <!-- FLYQ Air Specs -->
+                    <div class="bg-white p-8 rounded-3xl shadow-lg">
+                        <h3 class="text-3xl font-bold mb-6 text-sky-500">FLYQ Air</h3>
+                        <table class="w-full text-left">
+                            <tbody class="space-y-3">
+                                <tr class="border-b">
+                                    <td class="py-3 font-bold text-gray-700">Processor</td>
+                                    <td class="py-3 text-gray-600">ESP32-S3 Dual-Core 240MHz</td>
+                                </tr>
+                                <tr class="border-b">
+                                    <td class="py-3 font-bold text-gray-700">Memory</td>
+                                    <td class="py-3 text-gray-600">512KB SRAM</td>
+                                </tr>
+                                <tr class="border-b">
+                                    <td class="py-3 font-bold text-gray-700">Connectivity</td>
+                                    <td class="py-3 text-gray-600">Wi-Fi, Bluetooth LE</td>
+                                </tr>
+                                <tr class="border-b">
+                                    <td class="py-3 font-bold text-gray-700">IMU</td>
+                                    <td class="py-3 text-gray-600">MPU6050 6-axis</td>
+                                </tr>
+                                <tr class="border-b">
+                                    <td class="py-3 font-bold text-gray-700">Motors</td>
+                                    <td class="py-3 text-gray-600">720 coreless DC (4x)</td>
+                                </tr>
+                                <tr class="border-b">
+                                    <td class="py-3 font-bold text-gray-700">Battery</td>
+                                    <td class="py-3 text-gray-600">1S LiPo 3.7V</td>
+                                </tr>
+                                <tr class="border-b">
+                                    <td class="py-3 font-bold text-gray-700">Weight</td>
+                                    <td class="py-3 text-gray-600">~45g (without battery)</td>
+                                </tr>
+                                <tr>
+                                    <td class="py-3 font-bold text-gray-700">GPIO</td>
+                                    <td class="py-3 text-gray-600">24-pin expansion</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- FLYQ Vision Specs -->
+                    <div class="bg-white p-8 rounded-3xl shadow-lg">
+                        <h3 class="text-3xl font-bold mb-6 text-sky-500">FLYQ Vision</h3>
+                        <table class="w-full text-left">
+                            <tbody class="space-y-3">
+                                <tr class="border-b">
+                                    <td class="py-3 font-bold text-gray-700">Processor</td>
+                                    <td class="py-3 text-gray-600">ESP32-S3 Dual-Core 240MHz</td>
+                                </tr>
+                                <tr class="border-b">
+                                    <td class="py-3 font-bold text-gray-700">Camera</td>
+                                    <td class="py-3 text-gray-600">HD 720p @ 30fps</td>
+                                </tr>
+                                <tr class="border-b">
+                                    <td class="py-3 font-bold text-gray-700">Connectivity</td>
+                                    <td class="py-3 text-gray-600">Wi-Fi Streaming</td>
+                                </tr>
+                                <tr class="border-b">
+                                    <td class="py-3 font-bold text-gray-700">Controls</td>
+                                    <td class="py-3 text-gray-600">Gesture Control</td>
+                                </tr>
+                                <tr class="border-b">
+                                    <td class="py-3 font-bold text-gray-700">FOV</td>
+                                    <td class="py-3 text-gray-600">120° Wide Angle</td>
+                                </tr>
+                                <tr class="border-b">
+                                    <td class="py-3 font-bold text-gray-700">Video</td>
+                                    <td class="py-3 text-gray-600">Real-time streaming</td>
+                                </tr>
+                                <tr class="border-b">
+                                    <td class="py-3 font-bold text-gray-700">SDK</td>
+                                    <td class="py-3 text-gray-600">Python/Arduino</td>
+                                </tr>
+                                <tr>
+                                    <td class="py-3 font-bold text-gray-700">Range</td>
+                                    <td class="py-3 text-gray-600">50m Wi-Fi</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Programming Options -->
+        <section class="py-16 bg-white">
+            <div class="container mx-auto px-6 max-w-6xl">
+                <h2 class="text-5xl font-black mb-12 text-center">
+                    <span class="text-sky-500">Programming</span> Options
+                </h2>
+
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="bg-gray-50 p-8 rounded-3xl text-center">
+                        <i class="fas fa-code text-sky-500 text-5xl mb-4"></i>
+                        <h3 class="text-2xl font-bold mb-3">Arduino IDE</h3>
+                        <p class="text-gray-700">
+                            Easy-to-use IDE with extensive libraries. Perfect for beginners and rapid prototyping.
+                        </p>
+                    </div>
+
+                    <div class="bg-gray-50 p-8 rounded-3xl text-center">
+                        <i class="fab fa-python text-sky-500 text-5xl mb-4"></i>
+                        <h3 class="text-2xl font-bold mb-3">Python SDK</h3>
+                        <p class="text-gray-700">
+                            cflib Python library for autonomous flight programming and advanced missions.
+                        </p>
+                    </div>
+
+                    <div class="bg-gray-50 p-8 rounded-3xl text-center">
+                        <i class="fas fa-terminal text-sky-500 text-5xl mb-4"></i>
+                        <h3 class="text-2xl font-bold mb-3">ESP-IDF</h3>
+                        <p class="text-gray-700">
+                            Professional development framework for advanced firmware customization.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Community & Support -->
+        <section class="py-16 bg-gray-900 text-white">
+            <div class="container mx-auto px-6 max-w-4xl text-center">
+                <h2 class="text-5xl font-black mb-8">
+                    <span class="text-sky-400">Community</span> & Support
+                </h2>
+                <p class="text-xl text-gray-300 mb-12">
+                    Join our growing community of makers, developers, and educators
+                </p>
+
+                <div class="grid md:grid-cols-3 gap-6">
+                    <a href="https://github.com/passion3d/flyq-air" target="_blank" class="bg-gray-800 p-6 rounded-2xl hover:bg-gray-700 transition">
+                        <i class="fab fa-github text-4xl mb-3 text-sky-400"></i>
+                        <h3 class="font-bold text-lg mb-2">GitHub</h3>
+                        <p class="text-gray-400 text-sm">Open source code & discussions</p>
+                    </a>
+
+                    <a href="https://wa.me/1234567890" target="_blank" class="bg-gray-800 p-6 rounded-2xl hover:bg-gray-700 transition">
+                        <i class="fab fa-whatsapp text-4xl mb-3 text-green-400"></i>
+                        <h3 class="font-bold text-lg mb-2">WhatsApp</h3>
+                        <p class="text-gray-400 text-sm">Community chat & support</p>
+                    </a>
+
+                    <a href="/contact" class="bg-gray-800 p-6 rounded-2xl hover:bg-gray-700 transition">
+                        <i class="fas fa-envelope text-4xl mb-3 text-sky-400"></i>
+                        <h3 class="font-bold text-lg mb-2">Contact Us</h3>
+                        <p class="text-gray-400 text-sm">Direct support & inquiries</p>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA -->
+        <section class="py-20 bg-gradient-to-br from-sky-500 to-blue-600 text-white">
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="text-5xl font-black mb-6">Ready to Start Building?</h2>
+                <p class="text-2xl mb-8 max-w-2xl mx-auto">
+                    Get your FLYQ drone and start learning today
+                </p>
+                <div class="flex justify-center gap-4">
+                    <a href="/products" class="bg-white text-sky-600 px-10 py-4 rounded-full font-bold text-lg hover:shadow-2xl transition inline-flex items-center">
+                        <i class="fas fa-shopping-cart mr-2"></i>
+                        Shop Now
+                    </a>
+                    <a href="/curriculum" class="border-2 border-white text-white px-10 py-4 rounded-full font-bold text-lg hover:bg-white hover:text-sky-600 transition inline-flex items-center">
+                        <i class="fas fa-graduation-cap mr-2"></i>
+                        View Curriculum
+                    </a>
+                </div>
+            </div>
+        </section>
     </div>
   `;
 
