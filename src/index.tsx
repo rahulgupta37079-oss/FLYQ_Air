@@ -1593,188 +1593,953 @@ app.get('/docs', (c) => {
   const content = `
     <div class="pt-20">
         <!-- Hero Section -->
-        <section class="bg-gradient-to-br from-gray-900 via-blue-900 to-gray-900 text-white py-16">
+        <section class="bg-gradient-to-br from-gray-900 via-blue-900 to-gray-900 text-white py-20">
             <div class="container mx-auto px-6 text-center">
-                <i class="fas fa-book text-sky-400 text-6xl mb-6"></i>
-                <h1 class="text-6xl font-black mb-6">
-                    <span class="text-sky-400">Documentation</span> & Resources
+                <i class="fas fa-book-open text-sky-400 text-7xl mb-6 animate-pulse"></i>
+                <h1 class="text-7xl font-black mb-6">
+                    <span class="text-sky-400">Complete</span> Documentation
                 </h1>
-                <p class="text-2xl text-gray-300 max-w-3xl mx-auto">
-                    Complete guides and resources for FLYQ Air and FLYQ Vision
+                <p class="text-2xl text-gray-300 max-w-4xl mx-auto mb-8">
+                    Everything you need to know about FLYQ Air & FLYQ Vision<br/>
+                    From unboxing to autonomous flight programming
                 </p>
+                <div class="flex justify-center gap-4 flex-wrap">
+                    <span class="bg-sky-500/20 border-2 border-sky-400 text-sky-300 px-6 py-2 rounded-full font-bold">
+                        <i class="fas fa-box mr-2"></i>Hardware Guides
+                    </span>
+                    <span class="bg-sky-500/20 border-2 border-sky-400 text-sky-300 px-6 py-2 rounded-full font-bold">
+                        <i class="fas fa-code mr-2"></i>Programming Tutorials
+                    </span>
+                    <span class="bg-sky-500/20 border-2 border-sky-400 text-sky-300 px-6 py-2 rounded-full font-bold">
+                        <i class="fas fa-plane mr-2"></i>Flight Training
+                    </span>
+                </div>
             </div>
         </section>
 
-        <!-- Quick Links -->
-        <section class="py-16 bg-gray-50">
+        <!-- Contact Information Banner -->
+        <section class="bg-sky-500 text-white py-8">
             <div class="container mx-auto px-6">
-                <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-                    <a href="https://github.com/passion3d/flyq-air" target="_blank" class="bg-white p-8 rounded-3xl shadow-lg hover:shadow-2xl transition-all transform hover:scale-105 border-2 border-transparent hover:border-sky-500">
-                        <i class="fab fa-github text-sky-500 text-5xl mb-4"></i>
-                        <h3 class="text-2xl font-bold mb-3">GitHub Repository</h3>
-                        <p class="text-gray-600 mb-4">Access open-source hardware designs, firmware code, and schematics</p>
-                        <span class="text-sky-500 font-bold">View on GitHub →</span>
-                    </a>
+                <div class="flex flex-wrap justify-center items-center gap-8 text-center md:text-left">
+                    <div class="flex items-center">
+                        <i class="fas fa-envelope text-3xl mr-3"></i>
+                        <div>
+                            <p class="text-sm opacity-80">Email Us</p>
+                            <a href="mailto:info@passion3dworld.com" class="text-xl font-bold hover:underline">info@passion3dworld.com</a>
+                        </div>
+                    </div>
+                    <div class="flex items-center">
+                        <i class="fas fa-phone text-3xl mr-3"></i>
+                        <div>
+                            <p class="text-sm opacity-80">Call Us</p>
+                            <a href="tel:+919137361474" class="text-xl font-bold hover:underline">+91 9137361474</a>
+                        </div>
+                    </div>
+                    <div class="flex items-center">
+                        <i class="fab fa-whatsapp text-3xl mr-3"></i>
+                        <div>
+                            <p class="text-sm opacity-80">WhatsApp</p>
+                            <a href="https://wa.me/919137361474" target="_blank" class="text-xl font-bold hover:underline">Chat Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-                    <a href="/curriculum" class="bg-white p-8 rounded-3xl shadow-lg hover:shadow-2xl transition-all transform hover:scale-105 border-2 border-transparent hover:border-sky-500">
-                        <i class="fas fa-graduation-cap text-sky-500 text-5xl mb-4"></i>
-                        <h3 class="text-2xl font-bold mb-3">Training Curriculum</h3>
-                        <p class="text-gray-600 mb-4">8-week comprehensive program covering hardware, programming, and flight</p>
-                        <span class="text-sky-500 font-bold">View Curriculum →</span>
+        <!-- Table of Contents -->
+        <section class="py-12 bg-gradient-to-br from-gray-50 to-white">
+            <div class="container mx-auto px-6 max-w-6xl">
+                <h2 class="text-4xl font-black mb-8 text-center">
+                    <i class="fas fa-list text-sky-500 mr-3"></i>
+                    <span class="text-sky-500">Quick</span> Navigation
+                </h2>
+                <div class="grid md:grid-cols-3 gap-6">
+                    <a href="#quick-start" class="bg-white p-6 rounded-2xl shadow-lg hover:shadow-2xl transition transform hover:scale-105 border-2 border-transparent hover:border-sky-500">
+                        <i class="fas fa-rocket text-sky-500 text-4xl mb-3"></i>
+                        <h3 class="text-xl font-bold mb-2">Quick Start Guide</h3>
+                        <p class="text-gray-600 text-sm">Get flying in 30 minutes</p>
                     </a>
-
-                    <a href="https://passion3dworld.com" target="_blank" class="bg-white p-8 rounded-3xl shadow-lg hover:shadow-2xl transition-all transform hover:scale-105 border-2 border-transparent hover:border-sky-500">
-                        <i class="fas fa-store text-sky-500 text-5xl mb-4"></i>
-                        <h3 class="text-2xl font-bold mb-3">Official Store</h3>
-                        <p class="text-gray-600 mb-4">Purchase FLYQ drones from our authorized dealer Passion 3D World</p>
-                        <span class="text-sky-500 font-bold">Visit Store →</span>
+                    <a href="#hardware" class="bg-white p-6 rounded-2xl shadow-lg hover:shadow-2xl transition transform hover:scale-105 border-2 border-transparent hover:border-sky-500">
+                        <i class="fas fa-microchip text-sky-500 text-4xl mb-3"></i>
+                        <h3 class="text-xl font-bold mb-2">Hardware Overview</h3>
+                        <p class="text-gray-600 text-sm">Components & specifications</p>
+                    </a>
+                    <a href="#programming" class="bg-white p-6 rounded-2xl shadow-lg hover:shadow-2xl transition transform hover:scale-105 border-2 border-transparent hover:border-sky-500">
+                        <i class="fas fa-code text-sky-500 text-4xl mb-3"></i>
+                        <h3 class="text-xl font-bold mb-2">Programming Guide</h3>
+                        <p class="text-gray-600 text-sm">Arduino, Python, ESP-IDF</p>
+                    </a>
+                    <a href="#firmware" class="bg-white p-6 rounded-2xl shadow-lg hover:shadow-2xl transition transform hover:scale-105 border-2 border-transparent hover:border-sky-500">
+                        <i class="fas fa-download text-sky-500 text-4xl mb-3"></i>
+                        <h3 class="text-xl font-bold mb-2">Firmware Setup</h3>
+                        <p class="text-gray-600 text-sm">Installation & configuration</p>
+                    </a>
+                    <a href="#flight-manual" class="bg-white p-6 rounded-2xl shadow-lg hover:shadow-2xl transition transform hover:scale-105 border-2 border-transparent hover:border-sky-500">
+                        <i class="fas fa-plane text-sky-500 text-4xl mb-3"></i>
+                        <h3 class="text-xl font-bold mb-2">Flight Manual</h3>
+                        <p class="text-gray-600 text-sm">Safety, calibration & flying</p>
+                    </a>
+                    <a href="#troubleshooting" class="bg-white p-6 rounded-2xl shadow-lg hover:shadow-2xl transition transform hover:scale-105 border-2 border-transparent hover:border-sky-500">
+                        <i class="fas fa-wrench text-sky-500 text-4xl mb-3"></i>
+                        <h3 class="text-xl font-bold mb-2">Troubleshooting</h3>
+                        <p class="text-gray-600 text-sm">Common issues & solutions</p>
+                    </a>
+                    <a href="#api-reference" class="bg-white p-6 rounded-2xl shadow-lg hover:shadow-2xl transition transform hover:scale-105 border-2 border-transparent hover:border-sky-500">
+                        <i class="fas fa-book text-sky-500 text-4xl mb-3"></i>
+                        <h3 class="text-xl font-bold mb-2">API Reference</h3>
+                        <p class="text-gray-600 text-sm">Complete function library</p>
+                    </a>
+                    <a href="#projects" class="bg-white p-6 rounded-2xl shadow-lg hover:shadow-2xl transition transform hover:scale-105 border-2 border-transparent hover:border-sky-500">
+                        <i class="fas fa-lightbulb text-sky-500 text-4xl mb-3"></i>
+                        <h3 class="text-xl font-bold mb-2">Project Ideas</h3>
+                        <p class="text-gray-600 text-sm">Inspiration & examples</p>
+                    </a>
+                    <a href="#support" class="bg-white p-6 rounded-2xl shadow-lg hover:shadow-2xl transition transform hover:scale-105 border-2 border-transparent hover:border-sky-500">
+                        <i class="fas fa-life-ring text-sky-500 text-4xl mb-3"></i>
+                        <h3 class="text-xl font-bold mb-2">Support & Community</h3>
+                        <p class="text-gray-600 text-sm">Get help & connect</p>
                     </a>
                 </div>
             </div>
         </section>
 
-        <!-- Getting Started -->
-        <section class="py-16 bg-white">
-            <div class="container mx-auto px-6 max-w-4xl">
+        <!-- Quick Access Resources -->
+        <section class="py-16 bg-white" id="resources">
+            <div class="container mx-auto px-6">
                 <h2 class="text-5xl font-black mb-12 text-center">
-                    <span class="text-sky-500">Getting</span> Started
+                    <span class="text-sky-500">Essential</span> Resources
                 </h2>
+                <div class="grid md:grid-cols-4 gap-6 max-w-7xl mx-auto">
+                    <a href="https://github.com/passion3d/flyq-air" target="_blank" class="bg-gradient-to-br from-gray-900 to-gray-800 text-white p-8 rounded-3xl shadow-xl hover:shadow-2xl transition-all transform hover:scale-105">
+                        <i class="fab fa-github text-sky-400 text-6xl mb-4"></i>
+                        <h3 class="text-2xl font-bold mb-3">GitHub Repository</h3>
+                        <p class="text-gray-300 mb-4 text-sm">
+                            • Open-source hardware designs<br/>
+                            • Firmware source code<br/>
+                            • Circuit schematics<br/>
+                            • 3D printable parts
+                        </p>
+                        <span class="text-sky-400 font-bold text-sm">View on GitHub →</span>
+                    </a>
+
+                    <a href="/curriculum" class="bg-gradient-to-br from-sky-500 to-blue-600 text-white p-8 rounded-3xl shadow-xl hover:shadow-2xl transition-all transform hover:scale-105">
+                        <i class="fas fa-graduation-cap text-white text-6xl mb-4"></i>
+                        <h3 class="text-2xl font-bold mb-3">8-Week Curriculum</h3>
+                        <p class="text-sky-50 mb-4 text-sm">
+                            • 30 comprehensive sessions<br/>
+                            • Hardware to firmware<br/>
+                            • Basic to autonomous flight<br/>
+                            • Login required
+                        </p>
+                        <span class="text-white font-bold text-sm">View Curriculum →</span>
+                    </a>
+
+                    <a href="https://passion3dworld.com" target="_blank" class="bg-gradient-to-br from-orange-500 to-red-600 text-white p-8 rounded-3xl shadow-xl hover:shadow-2xl transition-all transform hover:scale-105">
+                        <i class="fas fa-store text-white text-6xl mb-4"></i>
+                        <h3 class="text-2xl font-bold mb-3">Official Store</h3>
+                        <p class="text-orange-50 mb-4 text-sm">
+                            • Authorized dealer<br/>
+                            • Original products<br/>
+                            • India-wide shipping<br/>
+                            • Technical support
+                        </p>
+                        <span class="text-white font-bold text-sm">Visit Store →</span>
+                    </a>
+
+                    <a href="https://wa.me/919137361474" target="_blank" class="bg-gradient-to-br from-green-500 to-green-600 text-white p-8 rounded-3xl shadow-xl hover:shadow-2xl transition-all transform hover:scale-105">
+                        <i class="fab fa-whatsapp text-white text-6xl mb-4"></i>
+                        <h3 class="text-2xl font-bold mb-3">WhatsApp Support</h3>
+                        <p class="text-green-50 mb-4 text-sm">
+                            • Instant chat support<br/>
+                            • Community group<br/>
+                            • Quick troubleshooting<br/>
+                            • +91 9137361474
+                        </p>
+                        <span class="text-white font-bold text-sm">Chat Now →</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Getting Started Guide -->
+        <section class="py-20 bg-gradient-to-br from-gray-50 to-white" id="quick-start">
+            <div class="container mx-auto px-6 max-w-6xl">
+                <div class="text-center mb-16">
+                    <h2 class="text-6xl font-black mb-6">
+                        <i class="fas fa-rocket text-sky-500 mr-3"></i>
+                        <span class="text-sky-500">Quick Start</span> Guide
+                    </h2>
+                    <p class="text-2xl text-gray-600 max-w-3xl mx-auto">
+                        From unboxing to your first flight in 30 minutes
+                    </p>
+                </div>
 
                 <div class="space-y-8">
-                    <div class="bg-gray-50 p-8 rounded-3xl border-l-4 border-sky-500">
-                        <h3 class="text-2xl font-bold mb-4 flex items-center">
-                            <span class="bg-sky-500 text-white w-10 h-10 rounded-full flex items-center justify-center mr-3">1</span>
-                            Unbox Your Drone
-                        </h3>
-                        <p class="text-gray-700 ml-13">
-                            Carefully unpack your FLYQ drone kit. Verify all components are included: drone frame, motors, propellers, battery, USB-C cable, and propeller guards.
-                        </p>
+                    <!-- Step 1: Unboxing -->
+                    <div class="bg-white p-10 rounded-3xl shadow-xl border-l-8 border-sky-500 transform hover:scale-[1.02] transition">
+                        <div class="flex items-start">
+                            <span class="bg-gradient-to-br from-sky-500 to-blue-600 text-white text-3xl font-black w-16 h-16 rounded-2xl flex items-center justify-center mr-6 flex-shrink-0 shadow-lg">1</span>
+                            <div class="flex-1">
+                                <h3 class="text-3xl font-black mb-4 text-gray-900">
+                                    <i class="fas fa-box-open text-sky-500 mr-2"></i>
+                                    Unbox Your FLYQ Drone
+                                </h3>
+                                <p class="text-lg text-gray-700 mb-4">
+                                    Carefully open your FLYQ package and verify all components are present:
+                                </p>
+                                <div class="grid md:grid-cols-2 gap-4 ml-6">
+                                    <ul class="space-y-2 text-gray-700">
+                                        <li><i class="fas fa-check-circle text-green-500 mr-2"></i><strong>1x</strong> Assembled drone frame with PCB</li>
+                                        <li><i class="fas fa-check-circle text-green-500 mr-2"></i><strong>4x</strong> Coreless DC motors (720 type)</li>
+                                        <li><i class="fas fa-check-circle text-green-500 mr-2"></i><strong>4x</strong> Propellers (2 CW + 2 CCW)</li>
+                                        <li><i class="fas fa-check-circle text-green-500 mr-2"></i><strong>2x</strong> Spare propellers</li>
+                                        <li><i class="fas fa-check-circle text-green-500 mr-2"></i><strong>1x</strong> 3.7V LiPo battery (600mAh)</li>
+                                    </ul>
+                                    <ul class="space-y-2 text-gray-700">
+                                        <li><i class="fas fa-check-circle text-green-500 mr-2"></i><strong>1x</strong> USB-C charging cable</li>
+                                        <li><i class="fas fa-check-circle text-green-500 mr-2"></i><strong>4x</strong> Propeller guards (optional)</li>
+                                        <li><i class="fas fa-check-circle text-green-500 mr-2"></i><strong>1x</strong> Screwdriver tool</li>
+                                        <li><i class="fas fa-check-circle text-green-500 mr-2"></i><strong>1x</strong> Quick start guide</li>
+                                        <li><i class="fas fa-check-circle text-green-500 mr-2"></i><strong>1x</strong> Safety card</li>
+                                    </ul>
+                                </div>
+                                <div class="mt-6 p-4 bg-yellow-50 border-l-4 border-yellow-400 rounded">
+                                    <p class="text-yellow-800">
+                                        <i class="fas fa-exclamation-triangle mr-2"></i>
+                                        <strong>Important:</strong> Keep propellers away from motors until you're ready to fly. Store battery safely at room temperature.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
-                    <div class="bg-gray-50 p-8 rounded-3xl border-l-4 border-sky-500">
-                        <h3 class="text-2xl font-bold mb-4 flex items-center">
-                            <span class="bg-sky-500 text-white w-10 h-10 rounded-full flex items-center justify-center mr-3">2</span>
-                            Install Development Tools
-                        </h3>
-                        <ul class="text-gray-700 ml-13 space-y-2">
-                            <li>• <strong>Arduino IDE</strong>: For easy programming with Arduino libraries</li>
-                            <li>• <strong>ESP-IDF</strong>: For advanced firmware development</li>
-                            <li>• <strong>Python & cflib</strong>: For autonomous flight programming</li>
-                            <li>• <strong>Crazyflie Client</strong>: For PC-based control</li>
-                        </ul>
+                    <!-- Step 2: Charge Battery -->
+                    <div class="bg-white p-10 rounded-3xl shadow-xl border-l-8 border-sky-500 transform hover:scale-[1.02] transition">
+                        <div class="flex items-start">
+                            <span class="bg-gradient-to-br from-sky-500 to-blue-600 text-white text-3xl font-black w-16 h-16 rounded-2xl flex items-center justify-center mr-6 flex-shrink-0 shadow-lg">2</span>
+                            <div class="flex-1">
+                                <h3 class="text-3xl font-black mb-4 text-gray-900">
+                                    <i class="fas fa-battery-full text-sky-500 mr-2"></i>
+                                    Charge the Battery
+                                </h3>
+                                <p class="text-lg text-gray-700 mb-4">
+                                    Before your first flight, fully charge the LiPo battery:
+                                </p>
+                                <ol class="space-y-3 ml-6 text-gray-700 text-lg">
+                                    <li><strong>1.</strong> Connect USB-C cable to the battery charging port</li>
+                                    <li><strong>2.</strong> Plug into 5V USB power source (computer, phone charger, power bank)</li>
+                                    <li><strong>3.</strong> LED indicator will turn RED while charging</li>
+                                    <li><strong>4.</strong> LED turns GREEN when fully charged (~45 minutes)</li>
+                                    <li><strong>5.</strong> Disconnect once complete to preserve battery life</li>
+                                </ol>
+                                <div class="mt-6 grid md:grid-cols-2 gap-4">
+                                    <div class="p-4 bg-red-50 border-l-4 border-red-500 rounded">
+                                        <p class="text-red-800 font-bold mb-2">
+                                            <i class="fas fa-times-circle mr-2"></i>DON'T:
+                                        </p>
+                                        <ul class="text-sm text-red-700 space-y-1">
+                                            <li>• Use fast chargers (>5V)</li>
+                                            <li>• Leave unattended while charging</li>
+                                            <li>• Charge damaged battery</li>
+                                            <li>• Overcharge beyond 4.2V</li>
+                                        </ul>
+                                    </div>
+                                    <div class="p-4 bg-green-50 border-l-4 border-green-500 rounded">
+                                        <p class="text-green-800 font-bold mb-2">
+                                            <i class="fas fa-check-circle mr-2"></i>DO:
+                                        </p>
+                                        <ul class="text-sm text-green-700 space-y-1">
+                                            <li>• Use 5V 1A USB charger</li>
+                                            <li>• Charge on fireproof surface</li>
+                                            <li>• Monitor during charging</li>
+                                            <li>• Store at 50% if not flying</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
-                    <div class="bg-gray-50 p-8 rounded-3xl border-l-4 border-sky-500">
-                        <h3 class="text-2xl font-bold mb-4 flex items-center">
-                            <span class="bg-sky-500 text-white w-10 h-10 rounded-full flex items-center justify-center mr-3">3</span>
-                            First Flight
-                        </h3>
-                        <p class="text-gray-700 ml-13">
-                            Charge the battery fully, calibrate the IMU sensor, connect via Wi-Fi, and perform your first test flight in a safe indoor environment.
-                        </p>
+                    <!-- Step 3: Install Software -->
+                    <div class="bg-white p-10 rounded-3xl shadow-xl border-l-8 border-sky-500 transform hover:scale-[1.02] transition">
+                        <div class="flex items-start">
+                            <span class="bg-gradient-to-br from-sky-500 to-blue-600 text-white text-3xl font-black w-16 h-16 rounded-2xl flex items-center justify-center mr-6 flex-shrink-0 shadow-lg">3</span>
+                            <div class="flex-1">
+                                <h3 class="text-3xl font-black mb-4 text-gray-900">
+                                    <i class="fas fa-laptop-code text-sky-500 mr-2"></i>
+                                    Install Development Tools
+                                </h3>
+                                <p class="text-lg text-gray-700 mb-6">
+                                    Choose your preferred programming environment:
+                                </p>
+
+                                <!-- Arduino IDE -->
+                                <div class="mb-8 p-6 bg-gradient-to-r from-teal-50 to-cyan-50 rounded-2xl border-2 border-teal-200">
+                                    <h4 class="text-2xl font-bold mb-3 text-teal-700">
+                                        <i class="fas fa-code mr-2"></i>Option 1: Arduino IDE (Recommended for Beginners)
+                                    </h4>
+                                    <p class="text-gray-700 mb-4">Easy-to-use IDE with extensive libraries</p>
+                                    <ol class="space-y-2 ml-6 text-gray-700">
+                                        <li><strong>1.</strong> Download from <a href="https://arduino.cc/downloads" target="_blank" class="text-sky-600 underline">arduino.cc/downloads</a></li>
+                                        <li><strong>2.</strong> Install ESP32 board support: Tools → Board → Boards Manager → Search "ESP32"</li>
+                                        <li><strong>3.</strong> Select board: ESP32S3 Dev Module</li>
+                                        <li><strong>4.</strong> Install FLYQ library from GitHub</li>
+                                        <li><strong>5.</strong> Open Examples → FLYQ → BasicFlight</li>
+                                    </ol>
+                                </div>
+
+                                <!-- Python SDK -->
+                                <div class="mb-8 p-6 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl border-2 border-blue-200">
+                                    <h4 class="text-2xl font-bold mb-3 text-blue-700">
+                                        <i class="fab fa-python mr-2"></i>Option 2: Python SDK (For Autonomous Flight)
+                                    </h4>
+                                    <p class="text-gray-700 mb-4">Crazyflie-compatible Python library</p>
+                                    <div class="bg-gray-900 text-green-400 p-4 rounded-lg font-mono text-sm mb-4">
+                                        <div>$ pip install cflib</div>
+                                        <div>$ pip install flyq-python</div>
+                                        <div class="text-gray-500"># Verify installation</div>
+                                        <div>$ python -c "import cflib; print('Success!')"</div>
+                                    </div>
+                                </div>
+
+                                <!-- ESP-IDF -->
+                                <div class="p-6 bg-gradient-to-r from-purple-50 to-pink-50 rounded-2xl border-2 border-purple-200">
+                                    <h4 class="text-2xl font-bold mb-3 text-purple-700">
+                                        <i class="fas fa-terminal mr-2"></i>Option 3: ESP-IDF (Advanced Firmware Development)
+                                    </h4>
+                                    <p class="text-gray-700 mb-4">Professional development framework</p>
+                                    <ol class="space-y-2 ml-6 text-gray-700">
+                                        <li><strong>1.</strong> Follow <a href="https://docs.espressif.com/projects/esp-idf/en/latest/esp32s3/get-started/" target="_blank" class="text-sky-600 underline">ESP-IDF setup guide</a></li>
+                                        <li><strong>2.</strong> Clone FLYQ firmware: <code class="bg-gray-200 px-2 py-1 rounded">git clone https://github.com/passion3d/flyq-firmware</code></li>
+                                        <li><strong>3.</strong> Configure project: <code class="bg-gray-200 px-2 py-1 rounded">idf.py menuconfig</code></li>
+                                        <li><strong>4.</strong> Build & flash: <code class="bg-gray-200 px-2 py-1 rounded">idf.py build flash</code></li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
-                    <div class="bg-gray-50 p-8 rounded-3xl border-l-4 border-sky-500">
-                        <h3 class="text-2xl font-bold mb-4 flex items-center">
-                            <span class="bg-sky-500 text-white w-10 h-10 rounded-full flex items-center justify-center mr-3">4</span>
-                            Start Learning
-                        </h3>
-                        <p class="text-gray-700 ml-13">
-                            Follow our 8-week curriculum to master drone development from basics to autonomous flight. Access available after purchase and login.
-                        </p>
+                    <!-- Step 4: Connect & Calibrate -->
+                    <div class="bg-white p-10 rounded-3xl shadow-xl border-l-8 border-sky-500 transform hover:scale-[1.02] transition">
+                        <div class="flex items-start">
+                            <span class="bg-gradient-to-br from-sky-500 to-blue-600 text-white text-3xl font-black w-16 h-16 rounded-2xl flex items-center justify-center mr-6 flex-shrink-0 shadow-lg">4</span>
+                            <div class="flex-1">
+                                <h3 class="text-3xl font-black mb-4 text-gray-900">
+                                    <i class="fas fa-wifi text-sky-500 mr-2"></i>
+                                    Connect & Calibrate
+                                </h3>
+                                <p class="text-lg text-gray-700 mb-6">
+                                    Establish connection and calibrate sensors:
+                                </p>
+
+                                <div class="space-y-6">
+                                    <div class="border-2 border-gray-200 rounded-2xl p-6">
+                                        <h4 class="text-xl font-bold mb-3 text-gray-800">
+                                            <i class="fas fa-signal text-green-500 mr-2"></i>Wi-Fi Connection
+                                        </h4>
+                                        <ol class="space-y-2 ml-6 text-gray-700">
+                                            <li><strong>1.</strong> Power on drone by connecting battery</li>
+                                            <li><strong>2.</strong> Wait for LED to blink blue (AP mode)</li>
+                                            <li><strong>3.</strong> On your device, connect to Wi-Fi: <code class="bg-gray-200 px-2 py-1 rounded">FLYQ-XXXX</code></li>
+                                            <li><strong>4.</strong> Default password: <code class="bg-gray-200 px-2 py-1 rounded">flyq1234</code></li>
+                                            <li><strong>5.</strong> Open browser to: <code class="bg-gray-200 px-2 py-1 rounded">http://192.168.4.1</code></li>
+                                        </ol>
+                                    </div>
+
+                                    <div class="border-2 border-gray-200 rounded-2xl p-6">
+                                        <h4 class="text-xl font-bold mb-3 text-gray-800">
+                                            <i class="fas fa-compass text-blue-500 mr-2"></i>IMU Calibration (Critical!)
+                                        </h4>
+                                        <ol class="space-y-2 ml-6 text-gray-700">
+                                            <li><strong>1.</strong> Place drone on flat, level surface</li>
+                                            <li><strong>2.</strong> In web interface, click "Calibrate IMU"</li>
+                                            <li><strong>3.</strong> Keep drone perfectly still for 10 seconds</li>
+                                            <li><strong>4.</strong> LED will turn solid green when complete</li>
+                                            <li><strong>5.</strong> Recalibrate if LED blinks red (failed)</li>
+                                        </ol>
+                                        <div class="mt-4 p-3 bg-blue-50 rounded-lg">
+                                            <p class="text-blue-800 text-sm">
+                                                <i class="fas fa-info-circle mr-2"></i>
+                                                <strong>Tip:</strong> Calibrate IMU before every flight session for best stability
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
+
+                    <!-- Step 5: First Flight -->
+                    <div class="bg-gradient-to-br from-sky-500 to-blue-600 text-white p-10 rounded-3xl shadow-2xl border-l-8 border-white transform hover:scale-[1.02] transition">
+                        <div class="flex items-start">
+                            <span class="bg-white text-sky-600 text-3xl font-black w-16 h-16 rounded-2xl flex items-center justify-center mr-6 flex-shrink-0 shadow-lg">5</span>
+                            <div class="flex-1">
+                                <h3 class="text-4xl font-black mb-4">
+                                    <i class="fas fa-plane mr-2"></i>
+                                    Your First Flight! 🚀
+                                </h3>
+                                <p class="text-xl mb-6 opacity-90">
+                                    Ready for takeoff? Follow these safety steps:
+                                </p>
+
+                                <div class="grid md:grid-cols-2 gap-6">
+                                    <div>
+                                        <h4 class="text-xl font-bold mb-3">Pre-Flight Checklist:</h4>
+                                        <ul class="space-y-2">
+                                            <li><i class="fas fa-check mr-2"></i>Battery fully charged</li>
+                                            <li><i class="fas fa-check mr-2"></i>Propellers secured correctly</li>
+                                            <li><i class="fas fa-check mr-2"></i>IMU calibrated</li>
+                                            <li><i class="fas fa-check mr-2"></i>Clear 3m radius around drone</li>
+                                            <li><i class="fas fa-check mr-2"></i>Indoors, no wind</li>
+                                            <li><i class="fas fa-check mr-2"></i>Propeller guards installed</li>
+                                        </ul>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-xl font-bold mb-3">Flight Controls:</h4>
+                                        <ul class="space-y-2">
+                                            <li><strong>Throttle (Up/Down):</strong> W/S keys</li>
+                                            <li><strong>Yaw (Rotate):</strong> A/D keys</li>
+                                            <li><strong>Pitch (Forward/Back):</strong> ↑/↓ arrows</li>
+                                            <li><strong>Roll (Left/Right):</strong> ←/→ arrows</li>
+                                            <li><strong>Emergency Stop:</strong> SPACE key</li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <div class="mt-6 p-6 bg-white/10 backdrop-blur rounded-2xl border-2 border-white/30">
+                                    <h4 class="text-2xl font-bold mb-3">
+                                        <i class="fas fa-video mr-2"></i>Watch First Flight Tutorial
+                                    </h4>
+                                    <p class="mb-4 opacity-90">
+                                        Follow along with our step-by-step video guide for a successful maiden flight
+                                    </p>
+                                    <a href="https://www.youtube.com/watch?v=example" target="_blank" class="bg-white text-sky-600 px-8 py-3 rounded-full font-bold inline-flex items-center hover:shadow-xl transition">
+                                        <i class="fab fa-youtube mr-2 text-red-500"></i>
+                                        Watch on YouTube
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 6: Start Learning -->
+                    <div class="bg-white p-10 rounded-3xl shadow-xl border-l-8 border-green-500 transform hover:scale-[1.02] transition">
+                        <div class="flex items-start">
+                            <span class="bg-gradient-to-br from-green-500 to-emerald-600 text-white text-3xl font-black w-16 h-16 rounded-2xl flex items-center justify-center mr-6 flex-shrink-0 shadow-lg">6</span>
+                            <div class="flex-1">
+                                <h3 class="text-3xl font-black mb-4 text-gray-900">
+                                    <i class="fas fa-graduation-cap text-green-500 mr-2"></i>
+                                    Begin Your Learning Journey
+                                </h3>
+                                <p class="text-lg text-gray-700 mb-6">
+                                    Congratulations on your first flight! Now master drone development with our comprehensive curriculum:
+                                </p>
+
+                                <div class="grid md:grid-cols-3 gap-6">
+                                    <div class="bg-gradient-to-br from-sky-50 to-blue-50 p-6 rounded-2xl border-2 border-sky-200">
+                                        <div class="text-4xl font-black text-sky-600 mb-2">Week 1-2</div>
+                                        <h4 class="font-bold text-lg mb-2 text-gray-800">Hardware & Sensors</h4>
+                                        <p class="text-gray-600 text-sm">
+                                            Learn circuit design, ESP32-S3, IMU sensors, motor control
+                                        </p>
+                                    </div>
+
+                                    <div class="bg-gradient-to-br from-purple-50 to-pink-50 p-6 rounded-2xl border-2 border-purple-200">
+                                        <div class="text-4xl font-black text-purple-600 mb-2">Week 3-5</div>
+                                        <h4 class="font-bold text-lg mb-2 text-gray-800">Programming & Firmware</h4>
+                                        <p class="text-gray-600 text-sm">
+                                            Master Arduino, Python, ESP-IDF, PID control algorithms
+                                        </p>
+                                    </div>
+
+                                    <div class="bg-gradient-to-br from-green-50 to-emerald-50 p-6 rounded-2xl border-2 border-green-200">
+                                        <div class="text-4xl font-black text-green-600 mb-2">Week 6-8</div>
+                                        <h4 class="font-bold text-lg mb-2 text-gray-800">Autonomous Flight</h4>
+                                        <p class="text-gray-600 text-sm">
+                                            Build autonomous missions, waypoint navigation, projects
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="mt-8 text-center">
+                                    <a href="/curriculum" class="bg-gradient-to-r from-sky-500 to-blue-600 text-white px-10 py-4 rounded-full font-bold text-lg inline-flex items-center hover:shadow-2xl transition transform hover:scale-105">
+                                        <i class="fas fa-book-open mr-3"></i>
+                                        Access Full Curriculum (Login Required)
+                                        <i class="fas fa-arrow-right ml-3"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Success Banner -->
+                <div class="mt-12 bg-gradient-to-r from-green-500 to-emerald-600 text-white p-8 rounded-3xl text-center shadow-2xl">
+                    <i class="fas fa-check-circle text-6xl mb-4"></i>
+                    <h3 class="text-3xl font-black mb-3">You're All Set! 🎉</h3>
+                    <p class="text-xl opacity-90 max-w-2xl mx-auto">
+                        Your FLYQ drone is ready to fly. Start with basic flights, then progress to autonomous missions. Join our community for support!
+                    </p>
                 </div>
             </div>
         </section>
 
-        <!-- Technical Specifications -->
-        <section class="py-16 bg-gray-50">
-            <div class="container mx-auto px-6 max-w-6xl">
-                <h2 class="text-5xl font-black mb-12 text-center">
-                    <span class="text-sky-500">Technical</span> Specifications
-                </h2>
+        <!-- Hardware Overview - Comprehensive Technical Documentation -->
+        <section class="py-20 bg-gradient-to-br from-gray-900 via-blue-900 to-gray-900 text-white" id="hardware">
+            <div class="container mx-auto px-6 max-w-7xl">
+                <div class="text-center mb-16">
+                    <h2 class="text-6xl font-black mb-6">
+                        <i class="fas fa-microchip text-sky-400 mr-3"></i>
+                        <span class="text-sky-400">Hardware</span> Architecture
+                    </h2>
+                    <p class="text-2xl text-gray-300 max-w-4xl mx-auto">
+                        Complete technical reference for FLYQ Air & FLYQ Vision drone hardware
+                    </p>
+                </div>
 
+                <!-- ESP32-S3 Processor Details -->
+                <div class="mb-16 bg-white/10 backdrop-blur rounded-3xl p-10 border-2 border-sky-400/30">
+                    <h3 class="text-4xl font-black mb-8 text-sky-300">
+                        <i class="fas fa-brain mr-3"></i>ESP32-S3 Processor
+                    </h3>
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div>
+                            <h4 class="text-2xl font-bold mb-4 text-sky-200">Core Specifications</h4>
+                            <ul class="space-y-3 text-gray-200">
+                                <li><i class="fas fa-check text-green-400 mr-2"></i><strong>Dual-Core Xtensa LX7:</strong> 240MHz max frequency</li>
+                                <li><i class="fas fa-check text-green-400 mr-2"></i><strong>SRAM:</strong> 512KB on-chip memory</li>
+                                <li><i class="fas fa-check text-green-400 mr-2"></i><strong>Flash:</strong> 4MB external flash</li>
+                                <li><i class="fas fa-check text-green-400 mr-2"></i><strong>PSRAM:</strong> 8MB (FLYQ Vision only)</li>
+                                <li><i class="fas fa-check text-green-400 mr-2"></i><strong>FPU:</strong> Single-precision floating point unit</li>
+                                <li><i class="fas fa-check text-green-400 mr-2"></i><strong>Vector Instructions:</strong> AI acceleration support</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="text-2xl font-bold mb-4 text-sky-200">Wireless Connectivity</h4>
+                            <ul class="space-y-3 text-gray-200">
+                                <li><i class="fas fa-wifi text-sky-400 mr-2"></i><strong>Wi-Fi 802.11 b/g/n:</strong> 2.4GHz, up to 150Mbps</li>
+                                <li><i class="fas fa-bluetooth text-blue-400 mr-2"></i><strong>Bluetooth 5.0 LE:</strong> Long range mode</li>
+                                <li><i class="fas fa-signal text-green-400 mr-2"></i><strong>Range:</strong> Up to 50m (line of sight)</li>
+                                <li><i class="fas fa-lock text-yellow-400 mr-2"></i><strong>Security:</strong> WPA2/WPA3, AES encryption</li>
+                                <li><i class="fas fa-antenna text-purple-400 mr-2"></i><strong>Antenna:</strong> PCB trace antenna + U.FL connector</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Complete Specifications Tables -->
                 <div class="grid md:grid-cols-2 gap-8">
-                    <!-- FLYQ Air Specs -->
-                    <div class="bg-white p-8 rounded-3xl shadow-lg">
-                        <h3 class="text-3xl font-bold mb-6 text-sky-500">FLYQ Air</h3>
-                        <table class="w-full text-left">
-                            <tbody class="space-y-3">
-                                <tr class="border-b">
-                                    <td class="py-3 font-bold text-gray-700">Processor</td>
-                                    <td class="py-3 text-gray-600">ESP32-S3 Dual-Core 240MHz</td>
-                                </tr>
-                                <tr class="border-b">
-                                    <td class="py-3 font-bold text-gray-700">Memory</td>
-                                    <td class="py-3 text-gray-600">512KB SRAM</td>
-                                </tr>
-                                <tr class="border-b">
-                                    <td class="py-3 font-bold text-gray-700">Connectivity</td>
-                                    <td class="py-3 text-gray-600">Wi-Fi, Bluetooth LE</td>
-                                </tr>
-                                <tr class="border-b">
-                                    <td class="py-3 font-bold text-gray-700">IMU</td>
-                                    <td class="py-3 text-gray-600">MPU6050 6-axis</td>
-                                </tr>
-                                <tr class="border-b">
-                                    <td class="py-3 font-bold text-gray-700">Motors</td>
-                                    <td class="py-3 text-gray-600">720 coreless DC (4x)</td>
-                                </tr>
-                                <tr class="border-b">
-                                    <td class="py-3 font-bold text-gray-700">Battery</td>
-                                    <td class="py-3 text-gray-600">1S LiPo 3.7V</td>
-                                </tr>
-                                <tr class="border-b">
-                                    <td class="py-3 font-bold text-gray-700">Weight</td>
-                                    <td class="py-3 text-gray-600">~45g (without battery)</td>
-                                </tr>
-                                <tr>
-                                    <td class="py-3 font-bold text-gray-700">GPIO</td>
-                                    <td class="py-3 text-gray-600">24-pin expansion</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                    <!-- FLYQ Air Complete Specs -->
+                    <div class="bg-white/10 backdrop-blur rounded-3xl p-8 border-2 border-sky-400/30">
+                        <div class="flex items-center mb-6">
+                            <div class="bg-gradient-to-br from-sky-500 to-blue-600 rounded-2xl p-4 mr-4">
+                                <i class="fas fa-plane text-3xl"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-3xl font-black text-sky-300">FLYQ Air</h3>
+                                <p class="text-gray-300">Basic Programmable Drone</p>
+                            </div>
+                        </div>
+                        
+                        <div class="space-y-6">
+                            <div>
+                                <h4 class="text-xl font-bold mb-3 text-sky-200 border-b border-sky-400/30 pb-2">
+                                    <i class="fas fa-microchip mr-2"></i>Processor & Memory
+                                </h4>
+                                <table class="w-full text-left text-sm">
+                                    <tbody class="space-y-2">
+                                        <tr class="border-b border-gray-700/50">
+                                            <td class="py-2 font-semibold text-gray-300">CPU</td>
+                                            <td class="py-2 text-gray-200">ESP32-S3 Dual-Core Xtensa LX7 @ 240MHz</td>
+                                        </tr>
+                                        <tr class="border-b border-gray-700/50">
+                                            <td class="py-2 font-semibold text-gray-300">SRAM</td>
+                                            <td class="py-2 text-gray-200">512KB on-chip</td>
+                                        </tr>
+                                        <tr class="border-b border-gray-700/50">
+                                            <td class="py-2 font-semibold text-gray-300">Flash</td>
+                                            <td class="py-2 text-gray-200">4MB external</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="py-2 font-semibold text-gray-300">Architecture</td>
+                                            <td class="py-2 text-gray-200">32-bit with FPU</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div>
+                                <h4 class="text-xl font-bold mb-3 text-sky-200 border-b border-sky-400/30 pb-2">
+                                    <i class="fas fa-wifi mr-2"></i>Connectivity
+                                </h4>
+                                <table class="w-full text-left text-sm">
+                                    <tbody class="space-y-2">
+                                        <tr class="border-b border-gray-700/50">
+                                            <td class="py-2 font-semibold text-gray-300">Wi-Fi</td>
+                                            <td class="py-2 text-gray-200">802.11 b/g/n 2.4GHz</td>
+                                        </tr>
+                                        <tr class="border-b border-gray-700/50">
+                                            <td class="py-2 font-semibold text-gray-300">Bluetooth</td>
+                                            <td class="py-2 text-gray-200">BLE 5.0 Long Range</td>
+                                        </tr>
+                                        <tr class="border-b border-gray-700/50">
+                                            <td class="py-2 font-semibold text-gray-300">Range</td>
+                                            <td class="py-2 text-gray-200">50m (open space)</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="py-2 font-semibold text-gray-300">USB</td>
+                                            <td class="py-2 text-gray-200">Type-C (data + charging)</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div>
+                                <h4 class="text-xl font-bold mb-3 text-sky-200 border-b border-sky-400/30 pb-2">
+                                    <i class="fas fa-compass mr-2"></i>Sensors & IMU
+                                </h4>
+                                <table class="w-full text-left text-sm">
+                                    <tbody class="space-y-2">
+                                        <tr class="border-b border-gray-700/50">
+                                            <td class="py-2 font-semibold text-gray-300">IMU</td>
+                                            <td class="py-2 text-gray-200">MPU6050 6-axis (Gyro + Accel)</td>
+                                        </tr>
+                                        <tr class="border-b border-gray-700/50">
+                                            <td class="py-2 font-semibold text-gray-300">Gyroscope</td>
+                                            <td class="py-2 text-gray-200">±250/500/1000/2000 °/s</td>
+                                        </tr>
+                                        <tr class="border-b border-gray-700/50">
+                                            <td class="py-2 font-semibold text-gray-300">Accelerometer</td>
+                                            <td class="py-2 text-gray-200">±2/4/8/16 g</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="py-2 font-semibold text-gray-300">Sample Rate</td>
+                                            <td class="py-2 text-gray-200">1kHz max</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div>
+                                <h4 class="text-xl font-bold mb-3 text-sky-200 border-b border-sky-400/30 pb-2">
+                                    <i class="fas fa-cog mr-2"></i>Motor System
+                                </h4>
+                                <table class="w-full text-left text-sm">
+                                    <tbody class="space-y-2">
+                                        <tr class="border-b border-gray-700/50">
+                                            <td class="py-2 font-semibold text-gray-300">Motors</td>
+                                            <td class="py-2 text-gray-200">4x 720 coreless DC motors</td>
+                                        </tr>
+                                        <tr class="border-b border-gray-700/50">
+                                            <td class="py-2 font-semibold text-gray-300">Max RPM</td>
+                                            <td class="py-2 text-gray-200">38,000 RPM</td>
+                                        </tr>
+                                        <tr class="border-b border-gray-700/50">
+                                            <td class="py-2 font-semibold text-gray-300">Voltage</td>
+                                            <td class="py-2 text-gray-200">3.7V nominal</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="py-2 font-semibold text-gray-300">Control</td>
+                                            <td class="py-2 text-gray-200">PWM via MOSFET H-bridge</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div>
+                                <h4 class="text-xl font-bold mb-3 text-sky-200 border-b border-sky-400/30 pb-2">
+                                    <i class="fas fa-battery-three-quarters mr-2"></i>Power System
+                                </h4>
+                                <table class="w-full text-left text-sm">
+                                    <tbody class="space-y-2">
+                                        <tr class="border-b border-gray-700/50">
+                                            <td class="py-2 font-semibold text-gray-300">Battery</td>
+                                            <td class="py-2 text-gray-200">1S LiPo 3.7V 600mAh</td>
+                                        </tr>
+                                        <tr class="border-b border-gray-700/50">
+                                            <td class="py-2 font-semibold text-gray-300">Flight Time</td>
+                                            <td class="py-2 text-gray-200">8-10 minutes</td>
+                                        </tr>
+                                        <tr class="border-b border-gray-700/50">
+                                            <td class="py-2 font-semibold text-gray-300">Charge Time</td>
+                                            <td class="py-2 text-gray-200">~45 minutes (5V 1A)</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="py-2 font-semibold text-gray-300">Protection</td>
+                                            <td class="py-2 text-gray-200">Over-charge, over-discharge</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div>
+                                <h4 class="text-xl font-bold mb-3 text-sky-200 border-b border-sky-400/30 pb-2">
+                                    <i class="fas fa-ruler mr-2"></i>Physical Dimensions
+                                </h4>
+                                <table class="w-full text-left text-sm">
+                                    <tbody class="space-y-2">
+                                        <tr class="border-b border-gray-700/50">
+                                            <td class="py-2 font-semibold text-gray-300">Size</td>
+                                            <td class="py-2 text-gray-200">92 x 92 x 20mm</td>
+                                        </tr>
+                                        <tr class="border-b border-gray-700/50">
+                                            <td class="py-2 font-semibold text-gray-300">Weight</td>
+                                            <td class="py-2 text-gray-200">~45g (w/o battery)</td>
+                                        </tr>
+                                        <tr class="border-b border-gray-700/50">
+                                            <td class="py-2 font-semibold text-gray-300">Propellers</td>
+                                            <td class="py-2 text-gray-200">4 x 45mm diameter</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="py-2 font-semibold text-gray-300">Frame</td>
+                                            <td class="py-2 text-gray-200">Lightweight plastic + PCB</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div>
+                                <h4 class="text-xl font-bold mb-3 text-sky-200 border-b border-sky-400/30 pb-2">
+                                    <i class="fas fa-plug mr-2"></i>Expansion I/O
+                                </h4>
+                                <table class="w-full text-left text-sm">
+                                    <tbody class="space-y-2">
+                                        <tr class="border-b border-gray-700/50">
+                                            <td class="py-2 font-semibold text-gray-300">Connector</td>
+                                            <td class="py-2 text-gray-200">24-pin 2.54mm header</td>
+                                        </tr>
+                                        <tr class="border-b border-gray-700/50">
+                                            <td class="py-2 font-semibold text-gray-300">GPIO</td>
+                                            <td class="py-2 text-gray-200">18 available pins</td>
+                                        </tr>
+                                        <tr class="border-b border-gray-700/50">
+                                            <td class="py-2 font-semibold text-gray-300">I2C</td>
+                                            <td class="py-2 text-gray-200">1x bus (sensors)</td>
+                                        </tr>
+                                        <tr class="border-b border-gray-700/50">
+                                            <td class="py-2 font-semibold text-gray-300">SPI</td>
+                                            <td class="py-2 text-gray-200">1x bus (expansion modules)</td>
+                                        </tr>
+                                        <tr class="border-b border-gray-700/50">
+                                            <td class="py-2 font-semibold text-gray-300">UART</td>
+                                            <td class="py-2 text-gray-200">2x serial ports</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="py-2 font-semibold text-gray-300">ADC</td>
+                                            <td class="py-2 text-gray-200">6x channels, 12-bit</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
 
-                    <!-- FLYQ Vision Specs -->
-                    <div class="bg-white p-8 rounded-3xl shadow-lg">
-                        <h3 class="text-3xl font-bold mb-6 text-sky-500">FLYQ Vision</h3>
-                        <table class="w-full text-left">
-                            <tbody class="space-y-3">
-                                <tr class="border-b">
-                                    <td class="py-3 font-bold text-gray-700">Processor</td>
-                                    <td class="py-3 text-gray-600">ESP32-S3 Dual-Core 240MHz</td>
-                                </tr>
-                                <tr class="border-b">
-                                    <td class="py-3 font-bold text-gray-700">Camera</td>
-                                    <td class="py-3 text-gray-600">HD 720p @ 30fps</td>
-                                </tr>
-                                <tr class="border-b">
-                                    <td class="py-3 font-bold text-gray-700">Connectivity</td>
-                                    <td class="py-3 text-gray-600">Wi-Fi Streaming</td>
-                                </tr>
-                                <tr class="border-b">
-                                    <td class="py-3 font-bold text-gray-700">Controls</td>
-                                    <td class="py-3 text-gray-600">Gesture Control</td>
-                                </tr>
-                                <tr class="border-b">
-                                    <td class="py-3 font-bold text-gray-700">FOV</td>
-                                    <td class="py-3 text-gray-600">120° Wide Angle</td>
-                                </tr>
-                                <tr class="border-b">
-                                    <td class="py-3 font-bold text-gray-700">Video</td>
-                                    <td class="py-3 text-gray-600">Real-time streaming</td>
-                                </tr>
-                                <tr class="border-b">
-                                    <td class="py-3 font-bold text-gray-700">SDK</td>
-                                    <td class="py-3 text-gray-600">Python/Arduino</td>
-                                </tr>
-                                <tr>
-                                    <td class="py-3 font-bold text-gray-700">Range</td>
-                                    <td class="py-3 text-gray-600">50m Wi-Fi</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                    <!-- FLYQ Vision Complete Specs -->
+                    <div class="bg-white/10 backdrop-blur rounded-3xl p-8 border-2 border-purple-400/30">
+                        <div class="flex items-center mb-6">
+                            <div class="bg-gradient-to-br from-purple-500 to-pink-600 rounded-2xl p-4 mr-4">
+                                <i class="fas fa-camera text-3xl"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-3xl font-black text-purple-300">FLYQ Vision</h3>
+                                <p class="text-gray-300">Camera & Vision AI Drone</p>
+                            </div>
+                        </div>
+                        
+                        <div class="space-y-6">
+                            <div>
+                                <h4 class="text-xl font-bold mb-3 text-purple-200 border-b border-purple-400/30 pb-2">
+                                    <i class="fas fa-camera mr-2"></i>Camera Module
+                                </h4>
+                                <table class="w-full text-left text-sm">
+                                    <tbody class="space-y-2">
+                                        <tr class="border-b border-gray-700/50">
+                                            <td class="py-2 font-semibold text-gray-300">Sensor</td>
+                                            <td class="py-2 text-gray-200">OV2640 2MP CMOS</td>
+                                        </tr>
+                                        <tr class="border-b border-gray-700/50">
+                                            <td class="py-2 font-semibold text-gray-300">Resolution</td>
+                                            <td class="py-2 text-gray-200">1280 x 720 (HD 720p)</td>
+                                        </tr>
+                                        <tr class="border-b border-gray-700/50">
+                                            <td class="py-2 font-semibold text-gray-300">Frame Rate</td>
+                                            <td class="py-2 text-gray-200">30 FPS</td>
+                                        </tr>
+                                        <tr class="border-b border-gray-700/50">
+                                            <td class="py-2 font-semibold text-gray-300">FOV</td>
+                                            <td class="py-2 text-gray-200">120° wide angle</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="py-2 font-semibold text-gray-300">Streaming</td>
+                                            <td class="py-2 text-gray-200">Real-time Wi-Fi MJPEG</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div>
+                                <h4 class="text-xl font-bold mb-3 text-purple-200 border-b border-purple-400/30 pb-2">
+                                    <i class="fas fa-brain mr-2"></i>Vision Processing
+                                </h4>
+                                <table class="w-full text-left text-sm">
+                                    <tbody class="space-y-2">
+                                        <tr class="border-b border-gray-700/50">
+                                            <td class="py-2 font-semibold text-gray-300">PSRAM</td>
+                                            <td class="py-2 text-gray-200">8MB for frame buffers</td>
+                                        </tr>
+                                        <tr class="border-b border-gray-700/50">
+                                            <td class="py-2 font-semibold text-gray-300">AI Accelerator</td>
+                                            <td class="py-2 text-gray-200">Vector instructions</td>
+                                        </tr>
+                                        <tr class="border-b border-gray-700/50">
+                                            <td class="py-2 font-semibold text-gray-300">Gesture Recognition</td>
+                                            <td class="py-2 text-gray-200">Hand tracking, poses</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="py-2 font-semibold text-gray-300">Latency</td>
+                                            <td class="py-2 text-gray-200">< 200ms streaming</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div>
+                                <h4 class="text-xl font-bold mb-3 text-purple-200 border-b border-purple-400/30 pb-2">
+                                    <i class="fas fa-microchip mr-2"></i>Enhanced Processor
+                                </h4>
+                                <table class="w-full text-left text-sm">
+                                    <tbody class="space-y-2">
+                                        <tr class="border-b border-gray-700/50">
+                                            <td class="py-2 font-semibold text-gray-300">CPU</td>
+                                            <td class="py-2 text-gray-200">ESP32-S3 Dual-Core @ 240MHz</td>
+                                        </tr>
+                                        <tr class="border-b border-gray-700/50">
+                                            <td class="py-2 font-semibold text-gray-300">SRAM</td>
+                                            <td class="py-2 text-gray-200">512KB on-chip</td>
+                                        </tr>
+                                        <tr class="border-b border-gray-700/50">
+                                            <td class="py-2 font-semibold text-gray-300">PSRAM</td>
+                                            <td class="py-2 text-gray-200">8MB external</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="py-2 font-semibold text-gray-300">Flash</td>
+                                            <td class="py-2 text-gray-200">4MB SPI flash</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div>
+                                <h4 class="text-xl font-bold mb-3 text-purple-200 border-b border-purple-400/30 pb-2">
+                                    <i class="fas fa-hand-paper mr-2"></i>Gesture Control Features
+                                </h4>
+                                <ul class="space-y-2 text-gray-200 text-sm">
+                                    <li><i class="fas fa-check text-green-400 mr-2"></i>Takeoff/landing hand gestures</li>
+                                    <li><i class="fas fa-check text-green-400 mr-2"></i>Direction control with hand movements</li>
+                                    <li><i class="fas fa-check text-green-400 mr-2"></i>Photo/video capture triggers</li>
+                                    <li><i class="fas fa-check text-green-400 mr-2"></i>Follow-me mode via hand tracking</li>
+                                    <li><i class="fas fa-check text-green-400 mr-2"></i>Emergency stop gesture</li>
+                                </ul>
+                            </div>
+
+                            <div>
+                                <h4 class="text-xl font-bold mb-3 text-purple-200 border-b border-purple-400/30 pb-2">
+                                    <i class="fas fa-wifi mr-2"></i>Enhanced Connectivity
+                                </h4>
+                                <table class="w-full text-left text-sm">
+                                    <tbody class="space-y-2">
+                                        <tr class="border-b border-gray-700/50">
+                                            <td class="py-2 font-semibold text-gray-300">Wi-Fi</td>
+                                            <td class="py-2 text-gray-200">802.11 b/g/n dual antenna</td>
+                                        </tr>
+                                        <tr class="border-b border-gray-700/50">
+                                            <td class="py-2 font-semibold text-gray-300">Video Streaming</td>
+                                            <td class="py-2 text-gray-200">HD 720p @ 30fps</td>
+                                        </tr>
+                                        <tr class="border-b border-gray-700/50">
+                                            <td class="py-2 font-semibold text-gray-300">Range</td>
+                                            <td class="py-2 text-gray-200">50m with video</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="py-2 font-semibold text-gray-300">Protocols</td>
+                                            <td class="py-2 text-gray-200">UDP, WebSocket, RTSP</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div>
+                                <h4 class="text-xl font-bold mb-3 text-purple-200 border-b border-purple-400/30 pb-2">
+                                    <i class="fas fa-code mr-2"></i>SDK & Programming
+                                </h4>
+                                <table class="w-full text-left text-sm">
+                                    <tbody class="space-y-2">
+                                        <tr class="border-b border-gray-700/50">
+                                            <td class="py-2 font-semibold text-gray-300">Arduino IDE</td>
+                                            <td class="py-2 text-gray-200">✓ Full support + camera libs</td>
+                                        </tr>
+                                        <tr class="border-b border-gray-700/50">
+                                            <td class="py-2 font-semibold text-gray-300">Python SDK</td>
+                                            <td class="py-2 text-gray-200">✓ OpenCV integration</td>
+                                        </tr>
+                                        <tr class="border-b border-gray-700/50">
+                                            <td class="py-2 font-semibold text-gray-300">ESP-IDF</td>
+                                            <td class="py-2 text-gray-200">✓ Advanced firmware</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="py-2 font-semibold text-gray-300">Mobile App</td>
+                                            <td class="py-2 text-gray-200">iOS & Android (WebRTC)</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div>
+                                <h4 class="text-xl font-bold mb-3 text-purple-200 border-b border-purple-400/30 pb-2">
+                                    <i class="fas fa-battery-three-quarters mr-2"></i>Power & Performance
+                                </h4>
+                                <table class="w-full text-left text-sm">
+                                    <tbody class="space-y-2">
+                                        <tr class="border-b border-gray-700/50">
+                                            <td class="py-2 font-semibold text-gray-300">Battery</td>
+                                            <td class="py-2 text-gray-200">1S LiPo 3.7V 600mAh</td>
+                                        </tr>
+                                        <tr class="border-b border-gray-700/50">
+                                            <td class="py-2 font-semibold text-gray-300">Flight Time</td>
+                                            <td class="py-2 text-gray-200">7-9 min (with camera)</td>
+                                        </tr>
+                                        <tr class="border-b border-gray-700/50">
+                                            <td class="py-2 font-semibold text-gray-300">Weight</td>
+                                            <td class="py-2 text-gray-200">~52g (w/ camera)</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="py-2 font-semibold text-gray-300">Power Draw</td>
+                                            <td class="py-2 text-gray-200">Higher due to camera</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact Support -->
+                <div class="mt-16 bg-gradient-to-r from-sky-500 to-blue-600 p-8 rounded-3xl text-center">
+                    <h3 class="text-3xl font-black mb-4">Need Hardware Support?</h3>
+                    <p class="text-xl mb-6 opacity-90">Our technical team is here to help with any hardware questions</p>
+                    <div class="flex justify-center gap-6 flex-wrap">
+                        <a href="mailto:info@passion3dworld.com" class="bg-white text-sky-600 px-8 py-3 rounded-full font-bold inline-flex items-center hover:shadow-xl transition">
+                            <i class="fas fa-envelope mr-2"></i>
+                            info@passion3dworld.com
+                        </a>
+                        <a href="tel:+919137361474" class="bg-white text-sky-600 px-8 py-3 rounded-full font-bold inline-flex items-center hover:shadow-xl transition">
+                            <i class="fas fa-phone mr-2"></i>
+                            +91 9137361474
+                        </a>
+                        <a href="https://wa.me/919137361474" target="_blank" class="bg-green-500 text-white px-8 py-3 rounded-full font-bold inline-flex items-center hover:shadow-xl transition">
+                            <i class="fab fa-whatsapp mr-2"></i>
+                            WhatsApp Support
+                        </a>
                     </div>
                 </div>
             </div>
