@@ -24,8 +24,8 @@ const products = [
     slug: 'flyq-vision',
     price: 7999,
     image: 'https://cdn1.genspark.ai/user-upload-image/rmbg_generated/0_f1a47aea-7dd7-431f-bfe8-e82d7d001b38',
-    shortDesc: 'AI-powered camera drone with gesture control',
-    features: ['HD 720p Camera', 'Gesture Control', 'Object Tracking', 'AI Processing', 'Autonomous Flight'],
+    shortDesc: 'ESP32-S3 camera drone with HD video streaming',
+    features: ['ESP32-S3 Dual-Core', 'HD 720p Camera', 'Gesture Control', 'Wi-Fi Streaming', 'Python/Arduino SDK'],
     stock: 30
   }
 ]
@@ -460,61 +460,6 @@ app.get('/', (c) => {
                             <p class="text-sm silver-text">All parts included</p>
                         </div>
                     </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Curriculum Preview Section -->
-        <section class="py-20 bg-black">
-            <div class="container mx-auto px-6">
-                <div class="text-center mb-16">
-                    <h2 class="text-5xl font-black mb-4 text-white">
-                        <span class="text-sky-400">8-Week Training</span> Program
-                    </h2>
-                    <div class="section-divider w-32 mx-auto mb-6"></div>
-                    <p class="text-xl silver-text max-w-3xl mx-auto">Master drone development from basics to autonomous flight</p>
-                </div>
-
-                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-                    <div class="card-hover p-6 rounded-3xl text-center">
-                        <div class="w-16 h-16 bg-gradient-to-br from-sky-500 to-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                            <span class="text-2xl font-black text-white">8</span>
-                        </div>
-                        <h3 class="text-xl font-bold text-sky-400 mb-2">Weeks</h3>
-                        <p class="silver-text text-sm">Intensive Training</p>
-                    </div>
-                    <div class="card-hover p-6 rounded-3xl text-center">
-                        <div class="w-16 h-16 bg-gradient-to-br from-sky-500 to-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                            <span class="text-2xl font-black text-white">30</span>
-                        </div>
-                        <h3 class="text-xl font-bold text-sky-400 mb-2">Sessions</h3>
-                        <p class="silver-text text-sm">Hands-on Labs</p>
-                    </div>
-                    <div class="card-hover p-6 rounded-3xl text-center">
-                        <div class="w-16 h-16 bg-gradient-to-br from-green-500 to-teal-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                            <i class="fas fa-certificate text-white text-2xl"></i>
-                        </div>
-                        <h3 class="text-xl font-bold text-sky-400 mb-2">Certificate</h3>
-                        <p class="silver-text text-sm">Industry Recognized</p>
-                    </div>
-                    <div class="card-hover p-6 rounded-3xl text-center">
-                        <div class="w-16 h-16 bg-gradient-to-br from-orange-500 to-red-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                            <i class="fas fa-users text-white text-2xl"></i>
-                        </div>
-                        <h3 class="text-xl font-bold text-sky-400 mb-2">Community</h3>
-                        <p class="silver-text text-sm">Alumni Network</p>
-                    </div>
-                </div>
-
-                <div class="text-center">
-                    <a href="/curriculum" class="btn-primary text-white px-10 py-4 rounded-full font-bold text-lg inline-flex items-center">
-                        <i class="fas fa-graduation-cap mr-2"></i>
-                        View Full Curriculum
-                    </a>
-                    <p class="silver-text mt-4 text-sm">
-                        <i class="fas fa-lock mr-2"></i>
-                        Access full curriculum after purchase
-                    </p>
                 </div>
             </div>
         </section>
@@ -1301,8 +1246,15 @@ app.get('/contact', (c) => {
 
 // Curriculum page with authentication protection
 app.get('/curriculum', async (c) => {
-  // Check if user is logged in (we'll implement this properly with D1 later)
-  // For now, show curriculum preview with lock message
+  // Check if user is logged in
+  const user = await getCurrentUser(c);
+  
+  // If not logged in, redirect to login page
+  if (!user) {
+    return c.redirect('/login?redirect=/curriculum&message=login_required');
+  }
+  
+  // User is authenticated - show full curriculum
   const content = `
     <div class="pt-20">
         <!-- Hero Section -->
@@ -1317,32 +1269,22 @@ app.get('/curriculum', async (c) => {
             </div>
         </section>
 
-        <!-- Lock Notice (shown when not authenticated/purchased) -->
-        <section class="py-12 bg-yellow-50 border-y-4 border-yellow-400">
+        <!-- Welcome Message for Authenticated Users -->
+        <section class="py-12 bg-green-50 border-y-4 border-green-400">
             <div class="container mx-auto px-6">
                 <div class="max-w-4xl mx-auto text-center">
-                    <i class="fas fa-lock text-yellow-600 text-5xl mb-4"></i>
+                    <i class="fas fa-check-circle text-green-600 text-5xl mb-4"></i>
                     <h2 class="text-3xl font-bold text-gray-900 mb-4">
-                        Full Curriculum Access Required
+                        Welcome to Your Curriculum!
                     </h2>
-                    <p class="text-lg text-gray-700 mb-6">
-                        The complete 8-week curriculum with downloadable materials is available to customers who have purchased FLYQ Air or FLYQ Vision.
+                    <p class="text-lg text-gray-700">
+                        You have full access to the 8-week training program. Follow the sessions below to master drone development.
                     </p>
-                    <div class="flex justify-center gap-4">
-                        <a href="/products" class="btn-primary text-white px-8 py-4 rounded-full font-bold text-lg inline-flex items-center">
-                            <i class="fas fa-shopping-cart mr-2"></i>
-                            Purchase Drone
-                        </a>
-                        <a href="/login" class="border-2 border-sky-500 text-sky-600 px-8 py-4 rounded-full font-bold text-lg hover:bg-sky-50 transition inline-flex items-center">
-                            <i class="fas fa-sign-in-alt mr-2"></i>
-                            Already Purchased? Login
-                        </a>
-                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- Curriculum Overview (Free Preview) -->
+        <!-- Full Curriculum Content -->
         <section class="py-20 bg-black">
             <div class="container mx-auto px-6">
                 <div class="text-center mb-16">
