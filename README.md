@@ -2,9 +2,30 @@
 
 ## 📢 Latest Updates
 
+### 🎉 MAJOR UPDATE: ADMIN DASHBOARD & DESIGN SECTIONS (2025-11-04)
+✅ **Admin Dashboard Deployed** 🚀
+   - **Production URL**: https://0e26643a.flyq-air.pages.dev
+   - **Admin Dashboard**: https://0e26643a.flyq-air.pages.dev/admin/dashboard ⭐ NEW!
+   - **Features**: User management, order tracking, session monitoring, revenue statistics
+   - **Security**: Role-based access with database-level admin flag
+   - **Documentation**: See ADMIN_SETUP.md and QUICK_ACCESS_GUIDE.md
+
+✅ **FLYQ Design Philosophy Sections Added** ✨
+   - **Easy Assembly & Affordable**: Complete kit breakdown, ₹8,999 starting price
+   - **WiFi-Based Smart Control**: 4 control methods, no radio controller needed
+   - **Expansion & Compatibility**: 24-pin header, sensors, CrazyFlie Python API
+   - **Open Source Hardware**: Schematics, PCB files, 3D models
+   - **Location**: Documentation page (/docs) - 600+ lines of new content
+
+✅ **Curriculum Successfully Hidden** 🔒
+   - Removed from navigation (desktop & mobile)
+   - Removed from Essential Resources section
+   - Protected route still functional at /curriculum
+   - Only accessible to logged-in users
+
 ### 🎉 PRODUCTION DEPLOYMENT SUCCESSFUL (2025-11-03)
 ✅ **Successfully Deployed to Cloudflare Pages**
-   - **Production URL**: https://6b51a133.flyq-air.pages.dev
+   - **Previous URL**: https://6b51a133.flyq-air.pages.dev
    - **D1 Database**: Configured and migrations applied
    - **Authentication**: Fully tested and working in local development
    - **Order Management**: Complete flow tested successfully
@@ -233,12 +254,13 @@ The production deployment is live but needs D1 database binding configuration:
 - Set up analytics (Cloudflare Web Analytics)
 
 ## URLs
-- **Production**: https://6b51a133.flyq-air.pages.dev ✅ LIVE
-- **Custom Domain**: flyqdrone.in (⏳ DNS pending - See DOMAIN_SETUP_GUIDE.md)
-- **Products Page**: https://6b51a133.flyq-air.pages.dev/products 📦
-- **Shopping Cart**: https://6b51a133.flyq-air.pages.dev/cart 🛒
-- **Curriculum**: https://6b51a133.flyq-air.pages.dev/curriculum 🔒 (Login Required)
-- **Login Page**: https://6b51a133.flyq-air.pages.dev/login 🔐
+- **Production**: https://0e26643a.flyq-air.pages.dev ✅ LIVE (Latest)
+- **Admin Dashboard**: https://0e26643a.flyq-air.pages.dev/admin/dashboard ⭐ NEW!
+- **Documentation**: https://0e26643a.flyq-air.pages.dev/docs 📚 (NEW Design Sections!)
+- **Products Page**: https://0e26643a.flyq-air.pages.dev/products 📦
+- **Shopping Cart**: https://0e26643a.flyq-air.pages.dev/cart 🛒
+- **Curriculum**: https://0e26643a.flyq-air.pages.dev/curriculum 🔒 (Login Required, Hidden)
+- **Login Page**: https://0e26643a.flyq-air.pages.dev/login 🔐
 - **Local Development**: https://3000-i9dkuxqg07opw1sw23plt-d0b9e1e2.sandbox.novita.ai
 - **GitHub**: https://github.com/rahulgupta37079-oss/FLYQ_Air
 
