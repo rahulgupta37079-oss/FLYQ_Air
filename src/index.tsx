@@ -165,6 +165,7 @@ const renderPage = (title: string, content: string, includeCart: boolean = true)
                     <div class="hidden md:flex items-center space-x-8">
                         <a href="/" class="text-gray-700 hover:text-sky-500 font-semibold">Home</a>
                         <a href="/products" class="text-gray-700 hover:text-sky-500 font-semibold">Products</a>
+                        <a href="/manual" class="text-gray-700 hover:text-sky-500 font-semibold">Manual</a>
                         <a href="/docs" class="text-gray-700 hover:text-sky-500 font-semibold">Docs</a>
                         <a href="/about" class="text-gray-700 hover:text-sky-500 font-semibold">About</a>
                         <a href="/contact" class="text-gray-700 hover:text-sky-500 font-semibold">Contact</a>
@@ -185,6 +186,7 @@ const renderPage = (title: string, content: string, includeCart: boolean = true)
                 <div id="mobile-menu" class="hidden md:hidden mt-4 pb-4 space-y-4">
                     <a href="/" class="block text-gray-700 hover:text-sky-500 font-semibold">Home</a>
                     <a href="/products" class="block text-gray-700 hover:text-sky-500 font-semibold">Products</a>
+                    <a href="/manual" class="block text-gray-700 hover:text-sky-500 font-semibold">Manual</a>
                     <a href="/docs" class="block text-gray-700 hover:text-sky-500 font-semibold">Docs</a>
                     <a href="/about" class="block text-gray-700 hover:text-sky-500 font-semibold">About</a>
                     <a href="/contact" class="block text-gray-700 hover:text-sky-500 font-semibold">Contact</a>
@@ -1168,6 +1170,675 @@ app.get('/register', (c) => {
   `;
 
   return c.html(renderPage('Register', content, false));
+});
+
+// Manual page - Comprehensive Guide
+app.get('/manual', (c) => {
+  const content = `
+    <div class="pt-20 pb-20">
+        <!-- Hero Section -->
+        <section class="bg-gradient-to-br from-sky-500 via-blue-600 to-indigo-700 text-white py-20">
+            <div class="container mx-auto px-6 text-center">
+                <h1 class="text-7xl font-black mb-6">FLYQ Drone Manual</h1>
+                <p class="text-2xl mb-8 max-w-3xl mx-auto">
+                    Complete guide to building, programming, and flying your FLYQ Air & FLYQ Vision drones
+                </p>
+                <div class="flex justify-center gap-4">
+                    <a href="#specifications" class="bg-white text-sky-600 px-8 py-3 rounded-full font-bold hover:shadow-xl transition">
+                        View Specs
+                    </a>
+                    <a href="#getting-started" class="bg-sky-700 text-white px-8 py-3 rounded-full font-bold hover:bg-sky-800 transition">
+                        Get Started
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quick Navigation -->
+        <section class="py-12 bg-gray-50">
+            <div class="container mx-auto px-6 max-w-7xl">
+                <div class="grid md:grid-cols-4 gap-4">
+                    <a href="#hardware" class="bg-white p-4 rounded-xl shadow hover:shadow-lg transition text-center">
+                        <i class="fas fa-microchip text-sky-500 text-3xl mb-2"></i>
+                        <h3 class="font-bold">Hardware</h3>
+                    </a>
+                    <a href="#assembly" class="bg-white p-4 rounded-xl shadow hover:shadow-lg transition text-center">
+                        <i class="fas fa-tools text-green-500 text-3xl mb-2"></i>
+                        <h3 class="font-bold">Assembly</h3>
+                    </a>
+                    <a href="#programming" class="bg-white p-4 rounded-xl shadow hover:shadow-lg transition text-center">
+                        <i class="fas fa-code text-purple-500 text-3xl mb-2"></i>
+                        <h3 class="font-bold">Programming</h3>
+                    </a>
+                    <a href="#flying" class="bg-white p-4 rounded-xl shadow hover:shadow-lg transition text-center">
+                        <i class="fas fa-plane text-orange-500 text-3xl mb-2"></i>
+                        <h3 class="font-bold">Flying</h3>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Specifications Section -->
+        <section id="specifications" class="py-20 bg-white">
+            <div class="container mx-auto px-6 max-w-7xl">
+                <h2 class="text-5xl font-black text-center mb-16">
+                    <span class="text-sky-500">Technical</span> Specifications
+                </h2>
+
+                <div class="grid md:grid-cols-2 gap-8">
+                    <!-- FLYQ Air Specs -->
+                    <div class="bg-gradient-to-br from-sky-50 to-blue-50 p-8 rounded-3xl border-4 border-sky-200">
+                        <div class="flex items-center mb-6">
+                            <div class="bg-sky-500 rounded-full p-4 mr-4">
+                                <i class="fas fa-plane text-white text-3xl"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-3xl font-black">FLYQ Air</h3>
+                                <p class="text-gray-600">Basic Programmable Drone</p>
+                            </div>
+                        </div>
+
+                        <div class="space-y-4">
+                            <div class="bg-white p-4 rounded-xl">
+                                <h4 class="font-bold text-sky-600 mb-2">Processor</h4>
+                                <p class="text-sm text-gray-700">ESP32-S3 Dual-Core @ 240MHz</p>
+                                <p class="text-sm text-gray-700">512KB SRAM, 4MB Flash</p>
+                            </div>
+                            <div class="bg-white p-4 rounded-xl">
+                                <h4 class="font-bold text-sky-600 mb-2">Sensors</h4>
+                                <p class="text-sm text-gray-700">MPU6050 6-axis IMU (Gyro + Accel)</p>
+                                <p class="text-sm text-gray-700">Optional: Barometer, ToF, Optical Flow</p>
+                            </div>
+                            <div class="bg-white p-4 rounded-xl">
+                                <h4 class="font-bold text-sky-600 mb-2">Motors & Flight</h4>
+                                <p class="text-sm text-gray-700">4x Brushless motors, 15 m/s max speed</p>
+                                <p class="text-sm text-gray-700">8-10 min flight time, 50m range</p>
+                            </div>
+                            <div class="bg-white p-4 rounded-xl">
+                                <h4 class="font-bold text-sky-600 mb-2">Connectivity</h4>
+                                <p class="text-sm text-gray-700">WiFi 802.11 b/g/n, Bluetooth 5.0 LE</p>
+                                <p class="text-sm text-gray-700">24-pin expansion header (I²C, SPI, UART, GPIO)</p>
+                            </div>
+                            <div class="bg-white p-4 rounded-xl">
+                                <h4 class="font-bold text-sky-600 mb-2">Power</h4>
+                                <p class="text-sm text-gray-700">3.7V 600mAh LiPo battery</p>
+                                <p class="text-sm text-gray-700">USB-C charging (45 min charge time)</p>
+                            </div>
+                            <div class="bg-white p-4 rounded-xl">
+                                <h4 class="font-bold text-sky-600 mb-2">Dimensions</h4>
+                                <p class="text-sm text-gray-700">92 x 92 x 20mm, 35g weight</p>
+                            </div>
+                        </div>
+
+                        <div class="mt-6 p-4 bg-green-100 rounded-xl">
+                            <p class="text-center font-bold text-2xl text-green-700">₹8,999</p>
+                        </div>
+                    </div>
+
+                    <!-- FLYQ Vision Specs -->
+                    <div class="bg-gradient-to-br from-purple-50 to-pink-50 p-8 rounded-3xl border-4 border-purple-200">
+                        <div class="flex items-center mb-6">
+                            <div class="bg-purple-500 rounded-full p-4 mr-4">
+                                <i class="fas fa-video text-white text-3xl"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-3xl font-black">FLYQ Vision</h3>
+                                <p class="text-gray-600">AI Camera Drone</p>
+                            </div>
+                        </div>
+
+                        <div class="space-y-4">
+                            <div class="bg-white p-4 rounded-xl">
+                                <h4 class="font-bold text-purple-600 mb-2">Processor</h4>
+                                <p class="text-sm text-gray-700">ESP32-S3 Dual-Core @ 240MHz</p>
+                                <p class="text-sm text-gray-700">512KB SRAM, 4MB Flash, 8MB PSRAM</p>
+                            </div>
+                            <div class="bg-white p-4 rounded-xl">
+                                <h4 class="font-bold text-purple-600 mb-2">Camera & Vision</h4>
+                                <p class="text-sm text-gray-700">HD 720p camera @ 30fps, 120° FOV</p>
+                                <p class="text-sm text-gray-700">WiFi video streaming, gesture control</p>
+                            </div>
+                            <div class="bg-white p-4 rounded-xl">
+                                <h4 class="font-bold text-purple-600 mb-2">Sensors</h4>
+                                <p class="text-sm text-gray-700">MPU6050 6-axis IMU</p>
+                                <p class="text-sm text-gray-700">Optional: Barometer, ToF, Optical Flow</p>
+                            </div>
+                            <div class="bg-white p-4 rounded-xl">
+                                <h4 class="font-bold text-purple-600 mb-2">Motors & Flight</h4>
+                                <p class="text-sm text-gray-700">4x Brushless motors, 15 m/s max speed</p>
+                                <p class="text-sm text-gray-700">8-10 min flight time, 50m range</p>
+                            </div>
+                            <div class="bg-white p-4 rounded-xl">
+                                <h4 class="font-bold text-purple-600 mb-2">Connectivity</h4>
+                                <p class="text-sm text-gray-700">WiFi 802.11 b/g/n, Bluetooth 5.0 LE</p>
+                                <p class="text-sm text-gray-700">24-pin expansion header</p>
+                            </div>
+                            <div class="bg-white p-4 rounded-xl">
+                                <h4 class="font-bold text-purple-600 mb-2">Power</h4>
+                                <p class="text-sm text-gray-700">3.7V 800mAh LiPo battery</p>
+                                <p class="text-sm text-gray-700">USB-C charging (60 min charge time)</p>
+                            </div>
+                        </div>
+
+                        <div class="mt-6 p-4 bg-green-100 rounded-xl">
+                            <p class="text-center font-bold text-2xl text-green-700">₹12,999</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Hardware Overview Section -->
+        <section id="hardware" class="py-20 bg-gradient-to-br from-gray-900 to-gray-800 text-white">
+            <div class="container mx-auto px-6 max-w-7xl">
+                <h2 class="text-5xl font-black text-center mb-16">
+                    <span class="text-sky-400">Hardware</span> Overview
+                </h2>
+
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="bg-white/10 backdrop-blur p-8 rounded-2xl">
+                        <i class="fas fa-brain text-sky-400 text-5xl mb-4"></i>
+                        <h3 class="text-2xl font-bold mb-4">ESP32-S3 Processor</h3>
+                        <ul class="space-y-2 text-gray-300">
+                            <li>• Dual-core Xtensa LX7 @ 240MHz</li>
+                            <li>• 512KB on-chip SRAM</li>
+                            <li>• 4MB external flash</li>
+                            <li>• WiFi & Bluetooth 5.0</li>
+                            <li>• FPU & AI acceleration</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-white/10 backdrop-blur p-8 rounded-2xl">
+                        <i class="fas fa-compass text-green-400 text-5xl mb-4"></i>
+                        <h3 class="text-2xl font-bold mb-4">MPU6050 IMU</h3>
+                        <ul class="space-y-2 text-gray-300">
+                            <li>• 3-axis gyroscope</li>
+                            <li>• 3-axis accelerometer</li>
+                            <li>• Digital Motion Processor</li>
+                            <li>• I²C interface</li>
+                            <li>• Stable flight control</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-white/10 backdrop-blur p-8 rounded-2xl">
+                        <i class="fas fa-battery-full text-yellow-400 text-5xl mb-4"></i>
+                        <h3 class="text-2xl font-bold mb-4">Power System</h3>
+                        <ul class="space-y-2 text-gray-300">
+                            <li>• 3.7V LiPo battery</li>
+                            <li>• 600mAh (Air) / 800mAh (Vision)</li>
+                            <li>• USB-C charging</li>
+                            <li>• 8-10 min flight time</li>
+                            <li>• Battery protection circuit</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-white/10 backdrop-blur p-8 rounded-2xl">
+                        <i class="fas fa-fan text-blue-400 text-5xl mb-4"></i>
+                        <h3 class="text-2xl font-bold mb-4">Motor System</h3>
+                        <ul class="space-y-2 text-gray-300">
+                            <li>• 4x Brushless motors</li>
+                            <li>• 38,000 max RPM</li>
+                            <li>• 45mm propellers</li>
+                            <li>• ESC integrated</li>
+                            <li>• 15 m/s max speed</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-white/10 backdrop-blur p-8 rounded-2xl">
+                        <i class="fas fa-plug text-purple-400 text-5xl mb-4"></i>
+                        <h3 class="text-2xl font-bold mb-4">Expansion Pins</h3>
+                        <ul class="space-y-2 text-gray-300">
+                            <li>• 24-pin header</li>
+                            <li>• I²C, SPI, UART protocols</li>
+                            <li>• 10x GPIO pins</li>
+                            <li>• 5V & 3.3V power output</li>
+                            <li>• PWM, ADC, DAC support</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-white/10 backdrop-blur p-8 rounded-2xl">
+                        <i class="fas fa-wifi text-red-400 text-5xl mb-4"></i>
+                        <h3 class="text-2xl font-bold mb-4">Wireless Connectivity</h3>
+                        <ul class="space-y-2 text-gray-300">
+                            <li>• WiFi 802.11 b/g/n</li>
+                            <li>• Bluetooth 5.0 LE</li>
+                            <li>• 50m range (line of sight)</li>
+                            <li>• WPA2/WPA3 security</li>
+                            <li>• 20-30ms low latency</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Assembly Guide Section -->
+        <section id="assembly" class="py-20 bg-white">
+            <div class="container mx-auto px-6 max-w-7xl">
+                <h2 class="text-5xl font-black text-center mb-16">
+                    <span class="text-green-500">Assembly</span> Guide
+                </h2>
+
+                <div class="mb-16 bg-green-50 p-8 rounded-3xl border-4 border-green-200">
+                    <div class="flex items-center mb-6">
+                        <i class="fas fa-check-circle text-green-500 text-4xl mr-4"></i>
+                        <h3 class="text-3xl font-bold">Easy 30-Minute Assembly</h3>
+                    </div>
+                    <p class="text-lg text-gray-700 mb-4">
+                        FLYQ drones come partially assembled. No soldering required! Just connect the frame, motors, and battery.
+                    </p>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="bg-gray-50 p-8 rounded-2xl">
+                        <div class="flex items-center mb-4">
+                            <span class="bg-sky-500 text-white font-bold rounded-full w-10 h-10 flex items-center justify-center mr-4 text-xl">1</span>
+                            <h4 class="text-xl font-bold">Unpack Components</h4>
+                        </div>
+                        <ul class="space-y-2 text-gray-700">
+                            <li>• Flight controller PCB (pre-assembled)</li>
+                            <li>• Carbon fiber frame parts</li>
+                            <li>• 4x Motors with propellers</li>
+                            <li>• LiPo battery with charger</li>
+                            <li>• USB-C cable</li>
+                            <li>• Spare propellers & screws</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-gray-50 p-8 rounded-2xl">
+                        <div class="flex items-center mb-4">
+                            <span class="bg-sky-500 text-white font-bold rounded-full w-10 h-10 flex items-center justify-center mr-4 text-xl">2</span>
+                            <h4 class="text-xl font-bold">Attach Frame</h4>
+                        </div>
+                        <ul class="space-y-2 text-gray-700">
+                            <li>• Connect frame arms to center plate</li>
+                            <li>• Secure with provided screws</li>
+                            <li>• Ensure all connections are tight</li>
+                            <li>• Frame is marked for orientation</li>
+                            <li>• Takes about 10 minutes</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-gray-50 p-8 rounded-2xl">
+                        <div class="flex items-center mb-4">
+                            <span class="bg-sky-500 text-white font-bold rounded-full w-10 h-10 flex items-center justify-center mr-4 text-xl">3</span>
+                            <h4 class="text-xl font-bold">Install Motors</h4>
+                        </div>
+                        <ul class="space-y-2 text-gray-700">
+                            <li>• Motors are pre-mounted on PCB</li>
+                            <li>• Attach propellers (clockwise/counter-clockwise)</li>
+                            <li>• Match propeller rotation to motor direction</li>
+                            <li>• Tighten propeller nuts securely</li>
+                            <li>• Check for smooth rotation</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-gray-50 p-8 rounded-2xl">
+                        <div class="flex items-center mb-4">
+                            <span class="bg-sky-500 text-white font-bold rounded-full w-10 h-10 flex items-center justify-center mr-4 text-xl">4</span>
+                            <h4 class="text-xl font-bold">Connect Battery</h4>
+                        </div>
+                        <ul class="space-y-2 text-gray-700">
+                            <li>• Connect battery to JST connector</li>
+                            <li>• Secure battery with velcro strap</li>
+                            <li>• Ensure battery is balanced</li>
+                            <li>• Check power LED indicator</li>
+                            <li>• Ready to fly!</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="mt-12 bg-yellow-50 p-8 rounded-2xl border-2 border-yellow-400">
+                    <h4 class="text-xl font-bold mb-4 flex items-center">
+                        <i class="fas fa-exclamation-triangle text-yellow-600 mr-3"></i>
+                        Important Assembly Tips
+                    </h4>
+                    <ul class="space-y-2 text-gray-700">
+                        <li>✓ Double-check propeller rotation direction before first flight</li>
+                        <li>✓ Ensure all screws are tight but not over-tightened</li>
+                        <li>✓ Keep spare propellers handy (they're fragile!)</li>
+                        <li>✓ Calibrate IMU after assembly (see programming section)</li>
+                        <li>✓ Test motors individually before full flight</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Getting Started Section -->
+        <section id="getting-started" class="py-20 bg-gradient-to-br from-blue-50 to-sky-50">
+            <div class="container mx-auto px-6 max-w-7xl">
+                <h2 class="text-5xl font-black text-center mb-16">
+                    <span class="text-sky-500">Getting</span> Started
+                </h2>
+
+                <div class="space-y-8">
+                    <div class="bg-white p-8 rounded-3xl shadow-lg">
+                        <h3 class="text-3xl font-bold mb-6 text-sky-600">
+                            <i class="fas fa-wifi mr-3"></i>WiFi Control (No Programming Required)
+                        </h3>
+                        <ol class="space-y-4">
+                            <li class="flex items-start">
+                                <span class="bg-sky-500 text-white font-bold rounded-full w-8 h-8 flex items-center justify-center mr-4 flex-shrink-0">1</span>
+                                <div>
+                                    <strong>Power on drone</strong> - Press power button, LED will blink blue
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="bg-sky-500 text-white font-bold rounded-full w-8 h-8 flex items-center justify-center mr-4 flex-shrink-0">2</span>
+                                <div>
+                                    <strong>Connect to WiFi</strong> - Look for "FLYQ-XXXX" network on your phone/laptop
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="bg-sky-500 text-white font-bold rounded-full w-8 h-8 flex items-center justify-center mr-4 flex-shrink-0">3</span>
+                                <div>
+                                    <strong>Open web interface</strong> - Go to http://192.168.4.1 in browser
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="bg-sky-500 text-white font-bold rounded-full w-8 h-8 flex items-center justify-center mr-4 flex-shrink-0">4</span>
+                                <div>
+                                    <strong>Calibrate IMU</strong> - Click "Calibrate" button, place drone flat
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="bg-sky-500 text-white font-bold rounded-full w-8 h-8 flex items-center justify-center mr-4 flex-shrink-0">5</span>
+                                <div>
+                                    <strong>Test motors</strong> - Use slider to test each motor individually
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="bg-sky-500 text-white font-bold rounded-full w-8 h-8 flex items-center justify-center mr-4 flex-shrink-0">6</span>
+                                <div>
+                                    <strong>Fly!</strong> - Use on-screen joysticks or connect a gamepad
+                                </div>
+                            </li>
+                        </ol>
+                    </div>
+
+                    <div class="bg-white p-8 rounded-3xl shadow-lg">
+                        <h3 class="text-3xl font-bold mb-6 text-purple-600">
+                            <i class="fab fa-python mr-3"></i>Python Programming
+                        </h3>
+                        <ol class="space-y-4">
+                            <li class="flex items-start">
+                                <span class="bg-purple-500 text-white font-bold rounded-full w-8 h-8 flex items-center justify-center mr-4 flex-shrink-0">1</span>
+                                <div>
+                                    <strong>Install CrazyFlie library</strong><br/>
+                                    <code class="bg-gray-100 px-3 py-1 rounded text-sm">pip install cflib</code>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="bg-purple-500 text-white font-bold rounded-full w-8 h-8 flex items-center justify-center mr-4 flex-shrink-0">2</span>
+                                <div>
+                                    <strong>Connect to drone</strong><br/>
+                                    <code class="bg-gray-100 px-3 py-1 rounded text-sm">radio://0/80/2M</code>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="bg-purple-500 text-white font-bold rounded-full w-8 h-8 flex items-center justify-center mr-4 flex-shrink-0">3</span>
+                                <div>
+                                    <strong>Run example scripts</strong> - Autonomous flight, waypoint navigation, formations
+                                </div>
+                            </li>
+                        </ol>
+                    </div>
+
+                    <div class="bg-white p-8 rounded-3xl shadow-lg">
+                        <h3 class="text-3xl font-bold mb-6 text-teal-600">
+                            <i class="fas fa-code mr-3"></i>Arduino Programming
+                        </h3>
+                        <ol class="space-y-4">
+                            <li class="flex items-start">
+                                <span class="bg-teal-500 text-white font-bold rounded-full w-8 h-8 flex items-center justify-center mr-4 flex-shrink-0">1</span>
+                                <div>
+                                    <strong>Install Arduino IDE</strong> - Download from arduino.cc
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="bg-teal-500 text-white font-bold rounded-full w-8 h-8 flex items-center justify-center mr-4 flex-shrink-0">2</span>
+                                <div>
+                                    <strong>Add ESP32 board support</strong> - Add URL in preferences
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="bg-teal-500 text-white font-bold rounded-full w-8 h-8 flex items-center justify-center mr-4 flex-shrink-0">3</span>
+                                <div>
+                                    <strong>Connect via USB-C</strong> - Select "ESP32-S3 Dev Module" as board
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="bg-teal-500 text-white font-bold rounded-full w-8 h-8 flex items-center justify-center mr-4 flex-shrink-0">4</span>
+                                <div>
+                                    <strong>Upload firmware</strong> - Flash your custom code
+                                </div>
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Programming Section -->
+        <section id="programming" class="py-20 bg-white">
+            <div class="container mx-auto px-6 max-w-7xl">
+                <h2 class="text-5xl font-black text-center mb-16">
+                    <span class="text-purple-500">Programming</span> Your FLYQ
+                </h2>
+
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="bg-gradient-to-br from-blue-50 to-sky-50 p-8 rounded-2xl border-2 border-blue-200">
+                        <i class="fas fa-code text-blue-500 text-5xl mb-4"></i>
+                        <h3 class="text-2xl font-bold mb-4">Arduino IDE</h3>
+                        <p class="text-gray-700 mb-4">
+                            Perfect for beginners. Large library ecosystem. Quick prototyping.
+                        </p>
+                        <ul class="space-y-2 text-sm text-gray-600">
+                            <li>✓ Easy to learn</li>
+                            <li>✓ 1000+ libraries</li>
+                            <li>✓ USB-C programming</li>
+                            <li>✓ Great for sensors</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-gradient-to-br from-purple-50 to-pink-50 p-8 rounded-2xl border-2 border-purple-200">
+                        <i class="fab fa-python text-purple-500 text-5xl mb-4"></i>
+                        <h3 class="text-2xl font-bold mb-4">Python SDK</h3>
+                        <p class="text-gray-700 mb-4">
+                            CrazyFlie compatible. Autonomous flight. Swarm control.
+                        </p>
+                        <ul class="space-y-2 text-sm text-gray-600">
+                            <li>✓ Autonomous missions</li>
+                            <li>✓ Waypoint navigation</li>
+                            <li>✓ Multi-drone swarms</li>
+                            <li>✓ AI integration</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-gradient-to-br from-teal-50 to-green-50 p-8 rounded-2xl border-2 border-teal-200">
+                        <i class="fas fa-terminal text-teal-500 text-5xl mb-4"></i>
+                        <h3 class="text-2xl font-bold mb-4">ESP-IDF</h3>
+                        <p class="text-gray-700 mb-4">
+                            Professional development. Maximum performance. Full control.
+                        </p>
+                        <ul class="space-y-2 text-sm text-gray-600">
+                            <li>✓ Maximum performance</li>
+                            <li>✓ Advanced features</li>
+                            <li>✓ Real-time OS</li>
+                            <li>✓ Production ready</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Flying Guide Section -->
+        <section id="flying" class="py-20 bg-gradient-to-br from-orange-50 to-red-50">
+            <div class="container mx-auto px-6 max-w-7xl">
+                <h2 class="text-5xl font-black text-center mb-16">
+                    <span class="text-orange-500">Flying</span> Guide
+                </h2>
+
+                <div class="grid md:grid-cols-2 gap-8 mb-12">
+                    <div class="bg-white p-8 rounded-2xl shadow-lg">
+                        <h3 class="text-2xl font-bold mb-6 text-green-600">
+                            <i class="fas fa-check-circle mr-2"></i>Pre-Flight Checklist
+                        </h3>
+                        <ul class="space-y-3">
+                            <li class="flex items-center">
+                                <i class="fas fa-battery-full text-green-500 mr-3"></i>
+                                Battery fully charged
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-fan text-green-500 mr-3"></i>
+                                Propellers installed correctly
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-wifi text-green-500 mr-3"></i>
+                                WiFi connection stable
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-compass text-green-500 mr-3"></i>
+                                IMU calibrated
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-map-marker-alt text-green-500 mr-3"></i>
+                                Clear flying area (5m+ clearance)
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-eye text-green-500 mr-3"></i>
+                                Line of sight maintained
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-white p-8 rounded-2xl shadow-lg">
+                        <h3 class="text-2xl font-bold mb-6 text-red-600">
+                            <i class="fas fa-exclamation-triangle mr-2"></i>Safety Guidelines
+                        </h3>
+                        <ul class="space-y-3">
+                            <li class="flex items-center">
+                                <i class="fas fa-times-circle text-red-500 mr-3"></i>
+                                Never fly near people or animals
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-times-circle text-red-500 mr-3"></i>
+                                Avoid outdoor flying in wind >15 km/h
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-times-circle text-red-500 mr-3"></i>
+                                Don't fly in rain or wet conditions
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-times-circle text-red-500 mr-3"></i>
+                                Keep away from airports/restricted areas
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-times-circle text-red-500 mr-3"></i>
+                                Watch for low battery warnings
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-times-circle text-red-500 mr-3"></i>
+                                Never touch spinning propellers
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="bg-white p-8 rounded-3xl shadow-lg">
+                    <h3 class="text-3xl font-bold mb-6 text-sky-600">First Flight Steps</h3>
+                    <div class="grid md:grid-cols-4 gap-6">
+                        <div class="text-center">
+                            <div class="bg-sky-100 rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-4">
+                                <span class="text-3xl font-bold text-sky-600">1</span>
+                            </div>
+                            <h4 class="font-bold mb-2">Arm Motors</h4>
+                            <p class="text-sm text-gray-600">Hold both sticks down-inward for 2 seconds</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="bg-sky-100 rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-4">
+                                <span class="text-3xl font-bold text-sky-600">2</span>
+                            </div>
+                            <h4 class="font-bold mb-2">Gentle Throttle</h4>
+                            <p class="text-sm text-gray-600">Slowly increase throttle to lift off</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="bg-sky-100 rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-4">
+                                <span class="text-3xl font-bold text-sky-600">3</span>
+                            </div>
+                            <h4 class="font-bold mb-2">Hover Practice</h4>
+                            <p class="text-sm text-gray-600">Maintain stable hover at 1m height</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="bg-sky-100 rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-4">
+                                <span class="text-3xl font-bold text-sky-600">4</span>
+                            </div>
+                            <h4 class="font-bold mb-2">Safe Landing</h4>
+                            <p class="text-sm text-gray-600">Slowly reduce throttle to land gently</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Troubleshooting Section -->
+        <section class="py-20 bg-gray-50">
+            <div class="container mx-auto px-6 max-w-7xl">
+                <h2 class="text-5xl font-black text-center mb-16">
+                    <span class="text-red-500">Troubleshooting</span> Common Issues
+                </h2>
+
+                <div class="space-y-4">
+                    <div class="bg-white p-6 rounded-xl shadow">
+                        <h4 class="text-xl font-bold mb-2 text-gray-800">Drone won't connect to WiFi</h4>
+                        <p class="text-gray-600">→ Restart drone, wait 30 seconds. Check if "FLYQ-XXXX" network appears. Try forgetting network and reconnecting.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow">
+                        <h4 class="text-xl font-bold mb-2 text-gray-800">Drone drifts during flight</h4>
+                        <p class="text-gray-600">→ Recalibrate IMU. Place drone on flat surface, click Calibrate in web interface. Avoid flying in strong wind.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow">
+                        <h4 class="text-xl font-bold mb-2 text-gray-800">Motors not spinning</h4>
+                        <p class="text-gray-600">→ Check battery connection. Arm motors (sticks down-inward). Test individual motors in web interface.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow">
+                        <h4 class="text-xl font-bold mb-2 text-gray-800">Short flight time</h4>
+                        <p class="text-gray-600">→ Fully charge battery (60min). Check for damaged propellers. Reduce aggressive maneuvers.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow">
+                        <h4 class="text-xl font-bold mb-2 text-gray-800">Video stream lagging (Vision only)</h4>
+                        <p class="text-gray-600">→ Reduce distance to drone. Close other WiFi devices. Use 720p instead of 1080p mode.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Support Section -->
+        <section class="py-20 bg-sky-500 text-white">
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="text-5xl font-black mb-8">Need More Help?</h2>
+                <p class="text-2xl mb-12 max-w-3xl mx-auto">
+                    Our team is here to support you 24/7
+                </p>
+                <div class="flex justify-center gap-6 flex-wrap">
+                    <a href="mailto:info@passion3dworld.com" class="bg-white text-sky-600 px-8 py-4 rounded-full font-bold text-lg hover:shadow-xl transition inline-flex items-center">
+                        <i class="fas fa-envelope mr-2"></i>
+                        info@passion3dworld.com
+                    </a>
+                    <a href="tel:+919137361474" class="bg-white text-sky-600 px-8 py-4 rounded-full font-bold text-lg hover:shadow-xl transition inline-flex items-center">
+                        <i class="fas fa-phone mr-2"></i>
+                        +91 9137361474
+                    </a>
+                    <a href="https://wa.me/919137361474" target="_blank" class="bg-green-500 text-white px-8 py-4 rounded-full font-bold text-lg hover:shadow-xl transition inline-flex items-center">
+                        <i class="fab fa-whatsapp mr-2"></i>
+                        WhatsApp Support
+                    </a>
+                </div>
+            </div>
+        </section>
+    </div>
+  `;
+
+  return c.html(renderPage('FLYQ Manual', content));
 });
 
 // About page
