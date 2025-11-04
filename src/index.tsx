@@ -165,7 +165,6 @@ const renderPage = (title: string, content: string, includeCart: boolean = true)
                     <div class="hidden md:flex items-center space-x-8">
                         <a href="/" class="text-gray-700 hover:text-sky-500 font-semibold">Home</a>
                         <a href="/products" class="text-gray-700 hover:text-sky-500 font-semibold">Products</a>
-                        <a href="/curriculum" class="text-gray-700 hover:text-sky-500 font-semibold">Curriculum</a>
                         <a href="/docs" class="text-gray-700 hover:text-sky-500 font-semibold">Docs</a>
                         <a href="/about" class="text-gray-700 hover:text-sky-500 font-semibold">About</a>
                         <a href="/contact" class="text-gray-700 hover:text-sky-500 font-semibold">Contact</a>
@@ -186,7 +185,6 @@ const renderPage = (title: string, content: string, includeCart: boolean = true)
                 <div id="mobile-menu" class="hidden md:hidden mt-4 pb-4 space-y-4">
                     <a href="/" class="block text-gray-700 hover:text-sky-500 font-semibold">Home</a>
                     <a href="/products" class="block text-gray-700 hover:text-sky-500 font-semibold">Products</a>
-                    <a href="/curriculum" class="block text-gray-700 hover:text-sky-500 font-semibold">Curriculum</a>
                     <a href="/docs" class="block text-gray-700 hover:text-sky-500 font-semibold">Docs</a>
                     <a href="/about" class="block text-gray-700 hover:text-sky-500 font-semibold">About</a>
                     <a href="/contact" class="block text-gray-700 hover:text-sky-500 font-semibold">Contact</a>
@@ -1709,7 +1707,7 @@ app.get('/docs', (c) => {
                 <h2 class="text-5xl font-black mb-12 text-center">
                     <span class="text-sky-500">Essential</span> Resources
                 </h2>
-                <div class="grid md:grid-cols-4 gap-6 max-w-7xl mx-auto">
+                <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
                     <a href="https://github.com/passion3d/flyq-air" target="_blank" class="bg-gradient-to-br from-gray-900 to-gray-800 text-white p-8 rounded-3xl shadow-xl hover:shadow-2xl transition-all transform hover:scale-105">
                         <i class="fab fa-github text-sky-400 text-6xl mb-4"></i>
                         <h3 class="text-2xl font-bold mb-3">GitHub Repository</h3>
@@ -1720,18 +1718,6 @@ app.get('/docs', (c) => {
                             • 3D printable parts
                         </p>
                         <span class="text-sky-400 font-bold text-sm">View on GitHub →</span>
-                    </a>
-
-                    <a href="/curriculum" class="bg-gradient-to-br from-sky-500 to-blue-600 text-white p-8 rounded-3xl shadow-xl hover:shadow-2xl transition-all transform hover:scale-105">
-                        <i class="fas fa-graduation-cap text-white text-6xl mb-4"></i>
-                        <h3 class="text-2xl font-bold mb-3">8-Week Curriculum</h3>
-                        <p class="text-sky-50 mb-4 text-sm">
-                            • 30 comprehensive sessions<br/>
-                            • Hardware to firmware<br/>
-                            • Basic to autonomous flight<br/>
-                            • Login required
-                        </p>
-                        <span class="text-white font-bold text-sm">View Curriculum →</span>
                     </a>
 
                     <a href="https://passion3dworld.com" target="_blank" class="bg-gradient-to-br from-orange-500 to-red-600 text-white p-8 rounded-3xl shadow-xl hover:shadow-2xl transition-all transform hover:scale-105">
@@ -2032,40 +2018,46 @@ app.get('/docs', (c) => {
                                     Begin Your Learning Journey
                                 </h3>
                                 <p class="text-lg text-gray-700 mb-6">
-                                    Congratulations on your first flight! Now master drone development with our comprehensive curriculum:
+                                    Congratulations on your first flight! Now continue learning with our comprehensive documentation and project ideas below.
                                 </p>
 
                                 <div class="grid md:grid-cols-3 gap-6">
                                     <div class="bg-gradient-to-br from-sky-50 to-blue-50 p-6 rounded-2xl border-2 border-sky-200">
-                                        <div class="text-4xl font-black text-sky-600 mb-2">Week 1-2</div>
-                                        <h4 class="font-bold text-lg mb-2 text-gray-800">Hardware & Sensors</h4>
+                                        <div class="text-4xl font-black text-sky-600 mb-2">
+                                            <i class="fas fa-code"></i>
+                                        </div>
+                                        <h4 class="font-bold text-lg mb-2 text-gray-800">Programming Tutorials</h4>
                                         <p class="text-gray-600 text-sm">
-                                            Learn circuit design, ESP32-S3, IMU sensors, motor control
+                                            Arduino, Python, and ESP-IDF examples with step-by-step guides
                                         </p>
                                     </div>
 
                                     <div class="bg-gradient-to-br from-purple-50 to-pink-50 p-6 rounded-2xl border-2 border-purple-200">
-                                        <div class="text-4xl font-black text-purple-600 mb-2">Week 3-5</div>
-                                        <h4 class="font-bold text-lg mb-2 text-gray-800">Programming & Firmware</h4>
+                                        <div class="text-4xl font-black text-purple-600 mb-2">
+                                            <i class="fas fa-wrench"></i>
+                                        </div>
+                                        <h4 class="font-bold text-lg mb-2 text-gray-800">Hardware & Troubleshooting</h4>
                                         <p class="text-gray-600 text-sm">
-                                            Master Arduino, Python, ESP-IDF, PID control algorithms
+                                            Complete hardware specs, firmware flashing, and problem solutions
                                         </p>
                                     </div>
 
                                     <div class="bg-gradient-to-br from-green-50 to-emerald-50 p-6 rounded-2xl border-2 border-green-200">
-                                        <div class="text-4xl font-black text-green-600 mb-2">Week 6-8</div>
-                                        <h4 class="font-bold text-lg mb-2 text-gray-800">Autonomous Flight</h4>
+                                        <div class="text-4xl font-black text-green-600 mb-2">
+                                            <i class="fas fa-lightbulb"></i>
+                                        </div>
+                                        <h4 class="font-bold text-lg mb-2 text-gray-800">Project Ideas</h4>
                                         <p class="text-gray-600 text-sm">
-                                            Build autonomous missions, waypoint navigation, projects
+                                            Beginner to advanced projects with examples and inspiration
                                         </p>
                                     </div>
                                 </div>
 
                                 <div class="mt-8 text-center">
-                                    <a href="/curriculum" class="bg-gradient-to-r from-sky-500 to-blue-600 text-white px-10 py-4 rounded-full font-bold text-lg inline-flex items-center hover:shadow-2xl transition transform hover:scale-105">
-                                        <i class="fas fa-book-open mr-3"></i>
-                                        Access Full Curriculum (Login Required)
-                                        <i class="fas fa-arrow-right ml-3"></i>
+                                    <a href="#programming" class="bg-gradient-to-r from-sky-500 to-blue-600 text-white px-10 py-4 rounded-full font-bold text-lg inline-flex items-center hover:shadow-2xl transition transform hover:scale-105">
+                                        <i class="fas fa-arrow-down mr-3"></i>
+                                        Continue to Programming Tutorials
+                                        <i class="fas fa-arrow-down ml-3"></i>
                                     </a>
                                 </div>
                             </div>
@@ -2545,43 +2537,1027 @@ app.get('/docs', (c) => {
             </div>
         </section>
 
-        <!-- Programming Options -->
-        <section class="py-16 bg-white">
-            <div class="container mx-auto px-6 max-w-6xl">
-                <h2 class="text-5xl font-black mb-12 text-center">
-                    <span class="text-sky-500">Programming</span> Options
-                </h2>
+        <!-- Programming Tutorials - Comprehensive Guide -->
+        <section class="py-20 bg-gradient-to-br from-white to-gray-50" id="programming">
+            <div class="container mx-auto px-6 max-w-7xl">
+                <div class="text-center mb-16">
+                    <h2 class="text-6xl font-black mb-6">
+                        <i class="fas fa-code text-sky-500 mr-3"></i>
+                        <span class="text-sky-500">Programming</span> Tutorials
+                    </h2>
+                    <p class="text-2xl text-gray-600 max-w-4xl mx-auto">
+                        Complete guides for Arduino, Python, and ESP-IDF development
+                    </p>
+                </div>
+
+                <!-- Arduino IDE Tutorial -->
+                <div class="mb-20 bg-gradient-to-br from-teal-50 to-cyan-50 p-12 rounded-3xl border-4 border-teal-200">
+                    <div class="flex items-center mb-8">
+                        <div class="bg-gradient-to-br from-teal-500 to-cyan-600 rounded-2xl p-6 mr-6">
+                            <i class="fas fa-code text-white text-5xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-5xl font-black text-teal-700 mb-2">Arduino IDE Tutorial</h3>
+                            <p class="text-2xl text-gray-700">Perfect for beginners • Rapid prototyping • Extensive libraries</p>
+                        </div>
+                    </div>
+
+                    <!-- Arduino Setup -->
+                    <div class="mb-10 bg-white p-8 rounded-2xl shadow-lg">
+                        <h4 class="text-3xl font-bold mb-6 text-gray-800">
+                            <i class="fas fa-download mr-3 text-teal-500"></i>Setup & Installation
+                        </h4>
+                        <ol class="space-y-4 text-lg text-gray-700">
+                            <li class="flex items-start">
+                                <span class="bg-teal-500 text-white font-bold rounded-full w-8 h-8 flex items-center justify-center mr-4 flex-shrink-0">1</span>
+                                <div>
+                                    <strong>Download Arduino IDE:</strong> Visit <a href="https://arduino.cc/downloads" target="_blank" class="text-teal-600 underline">arduino.cc/downloads</a> and download for your OS (Windows/Mac/Linux)
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="bg-teal-500 text-white font-bold rounded-full w-8 h-8 flex items-center justify-center mr-4 flex-shrink-0">2</span>
+                                <div>
+                                    <strong>Install ESP32 Board Support:</strong>
+                                    <ul class="ml-6 mt-2 space-y-1 text-gray-600">
+                                        <li>• Open Arduino IDE → File → Preferences</li>
+                                        <li>• Add board manager URL: <code class="bg-gray-200 px-2 py-1 rounded text-sm">https://espressif.github.io/arduino-esp32/package_esp32_index.json</code></li>
+                                        <li>• Tools → Board → Boards Manager → Search "ESP32" → Install</li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="bg-teal-500 text-white font-bold rounded-full w-8 h-8 flex items-center justify-center mr-4 flex-shrink-0">3</span>
+                                <div>
+                                    <strong>Select Board:</strong> Tools → Board → ESP32 Arduino → ESP32S3 Dev Module
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="bg-teal-500 text-white font-bold rounded-full w-8 h-8 flex items-center justify-center mr-4 flex-shrink-0">4</span>
+                                <div>
+                                    <strong>Connect Drone:</strong> USB-C cable → Tools → Port → Select COM port (e.g., COM3, /dev/ttyUSB0)
+                                </div>
+                            </li>
+                        </ol>
+                    </div>
+
+                    <!-- Arduino Example 1: Blink LED -->
+                    <div class="mb-10 bg-white p-8 rounded-2xl shadow-lg">
+                        <h4 class="text-3xl font-bold mb-6 text-gray-800">
+                            <i class="fas fa-lightbulb mr-3 text-yellow-500"></i>Example 1: Blink LED
+                        </h4>
+                        <p class="text-lg text-gray-700 mb-4">Simple program to blink the onboard LED. Perfect first test!</p>
+                        <div class="bg-gray-900 text-green-400 p-6 rounded-xl font-mono text-sm overflow-x-auto">
+<pre>// FLYQ Air - Blink LED Example
+#define LED_PIN 2  // Onboard LED on GPIO2
+
+void setup() {
+  pinMode(LED_PIN, OUTPUT);
+  Serial.begin(115200);
+  Serial.println("FLYQ Air - LED Blink Test");
+}
+
+void loop() {
+  digitalWrite(LED_PIN, HIGH);   // Turn LED on
+  Serial.println("LED ON");
+  delay(1000);                    // Wait 1 second
+  
+  digitalWrite(LED_PIN, LOW);    // Turn LED off
+  Serial.println("LED OFF");
+  delay(1000);                    // Wait 1 second
+}</pre>
+                        </div>
+                        <div class="mt-4 p-4 bg-blue-50 rounded-lg">
+                            <p class="text-blue-800">
+                                <i class="fas fa-info-circle mr-2"></i>
+                                <strong>Upload:</strong> Click the Upload button (→) in Arduino IDE. LED should blink once upload completes!
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Arduino Example 2: Read IMU -->
+                    <div class="mb-10 bg-white p-8 rounded-2xl shadow-lg">
+                        <h4 class="text-3xl font-bold mb-6 text-gray-800">
+                            <i class="fas fa-compass mr-3 text-blue-500"></i>Example 2: Read IMU Sensor
+                        </h4>
+                        <p class="text-lg text-gray-700 mb-4">Read gyroscope and accelerometer data from MPU6050 IMU</p>
+                        <div class="bg-gray-900 text-green-400 p-6 rounded-xl font-mono text-sm overflow-x-auto">
+<pre>// FLYQ Air - IMU Reader
+#include <Wire.h>
+#include <MPU6050.h>
+
+MPU6050 mpu;
+
+void setup() {
+  Serial.begin(115200);
+  Wire.begin(21, 22);  // SDA=21, SCL=22
+  
+  Serial.println("Initializing IMU...");
+  mpu.initialize();
+  
+  if (mpu.testConnection()) {
+    Serial.println("MPU6050 connected!");
+  } else {
+    Serial.println("MPU6050 connection failed!");
+  }
+}
+
+void loop() {
+  // Read accelerometer (in g)
+  int16_t ax, ay, az;
+  mpu.getAcceleration(&ax, &ay, &az);
+  
+  // Read gyroscope (in degrees/sec)
+  int16_t gx, gy, gz;
+  mpu.getRotation(&gx, &gy, &gz);
+  
+  // Print values
+  Serial.print("Accel: ");
+  Serial.print(ax/16384.0); Serial.print("g, ");
+  Serial.print(ay/16384.0); Serial.print("g, ");
+  Serial.print(az/16384.0); Serial.println("g");
+  
+  Serial.print("Gyro: ");
+  Serial.print(gx/131.0); Serial.print("°/s, ");
+  Serial.print(gy/131.0); Serial.print("°/s, ");
+  Serial.print(gz/131.0); Serial.println("°/s");
+  
+  delay(100);
+}</pre>
+                        </div>
+                        <div class="mt-4 p-4 bg-yellow-50 rounded-lg">
+                            <p class="text-yellow-800">
+                                <i class="fas fa-exclamation-triangle mr-2"></i>
+                                <strong>Library Required:</strong> Install "MPU6050" library via Library Manager (Sketch → Include Library → Manage Libraries)
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Arduino Example 3: Motor Control -->
+                    <div class="bg-white p-8 rounded-2xl shadow-lg">
+                        <h4 class="text-3xl font-bold mb-6 text-gray-800">
+                            <i class="fas fa-cog mr-3 text-purple-500"></i>Example 3: Basic Motor Control
+                        </h4>
+                        <p class="text-lg text-gray-700 mb-4">Control motor speed using PWM signals</p>
+                        <div class="bg-gray-900 text-green-400 p-6 rounded-xl font-mono text-sm overflow-x-auto">
+<pre>// FLYQ Air - Motor Control
+#define MOTOR1_PIN 25  // Front-left motor
+#define MOTOR2_PIN 26  // Front-right motor  
+#define MOTOR3_PIN 27  // Rear-left motor
+#define MOTOR4_PIN 33  // Rear-right motor
+
+// PWM settings
+const int freq = 20000;      // 20 kHz
+const int resolution = 8;     // 8-bit (0-255)
+
+void setup() {
+  Serial.begin(115200);
+  
+  // Configure PWM channels
+  ledcSetup(0, freq, resolution);
+  ledcSetup(1, freq, resolution);
+  ledcSetup(2, freq, resolution);
+  ledcSetup(3, freq, resolution);
+  
+  // Attach pins to channels
+  ledcAttachPin(MOTOR1_PIN, 0);
+  ledcAttachPin(MOTOR2_PIN, 1);
+  ledcAttachPin(MOTOR3_PIN, 2);
+  ledcAttachPin(MOTOR4_PIN, 3);
+  
+  Serial.println("Motor control ready!");
+}
+
+void setMotorSpeed(int motor, int speed) {
+  // Speed: 0-255
+  ledcWrite(motor, speed);
+}
+
+void loop() {
+  // Gradual speed test
+  for(int speed = 0; speed <= 255; speed += 5) {
+    setMotorSpeed(0, speed);  // Motor 1
+    setMotorSpeed(1, speed);  // Motor 2
+    setMotorSpeed(2, speed);  // Motor 3
+    setMotorSpeed(3, speed);  // Motor 4
+    
+    Serial.print("Speed: ");
+    Serial.println(speed);
+    delay(100);
+  }
+  
+  // Stop motors
+  for(int i = 0; i < 4; i++) {
+    setMotorSpeed(i, 0);
+  }
+  
+  delay(2000);
+}</pre>
+                        </div>
+                        <div class="mt-4 p-4 bg-red-50 rounded-lg">
+                            <p class="text-red-800">
+                                <i class="fas fa-exclamation-circle mr-2"></i>
+                                <strong>Safety Warning:</strong> Remove propellers before testing motors! Never test with propellers attached to bench.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Python SDK Tutorial -->
+                <div class="mb-20 bg-gradient-to-br from-blue-50 to-indigo-50 p-12 rounded-3xl border-4 border-blue-200">
+                    <div class="flex items-center mb-8">
+                        <div class="bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl p-6 mr-6">
+                            <i class="fab fa-python text-white text-5xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-5xl font-black text-blue-700 mb-2">Python SDK Tutorial</h3>
+                            <p class="text-2xl text-gray-700">Autonomous flight • Advanced missions • Crazyflie-compatible</p>
+                        </div>
+                    </div>
+
+                    <!-- Python Setup -->
+                    <div class="mb-10 bg-white p-8 rounded-2xl shadow-lg">
+                        <h4 class="text-3xl font-bold mb-6 text-gray-800">
+                            <i class="fas fa-download mr-3 text-blue-500"></i>Setup & Installation
+                        </h4>
+                        <div class="bg-gray-900 text-green-400 p-6 rounded-xl font-mono text-sm mb-4">
+<pre># Install Python 3.8+ (check version)
+python --version
+
+# Install cflib (Crazyflie library)
+pip install cflib
+
+# Install additional dependencies
+pip install numpy matplotlib
+
+# Verify installation
+python -c "import cflib; print('cflib version:', cflib.__version__)"</pre>
+                        </div>
+                    </div>
+
+                    <!-- Python Example 1: Connect -->
+                    <div class="mb-10 bg-white p-8 rounded-2xl shadow-lg">
+                        <h4 class="text-3xl font-bold mb-6 text-gray-800">
+                            <i class="fas fa-wifi mr-3 text-green-500"></i>Example 1: Connect to Drone
+                        </h4>
+                        <div class="bg-gray-900 text-green-400 p-6 rounded-xl font-mono text-sm overflow-x-auto">
+<pre># connect_drone.py
+import cflib.crtp
+from cflib.crazyflie import Crazyflie
+import time
+
+# Initialize drivers
+cflib.crtp.init_drivers()
+
+# URI of the drone (radio://0/80/2M/E7E7E7E7E7)
+URI = 'radio://0/80/2M'
+
+def connected(link_uri):
+    print(f'Connected to {link_uri}')
+
+def disconnected(link_uri):
+    print(f'Disconnected from {link_uri}')
+
+def connection_failed(link_uri, msg):
+    print(f'Connection failed: {msg}')
+
+# Create Crazyflie object
+cf = Crazyflie()
+
+# Add callbacks
+cf.connected.add_callback(connected)
+cf.disconnected.add_callback(disconnected)
+cf.connection_failed.add_callback(connection_failed)
+
+print('Connecting to drone...')
+cf.open_link(URI)
+
+# Keep connection alive
+time.sleep(5)
+
+# Disconnect
+cf.close_link()
+print('Connection closed')</pre>
+                        </div>
+                    </div>
+
+                    <!-- Python Example 2: Autonomous Flight -->
+                    <div class="bg-white p-8 rounded-2xl shadow-lg">
+                        <h4 class="text-3xl font-bold mb-6 text-gray-800">
+                            <i class="fas fa-plane mr-3 text-blue-500"></i>Example 2: Autonomous Flight
+                        </h4>
+                        <div class="bg-gray-900 text-green-400 p-6 rounded-xl font-mono text-sm overflow-x-auto">
+<pre># autonomous_flight.py
+import cflib.crtp
+from cflib.crazyflie import Crazyflie
+from cflib.crazyflie.syncCrazyflie import SyncCrazyflie
+from cflib.positioning.motion_commander import MotionCommander
+import time
+
+cflib.crtp.init_drivers()
+URI = 'radio://0/80/2M'
+
+def simple_flight():
+    with SyncCrazyflie(URI, cf=Crazyflie(rw_cache='./cache')) as scf:
+        with MotionCommander(scf) as mc:
+            print('Taking off...')
+            time.sleep(1)
+            
+            print('Moving forward 0.5m')
+            mc.forward(0.5)
+            time.sleep(1)
+            
+            print('Moving left 0.5m')
+            mc.left(0.5)
+            time.sleep(1)
+            
+            print('Moving back 0.5m')
+            mc.back(0.5)
+            time.sleep(1)
+            
+            print('Moving right 0.5m')
+            mc.right(0.5)
+            time.sleep(1)
+            
+            print('Turning 360°')
+            mc.turn_right(360)
+            time.sleep(1)
+            
+            print('Landing...')
+            # MotionCommander auto-lands on exit
+
+if __name__ == '__main__':
+    simple_flight()
+    print('Flight complete!')</pre>
+                        </div>
+                        <div class="mt-4 p-4 bg-blue-50 rounded-lg">
+                            <p class="text-blue-800">
+                                <i class="fas fa-info-circle mr-2"></i>
+                                <strong>Run:</strong> <code class="bg-gray-200 px-2 py-1 rounded">python autonomous_flight.py</code>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ESP-IDF Tutorial -->
+                <div class="bg-gradient-to-br from-purple-50 to-pink-50 p-12 rounded-3xl border-4 border-purple-200">
+                    <div class="flex items-center mb-8">
+                        <div class="bg-gradient-to-br from-purple-500 to-pink-600 rounded-2xl p-6 mr-6">
+                            <i class="fas fa-terminal text-white text-5xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-5xl font-black text-purple-700 mb-2">ESP-IDF Tutorial</h3>
+                            <p class="text-2xl text-gray-700">Professional firmware • RTOS • Advanced features</p>
+                        </div>
+                    </div>
+
+                    <!-- ESP-IDF Setup -->
+                    <div class="mb-10 bg-white p-8 rounded-2xl shadow-lg">
+                        <h4 class="text-3xl font-bold mb-6 text-gray-800">
+                            <i class="fas fa-download mr-3 text-purple-500"></i>Setup & Installation
+                        </h4>
+                        <div class="bg-gray-900 text-green-400 p-6 rounded-xl font-mono text-sm overflow-x-auto">
+<pre># Linux/macOS
+# Install prerequisites
+sudo apt-get install git wget flex bison gperf python3 python3-pip \\
+  python3-setuptools cmake ninja-build ccache libffi-dev libssl-dev \\
+  dfu-util libusb-1.0-0
+
+# Download ESP-IDF
+mkdir -p ~/esp
+cd ~/esp
+git clone --recursive https://github.com/espressif/esp-idf.git
+
+# Install tools
+cd ~/esp/esp-idf
+./install.sh esp32s3
+
+# Setup environment (add to ~/.bashrc)
+. $HOME/esp/esp-idf/export.sh
+
+# Verify installation
+idf.py --version</pre>
+                        </div>
+                    </div>
+
+                    <!-- ESP-IDF Example -->
+                    <div class="bg-white p-8 rounded-2xl shadow-lg">
+                        <h4 class="text-3xl font-bold mb-6 text-gray-800">
+                            <i class="fas fa-code mr-3 text-purple-500"></i>Example: FreeRTOS Task
+                        </h4>
+                        <div class="bg-gray-900 text-green-400 p-6 rounded-xl font-mono text-sm overflow-x-auto">
+<pre>// main.c - FreeRTOS Task Example
+#include <stdio.h>
+#include "freertos/FreeRTOS.h"
+#include "freertos/task.h"
+#include "driver/gpio.h"
+
+#define LED_PIN GPIO_NUM_2
+
+void blink_task(void *pvParameter) {
+    gpio_set_direction(LED_PIN, GPIO_MODE_OUTPUT);
+    
+    while(1) {
+        gpio_set_level(LED_PIN, 1);
+        printf("LED ON\\n");
+        vTaskDelay(1000 / portTICK_PERIOD_MS);
+        
+        gpio_set_level(LED_PIN, 0);
+        printf("LED OFF\\n");
+        vTaskDelay(1000 / portTICK_PERIOD_MS);
+    }
+}
+
+void app_main(void) {
+    printf("FLYQ Air - FreeRTOS Example\\n");
+    xTaskCreate(&blink_task, "blink_task", 2048, NULL, 5, NULL);
+}</pre>
+                        </div>
+                        <div class="mt-4 p-4 bg-purple-50 rounded-lg">
+                            <p class="text-purple-800">
+                                <i class="fas fa-terminal mr-2"></i>
+                                <strong>Build & Flash:</strong> <code class="bg-gray-200 px-2 py-1 rounded">idf.py build flash monitor</code>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Firmware Flashing Guide -->
+        <section class="py-20 bg-gradient-to-br from-orange-50 to-red-50" id="firmware">
+            <div class="container mx-auto px-6 max-w-7xl">
+                <div class="text-center mb-16">
+                    <h2 class="text-6xl font-black mb-6">
+                        <i class="fas fa-download text-orange-500 mr-3"></i>
+                        <span class="text-orange-500">Firmware</span> Flashing Guide
+                    </h2>
+                    <p class="text-2xl text-gray-600 max-w-4xl mx-auto">
+                        Step-by-step guide to flash firmware on your FLYQ drone
+                    </p>
+                </div>
+
+                <div class="bg-white p-12 rounded-3xl shadow-2xl">
+                    <div class="space-y-10">
+                        <!-- Method 1: Arduino IDE -->
+                        <div class="border-l-4 border-orange-500 pl-8">
+                            <h3 class="text-4xl font-bold mb-6 text-gray-800">
+                                Method 1: Arduino IDE (Easiest)
+                            </h3>
+                            <ol class="space-y-4 text-lg text-gray-700">
+                                <li class="flex items-start">
+                                    <span class="bg-orange-500 text-white font-bold rounded-full w-8 h-8 flex items-center justify-center mr-4 flex-shrink-0 mt-1">1</span>
+                                    <div>
+                                        <strong>Connect drone via USB-C</strong>
+                                        <p class="text-gray-600 mt-1">Connect your FLYQ to computer. LED should turn on.</p>
+                                    </div>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="bg-orange-500 text-white font-bold rounded-full w-8 h-8 flex items-center justify-center mr-4 flex-shrink-0 mt-1">2</span>
+                                    <div>
+                                        <strong>Select board and port</strong>
+                                        <ul class="text-gray-600 mt-1 ml-4">
+                                            <li>• Tools → Board → ESP32S3 Dev Module</li>
+                                            <li>• Tools → Port → COM3 (or /dev/ttyUSB0)</li>
+                                        </ul>
+                                    </div>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="bg-orange-500 text-white font-bold rounded-full w-8 h-8 flex items-center justify-center mr-4 flex-shrink-0 mt-1">3</span>
+                                    <div>
+                                        <strong>Open example sketch</strong>
+                                        <p class="text-gray-600 mt-1">File → Examples → FLYQ → BasicFlight</p>
+                                    </div>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="bg-orange-500 text-white font-bold rounded-full w-8 h-8 flex items-center justify-center mr-4 flex-shrink-0 mt-1">4</span>
+                                    <div>
+                                        <strong>Click Upload (→)</strong>
+                                        <p class="text-gray-600 mt-1">Wait for "Done uploading" message</p>
+                                    </div>
+                                </li>
+                            </ol>
+                        </div>
+
+                        <!-- Method 2: esptool -->
+                        <div class="border-l-4 border-blue-500 pl-8">
+                            <h3 class="text-4xl font-bold mb-6 text-gray-800">
+                                Method 2: esptool (Advanced)
+                            </h3>
+                            <div class="bg-gray-900 text-green-400 p-6 rounded-xl font-mono text-sm">
+<pre># Install esptool
+pip install esptool
+
+# Download firmware.bin from GitHub releases
+wget https://github.com/passion3d/flyq-firmware/releases/latest/download/firmware.bin
+
+# Flash firmware
+esptool.py --chip esp32s3 --port /dev/ttyUSB0 write_flash 0x0 firmware.bin
+
+# Verify
+esptool.py --chip esp32s3 --port /dev/ttyUSB0 verify_flash 0x0 firmware.bin</pre>
+                            </div>
+                        </div>
+
+                        <!-- Troubleshooting -->
+                        <div class="bg-yellow-50 border-2 border-yellow-400 rounded-2xl p-6">
+                            <h4 class="text-2xl font-bold mb-4 text-yellow-800">
+                                <i class="fas fa-exclamation-triangle mr-2"></i>Common Issues
+                            </h4>
+                            <ul class="space-y-2 text-gray-700">
+                                <li><strong>Port not found:</strong> Install CH340/CP210x USB drivers</li>
+                                <li><strong>Failed to connect:</strong> Hold BOOT button while connecting USB</li>
+                                <li><strong>Timeout error:</strong> Try different USB cable or port</li>
+                                <li><strong>Permission denied:</strong> Run <code class="bg-gray-200 px-2 py-1 rounded">sudo usermod -a -G dialout $USER</code> (Linux)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Flight Manual with Safety -->
+        <section class="py-20 bg-gradient-to-br from-green-50 to-emerald-50" id="flight-manual">
+            <div class="container mx-auto px-6 max-w-7xl">
+                <div class="text-center mb-16">
+                    <h2 class="text-6xl font-black mb-6">
+                        <i class="fas fa-plane text-green-500 mr-3"></i>
+                        <span class="text-green-500">Flight</span> Manual
+                    </h2>
+                    <p class="text-2xl text-gray-600 max-w-4xl mx-auto">
+                        Complete safety procedures and flight operations guide
+                    </p>
+                </div>
+
+                <!-- Safety First -->
+                <div class="mb-12 bg-red-500 text-white p-10 rounded-3xl">
+                    <h3 class="text-5xl font-black mb-6 flex items-center">
+                        <i class="fas fa-exclamation-triangle mr-4"></i>
+                        Safety First!
+                    </h3>
+                    <div class="grid md:grid-cols-2 gap-6 text-lg">
+                        <div>
+                            <h4 class="text-2xl font-bold mb-3">❌ Never:</h4>
+                            <ul class="space-y-2">
+                                <li>• Fly near people, animals, or buildings</li>
+                                <li>• Fly outdoors in wind or rain</li>
+                                <li>• Touch spinning propellers</li>
+                                <li>• Fly with damaged propellers</li>
+                                <li>• Leave battery charging unattended</li>
+                                <li>• Fly with low battery warning</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="text-2xl font-bold mb-3">✅ Always:</h4>
+                            <ul class="space-y-2">
+                                <li>• Inspect drone before flight</li>
+                                <li>• Use propeller guards indoors</li>
+                                <li>• Keep clear 3m safety zone</li>
+                                <li>• Calibrate IMU before flying</li>
+                                <li>• Have emergency stop ready</li>
+                                <li>• Land with 20% battery remaining</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pre-Flight Checklist -->
+                <div class="mb-12 bg-white p-10 rounded-3xl shadow-xl">
+                    <h3 class="text-4xl font-bold mb-8 text-gray-800">
+                        <i class="fas fa-clipboard-check text-green-500 mr-3"></i>
+                        Pre-Flight Checklist
+                    </h3>
+                    <div class="grid md:grid-cols-3 gap-8">
+                        <div>
+                            <h4 class="text-xl font-bold mb-4 text-green-600">Hardware Check</h4>
+                            <ul class="space-y-2 text-gray-700">
+                                <li><input type="checkbox" class="mr-2"> Battery fully charged</li>
+                                <li><input type="checkbox" class="mr-2"> Propellers secure (correct direction)</li>
+                                <li><input type="checkbox" class="mr-2"> Frame intact, no cracks</li>
+                                <li><input type="checkbox" class="mr-2"> Motors spin freely</li>
+                                <li><input type="checkbox" class="mr-2"> Propeller guards attached</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="text-xl font-bold mb-4 text-blue-600">Software Check</h4>
+                            <ul class="space-y-2 text-gray-700">
+                                <li><input type="checkbox" class="mr-2"> Wi-Fi connection stable</li>
+                                <li><input type="checkbox" class="mr-2"> IMU calibrated</li>
+                                <li><input type="checkbox" class="mr-2"> Control app responsive</li>
+                                <li><input type="checkbox" class="mr-2"> Firmware up to date</li>
+                                <li><input type="checkbox" class="mr-2"> Emergency stop tested</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="text-xl font-bold mb-4 text-purple-600">Environment Check</h4>
+                            <ul class="space-y-2 text-gray-700">
+                                <li><input type="checkbox" class="mr-2"> Indoor or calm weather</li>
+                                <li><input type="checkbox" class="mr-2"> 3m clear radius</li>
+                                <li><input type="checkbox" class="mr-2"> No obstacles overhead</li>
+                                <li><input type="checkbox" class="mr-2"> Good lighting</li>
+                                <li><input type="checkbox" class="mr-2"> No people/pets nearby</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Flight Procedures -->
+                <div class="bg-white p-10 rounded-3xl shadow-xl">
+                    <h3 class="text-4xl font-bold mb-8 text-gray-800">
+                        <i class="fas fa-helicopter text-blue-500 mr-3"></i>
+                        Flight Procedures
+                    </h3>
+                    <div class="space-y-8">
+                        <div>
+                            <h4 class="text-2xl font-bold mb-4 text-gray-800">Takeoff</h4>
+                            <ol class="space-y-2 text-gray-700 ml-6">
+                                <li><strong>1.</strong> Place drone on flat surface</li>
+                                <li><strong>2.</strong> Power on drone, wait for solid LED</li>
+                                <li><strong>3.</strong> Connect controller/app</li>
+                                <li><strong>4.</strong> Arm motors (throttle down + yaw right)</li>
+                                <li><strong>5.</strong> Gradually increase throttle to hover</li>
+                            </ol>
+                        </div>
+                        <div>
+                            <h4 class="text-2xl font-bold mb-4 text-gray-800">In-Flight</h4>
+                            <ul class="space-y-2 text-gray-700 ml-6">
+                                <li>• Maintain visual line of sight</li>
+                                <li>• Keep within 50m range</li>
+                                <li>• Monitor battery level</li>
+                                <li>• Smooth control inputs</li>
+                                <li>• Stay below 3m altitude indoors</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="text-2xl font-bold mb-4 text-gray-800">Landing</h4>
+                            <ol class="space-y-2 text-gray-700 ml-6">
+                                <li><strong>1.</strong> Position over landing zone</li>
+                                <li><strong>2.</strong> Gradually reduce throttle</li>
+                                <li><strong>3.</strong> Keep level during descent</li>
+                                <li><strong>4.</strong> Cut throttle when touching ground</li>
+                                <li><strong>5.</strong> Disarm motors immediately</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Troubleshooting Database -->
+        <section class="py-20 bg-gradient-to-br from-gray-100 to-white" id="troubleshooting">
+            <div class="container mx-auto px-6 max-w-7xl">
+                <div class="text-center mb-16">
+                    <h2 class="text-6xl font-black mb-6">
+                        <i class="fas fa-wrench text-red-500 mr-3"></i>
+                        <span class="text-red-500">Troubleshooting</span> Guide
+                    </h2>
+                    <p class="text-2xl text-gray-600 max-w-4xl mx-auto">
+                        Solutions to common issues and problems
+                    </p>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-8">
+                    <!-- Hardware Issues -->
+                    <div class="bg-white p-8 rounded-3xl shadow-xl">
+                        <h3 class="text-3xl font-bold mb-6 text-red-600">
+                            <i class="fas fa-tools mr-2"></i>Hardware Issues
+                        </h3>
+                        <div class="space-y-6">
+                            <div class="border-b pb-4">
+                                <h4 class="font-bold text-lg mb-2">Drone won't power on</h4>
+                                <ul class="text-gray-700 space-y-1 ml-4">
+                                    <li>• Check battery charge level</li>
+                                    <li>• Verify battery connection</li>
+                                    <li>• Try different battery</li>
+                                    <li>• Check power switch</li>
+                                </ul>
+                            </div>
+                            <div class="border-b pb-4">
+                                <h4 class="font-bold text-lg mb-2">Motors not spinning</h4>
+                                <ul class="text-gray-700 space-y-1 ml-4">
+                                    <li>• Check propeller installation</li>
+                                    <li>• Verify motor connections</li>
+                                    <li>• Test with motor control code</li>
+                                    <li>• Check MOSFET drivers</li>
+                                </ul>
+                            </div>
+                            <div class="border-b pb-4">
+                                <h4 class="font-bold text-lg mb-2">Unstable flight/drifting</h4>
+                                <ul class="text-gray-700 space-y-1 ml-4">
+                                    <li>• Recalibrate IMU on flat surface</li>
+                                    <li>• Check propeller balance</li>
+                                    <li>• Verify motor speeds are equal</li>
+                                    <li>• Tune PID parameters</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-lg mb-2">Battery not charging</h4>
+                                <ul class="text-gray-700 space-y-1 ml-4">
+                                    <li>• Try different USB cable</li>
+                                    <li>• Use 5V 1A charger</li>
+                                    <li>• Check charging LED</li>
+                                    <li>• Battery may be dead (< 3.0V)</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Software Issues -->
+                    <div class="bg-white p-8 rounded-3xl shadow-xl">
+                        <h3 class="text-3xl font-bold mb-6 text-blue-600">
+                            <i class="fas fa-laptop-code mr-2"></i>Software Issues
+                        </h3>
+                        <div class="space-y-6">
+                            <div class="border-b pb-4">
+                                <h4 class="font-bold text-lg mb-2">Can't connect to Wi-Fi</h4>
+                                <ul class="text-gray-700 space-y-1 ml-4">
+                                    <li>• Wait 30s after power on</li>
+                                    <li>• Check SSID: FLYQ-XXXX</li>
+                                    <li>• Default password: flyq1234</li>
+                                    <li>• Reset Wi-Fi in firmware</li>
+                                </ul>
+                            </div>
+                            <div class="border-b pb-4">
+                                <h4 class="font-bold text-lg mb-2">Upload failed in Arduino</h4>
+                                <ul class="text-gray-700 space-y-1 ml-4">
+                                    <li>• Hold BOOT button during upload</li>
+                                    <li>• Select correct COM port</li>
+                                    <li>• Install CH340 USB drivers</li>
+                                    <li>• Reduce upload speed: 115200</li>
+                                </ul>
+                            </div>
+                            <div class="border-b pb-4">
+                                <h4 class="font-bold text-lg mb-2">IMU calibration fails</h4>
+                                <ul class="text-gray-700 space-y-1 ml-4">
+                                    <li>• Place on perfectly flat surface</li>
+                                    <li>• Keep absolutely still during cal</li>
+                                    <li>• No vibration or movement</li>
+                                    <li>• Retry 3 times if needed</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-lg mb-2">Python script errors</h4>
+                                <ul class="text-gray-700 space-y-1 ml-4">
+                                    <li>• Check cflib version: pip install --upgrade cflib</li>
+                                    <li>• Verify URI format: radio://0/80/2M</li>
+                                    <li>• Check Crazyradio dongle connection</li>
+                                    <li>• Run as administrator (Windows)</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact Support -->
+                <div class="mt-12 bg-gradient-to-r from-sky-500 to-blue-600 text-white p-10 rounded-3xl text-center">
+                    <h3 class="text-4xl font-black mb-4">Still Need Help?</h3>
+                    <p class="text-xl mb-8">Our technical support team is ready to assist you</p>
+                    <div class="flex justify-center gap-6 flex-wrap">
+                        <a href="mailto:info@passion3dworld.com" class="bg-white text-sky-600 px-8 py-4 rounded-full font-bold inline-flex items-center hover:shadow-2xl transition">
+                            <i class="fas fa-envelope mr-2"></i>
+                            info@passion3dworld.com
+                        </a>
+                        <a href="tel:+919137361474" class="bg-white text-sky-600 px-8 py-4 rounded-full font-bold inline-flex items-center hover:shadow-2xl transition">
+                            <i class="fas fa-phone mr-2"></i>
+                            +91 9137361474
+                        </a>
+                        <a href="https://wa.me/919137361474" target="_blank" class="bg-green-500 text-white px-8 py-4 rounded-full font-bold inline-flex items-center hover:shadow-2xl transition">
+                            <i class="fab fa-whatsapp mr-2"></i>
+                            WhatsApp Support
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- API Reference -->
+        <section class="py-20 bg-gradient-to-br from-indigo-50 to-purple-50" id="api-reference">
+            <div class="container mx-auto px-6 max-w-7xl">
+                <div class="text-center mb-16">
+                    <h2 class="text-6xl font-black mb-6">
+                        <i class="fas fa-book text-indigo-500 mr-3"></i>
+                        <span class="text-indigo-500">API</span> Reference
+                    </h2>
+                    <p class="text-2xl text-gray-600 max-w-4xl mx-auto">
+                        Complete function library documentation
+                    </p>
+                </div>
+
+                <!-- Arduino API -->
+                <div class="mb-12 bg-white p-10 rounded-3xl shadow-xl">
+                    <h3 class="text-4xl font-bold mb-8 text-gray-800">
+                        <i class="fas fa-code text-teal-500 mr-3"></i>
+                        Arduino API
+                    </h3>
+                    <div class="space-y-6 font-mono text-sm">
+                        <div class="border-l-4 border-teal-500 pl-6 bg-gray-50 p-4 rounded">
+                            <h4 class="text-lg font-bold text-gray-800 mb-2">FLYQ.init()</h4>
+                            <p class="text-gray-700 mb-2">Initialize FLYQ drone system</p>
+                            <p class="text-gray-600"><strong>Returns:</strong> bool - true if successful</p>
+                            <div class="mt-2 bg-gray-900 text-green-400 p-3 rounded">
+<pre>FLYQ.init(); // Initialize all sensors and motors</pre>
+                            </div>
+                        </div>
+
+                        <div class="border-l-4 border-teal-500 pl-6 bg-gray-50 p-4 rounded">
+                            <h4 class="text-lg font-bold text-gray-800 mb-2">FLYQ.calibrateIMU()</h4>
+                            <p class="text-gray-700 mb-2">Calibrate IMU on flat surface</p>
+                            <p class="text-gray-600"><strong>Returns:</strong> bool - true if successful</p>
+                        </div>
+
+                        <div class="border-l-4 border-teal-500 pl-6 bg-gray-50 p-4 rounded">
+                            <h4 class="text-lg font-bold text-gray-800 mb-2">FLYQ.setMotorSpeed(motor, speed)</h4>
+                            <p class="text-gray-700 mb-2">Set individual motor speed</p>
+                            <p class="text-gray-600"><strong>Parameters:</strong> motor (0-3), speed (0-255)</p>
+                            <div class="mt-2 bg-gray-900 text-green-400 p-3 rounded">
+<pre>FLYQ.setMotorSpeed(0, 150); // Motor 1 at 60% speed</pre>
+                            </div>
+                        </div>
+
+                        <div class="border-l-4 border-teal-500 pl-6 bg-gray-50 p-4 rounded">
+                            <h4 class="text-lg font-bold text-gray-800 mb-2">FLYQ.setThrottle(value)</h4>
+                            <p class="text-gray-700 mb-2">Set all motors to same speed</p>
+                            <p class="text-gray-600"><strong>Parameters:</strong> value (0-255)</p>
+                        </div>
+
+                        <div class="border-l-4 border-teal-500 pl-6 bg-gray-50 p-4 rounded">
+                            <h4 class="text-lg font-bold text-gray-800 mb-2">FLYQ.getIMU()</h4>
+                            <p class="text-gray-700 mb-2">Get IMU sensor data</p>
+                            <p class="text-gray-600"><strong>Returns:</strong> IMUData struct with gyro and accel</p>
+                            <div class="mt-2 bg-gray-900 text-green-400 p-3 rounded">
+<pre>IMUData data = FLYQ.getIMU();
+Serial.print("Gyro X: "); Serial.println(data.gyro.x);</pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Python API -->
+                <div class="bg-white p-10 rounded-3xl shadow-xl">
+                    <h3 class="text-4xl font-bold mb-8 text-gray-800">
+                        <i class="fab fa-python text-blue-500 mr-3"></i>
+                        Python API (cflib)
+                    </h3>
+                    <div class="space-y-6 font-mono text-sm">
+                        <div class="border-l-4 border-blue-500 pl-6 bg-gray-50 p-4 rounded">
+                            <h4 class="text-lg font-bold text-gray-800 mb-2">MotionCommander.take_off(height)</h4>
+                            <p class="text-gray-700 mb-2">Take off to specified height</p>
+                            <p class="text-gray-600"><strong>Parameters:</strong> height (meters, default 0.3)</p>
+                            <div class="mt-2 bg-gray-900 text-green-400 p-3 rounded">
+<pre>mc.take_off(0.5) # Take off to 0.5m</pre>
+                            </div>
+                        </div>
+
+                        <div class="border-l-4 border-blue-500 pl-6 bg-gray-50 p-4 rounded">
+                            <h4 class="text-lg font-bold text-gray-800 mb-2">MotionCommander.forward(distance)</h4>
+                            <p class="text-gray-700 mb-2">Fly forward specified distance</p>
+                            <p class="text-gray-600"><strong>Parameters:</strong> distance (meters)</p>
+                        </div>
+
+                        <div class="border-l-4 border-blue-500 pl-6 bg-gray-50 p-4 rounded">
+                            <h4 class="text-lg font-bold text-gray-800 mb-2">MotionCommander.turn_right(angle)</h4>
+                            <p class="text-gray-700 mb-2">Turn right by angle in degrees</p>
+                            <p class="text-gray-600"><strong>Parameters:</strong> angle (degrees, 0-360)</p>
+                            <div class="mt-2 bg-gray-900 text-green-400 p-3 rounded">
+<pre>mc.turn_right(90) # Turn 90° right</pre>
+                            </div>
+                        </div>
+
+                        <div class="border-l-4 border-blue-500 pl-6 bg-gray-50 p-4 rounded">
+                            <h4 class="text-lg font-bold text-gray-800 mb-2">MotionCommander.land()</h4>
+                            <p class="text-gray-700 mb-2">Land drone at current position</p>
+                            <p class="text-gray-600"><strong>Returns:</strong> None</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Project Ideas -->
+        <section class="py-20 bg-gradient-to-br from-yellow-50 to-orange-50" id="projects">
+            <div class="container mx-auto px-6 max-w-7xl">
+                <div class="text-center mb-16">
+                    <h2 class="text-6xl font-black mb-6">
+                        <i class="fas fa-lightbulb text-yellow-500 mr-3"></i>
+                        <span class="text-yellow-500">Project</span> Ideas
+                    </h2>
+                    <p class="text-2xl text-gray-600 max-w-4xl mx-auto">
+                        Inspiration and examples for your drone projects
+                    </p>
+                </div>
 
                 <div class="grid md:grid-cols-3 gap-8">
-                    <div class="bg-gray-50 p-8 rounded-3xl text-center">
-                        <i class="fas fa-code text-sky-500 text-5xl mb-4"></i>
-                        <h3 class="text-2xl font-bold mb-3">Arduino IDE</h3>
-                        <p class="text-gray-700">
-                            Easy-to-use IDE with extensive libraries. Perfect for beginners and rapid prototyping.
-                        </p>
+                    <!-- Beginner Projects -->
+                    <div class="bg-white p-8 rounded-3xl shadow-xl">
+                        <div class="bg-green-500 text-white text-center py-2 rounded-t-2xl -mx-8 -mt-8 mb-6">
+                            <h3 class="text-2xl font-bold">BEGINNER</h3>
+                        </div>
+                        <div class="space-y-6">
+                            <div>
+                                <h4 class="text-xl font-bold mb-2 text-gray-800">LED Patterns</h4>
+                                <p class="text-gray-600 text-sm mb-2">Create custom LED light shows synchronized with flight</p>
+                                <span class="text-xs text-green-600 font-semibold">Arduino • 1 hour</span>
+                            </div>
+                            <div>
+                                <h4 class="text-xl font-bold mb-2 text-gray-800">Basic Obstacle Avoidance</h4>
+                                <p class="text-gray-600 text-sm mb-2">Use ToF sensor to detect and avoid obstacles</p>
+                                <span class="text-xs text-green-600 font-semibold">Arduino • 2 hours</span>
+                            </div>
+                            <div>
+                                <h4 class="text-xl font-bold mb-2 text-gray-800">Altitude Hold</h4>
+                                <p class="text-gray-600 text-sm mb-2">Implement barometer-based altitude stabilization</p>
+                                <span class="text-xs text-green-600 font-semibold">Arduino • 3 hours</span>
+                            </div>
+                        </div>
                     </div>
 
-                    <div class="bg-gray-50 p-8 rounded-3xl text-center">
-                        <i class="fab fa-python text-sky-500 text-5xl mb-4"></i>
-                        <h3 class="text-2xl font-bold mb-3">Python SDK</h3>
-                        <p class="text-gray-700">
-                            cflib Python library for autonomous flight programming and advanced missions.
-                        </p>
+                    <!-- Intermediate Projects -->
+                    <div class="bg-white p-8 rounded-3xl shadow-xl">
+                        <div class="bg-orange-500 text-white text-center py-2 rounded-t-2xl -mx-8 -mt-8 mb-6">
+                            <h3 class="text-2xl font-bold">INTERMEDIATE</h3>
+                        </div>
+                        <div class="space-y-6">
+                            <div>
+                                <h4 class="text-xl font-bold mb-2 text-gray-800">Waypoint Navigation</h4>
+                                <p class="text-gray-600 text-sm mb-2">Program autonomous flight to GPS waypoints</p>
+                                <span class="text-xs text-orange-600 font-semibold">Python • 1 day</span>
+                            </div>
+                            <div>
+                                <h4 class="text-xl font-bold mb-2 text-gray-800">Follow Me Mode</h4>
+                                <p class="text-gray-600 text-sm mb-2">Track and follow a moving target automatically</p>
+                                <span class="text-xs text-orange-600 font-semibold">Python • 2 days</span>
+                            </div>
+                            <div>
+                                <h4 class="text-xl font-bold mb-2 text-gray-800">Swarm Control</h4>
+                                <p class="text-gray-600 text-sm mb-2">Coordinate multiple drones in formation flight</p>
+                                <span class="text-xs text-orange-600 font-semibold">Python • 3 days</span>
+                            </div>
+                        </div>
                     </div>
 
-                    <div class="bg-gray-50 p-8 rounded-3xl text-center">
-                        <i class="fas fa-terminal text-sky-500 text-5xl mb-4"></i>
-                        <h3 class="text-2xl font-bold mb-3">ESP-IDF</h3>
-                        <p class="text-gray-700">
-                            Professional development framework for advanced firmware customization.
-                        </p>
+                    <!-- Advanced Projects -->
+                    <div class="bg-white p-8 rounded-3xl shadow-xl">
+                        <div class="bg-red-500 text-white text-center py-2 rounded-t-2xl -mx-8 -mt-8 mb-6">
+                            <h3 class="text-2xl font-bold">ADVANCED</h3>
+                        </div>
+                        <div class="space-y-6">
+                            <div>
+                                <h4 class="text-xl font-bold mb-2 text-gray-800">SLAM Mapping</h4>
+                                <p class="text-gray-600 text-sm mb-2">Build 3D maps using camera and sensors</p>
+                                <span class="text-xs text-red-600 font-semibold">ESP-IDF • 1 week</span>
+                            </div>
+                            <div>
+                                <h4 class="text-xl font-bold mb-2 text-gray-800">Computer Vision Landing</h4>
+                                <p class="text-gray-600 text-sm mb-2">Precision landing on visual markers</p>
+                                <span class="text-xs text-red-600 font-semibold">Python + OpenCV • 1 week</span>
+                            </div>
+                            <div>
+                                <h4 class="text-xl font-bold mb-2 text-gray-800">AI Object Detection</h4>
+                                <p class="text-gray-600 text-sm mb-2">Real-time object recognition and tracking</p>
+                                <span class="text-xs text-red-600 font-semibold">TensorFlow Lite • 2 weeks</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Example Project Showcase -->
+                <div class="mt-16 bg-gradient-to-r from-purple-500 to-pink-600 text-white p-12 rounded-3xl">
+                    <h3 class="text-4xl font-black mb-6 text-center">Featured Project: Autonomous Room Mapper</h3>
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div>
+                            <h4 class="text-2xl font-bold mb-4">Overview</h4>
+                            <p class="text-lg mb-4">
+                                Program your FLYQ to autonomously navigate a room, avoiding obstacles and creating a 2D floor plan map.
+                            </p>
+                            <h4 class="text-2xl font-bold mb-4">What You'll Learn</h4>
+                            <ul class="space-y-2">
+                                <li>• Sensor fusion (ToF + IMU)</li>
+                                <li>• Path planning algorithms</li>
+                                <li>• Real-time mapping</li>
+                                <li>• Data visualization</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="text-2xl font-bold mb-4">Requirements</h4>
+                            <ul class="space-y-2">
+                                <li>• FLYQ Air + ToF sensor</li>
+                                <li>• Python with matplotlib</li>
+                                <li>• 3x3m clear space</li>
+                                <li>• 2-3 hours</li>
+                            </ul>
+                            <div class="mt-6">
+                                <a href="https://github.com/passion3d/flyq-projects" target="_blank" class="bg-white text-purple-600 px-8 py-4 rounded-full font-bold inline-flex items-center hover:shadow-2xl transition">
+                                    <i class="fab fa-github mr-2"></i>
+                                    View on GitHub
+                                </a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- Community & Support -->
-        <section class="py-16 bg-gray-900 text-white">
+        <section class="py-16 bg-gray-900 text-white" id="support">
             <div class="container mx-auto px-6 max-w-4xl text-center">
                 <h2 class="text-5xl font-black mb-8">
                     <span class="text-sky-400">Community</span> & Support
@@ -2597,16 +3573,16 @@ app.get('/docs', (c) => {
                         <p class="text-gray-400 text-sm">Open source code & discussions</p>
                     </a>
 
-                    <a href="https://wa.me/1234567890" target="_blank" class="bg-gray-800 p-6 rounded-2xl hover:bg-gray-700 transition">
+                    <a href="https://wa.me/919137361474" target="_blank" class="bg-gray-800 p-6 rounded-2xl hover:bg-gray-700 transition">
                         <i class="fab fa-whatsapp text-4xl mb-3 text-green-400"></i>
                         <h3 class="font-bold text-lg mb-2">WhatsApp</h3>
-                        <p class="text-gray-400 text-sm">Community chat & support</p>
+                        <p class="text-gray-400 text-sm">+91 9137361474</p>
                     </a>
 
-                    <a href="/contact" class="bg-gray-800 p-6 rounded-2xl hover:bg-gray-700 transition">
+                    <a href="mailto:info@passion3dworld.com" class="bg-gray-800 p-6 rounded-2xl hover:bg-gray-700 transition">
                         <i class="fas fa-envelope text-4xl mb-3 text-sky-400"></i>
-                        <h3 class="font-bold text-lg mb-2">Contact Us</h3>
-                        <p class="text-gray-400 text-sm">Direct support & inquiries</p>
+                        <h3 class="font-bold text-lg mb-2">Email Us</h3>
+                        <p class="text-gray-400 text-sm">info@passion3dworld.com</p>
                     </a>
                 </div>
             </div>
@@ -2624,9 +3600,9 @@ app.get('/docs', (c) => {
                         <i class="fas fa-shopping-cart mr-2"></i>
                         Shop Now
                     </a>
-                    <a href="/curriculum" class="border-2 border-white text-white px-10 py-4 rounded-full font-bold text-lg hover:bg-white hover:text-sky-600 transition inline-flex items-center">
-                        <i class="fas fa-graduation-cap mr-2"></i>
-                        View Curriculum
+                    <a href="/login" class="border-2 border-white text-white px-10 py-4 rounded-full font-bold text-lg hover:bg-white hover:text-sky-600 transition inline-flex items-center">
+                        <i class="fas fa-sign-in-alt mr-2"></i>
+                        Login for Curriculum
                     </a>
                 </div>
             </div>
