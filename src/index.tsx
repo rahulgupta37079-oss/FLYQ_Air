@@ -232,7 +232,7 @@ const renderPage = (title: string, content: string, includeCart: boolean = true)
                     </div>
                 </div>
                 <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
-                    <p>&copy; 2025 FLYQ. All rights reserved. | <span class="text-sky-400">100% Open Source Hardware</span></p>
+                    <p>&copy; 2025 FLYQ. All rights reserved.</p>
                 </div>
             </div>
         </footer>
@@ -1099,31 +1099,65 @@ app.get('/register', (c) => {
                 <h1 class="text-4xl font-black mb-2 text-center">Create Account</h1>
                 <p class="text-gray-600 text-center mb-8">Join the FLYQ community</p>
 
-                <form class="space-y-6">
+                <div id="error-message" class="hidden mb-4 p-4 bg-red-100 text-red-700 rounded-xl"></div>
+                
+                <form id="registerForm" class="space-y-6">
                     <div>
                         <label class="block text-sm font-bold mb-2">Full Name</label>
-                        <input type="text" class="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:border-sky-500 focus:outline-none" placeholder="John Doe" required>
+                        <input type="text" id="name" name="name" class="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:border-sky-500 focus:outline-none" placeholder="John Doe" required>
                     </div>
 
                     <div>
                         <label class="block text-sm font-bold mb-2">Email</label>
-                        <input type="email" class="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:border-sky-500 focus:outline-none" placeholder="your@email.com" required>
+                        <input type="email" id="email" name="email" class="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:border-sky-500 focus:outline-none" placeholder="your@email.com" required>
                     </div>
 
                     <div>
                         <label class="block text-sm font-bold mb-2">Password</label>
-                        <input type="password" class="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:border-sky-500 focus:outline-none" placeholder="••••••••" required>
+                        <input type="password" id="password" name="password" class="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:border-sky-500 focus:outline-none" placeholder="••••••••" required>
                     </div>
 
                     <div>
                         <label class="block text-sm font-bold mb-2">Confirm Password</label>
-                        <input type="password" class="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:border-sky-500 focus:outline-none" placeholder="••••••••" required>
+                        <input type="password" id="confirmPassword" name="confirmPassword" class="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:border-sky-500 focus:outline-none" placeholder="••••••••" required>
                     </div>
 
-                    <button onclick="alert('Registration coming in Phase 2! For now, explore our products.')" type="button" class="w-full btn-primary text-white px-8 py-4 rounded-full font-bold text-lg">
+                    <button type="submit" class="w-full btn-primary text-white px-8 py-4 rounded-full font-bold text-lg">
                         Create Account
                     </button>
                 </form>
+
+                <script>
+                    document.getElementById('registerForm').addEventListener('submit', async (e) => {
+                        e.preventDefault();
+                        
+                        const name = document.getElementById('name').value;
+                        const email = document.getElementById('email').value;
+                        const password = document.getElementById('password').value;
+                        const confirmPassword = document.getElementById('confirmPassword').value;
+                        const errorDiv = document.getElementById('error-message');
+                        
+                        try {
+                            const response = await fetch('/api/auth/register', {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify({ name, email, password, confirmPassword })
+                            });
+                            
+                            const data = await response.json();
+                            
+                            if (data.success) {
+                                window.location.href = data.redirect || '/account';
+                            } else {
+                                errorDiv.textContent = data.message;
+                                errorDiv.classList.remove('hidden');
+                            }
+                        } catch (error) {
+                            errorDiv.textContent = 'Registration failed. Please try again.';
+                            errorDiv.classList.remove('hidden');
+                        }
+                    });
+                </script>
 
                 <p class="text-center mt-8 text-gray-600">
                     Already have an account? <a href="/login" class="text-sky-500 hover:text-sky-600 font-bold">Sign in</a>
@@ -1149,11 +1183,7 @@ app.get('/about', (c) => {
                 <p class="text-gray-600 mb-6">
                     Our mission is to provide high-quality, open-source hardware that empowers learning and innovation in robotics and autonomous systems.
                 </p>
-                <div class="grid md:grid-cols-3 gap-8 mt-12">
-                    <div class="text-center">
-                        <div class="text-4xl font-black text-sky-500 mb-2">100%</div>
-                        <div class="text-gray-600">Open Source</div>
-                    </div>
+                <div class="grid md:grid-cols-2 gap-8 mt-12">
                     <div class="text-center">
                         <div class="text-4xl font-black text-sky-500 mb-2">1000+</div>
                         <div class="text-gray-600">Happy Customers</div>
@@ -2783,69 +2813,6 @@ app.get('/docs', (c) => {
                         </div>
                     </div>
                 </div>
-
-                <!-- Circuit Design & Hardware Files -->
-                <div class="bg-white p-12 rounded-3xl shadow-2xl border-4 border-sky-100">
-                    <h3 class="text-4xl font-black mb-8 text-center">
-                        <i class="fas fa-file-code text-sky-500 mr-3"></i>
-                        <span class="text-sky-500">Open Source</span> Hardware
-                    </h3>
-                    <p class="text-xl text-gray-600 text-center mb-12 max-w-3xl mx-auto">
-                        All hardware designs, schematics, and PCB files are 100% open source under MIT license
-                    </p>
-                    
-                    <div class="grid md:grid-cols-3 gap-8">
-                        <a href="https://github.com/passion3d/flyq-air" target="_blank" class="bg-gradient-to-br from-gray-900 to-gray-800 text-white p-8 rounded-2xl hover:shadow-2xl transition-all transform hover:scale-105">
-                            <i class="fas fa-file-alt text-sky-400 text-5xl mb-4"></i>
-                            <h4 class="text-2xl font-bold mb-3">Schematics</h4>
-                            <p class="text-gray-300 mb-4 text-sm">
-                                Complete circuit schematics in KiCad format with component values and part numbers
-                            </p>
-                            <span class="text-sky-400 font-bold">View Schematics →</span>
-                        </a>
-
-                        <a href="https://github.com/passion3d/flyq-air" target="_blank" class="bg-gradient-to-br from-green-500 to-emerald-600 text-white p-8 rounded-2xl hover:shadow-2xl transition-all transform hover:scale-105">
-                            <i class="fas fa-layer-group text-white text-5xl mb-4"></i>
-                            <h4 class="text-2xl font-bold mb-3">PCB Files</h4>
-                            <p class="text-white/90 mb-4 text-sm">
-                                4-layer PCB design files, Gerber files, and manufacturing specifications
-                            </p>
-                            <span class="text-white font-bold">Download PCB →</span>
-                        </a>
-
-                        <a href="https://github.com/passion3d/flyq-air" target="_blank" class="bg-gradient-to-br from-purple-500 to-pink-600 text-white p-8 rounded-2xl hover:shadow-2xl transition-all transform hover:scale-105">
-                            <i class="fas fa-cube text-white text-5xl mb-4"></i>
-                            <h4 class="text-2xl font-bold mb-3">3D Models</h4>
-                            <p class="text-white/90 mb-4 text-sm">
-                                Frame designs, mounting brackets, and custom parts for 3D printing
-                            </p>
-                            <span class="text-white font-bold">Get 3D Files →</span>
-                        </a>
-                    </div>
-
-                    <div class="mt-12 bg-gray-50 p-8 rounded-2xl">
-                        <h4 class="text-2xl font-bold mb-4 text-center">
-                            <i class="fas fa-graduation-cap text-orange-500 mr-2"></i>
-                            Perfect for Education
-                        </h4>
-                        <div class="grid md:grid-cols-2 gap-6">
-                            <div>
-                                <h5 class="font-bold mb-2 text-sky-600">For Students</h5>
-                                <p class="text-gray-600 text-sm">
-                                    Learn circuit design, PCB layout, embedded systems, control theory, and mechanical engineering through hands-on drone development
-                                </p>
-                            </div>
-                            <div>
-                                <h5 class="font-bold mb-2 text-sky-600">For Teachers</h5>
-                                <p class="text-gray-600 text-sm">
-                                    Use FLYQ in STEM labs, robotics courses, and engineering projects. All design files include detailed annotations for teaching
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
 
         <!-- Programming Tutorials - Comprehensive Guide -->
         <section class="py-20 bg-gradient-to-br from-white to-gray-50" id="programming">
