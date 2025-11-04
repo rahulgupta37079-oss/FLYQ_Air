@@ -2537,6 +2537,316 @@ app.get('/docs', (c) => {
             </div>
         </section>
 
+        <!-- FLYQ Design Philosophy - Inspired by Professional Drone Engineering -->
+        <section class="py-20 bg-gradient-to-br from-white to-blue-50">
+            <div class="container mx-auto px-6 max-w-7xl">
+                <div class="text-center mb-16">
+                    <h2 class="text-6xl font-black mb-6">
+                        <i class="fas fa-lightbulb text-yellow-500 mr-3"></i>
+                        <span class="text-sky-500">Design</span> Philosophy
+                    </h2>
+                    <p class="text-2xl text-gray-600 max-w-4xl mx-auto">
+                        Professional drone engineering made accessible for education and development
+                    </p>
+                </div>
+
+                <!-- Easy Assembly & Affordable -->
+                <div class="mb-20 bg-white p-12 rounded-3xl shadow-2xl border-4 border-sky-100">
+                    <div class="grid md:grid-cols-2 gap-12 items-center">
+                        <div>
+                            <div class="inline-block bg-green-100 text-green-700 px-4 py-2 rounded-full font-bold mb-6">
+                                <i class="fas fa-check-circle mr-2"></i>Beginner Friendly
+                            </div>
+                            <h3 class="text-4xl font-black mb-6 text-gray-800">
+                                Easy Assembly &<br/>
+                                <span class="text-sky-500">Affordable Pricing</span>
+                            </h3>
+                            <p class="text-lg text-gray-600 mb-6 leading-relaxed">
+                                FLYQ drones are designed with education in mind. Unlike expensive commercial drones, 
+                                FLYQ provides professional-grade hardware at student-friendly prices. All components 
+                                are clearly labeled, and assembly takes just 30 minutes with our step-by-step guide.
+                            </p>
+                            <div class="space-y-4">
+                                <div class="flex items-start">
+                                    <i class="fas fa-tools text-sky-500 text-2xl mr-4 mt-1"></i>
+                                    <div>
+                                        <h4 class="font-bold text-lg mb-1">Modular Design</h4>
+                                        <p class="text-gray-600">Snap-together components with clear markings - no soldering required for basic assembly</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start">
+                                    <i class="fas fa-rupee-sign text-green-500 text-2xl mr-4 mt-1"></i>
+                                    <div>
+                                        <h4 class="font-bold text-lg mb-1">Budget-Friendly</h4>
+                                        <p class="text-gray-600">Starting at ₹8,999 - 10x cheaper than commercial alternatives like DJI Tello</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start">
+                                    <i class="fas fa-book-open text-orange-500 text-2xl mr-4 mt-1"></i>
+                                    <div>
+                                        <h4 class="font-bold text-lg mb-1">Complete Documentation</h4>
+                                        <p class="text-gray-600">Video tutorials, illustrated guides, and 24/7 community support</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="bg-gradient-to-br from-sky-500 to-blue-600 p-8 rounded-2xl text-white">
+                                <h4 class="text-2xl font-bold mb-6">What's Included</h4>
+                                <ul class="space-y-3">
+                                    <li class="flex items-center"><i class="fas fa-check mr-3 text-green-300"></i>Pre-assembled flight controller PCB</li>
+                                    <li class="flex items-center"><i class="fas fa-check mr-3 text-green-300"></i>4x Brushless motors (pre-mounted)</li>
+                                    <li class="flex items-center"><i class="fas fa-check mr-3 text-green-300"></i>4x Propellers with spare set</li>
+                                    <li class="flex items-center"><i class="fas fa-check mr-3 text-green-300"></i>LiPo battery with charger</li>
+                                    <li class="flex items-center"><i class="fas fa-check mr-3 text-green-300"></i>USB-C cable for programming</li>
+                                    <li class="flex items-center"><i class="fas fa-check mr-3 text-green-300"></i>Frame kit (pre-cut carbon fiber)</li>
+                                    <li class="flex items-center"><i class="fas fa-check mr-3 text-green-300"></i>Quick start guide & stickers</li>
+                                </ul>
+                                <div class="mt-8 pt-6 border-t border-white/30">
+                                    <p class="text-sm opacity-90">
+                                        <i class="fas fa-clock mr-2"></i>
+                                        <strong>Assembly Time:</strong> 30 minutes for beginners
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- WiFi-Based Smart Control -->
+                <div class="mb-20 bg-gradient-to-br from-purple-50 to-pink-50 p-12 rounded-3xl border-4 border-purple-200">
+                    <div class="grid md:grid-cols-2 gap-12 items-center">
+                        <div class="order-2 md:order-1">
+                            <div class="bg-white p-8 rounded-2xl shadow-lg">
+                                <h4 class="text-2xl font-bold mb-6 text-purple-600">
+                                    <i class="fas fa-mobile-alt mr-2"></i>Control Methods
+                                </h4>
+                                <div class="space-y-4">
+                                    <div class="bg-gradient-to-r from-blue-500 to-sky-500 p-4 rounded-xl text-white">
+                                        <h5 class="font-bold mb-2"><i class="fas fa-wifi mr-2"></i>Web-Based Controller</h5>
+                                        <p class="text-sm opacity-90">Control from any device with a web browser - no app installation required</p>
+                                    </div>
+                                    <div class="bg-gradient-to-r from-green-500 to-emerald-500 p-4 rounded-xl text-white">
+                                        <h5 class="font-bold mb-2"><i class="fab fa-python mr-2"></i>Python Scripts</h5>
+                                        <p class="text-sm opacity-90">Write autonomous flight programs using CrazyFlie Python API</p>
+                                    </div>
+                                    <div class="bg-gradient-to-r from-orange-500 to-red-500 p-4 rounded-xl text-white">
+                                        <h5 class="font-bold mb-2"><i class="fas fa-gamepad mr-2"></i>Joystick/Controller</h5>
+                                        <p class="text-sm opacity-90">Connect any USB gamepad for manual flight control</p>
+                                    </div>
+                                    <div class="bg-gradient-to-r from-purple-500 to-pink-500 p-4 rounded-xl text-white">
+                                        <h5 class="font-bold mb-2"><i class="fas fa-code mr-2"></i>Custom Applications</h5>
+                                        <p class="text-sm opacity-90">Build your own control apps using WebSocket API</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="order-1 md:order-2">
+                            <div class="inline-block bg-purple-100 text-purple-700 px-4 py-2 rounded-full font-bold mb-6">
+                                <i class="fas fa-wifi mr-2"></i>No Radio Controller Required
+                            </div>
+                            <h3 class="text-4xl font-black mb-6 text-gray-800">
+                                WiFi-Based<br/>
+                                <span class="text-purple-600">Smart Control</span>
+                            </h3>
+                            <p class="text-lg text-gray-600 mb-6 leading-relaxed">
+                                FLYQ uses WiFi for control - eliminating the need for expensive radio transmitters. 
+                                Connect your smartphone, tablet, or laptop to the drone's WiFi hotspot and control 
+                                it through a web interface or Python scripts.
+                            </p>
+                            <div class="space-y-4">
+                                <div class="flex items-start">
+                                    <i class="fas fa-bolt text-yellow-500 text-2xl mr-4 mt-1"></i>
+                                    <div>
+                                        <h4 class="font-bold text-lg mb-1">Low Latency</h4>
+                                        <p class="text-gray-600">20-30ms response time - fast enough for manual flight and real-time control</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start">
+                                    <i class="fas fa-signal text-blue-500 text-2xl mr-4 mt-1"></i>
+                                    <div>
+                                        <h4 class="font-bold text-lg mb-1">50m Range</h4>
+                                        <p class="text-gray-600">Reliable 2.4GHz WiFi connection up to 50 meters (line of sight)</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start">
+                                    <i class="fas fa-video text-red-500 text-2xl mr-4 mt-1"></i>
+                                    <div>
+                                        <h4 class="font-bold text-lg mb-1">Live Video Streaming</h4>
+                                        <p class="text-gray-600">FLYQ Vision streams 720p video @ 30fps directly to your device (WiFi Vision model only)</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Expansion & Compatibility -->
+                <div class="mb-20 bg-gradient-to-br from-gray-900 to-gray-800 text-white p-12 rounded-3xl">
+                    <h3 class="text-4xl font-black mb-8 text-center">
+                        <i class="fas fa-puzzle-piece text-sky-400 mr-3"></i>
+                        <span class="text-sky-400">Expansion</span> & Compatibility
+                    </h3>
+                    
+                    <div class="grid md:grid-cols-2 gap-8 mb-12">
+                        <!-- Expansion Pins -->
+                        <div class="bg-white/10 backdrop-blur p-8 rounded-2xl border-2 border-sky-400/30">
+                            <h4 class="text-2xl font-bold mb-6 text-sky-300">
+                                <i class="fas fa-plug mr-2"></i>24-Pin Expansion Header
+                            </h4>
+                            <p class="text-gray-300 mb-6">
+                                FLYQ features a professional expansion connector supporting multiple communication protocols:
+                            </p>
+                            <div class="space-y-3">
+                                <div class="flex items-center">
+                                    <span class="bg-blue-500 text-white px-3 py-1 rounded-full text-sm font-bold mr-3">I²C</span>
+                                    <span class="text-gray-200">2x I²C buses for sensors (barometer, ToF, compass)</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <span class="bg-green-500 text-white px-3 py-1 rounded-full text-sm font-bold mr-3">SPI</span>
+                                    <span class="text-gray-200">High-speed SPI for displays, SD cards, optical flow</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <span class="bg-purple-500 text-white px-3 py-1 rounded-full text-sm font-bold mr-3">UART</span>
+                                    <span class="text-gray-200">2x UART for GPS, telemetry, external MCU</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <span class="bg-orange-500 text-white px-3 py-1 rounded-full text-sm font-bold mr-3">GPIO</span>
+                                    <span class="text-gray-200">10x GPIO pins with PWM, ADC, DAC support</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <span class="bg-red-500 text-white px-3 py-1 rounded-full text-sm font-bold mr-3">POWER</span>
+                                    <span class="text-gray-200">5V & 3.3V regulated power (500mA max)</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Compatible Sensors -->
+                        <div class="bg-white/10 backdrop-blur p-8 rounded-2xl border-2 border-green-400/30">
+                            <h4 class="text-2xl font-bold mb-6 text-green-300">
+                                <i class="fas fa-microchip mr-2"></i>Compatible Sensors & Modules
+                            </h4>
+                            <p class="text-gray-300 mb-6">
+                                Expand your FLYQ with professional-grade sensors:
+                            </p>
+                            <div class="space-y-4">
+                                <div>
+                                    <h5 class="font-bold text-sky-300 mb-2">Altitude & Position</h5>
+                                    <ul class="text-sm text-gray-200 space-y-1 ml-4">
+                                        <li>• VL53L1X ToF sensor (accurate height hold)</li>
+                                        <li>• MS5611 barometer (altitude measurement)</li>
+                                        <li>• PMW3901 optical flow (position lock indoors)</li>
+                                        <li>• GPS module (outdoor navigation)</li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h5 class="font-bold text-sky-300 mb-2">Vision & Display</h5>
+                                    <ul class="text-sm text-gray-200 space-y-1 ml-4">
+                                        <li>• ESP32-CAM (additional camera angles)</li>
+                                        <li>• OLED displays (status information)</li>
+                                        <li>• WS2812 LED strips (visual effects)</li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h5 class="font-bold text-sky-300 mb-2">Environmental</h5>
+                                    <ul class="text-sm text-gray-200 space-y-1 ml-4">
+                                        <li>• BME280 (temperature, humidity, pressure)</li>
+                                        <li>• Air quality sensors (gas detection)</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- CrazyFlie Compatibility -->
+                    <div class="bg-gradient-to-br from-yellow-500 to-orange-600 p-8 rounded-2xl">
+                        <div class="flex items-center mb-6">
+                            <i class="fab fa-python text-6xl mr-6"></i>
+                            <div>
+                                <h4 class="text-3xl font-black">CrazyFlie Python API Compatible</h4>
+                                <p class="text-lg opacity-90">Use existing CrazyFlie Python scripts with FLYQ</p>
+                            </div>
+                        </div>
+                        <div class="grid md:grid-cols-3 gap-6">
+                            <div class="bg-white/20 backdrop-blur p-4 rounded-xl">
+                                <h5 class="font-bold mb-2"><i class="fas fa-code mr-2"></i>Same API</h5>
+                                <p class="text-sm opacity-90">Compatible with CrazyFlie Python library - no code changes needed</p>
+                            </div>
+                            <div class="bg-white/20 backdrop-blur p-4 rounded-xl">
+                                <h5 class="font-bold mb-2"><i class="fas fa-rocket mr-2"></i>Autonomous Flight</h5>
+                                <p class="text-sm opacity-90">Run waypoint navigation, formations, and advanced maneuvers</p>
+                            </div>
+                            <div class="bg-white/20 backdrop-blur p-4 rounded-xl">
+                                <h5 class="font-bold mb-2"><i class="fas fa-users mr-2"></i>Large Community</h5>
+                                <p class="text-sm opacity-90">Access thousands of example projects and tutorials</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Circuit Design & Hardware Files -->
+                <div class="bg-white p-12 rounded-3xl shadow-2xl border-4 border-sky-100">
+                    <h3 class="text-4xl font-black mb-8 text-center">
+                        <i class="fas fa-file-code text-sky-500 mr-3"></i>
+                        <span class="text-sky-500">Open Source</span> Hardware
+                    </h3>
+                    <p class="text-xl text-gray-600 text-center mb-12 max-w-3xl mx-auto">
+                        All hardware designs, schematics, and PCB files are 100% open source under MIT license
+                    </p>
+                    
+                    <div class="grid md:grid-cols-3 gap-8">
+                        <a href="https://github.com/passion3d/flyq-air" target="_blank" class="bg-gradient-to-br from-gray-900 to-gray-800 text-white p-8 rounded-2xl hover:shadow-2xl transition-all transform hover:scale-105">
+                            <i class="fas fa-file-alt text-sky-400 text-5xl mb-4"></i>
+                            <h4 class="text-2xl font-bold mb-3">Schematics</h4>
+                            <p class="text-gray-300 mb-4 text-sm">
+                                Complete circuit schematics in KiCad format with component values and part numbers
+                            </p>
+                            <span class="text-sky-400 font-bold">View Schematics →</span>
+                        </a>
+
+                        <a href="https://github.com/passion3d/flyq-air" target="_blank" class="bg-gradient-to-br from-green-500 to-emerald-600 text-white p-8 rounded-2xl hover:shadow-2xl transition-all transform hover:scale-105">
+                            <i class="fas fa-layer-group text-white text-5xl mb-4"></i>
+                            <h4 class="text-2xl font-bold mb-3">PCB Files</h4>
+                            <p class="text-white/90 mb-4 text-sm">
+                                4-layer PCB design files, Gerber files, and manufacturing specifications
+                            </p>
+                            <span class="text-white font-bold">Download PCB →</span>
+                        </a>
+
+                        <a href="https://github.com/passion3d/flyq-air" target="_blank" class="bg-gradient-to-br from-purple-500 to-pink-600 text-white p-8 rounded-2xl hover:shadow-2xl transition-all transform hover:scale-105">
+                            <i class="fas fa-cube text-white text-5xl mb-4"></i>
+                            <h4 class="text-2xl font-bold mb-3">3D Models</h4>
+                            <p class="text-white/90 mb-4 text-sm">
+                                Frame designs, mounting brackets, and custom parts for 3D printing
+                            </p>
+                            <span class="text-white font-bold">Get 3D Files →</span>
+                        </a>
+                    </div>
+
+                    <div class="mt-12 bg-gray-50 p-8 rounded-2xl">
+                        <h4 class="text-2xl font-bold mb-4 text-center">
+                            <i class="fas fa-graduation-cap text-orange-500 mr-2"></i>
+                            Perfect for Education
+                        </h4>
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div>
+                                <h5 class="font-bold mb-2 text-sky-600">For Students</h5>
+                                <p class="text-gray-600 text-sm">
+                                    Learn circuit design, PCB layout, embedded systems, control theory, and mechanical engineering through hands-on drone development
+                                </p>
+                            </div>
+                            <div>
+                                <h5 class="font-bold mb-2 text-sky-600">For Teachers</h5>
+                                <p class="text-gray-600 text-sm">
+                                    Use FLYQ in STEM labs, robotics courses, and engineering projects. All design files include detailed annotations for teaching
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- Programming Tutorials - Comprehensive Guide -->
         <section class="py-20 bg-gradient-to-br from-white to-gray-50" id="programming">
             <div class="container mx-auto px-6 max-w-7xl">
@@ -4001,5 +4311,174 @@ app.get('/account', async (c) => {
 
   return c.html(renderPage('My Account', content));
 });
+
+// Admin Dashboard - Database Viewer
+app.get('/admin/dashboard', async (c) => {
+  try {
+    const user = await getCurrentUser(c);
+    
+    if (!user) {
+      return c.html('<h1>Access Denied</h1><p>Please login first</p>', 403);
+    }
+
+    if (!isDatabaseAvailable(c)) {
+      return c.html('<h1>Database Not Available</h1>', 503);
+    }
+
+    // Check if user is admin
+    const adminCheck = await c.env.DB.prepare('SELECT is_admin FROM users WHERE id = ?').bind(user.id).first();
+    if (!adminCheck || adminCheck.is_admin !== 1) {
+      return c.html('<h1>Access Denied</h1><p>Admin access only</p>', 403);
+    }
+
+    // Get all users
+    const usersResult = await c.env.DB.prepare('SELECT id, email, name, is_admin, created_at FROM users ORDER BY created_at DESC').all();
+    
+    // Get all orders with user info
+    const ordersResult = await c.env.DB.prepare(`
+      SELECT o.*, u.email, u.name 
+      FROM orders o 
+      JOIN users u ON o.user_id = u.id 
+      ORDER BY o.created_at DESC 
+      LIMIT 50
+    `).all();
+    
+    // Get all sessions
+    const sessionsResult = await c.env.DB.prepare(`
+      SELECT s.*, u.email 
+      FROM sessions s 
+      JOIN users u ON s.user_id = u.id 
+      WHERE s.expires_at > datetime('now') 
+      ORDER BY s.created_at DESC
+    `).all();
+
+    const content = `
+      <div class="pt-32 pb-20 bg-gray-50">
+        <div class="container mx-auto px-6 max-w-7xl">
+          <h1 class="text-5xl font-black mb-12">Admin Dashboard</h1>
+          
+          <!-- Statistics Cards -->
+          <div class="grid md:grid-cols-4 gap-6 mb-12">
+            <div class="bg-white p-6 rounded-2xl shadow-lg">
+              <div class="text-4xl font-black text-sky-500 mb-2">${usersResult.results?.length || 0}</div>
+              <div class="text-gray-600">Total Users</div>
+            </div>
+            <div class="bg-white p-6 rounded-2xl shadow-lg">
+              <div class="text-4xl font-black text-green-500 mb-2">${ordersResult.results?.length || 0}</div>
+              <div class="text-gray-600">Total Orders</div>
+            </div>
+            <div class="bg-white p-6 rounded-2xl shadow-lg">
+              <div class="text-4xl font-black text-blue-500 mb-2">${sessionsResult.results?.length || 0}</div>
+              <div class="text-gray-600">Active Sessions</div>
+            </div>
+            <div class="bg-white p-6 rounded-2xl shadow-lg">
+              <div class="text-4xl font-black text-purple-500 mb-2">₹${ordersResult.results?.reduce((sum: number, o: any) => sum + (o.total || 0), 0) || 0}</div>
+              <div class="text-gray-600">Total Revenue</div>
+            </div>
+          </div>
+
+          <!-- Users Table -->
+          <div class="bg-white rounded-2xl shadow-lg p-8 mb-8">
+            <h2 class="text-3xl font-bold mb-6">Registered Users</h2>
+            <div class="overflow-x-auto">
+              <table class="w-full">
+                <thead>
+                  <tr class="border-b">
+                    <th class="text-left py-3 px-4">ID</th>
+                    <th class="text-left py-3 px-4">Name</th>
+                    <th class="text-left py-3 px-4">Email</th>
+                    <th class="text-left py-3 px-4">Registered</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  ${usersResult.results?.map((u: any) => `
+                    <tr class="border-b hover:bg-gray-50">
+                      <td class="py-3 px-4">${u.id}</td>
+                      <td class="py-3 px-4 font-semibold">${u.name}</td>
+                      <td class="py-3 px-4">${u.email}</td>
+                      <td class="py-3 px-4">${new Date(u.created_at).toLocaleString()}</td>
+                    </tr>
+                  `).join('') || '<tr><td colspan="4" class="py-8 text-center text-gray-500">No users yet</td></tr>'}
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Orders Table -->
+          <div class="bg-white rounded-2xl shadow-lg p-8 mb-8">
+            <h2 class="text-3xl font-bold mb-6">Recent Orders</h2>
+            <div class="overflow-x-auto">
+              <table class="w-full">
+                <thead>
+                  <tr class="border-b">
+                    <th class="text-left py-3 px-4">Order #</th>
+                    <th class="text-left py-3 px-4">Customer</th>
+                    <th class="text-left py-3 px-4">Email</th>
+                    <th class="text-left py-3 px-4">Total</th>
+                    <th class="text-left py-3 px-4">Status</th>
+                    <th class="text-left py-3 px-4">Date</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  ${ordersResult.results?.map((o: any) => `
+                    <tr class="border-b hover:bg-gray-50">
+                      <td class="py-3 px-4 font-mono text-sm">#${o.id}</td>
+                      <td class="py-3 px-4 font-semibold">${o.name}</td>
+                      <td class="py-3 px-4">${o.email}</td>
+                      <td class="py-3 px-4 font-bold text-green-600">₹${o.total}</td>
+                      <td class="py-3 px-4">
+                        <span class="px-3 py-1 rounded-full text-sm ${
+                          o.status === 'completed' ? 'bg-green-100 text-green-800' :
+                          o.status === 'pending' ? 'bg-yellow-100 text-yellow-800' :
+                          'bg-gray-100 text-gray-800'
+                        }">${o.status}</span>
+                      </td>
+                      <td class="py-3 px-4">${new Date(o.created_at).toLocaleString()}</td>
+                    </tr>
+                  `).join('') || '<tr><td colspan="6" class="py-8 text-center text-gray-500">No orders yet</td></tr>'}
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Active Sessions -->
+          <div class="bg-white rounded-2xl shadow-lg p-8">
+            <h2 class="text-3xl font-bold mb-6">Active Sessions</h2>
+            <div class="overflow-x-auto">
+              <table class="w-full">
+                <thead>
+                  <tr class="border-b">
+                    <th class="text-left py-3 px-4">User Email</th>
+                    <th class="text-left py-3 px-4">Session ID</th>
+                    <th class="text-left py-3 px-4">Expires</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  ${sessionsResult.results?.map((s: any) => `
+                    <tr class="border-b hover:bg-gray-50">
+                      <td class="py-3 px-4">${s.email}</td>
+                      <td class="py-3 px-4 font-mono text-sm">${s.session_id.substring(0, 20)}...</td>
+                      <td class="py-3 px-4">${new Date(s.expires_at).toLocaleString()}</td>
+                    </tr>
+                  `).join('') || '<tr><td colspan="3" class="py-8 text-center text-gray-500">No active sessions</td></tr>'}
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="mt-8 text-center">
+            <a href="/" class="btn-primary text-white px-8 py-3 rounded-full inline-block">Back to Home</a>
+          </div>
+        </div>
+      </div>
+    `;
+
+    return c.html(renderPage('Admin Dashboard', content));
+  } catch (error) {
+    console.error('Admin dashboard error:', error);
+    return c.html('<h1>Error loading dashboard</h1>', 500);
+  }
+});
+
 
 export default app
