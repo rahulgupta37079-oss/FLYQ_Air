@@ -224,41 +224,106 @@ const renderPage = (title: string, content: string, includeCart: boolean = true)
         ${content}
 
         <!-- Footer -->
-        <footer class="bg-gray-900 text-white py-12 mt-20">
+        <footer class="bg-gray-900 text-white py-16 mt-20">
             <div class="container mx-auto px-6">
-                <div class="grid md:grid-cols-4 gap-8">
-                    <div>
+                <div class="grid md:grid-cols-5 gap-8 mb-12">
+                    <!-- Brand Section -->
+                    <div class="md:col-span-2">
                         <div class="flex items-center space-x-3 mb-4">
                             <i class="fas fa-drone text-sky-500 text-3xl"></i>
                             <span class="text-2xl font-black gradient-text">FLYQ</span>
                         </div>
-                        <p class="text-gray-400">Premium programmable drones for makers and developers</p>
+                        <p class="text-gray-400 mb-6">Premium programmable drones for makers, developers, and educators. Open-source hardware and software for the next generation of drone innovation.</p>
+                        
+                        <!-- Social Links -->
+                        <div class="flex space-x-4">
+                            <a href="https://github.com/passion3d/flyq-air" target="_blank" class="w-10 h-10 bg-gray-800 hover:bg-sky-500 rounded-full flex items-center justify-center transition">
+                                <i class="fab fa-github"></i>
+                            </a>
+                            <a href="https://wa.me/919137361474" target="_blank" class="w-10 h-10 bg-gray-800 hover:bg-green-500 rounded-full flex items-center justify-center transition">
+                                <i class="fab fa-whatsapp"></i>
+                            </a>
+                            <a href="mailto:info@passion3dworld.com" class="w-10 h-10 bg-gray-800 hover:bg-sky-500 rounded-full flex items-center justify-center transition">
+                                <i class="fas fa-envelope"></i>
+                            </a>
+                            <a href="https://passion3dworld.com" target="_blank" class="w-10 h-10 bg-gray-800 hover:bg-sky-500 rounded-full flex items-center justify-center transition">
+                                <i class="fas fa-globe"></i>
+                            </a>
+                        </div>
                     </div>
+                    
+                    <!-- Products -->
                     <div>
-                        <h4 class="font-bold mb-4 text-sky-400">Products</h4>
+                        <h4 class="font-bold mb-4 text-sky-400 text-lg">Products</h4>
                         <ul class="space-y-2 text-gray-400">
-                            <li><a href="/products/flyq-air" class="hover:text-white">FLYQ Air</a></li>
-                            <li><a href="/products/flyq-vision" class="hover:text-white">FLYQ Vision</a></li>
+                            <li><a href="/products/flyq-air" class="hover:text-white transition">FLYQ Air</a></li>
+                            <li><a href="/products/flyq-vision" class="hover:text-white transition">FLYQ Vision</a></li>
+                            <li><a href="/products" class="hover:text-white transition">All Products</a></li>
+                            <li><a href="/cart" class="hover:text-white transition">Shopping Cart</a></li>
                         </ul>
                     </div>
+                    
+                    <!-- Resources -->
                     <div>
-                        <h4 class="font-bold mb-4 text-sky-400">Company</h4>
+                        <h4 class="font-bold mb-4 text-sky-400 text-lg">Resources</h4>
                         <ul class="space-y-2 text-gray-400">
-                            <li><a href="/about" class="hover:text-white">About Us</a></li>
-                            <li><a href="/contact" class="hover:text-white">Contact</a></li>
-                            <li><a href="https://github.com/passion3d/flyq-air" class="hover:text-white">GitHub</a></li>
+                            <li><a href="/manual" class="hover:text-white transition">User Manual</a></li>
+                            <li><a href="/curriculum" class="hover:text-white transition">Curriculum</a></li>
+                            <li><a href="/docs" class="hover:text-white transition">Documentation</a></li>
+                            <li><a href="https://github.com/passion3d/flyq-air" target="_blank" class="hover:text-white transition">GitHub</a></li>
+                            <li><a href="/blog" class="hover:text-white transition">Blog</a></li>
                         </ul>
                     </div>
+                    
+                    <!-- Company & Support -->
                     <div>
-                        <h4 class="font-bold mb-4 text-sky-400">Support</h4>
+                        <h4 class="font-bold mb-4 text-sky-400 text-lg">Company</h4>
                         <ul class="space-y-2 text-gray-400">
-                            <li><a href="/docs" class="hover:text-white">Documentation</a></li>
-                            <li><a href="https://passion3dworld.com" class="hover:text-white">Store</a></li>
+                            <li><a href="/about" class="hover:text-white transition">About Us</a></li>
+                            <li><a href="/contact" class="hover:text-white transition">Contact</a></li>
+                            <li><a href="/account" class="hover:text-white transition">My Account</a></li>
+                            <li><a href="https://passion3dworld.com" target="_blank" class="hover:text-white transition">Official Store</a></li>
+                        </ul>
+                        
+                        <h4 class="font-bold mb-4 mt-6 text-sky-400 text-lg">Legal</h4>
+                        <ul class="space-y-2 text-gray-400">
+                            <li><a href="/privacy" class="hover:text-white transition">Privacy Policy</a></li>
+                            <li><a href="/terms" class="hover:text-white transition">Terms of Service</a></li>
                         </ul>
                     </div>
                 </div>
-                <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
-                    <p>&copy; 2025 FLYQ. All rights reserved.</p>
+                
+                <!-- Contact Info Bar -->
+                <div class="border-t border-b border-gray-800 py-6 mb-8">
+                    <div class="grid md:grid-cols-3 gap-6 text-center md:text-left">
+                        <div class="flex items-center justify-center md:justify-start">
+                            <i class="fas fa-envelope text-sky-500 mr-3"></i>
+                            <div>
+                                <div class="text-xs text-gray-500 uppercase">Email Us</div>
+                                <a href="mailto:info@passion3dworld.com" class="text-gray-300 hover:text-sky-400 transition">info@passion3dworld.com</a>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-center md:justify-start">
+                            <i class="fas fa-phone text-sky-500 mr-3"></i>
+                            <div>
+                                <div class="text-xs text-gray-500 uppercase">Call Us</div>
+                                <a href="tel:+919137361474" class="text-gray-300 hover:text-sky-400 transition">+91 9137361474</a>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-center md:justify-start">
+                            <i class="fas fa-map-marker-alt text-sky-500 mr-3"></i>
+                            <div>
+                                <div class="text-xs text-gray-500 uppercase">Location</div>
+                                <div class="text-gray-300">Mumbai, India</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Copyright -->
+                <div class="text-center text-gray-400 text-sm">
+                    <p class="mb-2">&copy; 2025 FLYQ by Passion3D World. All rights reserved.</p>
+                    <p class="text-xs text-gray-500">Open-source hardware and software for drone education and innovation.</p>
                 </div>
             </div>
         </footer>
@@ -3024,21 +3089,73 @@ app.get('/contact', (c) => {
             <div class="grid md:grid-cols-2 gap-12">
                 <div class="bg-white rounded-3xl p-8 shadow-lg">
                     <h3 class="text-2xl font-bold mb-6">Send us a message</h3>
-                    <form class="space-y-6">
+                    
+                    <div id="contact-error" class="hidden mb-4 p-4 bg-red-100 text-red-700 rounded-xl"></div>
+                    <div id="contact-success" class="hidden mb-4 p-4 bg-green-100 text-green-700 rounded-xl"></div>
+                    
+                    <form id="contactForm" class="space-y-6">
                         <div>
-                            <label class="block text-sm font-bold mb-2">Name</label>
-                            <input type="text" class="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:border-sky-500 focus:outline-none">
+                            <label class="block text-sm font-bold mb-2">Name *</label>
+                            <input type="text" id="contact-name" name="name" class="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:border-sky-500 focus:outline-none" required>
                         </div>
                         <div>
-                            <label class="block text-sm font-bold mb-2">Email</label>
-                            <input type="email" class="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:border-sky-500 focus:outline-none">
+                            <label class="block text-sm font-bold mb-2">Email *</label>
+                            <input type="email" id="contact-email" name="email" class="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:border-sky-500 focus:outline-none" required>
                         </div>
                         <div>
-                            <label class="block text-sm font-bold mb-2">Message</label>
-                            <textarea rows="4" class="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:border-sky-500 focus:outline-none"></textarea>
+                            <label class="block text-sm font-bold mb-2">Message *</label>
+                            <textarea rows="4" id="contact-message" name="message" class="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:border-sky-500 focus:outline-none" required></textarea>
                         </div>
-                        <button type="submit" class="w-full btn-primary text-white px-8 py-4 rounded-full font-bold">Send Message</button>
+                        <button type="submit" class="w-full btn-primary text-white px-8 py-4 rounded-full font-bold">
+                            Send Message
+                        </button>
                     </form>
+
+                    <script>
+                        document.getElementById('contactForm').addEventListener('submit', async (e) => {
+                            e.preventDefault();
+                            
+                            const name = document.getElementById('contact-name').value;
+                            const email = document.getElementById('contact-email').value;
+                            const message = document.getElementById('contact-message').value;
+                            const errorDiv = document.getElementById('contact-error');
+                            const successDiv = document.getElementById('contact-success');
+                            const submitBtn = e.target.querySelector('button[type="submit"]');
+                            
+                            // Hide previous messages
+                            errorDiv.classList.add('hidden');
+                            successDiv.classList.add('hidden');
+                            
+                            // Disable button
+                            submitBtn.disabled = true;
+                            submitBtn.textContent = 'Sending...';
+                            
+                            try {
+                                const response = await fetch('/api/contact/submit', {
+                                    method: 'POST',
+                                    headers: { 'Content-Type': 'application/json' },
+                                    body: JSON.stringify({ name, email, message })
+                                });
+                                
+                                const data = await response.json();
+                                
+                                if (data.success) {
+                                    successDiv.textContent = data.message || 'Message sent successfully! We will get back to you soon.';
+                                    successDiv.classList.remove('hidden');
+                                    e.target.reset();
+                                } else {
+                                    errorDiv.textContent = data.message || 'Failed to send message. Please try again.';
+                                    errorDiv.classList.remove('hidden');
+                                }
+                            } catch (error) {
+                                errorDiv.textContent = 'Failed to send message. Please try again.';
+                                errorDiv.classList.remove('hidden');
+                            } finally {
+                                submitBtn.disabled = false;
+                                submitBtn.textContent = 'Send Message';
+                            }
+                        });
+                    </script>
                 </div>
 
                 <div>
@@ -3049,21 +3166,28 @@ app.get('/contact', (c) => {
                                 <i class="fas fa-envelope text-sky-500 text-xl mr-4 mt-1"></i>
                                 <div>
                                     <div class="font-bold">Email</div>
-                                    <div class="text-gray-600">support@flyq.in</div>
+                                    <a href="mailto:info@passion3dworld.com" class="text-sky-600 hover:text-sky-700">info@passion3dworld.com</a>
                                 </div>
                             </div>
                             <div class="flex items-start">
                                 <i class="fas fa-phone text-sky-500 text-xl mr-4 mt-1"></i>
                                 <div>
                                     <div class="font-bold">Phone</div>
-                                    <div class="text-gray-600">+91 123 456 7890</div>
+                                    <a href="tel:+919137361474" class="text-sky-600 hover:text-sky-700">+91 9137361474</a>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <i class="fab fa-whatsapp text-sky-500 text-xl mr-4 mt-1"></i>
+                                <div>
+                                    <div class="font-bold">WhatsApp</div>
+                                    <a href="https://wa.me/919137361474" target="_blank" class="text-sky-600 hover:text-sky-700">+91 9137361474</a>
                                 </div>
                             </div>
                             <div class="flex items-start">
                                 <i class="fas fa-map-marker-alt text-sky-500 text-xl mr-4 mt-1"></i>
                                 <div>
                                     <div class="font-bold">Address</div>
-                                    <div class="text-gray-600">India</div>
+                                    <div class="text-gray-600">Mumbai, India</div>
                                 </div>
                             </div>
                         </div>
@@ -3072,7 +3196,7 @@ app.get('/contact', (c) => {
                     <div class="bg-gradient-to-br from-sky-500 to-blue-600 rounded-3xl p-8 text-white">
                         <h3 class="text-2xl font-bold mb-4">Need Help?</h3>
                         <p class="mb-6">Check out our documentation and community forums</p>
-                        <a href="https://github.com/passion3d/flyq-air" class="inline-block bg-white text-sky-600 px-6 py-3 rounded-full font-bold hover:shadow-lg transition">
+                        <a href="https://github.com/passion3d/flyq-air" target="_blank" class="inline-block bg-white text-sky-600 px-6 py-3 rounded-full font-bold hover:shadow-lg transition">
                             <i class="fab fa-github mr-2"></i>
                             Visit GitHub
                         </a>
@@ -5977,6 +6101,118 @@ app.get('/api/curriculum/access/:productId', async (c) => {
   }
 });
 
+// ==================== CONTACT FORM API ====================
+
+// Submit contact form
+app.post('/api/contact/submit', async (c) => {
+  try {
+    const body = await c.req.json();
+    const { name, email, message } = body;
+
+    // Validation
+    if (!name || !email || !message) {
+      return c.json({ success: false, message: 'All fields are required' }, 400);
+    }
+
+    if (!isValidEmail(email)) {
+      return c.json({ success: false, message: 'Invalid email address' }, 400);
+    }
+
+    if (name.length < 2 || name.length > 100) {
+      return c.json({ success: false, message: 'Name must be 2-100 characters' }, 400);
+    }
+
+    if (message.length < 10 || message.length > 2000) {
+      return c.json({ success: false, message: 'Message must be 10-2000 characters' }, 400);
+    }
+
+    if (!isDatabaseAvailable(c)) {
+      return c.json({ success: false, message: 'Service temporarily unavailable' }, 503);
+    }
+
+    // @ts-ignore - DB binding
+    const db = c.env?.DB;
+    
+    await db.prepare(`
+      INSERT INTO contact_submissions (name, email, message)
+      VALUES (?, ?, ?)
+    `).bind(sanitizeInput(name), email.toLowerCase(), sanitizeInput(message)).run();
+
+    return c.json({
+      success: true,
+      message: 'Thank you for your message! We will get back to you soon.'
+    });
+
+  } catch (error) {
+    console.error('Contact submission error:', error);
+    return c.json({ success: false, message: 'Failed to submit. Please try again.' }, 500);
+  }
+});
+
+// Get all contact submissions (admin only)
+app.get('/api/contact/submissions', async (c) => {
+  try {
+    const user = await getCurrentUser(c);
+    if (!user) {
+      return c.json({ success: false, message: 'Unauthorized' }, 401);
+    }
+
+    // Check if user is admin
+    // @ts-ignore - DB binding
+    const db = c.env?.DB;
+    const adminCheck: any = await db.prepare('SELECT is_admin FROM users WHERE id = ?').bind(user.id).first();
+    
+    if (!adminCheck || !adminCheck.is_admin) {
+      return c.json({ success: false, message: 'Access denied' }, 403);
+    }
+
+    const submissions = await db.prepare(`
+      SELECT id, name, email, message, status, created_at
+      FROM contact_submissions
+      ORDER BY created_at DESC
+    `).all();
+
+    return c.json({ success: true, submissions: submissions.results || [] });
+
+  } catch (error) {
+    console.error('Get submissions error:', error);
+    return c.json({ success: false, message: 'Failed to load submissions' }, 500);
+  }
+});
+
+// Update contact submission status (admin only)
+app.post('/api/contact/update-status', async (c) => {
+  try {
+    const user = await getCurrentUser(c);
+    if (!user) {
+      return c.json({ success: false, message: 'Unauthorized' }, 401);
+    }
+
+    // Check if user is admin
+    // @ts-ignore - DB binding
+    const db = c.env?.DB;
+    const adminCheck: any = await db.prepare('SELECT is_admin FROM users WHERE id = ?').bind(user.id).first();
+    
+    if (!adminCheck || !adminCheck.is_admin) {
+      return c.json({ success: false, message: 'Access denied' }, 403);
+    }
+
+    const { id, status } = await c.req.json();
+    
+    if (!['new', 'read', 'replied', 'archived'].includes(status)) {
+      return c.json({ success: false, message: 'Invalid status' }, 400);
+    }
+
+    await db.prepare('UPDATE contact_submissions SET status = ? WHERE id = ?').bind(status, id).run();
+
+    return c.json({ success: true, message: 'Status updated' });
+
+  } catch (error) {
+    console.error('Update status error:', error);
+    return c.json({ success: false, message: 'Failed to update status' }, 500);
+  }
+});
+
 // ==================== PROTECTED PAGES ====================
 
 // Account Dashboard
@@ -6133,13 +6369,22 @@ app.get('/admin/dashboard', async (c) => {
       ORDER BY s.created_at DESC
     `).all();
 
+    // Get contact submissions
+    const contactsResult = await c.env.DB.prepare(`
+      SELECT * FROM contact_submissions 
+      ORDER BY created_at DESC 
+      LIMIT 50
+    `).all();
+    
+    const newContactsCount = contactsResult.results?.filter((c: any) => c.status === 'new').length || 0;
+
     const content = `
       <div class="pt-32 pb-20 bg-gray-50">
         <div class="container mx-auto px-6 max-w-7xl">
           <h1 class="text-5xl font-black mb-12">Admin Dashboard</h1>
           
           <!-- Statistics Cards -->
-          <div class="grid md:grid-cols-4 gap-6 mb-12">
+          <div class="grid md:grid-cols-5 gap-6 mb-12">
             <div class="bg-white p-6 rounded-2xl shadow-lg">
               <div class="text-4xl font-black text-sky-500 mb-2">${usersResult.results?.length || 0}</div>
               <div class="text-gray-600">Total Users</div>
@@ -6151,6 +6396,11 @@ app.get('/admin/dashboard', async (c) => {
             <div class="bg-white p-6 rounded-2xl shadow-lg">
               <div class="text-4xl font-black text-blue-500 mb-2">${sessionsResult.results?.length || 0}</div>
               <div class="text-gray-600">Active Sessions</div>
+            </div>
+            <div class="bg-white p-6 rounded-2xl shadow-lg">
+              <div class="text-4xl font-black text-orange-500 mb-2">${contactsResult.results?.length || 0}</div>
+              <div class="text-gray-600">Contact Messages</div>
+              ${newContactsCount > 0 ? `<div class="text-xs text-red-600 font-bold mt-1">${newContactsCount} new</div>` : ''}
             </div>
             <div class="bg-white p-6 rounded-2xl shadow-lg">
               <div class="text-4xl font-black text-purple-500 mb-2">₹${ordersResult.results?.reduce((sum: number, o: any) => sum + (o.total || 0), 0) || 0}</div>
@@ -6222,6 +6472,61 @@ app.get('/admin/dashboard', async (c) => {
             </div>
           </div>
 
+          <!-- Contact Form Submissions -->
+          <div class="bg-white rounded-2xl shadow-lg p-8 mb-8">
+            <h2 class="text-3xl font-bold mb-6">Contact Form Submissions</h2>
+            <div class="overflow-x-auto">
+              <table class="w-full">
+                <thead>
+                  <tr class="border-b">
+                    <th class="text-left py-3 px-4">ID</th>
+                    <th class="text-left py-3 px-4">Name</th>
+                    <th class="text-left py-3 px-4">Email</th>
+                    <th class="text-left py-3 px-4">Message</th>
+                    <th class="text-left py-3 px-4">Status</th>
+                    <th class="text-left py-3 px-4">Date</th>
+                    <th class="text-left py-3 px-4">Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  ${contactsResult.results?.map((contact: any) => `
+                    <tr class="border-b hover:bg-gray-50" id="contact-${contact.id}">
+                      <td class="py-3 px-4">#${contact.id}</td>
+                      <td class="py-3 px-4 font-semibold">${contact.name}</td>
+                      <td class="py-3 px-4">
+                        <a href="mailto:${contact.email}" class="text-sky-500 hover:underline">${contact.email}</a>
+                      </td>
+                      <td class="py-3 px-4 max-w-md">
+                        <div class="text-sm">${contact.message.length > 100 ? contact.message.substring(0, 100) + '...' : contact.message}</div>
+                      </td>
+                      <td class="py-3 px-4">
+                        <select onchange="updateContactStatus(${contact.id}, this.value)" 
+                                class="px-3 py-1 rounded-full text-sm font-bold border-2 ${
+                                  contact.status === 'new' ? 'bg-red-100 text-red-800 border-red-300' :
+                                  contact.status === 'read' ? 'bg-yellow-100 text-yellow-800 border-yellow-300' :
+                                  contact.status === 'replied' ? 'bg-green-100 text-green-800 border-green-300' :
+                                  'bg-gray-100 text-gray-800 border-gray-300'
+                                }">
+                          <option value="new" ${contact.status === 'new' ? 'selected' : ''}>New</option>
+                          <option value="read" ${contact.status === 'read' ? 'selected' : ''}>Read</option>
+                          <option value="replied" ${contact.status === 'replied' ? 'selected' : ''}>Replied</option>
+                          <option value="archived" ${contact.status === 'archived' ? 'selected' : ''}>Archived</option>
+                        </select>
+                      </td>
+                      <td class="py-3 px-4 text-sm">${new Date(contact.created_at).toLocaleString()}</td>
+                      <td class="py-3 px-4">
+                        <button onclick="viewContactDetails(${contact.id}, '${contact.name.replace(/'/g, "\\'")}', '${contact.email}', \`${contact.message.replace(/`/g, '\\`')}\`, '${contact.created_at}')" 
+                                class="text-sky-500 hover:text-sky-700">
+                          <i class="fas fa-eye"></i>
+                        </button>
+                      </td>
+                    </tr>
+                  `).join('') || '<tr><td colspan="7" class="py-8 text-center text-gray-500">No contact submissions yet</td></tr>'}
+                </tbody>
+              </table>
+            </div>
+          </div>
+
           <!-- Active Sessions -->
           <div class="bg-white rounded-2xl shadow-lg p-8">
             <h2 class="text-3xl font-bold mb-6">Active Sessions</h2>
@@ -6238,7 +6543,7 @@ app.get('/admin/dashboard', async (c) => {
                   ${sessionsResult.results?.map((s: any) => `
                     <tr class="border-b hover:bg-gray-50">
                       <td class="py-3 px-4">${s.email}</td>
-                      <td class="py-3 px-4 font-mono text-sm">${s.session_id.substring(0, 20)}...</td>
+                      <td class="py-3 px-4 font-mono text-sm">${s.id ? (s.id.length > 20 ? s.id.substring(0, 20) + '...' : s.id) : 'N/A'}</td>
                       <td class="py-3 px-4">${new Date(s.expires_at).toLocaleString()}</td>
                     </tr>
                   `).join('') || '<tr><td colspan="3" class="py-8 text-center text-gray-500">No active sessions</td></tr>'}
@@ -6252,6 +6557,88 @@ app.get('/admin/dashboard', async (c) => {
           </div>
         </div>
       </div>
+
+      <script>
+        async function updateContactStatus(id, status) {
+          try {
+            const response = await fetch('/api/contact/update-status', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ id, status })
+            });
+            
+            const data = await response.json();
+            if (data.success) {
+              // Update the row styling
+              const select = document.querySelector('#contact-' + id + ' select');
+              select.className = 'px-3 py-1 rounded-full text-sm font-bold border-2 ' + 
+                (status === 'new' ? 'bg-red-100 text-red-800 border-red-300' :
+                 status === 'read' ? 'bg-yellow-100 text-yellow-800 border-yellow-300' :
+                 status === 'replied' ? 'bg-green-100 text-green-800 border-green-300' :
+                 'bg-gray-100 text-gray-800 border-gray-300');
+            } else {
+              alert('Failed to update status');
+            }
+          } catch (error) {
+            console.error('Update error:', error);
+            alert('Failed to update status');
+          }
+        }
+
+        function viewContactDetails(id, name, email, message, date) {
+          const modal = document.createElement('div');
+          modal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50';
+          modal.innerHTML = \`
+            <div class="bg-white rounded-3xl p-8 max-w-2xl w-full mx-4 max-h-[90vh] overflow-y-auto">
+              <div class="flex justify-between items-start mb-6">
+                <h2 class="text-3xl font-bold">Contact Details #\${id}</h2>
+                <button onclick="this.closest('.fixed').remove()" class="text-gray-500 hover:text-gray-700">
+                  <i class="fas fa-times text-2xl"></i>
+                </button>
+              </div>
+              
+              <div class="space-y-4">
+                <div>
+                  <div class="text-sm font-bold text-gray-600 mb-1">Name</div>
+                  <div class="text-lg">\${name}</div>
+                </div>
+                
+                <div>
+                  <div class="text-sm font-bold text-gray-600 mb-1">Email</div>
+                  <a href="mailto:\${email}" class="text-lg text-sky-500 hover:underline">\${email}</a>
+                </div>
+                
+                <div>
+                  <div class="text-sm font-bold text-gray-600 mb-1">Submitted</div>
+                  <div class="text-lg">\${new Date(date).toLocaleString()}</div>
+                </div>
+                
+                <div>
+                  <div class="text-sm font-bold text-gray-600 mb-1">Message</div>
+                  <div class="bg-gray-50 p-4 rounded-xl text-gray-800 whitespace-pre-wrap">\${message}</div>
+                </div>
+              </div>
+              
+              <div class="mt-6 flex space-x-4">
+                <a href="mailto:\${email}?subject=Re: Your FLYQ Inquiry" 
+                   class="flex-1 bg-sky-500 text-white px-6 py-3 rounded-full font-bold text-center hover:bg-sky-600 transition">
+                  <i class="fas fa-reply mr-2"></i>Reply via Email
+                </a>
+                <button onclick="this.closest('.fixed').remove()" 
+                        class="flex-1 bg-gray-200 text-gray-700 px-6 py-3 rounded-full font-bold hover:bg-gray-300 transition">
+                  Close
+                </button>
+              </div>
+            </div>
+          \`;
+          document.body.appendChild(modal);
+          
+          // Close on background click
+          modal.addEventListener('click', (e) => {
+            if (e.target === modal) modal.remove();
+          });
+        }
+      </script>
     `;
 
     return c.html(renderPage('Admin Dashboard', content));
