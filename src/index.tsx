@@ -151,6 +151,62 @@ const renderPage = (title: string, content: string, includeCart: boolean = true)
             .text-sky-400 {
                 color: #38BDF8;
             }
+            
+            /* Floating Action Buttons */
+            .floating-btn {
+                position: fixed;
+                width: 60px;
+                height: 60px;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 24px;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+                transition: all 0.3s ease;
+                z-index: 1000;
+                cursor: pointer;
+            }
+            
+            .floating-btn:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+            }
+            
+            #whatsapp-btn {
+                bottom: 30px;
+                right: 30px;
+                background: #25D366;
+                color: white;
+            }
+            
+            #back-to-top {
+                bottom: 100px;
+                right: 30px;
+                background: linear-gradient(135deg, #0EA5E9 0%, #38BDF8 100%);
+                color: white;
+                opacity: 0;
+                pointer-events: none;
+            }
+            
+            #back-to-top.show {
+                opacity: 1;
+                pointer-events: all;
+            }
+            
+            /* Search Modal */
+            #search-modal {
+                backdrop-filter: blur(5px);
+            }
+            
+            .search-result-item {
+                transition: all 0.2s ease;
+            }
+            
+            .search-result-item:hover {
+                background: linear-gradient(to right, #f0f9ff, #e0f2fe);
+                transform: translateX(5px);
+            }
         </style>
     </head>
     <body class="bg-gray-50">
@@ -169,6 +225,11 @@ const renderPage = (title: string, content: string, includeCart: boolean = true)
                         <a href="/docs" class="text-gray-700 hover:text-sky-500 font-semibold">Docs</a>
                         <a href="/about" class="text-gray-700 hover:text-sky-500 font-semibold">About</a>
                         <a href="/contact" class="text-gray-700 hover:text-sky-500 font-semibold">Contact</a>
+                        
+                        <button onclick="openSearch()" class="text-gray-700 hover:text-sky-500">
+                            <i class="fas fa-search text-xl"></i>
+                        </button>
+                        
                         ${includeCart ? `
                         <a href="/cart" class="relative">
                             <i class="fas fa-shopping-cart text-2xl text-gray-700 hover:text-sky-500"></i>
@@ -224,6 +285,39 @@ const renderPage = (title: string, content: string, includeCart: boolean = true)
         ${content}
 
         <!-- Footer -->
+        <!-- Floating Action Buttons -->
+        <a href="https://wa.me/919137361474" target="_blank" id="whatsapp-btn" class="floating-btn" title="Chat on WhatsApp">
+            <i class="fab fa-whatsapp"></i>
+        </a>
+        
+        <button id="back-to-top" class="floating-btn" onclick="scrollToTop()" title="Back to top">
+            <i class="fas fa-arrow-up"></i>
+        </button>
+
+        <!-- Search Modal -->
+        <div id="search-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-start justify-center pt-20">
+            <div class="bg-white rounded-3xl p-8 max-w-3xl w-full mx-4 max-h-[80vh] overflow-y-auto">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-3xl font-bold">Search</h2>
+                    <button onclick="closeSearch()" class="text-gray-500 hover:text-gray-700">
+                        <i class="fas fa-times text-2xl"></i>
+                    </button>
+                </div>
+                
+                <input type="text" id="search-input" 
+                       placeholder="Search for products, pages, or documentation..." 
+                       class="w-full px-6 py-4 border-2 border-gray-300 rounded-xl focus:border-sky-500 focus:outline-none text-lg mb-6"
+                       onkeyup="performSearch(this.value)">
+                
+                <div id="search-results" class="space-y-4">
+                    <div class="text-center text-gray-500 py-8">
+                        <i class="fas fa-search text-4xl mb-4"></i>
+                        <p>Start typing to search...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <footer class="bg-gray-900 text-white py-16 mt-20">
             <div class="container mx-auto px-6">
                 <div class="grid md:grid-cols-5 gap-8 mb-12">
@@ -432,6 +526,119 @@ const renderPage = (title: string, content: string, includeCart: boolean = true)
 
             // Check authentication on page load
             document.addEventListener('DOMContentLoaded', checkAuth);
+
+            // Back to top button
+            const backToTop = document.getElementById('back-to-top');
+            
+            window.addEventListener('scroll', () => {
+                if (window.pageYOffset > 300) {
+                    backToTop.classList.add('show');
+                } else {
+                    backToTop.classList.remove('show');
+                }
+            });
+
+            function scrollToTop() {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            }
+
+            // Search functionality
+            const searchData = [
+                { title: 'FLYQ Air', url: '/products/flyq-air', type: 'Product', description: 'Programmable ESP32-S3 quadcopter drone' },
+                { title: 'FLYQ Vision', url: '/products/flyq-vision', type: 'Product', description: 'AI-powered camera drone with computer vision' },
+                { title: 'Products', url: '/products', type: 'Page', description: 'Browse all drone products' },
+                { title: 'User Manual', url: '/manual', type: 'Documentation', description: 'Complete hardware and software guide' },
+                { title: 'Contact Us', url: '/contact', type: 'Page', description: 'Get in touch with our team' },
+                { title: 'About', url: '/about', type: 'Page', description: 'Learn about FLYQ drones' },
+                { title: 'Documentation', url: '/docs', type: 'Documentation', description: 'Technical documentation' },
+                { title: 'Shopping Cart', url: '/cart', type: 'Page', description: 'View your cart' },
+                { title: 'Curriculum', url: '/curriculum', type: 'Education', description: '8-week drone programming course' },
+                { title: 'Login', url: '/login', type: 'Account', description: 'Sign in to your account' },
+                { title: 'Register', url: '/register', type: 'Account', description: 'Create a new account' }
+            ];
+
+            function openSearch() {
+                document.getElementById('search-modal').classList.remove('hidden');
+                setTimeout(() => {
+                    document.getElementById('search-input').focus();
+                }, 100);
+            }
+
+            function closeSearch() {
+                document.getElementById('search-modal').classList.add('hidden');
+                document.getElementById('search-input').value = '';
+                document.getElementById('search-results').innerHTML = \`
+                    <div class="text-center text-gray-500 py-8">
+                        <i class="fas fa-search text-4xl mb-4"></i>
+                        <p>Start typing to search...</p>
+                    </div>
+                \`;
+            }
+
+            // Close search on Escape key
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    closeSearch();
+                }
+            });
+
+            // Close search when clicking outside
+            const searchModal = document.getElementById('search-modal');
+            if (searchModal) {
+                searchModal.addEventListener('click', (e) => {
+                    if (e.target.id === 'search-modal') {
+                        closeSearch();
+                    }
+                });
+            }
+
+            function performSearch(query) {
+                const resultsDiv = document.getElementById('search-results');
+                
+                if (!query || query.trim().length < 2) {
+                    resultsDiv.innerHTML = \`
+                        <div class="text-center text-gray-500 py-8">
+                            <i class="fas fa-search text-4xl mb-4"></i>
+                            <p>Start typing to search...</p>
+                        </div>
+                    \`;
+                    return;
+                }
+
+                const results = searchData.filter(item => 
+                    item.title.toLowerCase().includes(query.toLowerCase()) ||
+                    item.description.toLowerCase().includes(query.toLowerCase())
+                );
+
+                if (results.length === 0) {
+                    resultsDiv.innerHTML = \`
+                        <div class="text-center text-gray-500 py-8">
+                            <i class="fas fa-search-minus text-4xl mb-4"></i>
+                            <p>No results found for "\${query}"</p>
+                            <p class="text-sm mt-2">Try different keywords</p>
+                        </div>
+                    \`;
+                    return;
+                }
+
+                resultsDiv.innerHTML = results.map(item => \`
+                    <a href="\${item.url}" class="search-result-item block p-4 border-2 border-gray-200 rounded-xl hover:border-sky-500">
+                        <div class="flex items-start justify-between">
+                            <div class="flex-1">
+                                <div class="flex items-center space-x-2 mb-1">
+                                    <span class="text-xs px-2 py-1 bg-sky-100 text-sky-700 rounded-full font-bold">\${item.type}</span>
+                                    <h3 class="font-bold text-lg">\${item.title}</h3>
+                                </div>
+                                <p class="text-gray-600 text-sm">\${item.description}</p>
+                            </div>
+                            <i class="fas fa-arrow-right text-sky-500 ml-4 mt-2"></i>
+                        </div>
+                    </a>
+                \`).join('');
+            }
         </script>
     </body>
     </html>
@@ -882,6 +1089,243 @@ app.get('/', (c) => {
                     <i class="fas fa-rocket mr-2"></i>
                     Shop Now
                 </a>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section class="py-20 bg-white">
+            <div class="container mx-auto px-6 max-w-4xl">
+                <div class="text-center mb-12">
+                    <h2 class="text-5xl font-black mb-6">Frequently Asked <span class="gradient-text">Questions</span></h2>
+                    <p class="text-xl text-gray-600">Everything you need to know about FLYQ drones</p>
+                </div>
+
+                <div class="space-y-4">
+                    <div class="border-2 border-gray-200 rounded-2xl overflow-hidden">
+                        <button onclick="toggleFAQ(1)" class="w-full text-left p-6 hover:bg-gray-50 transition flex justify-between items-center">
+                            <span class="font-bold text-lg">What programming languages can I use?</span>
+                            <i class="fas fa-chevron-down transition-transform" id="faq-icon-1"></i>
+                        </button>
+                        <div id="faq-content-1" class="hidden p-6 pt-0 text-gray-600">
+                            FLYQ Air supports MicroPython, Arduino C/C++, and ESP-IDF. You can choose the language that best fits your skill level and project requirements.
+                        </div>
+                    </div>
+
+                    <div class="border-2 border-gray-200 rounded-2xl overflow-hidden">
+                        <button onclick="toggleFAQ(2)" class="w-full text-left p-6 hover:bg-gray-50 transition flex justify-between items-center">
+                            <span class="font-bold text-lg">Do I need prior drone experience?</span>
+                            <i class="fas fa-chevron-down transition-transform" id="faq-icon-2"></i>
+                        </button>
+                        <div id="faq-content-2" class="hidden p-6 pt-0 text-gray-600">
+                            No prior experience needed! We provide a complete 8-week curriculum that takes you from basics to advanced autonomous flight programming.
+                        </div>
+                    </div>
+
+                    <div class="border-2 border-gray-200 rounded-2xl overflow-hidden">
+                        <button onclick="toggleFAQ(3)" class="w-full text-left p-6 hover:bg-gray-50 transition flex justify-between items-center">
+                            <span class="font-bold text-lg">What's included in the kit?</span>
+                            <i class="fas fa-chevron-down transition-transform" id="faq-icon-3"></i>
+                        </button>
+                        <div id="faq-content-3" class="hidden p-6 pt-0 text-gray-600">
+                            Complete assembled quadcopter, ESP32-S3 flight controller, battery, charger, propeller guards, comprehensive manual, and access to our online curriculum.
+                        </div>
+                    </div>
+
+                    <div class="border-2 border-gray-200 rounded-2xl overflow-hidden">
+                        <button onclick="toggleFAQ(4)" class="w-full text-left p-6 hover:bg-gray-50 transition flex justify-between items-center">
+                            <span class="font-bold text-lg">How long does shipping take?</span>
+                            <i class="fas fa-chevron-down transition-transform" id="faq-icon-4"></i>
+                        </button>
+                        <div id="faq-content-4" class="hidden p-6 pt-0 text-gray-600">
+                            We ship within India via courier services. Delivery typically takes 3-7 business days depending on your location.
+                        </div>
+                    </div>
+
+                    <div class="border-2 border-gray-200 rounded-2xl overflow-hidden">
+                        <button onclick="toggleFAQ(5)" class="w-full text-left p-6 hover:bg-gray-50 transition flex justify-between items-center">
+                            <span class="font-bold text-lg">What warranty and support do you offer?</span>
+                            <i class="fas fa-chevron-down transition-transform" id="faq-icon-5"></i>
+                        </button>
+                        <div id="faq-content-5" class="hidden p-6 pt-0 text-gray-600">
+                            6-month hardware warranty on manufacturing defects. We provide email and WhatsApp support, plus an active GitHub community for troubleshooting.
+                        </div>
+                    </div>
+
+                    <div class="border-2 border-gray-200 rounded-2xl overflow-hidden">
+                        <button onclick="toggleFAQ(6)" class="w-full text-left p-6 hover:bg-gray-50 transition flex justify-between items-center">
+                            <span class="font-bold text-lg">Can I use it for educational workshops?</span>
+                            <i class="fas fa-chevron-down transition-transform" id="faq-icon-6"></i>
+                        </button>
+                        <div id="faq-content-6" class="hidden p-6 pt-0 text-gray-600">
+                            Absolutely! We offer bulk discounts for educational institutions. Contact us for special pricing and dedicated support for classroom use.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center mt-12">
+                    <p class="text-gray-600 mb-4">Still have questions?</p>
+                    <a href="/contact" class="btn-primary text-white px-8 py-3 rounded-full font-bold inline-block">
+                        Contact Support
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Newsletter Section -->
+        <section class="py-20 bg-gradient-to-br from-sky-500 to-blue-600 text-white">
+            <div class="container mx-auto px-6 max-w-4xl text-center">
+                <i class="fas fa-envelope-open-text text-6xl mb-6 opacity-80"></i>
+                <h2 class="text-5xl font-black mb-6">Stay Updated</h2>
+                <p class="text-xl mb-8 opacity-90">
+                    Get the latest drone tutorials, project ideas, and product updates delivered to your inbox
+                </p>
+
+                <div id="newsletter-success" class="hidden mb-6 bg-green-500 text-white p-4 rounded-xl">
+                    <i class="fas fa-check-circle mr-2"></i>
+                    <span>Thank you for subscribing!</span>
+                </div>
+                <div id="newsletter-error" class="hidden mb-6 bg-red-500 text-white p-4 rounded-xl">
+                    <i class="fas fa-exclamation-circle mr-2"></i>
+                    <span id="newsletter-error-text">Something went wrong. Please try again.</span>
+                </div>
+
+                <form id="newsletter-form" class="max-w-2xl mx-auto flex flex-col md:flex-row gap-4">
+                    <input type="email" id="newsletter-email" placeholder="Enter your email" 
+                           class="flex-1 px-6 py-4 rounded-full text-gray-800 focus:outline-none focus:ring-4 focus:ring-white/50" required>
+                    <button type="submit" class="bg-white text-sky-600 px-8 py-4 rounded-full font-bold hover:shadow-2xl transition">
+                        Subscribe
+                    </button>
+                </form>
+
+                <p class="text-sm mt-6 opacity-75">
+                    We respect your privacy. Unsubscribe at any time.
+                </p>
+
+                <script>
+                    document.getElementById('newsletter-form').addEventListener('submit', async (e) => {
+                        e.preventDefault();
+                        
+                        const email = document.getElementById('newsletter-email').value;
+                        const successDiv = document.getElementById('newsletter-success');
+                        const errorDiv = document.getElementById('newsletter-error');
+                        const submitBtn = e.target.querySelector('button[type="submit"]');
+                        
+                        successDiv.classList.add('hidden');
+                        errorDiv.classList.add('hidden');
+                        
+                        submitBtn.disabled = true;
+                        submitBtn.textContent = 'Subscribing...';
+                        
+                        try {
+                            const response = await fetch('/api/newsletter/subscribe', {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify({ email })
+                            });
+                            
+                            const data = await response.json();
+                            
+                            if (data.success) {
+                                successDiv.classList.remove('hidden');
+                                e.target.reset();
+                            } else {
+                                document.getElementById('newsletter-error-text').textContent = data.message;
+                                errorDiv.classList.remove('hidden');
+                            }
+                        } catch (error) {
+                            errorDiv.classList.remove('hidden');
+                        } finally {
+                            submitBtn.disabled = false;
+                            submitBtn.textContent = 'Subscribe';
+                        }
+                    });
+
+                    function toggleFAQ(id) {
+                        const content = document.getElementById('faq-content-' + id);
+                        const icon = document.getElementById('faq-icon-' + id);
+                        
+                        content.classList.toggle('hidden');
+                        icon.classList.toggle('rotate-180');
+                    }
+                </script>
+            </div>
+        </section>
+
+        <!-- Testimonials Section -->
+        <section class="py-20 bg-gray-50">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-5xl font-black mb-6">What Our <span class="gradient-text">Community</span> Says</h2>
+                    <p class="text-xl text-gray-600">Join hundreds of makers and developers building with FLYQ</p>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                    <div class="bg-white p-8 rounded-3xl shadow-lg">
+                        <div class="flex items-center mb-4">
+                            <i class="fas fa-star text-yellow-400 text-xl"></i>
+                            <i class="fas fa-star text-yellow-400 text-xl"></i>
+                            <i class="fas fa-star text-yellow-400 text-xl"></i>
+                            <i class="fas fa-star text-yellow-400 text-xl"></i>
+                            <i class="fas fa-star text-yellow-400 text-xl"></i>
+                        </div>
+                        <p class="text-gray-700 mb-4">
+                            "The curriculum is outstanding! Went from zero drone knowledge to building autonomous navigation systems in 8 weeks."
+                        </p>
+                        <div class="flex items-center">
+                            <div class="w-12 h-12 bg-sky-500 rounded-full flex items-center justify-center text-white font-bold mr-3">
+                                P
+                            </div>
+                            <div>
+                                <div class="font-bold">Priya Sharma</div>
+                                <div class="text-sm text-gray-500">Computer Science Student</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-8 rounded-3xl shadow-lg">
+                        <div class="flex items-center mb-4">
+                            <i class="fas fa-star text-yellow-400 text-xl"></i>
+                            <i class="fas fa-star text-yellow-400 text-xl"></i>
+                            <i class="fas fa-star text-yellow-400 text-xl"></i>
+                            <i class="fas fa-star text-yellow-400 text-xl"></i>
+                            <i class="fas fa-star text-yellow-400 text-xl"></i>
+                        </div>
+                        <p class="text-gray-700 mb-4">
+                            "Perfect for my robotics workshop! The ESP32-S3 platform is powerful and the documentation is comprehensive."
+                        </p>
+                        <div class="flex items-center">
+                            <div class="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center text-white font-bold mr-3">
+                                R
+                            </div>
+                            <div>
+                                <div class="font-bold">Rajesh Kumar</div>
+                                <div class="text-sm text-gray-500">Robotics Instructor</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-8 rounded-3xl shadow-lg">
+                        <div class="flex items-center mb-4">
+                            <i class="fas fa-star text-yellow-400 text-xl"></i>
+                            <i class="fas fa-star text-yellow-400 text-xl"></i>
+                            <i class="fas fa-star text-yellow-400 text-xl"></i>
+                            <i class="fas fa-star text-yellow-400 text-xl"></i>
+                            <i class="fas fa-star text-yellow-400 text-xl"></i>
+                        </div>
+                        <p class="text-gray-700 mb-4">
+                            "Open-source hardware and software is a game-changer. I've customized everything for my research project!"
+                        </p>
+                        <div class="flex items-center">
+                            <div class="w-12 h-12 bg-purple-500 rounded-full flex items-center justify-center text-white font-bold mr-3">
+                                A
+                            </div>
+                            <div>
+                                <div class="font-bold">Anita Desai</div>
+                                <div class="text-sm text-gray-500">PhD Researcher</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
     </div>
@@ -6098,6 +6542,54 @@ app.get('/api/curriculum/access/:productId', async (c) => {
   } catch (error) {
     console.error('Check access error:', error);
     return c.json({ hasAccess: false, message: 'Error checking access' }, 500);
+  }
+});
+
+// ==================== NEWSLETTER API ====================
+
+// Subscribe to newsletter
+app.post('/api/newsletter/subscribe', async (c) => {
+  try {
+    const body = await c.req.json();
+    const { email } = body;
+
+    if (!email) {
+      return c.json({ success: false, message: 'Email is required' }, 400);
+    }
+
+    if (!isValidEmail(email)) {
+      return c.json({ success: false, message: 'Invalid email address' }, 400);
+    }
+
+    if (!isDatabaseAvailable(c)) {
+      return c.json({ success: false, message: 'Service temporarily unavailable' }, 503);
+    }
+
+    // @ts-ignore - DB binding
+    const db = c.env?.DB;
+    
+    // Check if already subscribed
+    const existing = await db.prepare('SELECT id FROM newsletter_subscriptions WHERE email = ?')
+      .bind(email.toLowerCase()).first();
+    
+    if (existing) {
+      return c.json({ success: false, message: 'This email is already subscribed!' }, 400);
+    }
+
+    // Add to newsletter
+    await db.prepare(`
+      INSERT INTO newsletter_subscriptions (email)
+      VALUES (?)
+    `).bind(email.toLowerCase()).run();
+
+    return c.json({
+      success: true,
+      message: 'Successfully subscribed to newsletter!'
+    });
+
+  } catch (error) {
+    console.error('Newsletter subscription error:', error);
+    return c.json({ success: false, message: 'Failed to subscribe. Please try again.' }, 500);
   }
 });
 
