@@ -78,9 +78,11 @@ export async function createSession(c: Context, userId: number): Promise<string>
     }
 
     // Set cookie
+    // secure: false for local dev (HTTP), true for production (HTTPS)
+    const isProduction = c.req.url.startsWith('https://');
     setCookie(c, 'flyq_session', sessionId, {
       httpOnly: true,
-      secure: true,
+      secure: isProduction,
       sameSite: 'Lax',
       maxAge: 60 * 60 * 24 * 7, // 7 days
       path: '/',

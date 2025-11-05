@@ -175,8 +175,32 @@ const renderPage = (title: string, content: string, includeCart: boolean = true)
                             <span id="cart-count" class="cart-badge hidden">0</span>
                         </a>
                         ` : ''}
-                        <a href="/login" class="text-sky-500 hover:text-sky-600 font-semibold">Login</a>
-                        <a href="/register" class="btn-primary text-white px-6 py-2 rounded-full font-bold">Sign Up</a>
+                        <div id="auth-buttons">
+                            <a href="/login" class="text-sky-500 hover:text-sky-600 font-semibold">Login</a>
+                            <a href="/register" class="btn-primary text-white px-6 py-2 rounded-full font-bold">Sign Up</a>
+                        </div>
+                        <div id="user-menu" class="hidden relative">
+                            <button id="user-menu-button" class="flex items-center space-x-2 text-gray-700 hover:text-sky-500 font-semibold">
+                                <i class="fas fa-user-circle text-2xl"></i>
+                                <span id="user-name">Account</span>
+                                <i class="fas fa-chevron-down text-sm"></i>
+                            </button>
+                            <div id="user-dropdown" class="hidden absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-2xl border-2 border-gray-200 py-2">
+                                <a href="/account" class="block px-4 py-2 text-gray-700 hover:bg-sky-50 hover:text-sky-600">
+                                    <i class="fas fa-user mr-2"></i>My Account
+                                </a>
+                                <a href="/account/orders" class="block px-4 py-2 text-gray-700 hover:bg-sky-50 hover:text-sky-600">
+                                    <i class="fas fa-shopping-bag mr-2"></i>My Orders
+                                </a>
+                                <a href="/account/curriculum" class="block px-4 py-2 text-gray-700 hover:bg-sky-50 hover:text-sky-600">
+                                    <i class="fas fa-book mr-2"></i>Curriculum
+                                </a>
+                                <hr class="my-2">
+                                <button onclick="logout()" class="w-full text-left px-4 py-2 text-red-600 hover:bg-red-50">
+                                    <i class="fas fa-sign-out-alt mr-2"></i>Logout
+                                </button>
+                            </div>
+                        </div>
                     </div>
                     <button id="mobile-menu-btn" class="md:hidden text-2xl text-gray-700">
                         <i class="fas fa-bars"></i>
@@ -277,6 +301,72 @@ const renderPage = (title: string, content: string, includeCart: boolean = true)
 
             // Initialize cart count on page load
             document.addEventListener('DOMContentLoaded', updateCartCount);
+
+            // Authentication check and user menu
+            async function checkAuth() {
+                try {
+                    const response = await fetch('/api/auth/status');
+                    const data = await response.json();
+                    
+                    const authButtons = document.getElementById('auth-buttons');
+                    const userMenu = document.getElementById('user-menu');
+                    const userName = document.getElementById('user-name');
+                    
+                    if (data.authenticated && data.user) {
+                        // User is logged in - show user menu
+                        authButtons.classList.add('hidden');
+                        userMenu.classList.remove('hidden');
+                        if (userName) {
+                            userName.textContent = data.user.name.split(' ')[0]; // First name only
+                        }
+                    } else {
+                        // User not logged in - show login/signup buttons
+                        authButtons.classList.remove('hidden');
+                        userMenu.classList.add('hidden');
+                    }
+                } catch (error) {
+                    console.error('Auth check failed:', error);
+                }
+            }
+
+            // User menu dropdown toggle
+            const userMenuButton = document.getElementById('user-menu-button');
+            const userDropdown = document.getElementById('user-dropdown');
+            if (userMenuButton && userDropdown) {
+                userMenuButton.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    userDropdown.classList.toggle('hidden');
+                });
+                
+                // Close dropdown when clicking outside
+                document.addEventListener('click', () => {
+                    userDropdown.classList.add('hidden');
+                });
+                
+                userDropdown.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                });
+            }
+
+            // Logout function
+            async function logout() {
+                try {
+                    const response = await fetch('/api/auth/logout', {
+                        method: 'POST'
+                    });
+                    const data = await response.json();
+                    
+                    if (data.success) {
+                        window.location.href = '/';
+                    }
+                } catch (error) {
+                    console.error('Logout failed:', error);
+                    window.location.href = '/';
+                }
+            }
+
+            // Check authentication on page load
+            document.addEventListener('DOMContentLoaded', checkAuth);
         </script>
     </body>
     </html>
@@ -1057,29 +1147,71 @@ app.get('/login', (c) => {
                 <h1 class="text-4xl font-black mb-2 text-center">Welcome Back</h1>
                 <p class="text-gray-600 text-center mb-8">Login to access your account</p>
 
-                <form class="space-y-6">
+                <div id="error-message" class="hidden mb-4 p-4 bg-red-100 text-red-700 rounded-xl"></div>
+                <div id="success-message" class="hidden mb-4 p-4 bg-green-100 text-green-700 rounded-xl"></div>
+
+                <form id="loginForm" class="space-y-6">
                     <div>
                         <label class="block text-sm font-bold mb-2">Email</label>
-                        <input type="email" class="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:border-sky-500 focus:outline-none" placeholder="your@email.com" required>
+                        <input type="email" id="email" name="email" class="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:border-sky-500 focus:outline-none" placeholder="your@email.com" required>
                     </div>
 
                     <div>
                         <label class="block text-sm font-bold mb-2">Password</label>
-                        <input type="password" class="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:border-sky-500 focus:outline-none" placeholder="••••••••" required>
+                        <input type="password" id="password" name="password" class="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:border-sky-500 focus:outline-none" placeholder="••••••••" required>
                     </div>
 
                     <div class="flex items-center justify-between text-sm">
                         <label class="flex items-center">
-                            <input type="checkbox" class="mr-2">
+                            <input type="checkbox" id="remember" class="mr-2">
                             <span>Remember me</span>
                         </label>
-                        <a href="#" class="text-sky-500 hover:text-sky-600 font-semibold">Forgot password?</a>
+                        <a href="/forgot-password" class="text-sky-500 hover:text-sky-600 font-semibold">Forgot password?</a>
                     </div>
 
-                    <button onclick="alert('Authentication coming in Phase 2! For now, explore the products.')" type="button" class="w-full btn-primary text-white px-8 py-4 rounded-full font-bold text-lg">
+                    <button type="submit" class="w-full btn-primary text-white px-8 py-4 rounded-full font-bold text-lg">
                         Sign In
                     </button>
                 </form>
+
+                <script>
+                    document.getElementById('loginForm').addEventListener('submit', async (e) => {
+                        e.preventDefault();
+                        
+                        const email = document.getElementById('email').value;
+                        const password = document.getElementById('password').value;
+                        const errorDiv = document.getElementById('error-message');
+                        const successDiv = document.getElementById('success-message');
+                        
+                        // Hide previous messages
+                        errorDiv.classList.add('hidden');
+                        successDiv.classList.add('hidden');
+                        
+                        try {
+                            const response = await fetch('/api/auth/login', {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify({ email, password })
+                            });
+                            
+                            const data = await response.json();
+                            
+                            if (data.success) {
+                                successDiv.textContent = data.message || 'Login successful! Redirecting...';
+                                successDiv.classList.remove('hidden');
+                                setTimeout(() => {
+                                    window.location.href = data.redirect || '/account';
+                                }, 1000);
+                            } else {
+                                errorDiv.textContent = data.message;
+                                errorDiv.classList.remove('hidden');
+                            }
+                        } catch (error) {
+                            errorDiv.textContent = 'Login failed. Please try again.';
+                            errorDiv.classList.remove('hidden');
+                        }
+                    });
+                </script>
 
                 <p class="text-center mt-8 text-gray-600">
                     Don't have an account? <a href="/register" class="text-sky-500 hover:text-sky-600 font-bold">Sign up</a>
