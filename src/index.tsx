@@ -22,7 +22,7 @@ const products = [
     id: 2,
     name: 'FLYQ Vision',
     slug: 'flyq-vision',
-    price: 7999,
+    price: 8999,
     image: 'https://cdn1.genspark.ai/user-upload-image/rmbg_generated/0_f1a47aea-7dd7-431f-bfe8-e82d7d001b38',
     shortDesc: 'ESP32-S3 camera drone with HD video streaming',
     features: ['ESP32-S3 Dual-Core', 'HD 720p Camera', 'Gesture Control', 'Wi-Fi Streaming', 'Python/Arduino SDK'],
@@ -221,7 +221,6 @@ const renderPage = (title: string, content: string, includeCart: boolean = true)
                     <div class="hidden md:flex items-center space-x-8">
                         <a href="/" class="text-gray-700 hover:text-sky-500 font-semibold">Home</a>
                         <a href="/products" class="text-gray-700 hover:text-sky-500 font-semibold">Products</a>
-                        <a href="/manual" class="text-gray-700 hover:text-sky-500 font-semibold">Manual</a>
                         <a href="/docs" class="text-gray-700 hover:text-sky-500 font-semibold">Docs</a>
                         <a href="/about" class="text-gray-700 hover:text-sky-500 font-semibold">About</a>
                         <a href="/contact" class="text-gray-700 hover:text-sky-500 font-semibold">Contact</a>
@@ -271,7 +270,6 @@ const renderPage = (title: string, content: string, includeCart: boolean = true)
                 <div id="mobile-menu" class="hidden md:hidden mt-4 pb-4 space-y-4">
                     <a href="/" class="block text-gray-700 hover:text-sky-500 font-semibold">Home</a>
                     <a href="/products" class="block text-gray-700 hover:text-sky-500 font-semibold">Products</a>
-                    <a href="/manual" class="block text-gray-700 hover:text-sky-500 font-semibold">Manual</a>
                     <a href="/docs" class="block text-gray-700 hover:text-sky-500 font-semibold">Docs</a>
                     <a href="/about" class="block text-gray-700 hover:text-sky-500 font-semibold">About</a>
                     <a href="/contact" class="block text-gray-700 hover:text-sky-500 font-semibold">Contact</a>
@@ -361,7 +359,6 @@ const renderPage = (title: string, content: string, includeCart: boolean = true)
                     <div>
                         <h4 class="font-bold mb-4 text-sky-400 text-lg">Resources</h4>
                         <ul class="space-y-2 text-gray-400">
-                            <li><a href="/manual" class="hover:text-white transition">User Manual</a></li>
                             <li><a href="/curriculum" class="hover:text-white transition">Curriculum</a></li>
                             <li><a href="/docs" class="hover:text-white transition">Documentation</a></li>
                             <li><a href="https://github.com/passion3d/flyq-air" target="_blank" class="hover:text-white transition">GitHub</a></li>
@@ -550,7 +547,6 @@ const renderPage = (title: string, content: string, includeCart: boolean = true)
                 { title: 'FLYQ Air', url: '/products/flyq-air', type: 'Product', description: 'Programmable ESP32-S3 quadcopter drone' },
                 { title: 'FLYQ Vision', url: '/products/flyq-vision', type: 'Product', description: 'AI-powered camera drone with computer vision' },
                 { title: 'Products', url: '/products', type: 'Page', description: 'Browse all drone products' },
-                { title: 'User Manual', url: '/manual', type: 'Documentation', description: 'Complete hardware and software guide' },
                 { title: 'Contact Us', url: '/contact', type: 'Page', description: 'Get in touch with our team' },
                 { title: 'About', url: '/about', type: 'Page', description: 'Learn about FLYQ drones' },
                 { title: 'Documentation', url: '/docs', type: 'Documentation', description: 'Technical documentation' },
@@ -3429,7 +3425,7 @@ app.get('/manual', (c) => {
                                 <p class="text-sm text-sky-200 mb-2">Available Models:</p>
                                 <ul class="space-y-2 text-sm">
                                     <li>• FLYQ Air - ₹7,500</li>
-                                    <li>• FLYQ Vision - ₹9,500</li>
+                                    <li>• FLYQ Vision - ₹8,999</li>
                                     <li>• Educational Kits (10 units)</li>
                                     <li>• Expansion Modules</li>
                                 </ul>

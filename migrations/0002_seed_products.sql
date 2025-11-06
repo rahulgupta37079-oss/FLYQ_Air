@@ -22,7 +22,7 @@ INSERT OR IGNORE INTO products (
   'flyq-vision',
   'Advanced camera-equipped drone with AI-powered vision capabilities. Everything from FLYQ Air PLUS HD 720p camera with real-time streaming, gesture control recognition, object tracking, computer vision processing, and autonomous navigation. Features edge AI processing with TensorFlow Lite support, face detection, color-based tracking, and custom ML training capabilities. Perfect for computer vision projects, AI research, content creation, and advanced autonomous flight applications. Includes extended 8-week vision-focused curriculum covering camera integration, image processing, gesture recognition, and AI model development.',
   'Advanced AI-powered camera drone with gesture control and computer vision',
-  7999.00,
+  8999.00,
   'https://cdn1.genspark.ai/user-upload-image/rmbg_generated/0_f1a47aea-7dd7-431f-bfe8-e82d7d001b38',
   30,
   1,
