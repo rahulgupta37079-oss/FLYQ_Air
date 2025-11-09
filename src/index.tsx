@@ -524,6 +524,26 @@ const renderPage = (title: string, content: string, includeCart: boolean = true)
             // Check authentication on page load
             document.addEventListener('DOMContentLoaded', checkAuth);
 
+            // Analytics tracking
+            async function trackPageView() {
+                try {
+                    await fetch('/api/analytics/track', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            pageUrl: window.location.pathname,
+                            pageTitle: document.title
+                        })
+                    });
+                } catch (error) {
+                    // Silent fail - analytics shouldn't break the site
+                    console.debug('Analytics tracking failed', error);
+                }
+            }
+
+            // Track page view on load
+            document.addEventListener('DOMContentLoaded', trackPageView);
+
             // Back to top button
             const backToTop = document.getElementById('back-to-top');
             
@@ -1646,51 +1666,161 @@ app.get('/cart', (c) => {
 // Login page (placeholder for Phase 2)
 app.get('/login', (c) => {
   const content = `
-    <div class="pt-32 pb-20">
+    <div class="min-h-screen pt-32 pb-20 bg-gradient-to-br from-sky-50 via-blue-50 to-indigo-50">
         <div class="container mx-auto px-6 max-w-md">
-            <div class="bg-white rounded-3xl shadow-2xl p-8">
-                <h1 class="text-4xl font-black mb-2 text-center">Welcome Back</h1>
-                <p class="text-gray-600 text-center mb-8">Login to access your account</p>
+            <div class="bg-white rounded-3xl shadow-2xl p-8 md:p-10 transform transition-all hover:shadow-3xl">
+                <!-- Logo/Icon -->
+                <div class="text-center mb-6">
+                    <div class="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-sky-400 to-blue-600 rounded-2xl mb-4">
+                        <i class="fas fa-user-circle text-3xl text-white"></i>
+                    </div>
+                    <h1 class="text-4xl font-black mb-2 bg-gradient-to-r from-sky-600 to-blue-600 bg-clip-text text-transparent">Welcome Back</h1>
+                    <p class="text-gray-600">Login to access your FLYQ account</p>
+                </div>
 
-                <div id="error-message" class="hidden mb-4 p-4 bg-red-100 text-red-700 rounded-xl"></div>
-                <div id="success-message" class="hidden mb-4 p-4 bg-green-100 text-green-700 rounded-xl"></div>
+                <!-- Messages -->
+                <div id="error-message" class="hidden mb-4 p-4 bg-red-50 border border-red-200 text-red-700 rounded-xl animate-shake">
+                    <div class="flex items-center">
+                        <i class="fas fa-exclamation-circle mr-2"></i>
+                        <span id="error-text"></span>
+                    </div>
+                </div>
+                <div id="success-message" class="hidden mb-4 p-4 bg-green-50 border border-green-200 text-green-700 rounded-xl animate-slideDown">
+                    <div class="flex items-center">
+                        <i class="fas fa-check-circle mr-2"></i>
+                        <span id="success-text"></span>
+                    </div>
+                </div>
 
                 <form id="loginForm" class="space-y-6">
-                    <div>
-                        <label class="block text-sm font-bold mb-2">Email</label>
-                        <input type="email" id="email" name="email" class="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:border-sky-500 focus:outline-none" placeholder="your@email.com" required>
-                    </div>
-
-                    <div>
-                        <label class="block text-sm font-bold mb-2">Password</label>
-                        <input type="password" id="password" name="password" class="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:border-sky-500 focus:outline-none" placeholder="••••••••" required>
-                    </div>
-
-                    <div class="flex items-center justify-between text-sm">
-                        <label class="flex items-center">
-                            <input type="checkbox" id="remember" class="mr-2">
-                            <span>Remember me</span>
+                    <!-- Email Field -->
+                    <div class="relative">
+                        <label class="block text-sm font-bold mb-2 text-gray-700">
+                            <i class="fas fa-envelope mr-1 text-sky-500"></i>
+                            Email Address
                         </label>
-                        <a href="/forgot-password" class="text-sky-500 hover:text-sky-600 font-semibold">Forgot password?</a>
+                        <input type="email" id="email" name="email" 
+                               class="w-full px-4 py-3 pl-12 border-2 border-gray-300 rounded-xl focus:border-sky-500 focus:ring-2 focus:ring-sky-200 focus:outline-none transition-all" 
+                               placeholder="your@email.com" required>
+                        <i class="fas fa-envelope absolute left-4 top-11 text-gray-400"></i>
+                        <div id="email-error" class="hidden text-red-500 text-xs mt-1">
+                            <i class="fas fa-exclamation-circle"></i> Please enter a valid email
+                        </div>
                     </div>
 
-                    <button type="submit" class="w-full btn-primary text-white px-8 py-4 rounded-full font-bold text-lg">
-                        Sign In
+                    <!-- Password Field -->
+                    <div class="relative">
+                        <label class="block text-sm font-bold mb-2 text-gray-700">
+                            <i class="fas fa-lock mr-1 text-sky-500"></i>
+                            Password
+                        </label>
+                        <input type="password" id="password" name="password" 
+                               class="w-full px-4 py-3 pl-12 pr-12 border-2 border-gray-300 rounded-xl focus:border-sky-500 focus:ring-2 focus:ring-sky-200 focus:outline-none transition-all" 
+                               placeholder="••••••••" required>
+                        <i class="fas fa-lock absolute left-4 top-11 text-gray-400"></i>
+                        <button type="button" id="togglePassword" class="absolute right-4 top-11 text-gray-400 hover:text-gray-600">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                        <div id="password-error" class="hidden text-red-500 text-xs mt-1">
+                            <i class="fas fa-exclamation-circle"></i> Password is required
+                        </div>
+                    </div>
+
+                    <!-- Remember Me & Forgot Password -->
+                    <div class="flex items-center justify-between text-sm">
+                        <label class="flex items-center cursor-pointer group">
+                            <input type="checkbox" id="remember" class="mr-2 w-4 h-4 text-sky-500 rounded focus:ring-sky-500">
+                            <span class="text-gray-700 group-hover:text-sky-600 transition-colors">Remember me</span>
+                        </label>
+                        <a href="/forgot-password" class="text-sky-600 hover:text-sky-700 font-semibold hover:underline">Forgot password?</a>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="submit" id="submitBtn" 
+                            class="w-full btn-primary text-white px-8 py-4 rounded-full font-bold text-lg shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all">
+                        <span id="btnText">Sign In</span>
+                        <span id="btnLoading" class="hidden">
+                            <i class="fas fa-spinner fa-spin"></i> Signing in...
+                        </span>
                     </button>
                 </form>
 
+                <style>
+                    @keyframes shake {
+                        0%, 100% { transform: translateX(0); }
+                        25% { transform: translateX(-10px); }
+                        75% { transform: translateX(10px); }
+                    }
+                    @keyframes slideDown {
+                        from { transform: translateY(-10px); opacity: 0; }
+                        to { transform: translateY(0); opacity: 1; }
+                    }
+                    .animate-shake { animation: shake 0.3s ease-in-out; }
+                    .animate-slideDown { animation: slideDown 0.3s ease-out; }
+                </style>
+
                 <script>
+                    // Toggle password visibility
+                    document.getElementById('togglePassword').addEventListener('click', function() {
+                        const passwordInput = document.getElementById('password');
+                        const icon = this.querySelector('i');
+                        if (passwordInput.type === 'password') {
+                            passwordInput.type = 'text';
+                            icon.classList.remove('fa-eye');
+                            icon.classList.add('fa-eye-slash');
+                        } else {
+                            passwordInput.type = 'password';
+                            icon.classList.remove('fa-eye-slash');
+                            icon.classList.add('fa-eye');
+                        }
+                    });
+
+                    // Real-time validation
+                    document.getElementById('email').addEventListener('blur', function() {
+                        const emailError = document.getElementById('email-error');
+                        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                        if (!emailRegex.test(this.value)) {
+                            emailError.classList.remove('hidden');
+                            this.classList.add('border-red-500');
+                        } else {
+                            emailError.classList.add('hidden');
+                            this.classList.remove('border-red-500');
+                        }
+                    });
+
+                    document.getElementById('password').addEventListener('input', function() {
+                        const passwordError = document.getElementById('password-error');
+                        if (this.value.length === 0) {
+                            passwordError.classList.remove('hidden');
+                            this.classList.add('border-red-500');
+                        } else {
+                            passwordError.classList.add('hidden');
+                            this.classList.remove('border-red-500');
+                        }
+                    });
+
+                    // Form submission
                     document.getElementById('loginForm').addEventListener('submit', async (e) => {
                         e.preventDefault();
                         
                         const email = document.getElementById('email').value;
                         const password = document.getElementById('password').value;
                         const errorDiv = document.getElementById('error-message');
+                        const errorText = document.getElementById('error-text');
                         const successDiv = document.getElementById('success-message');
+                        const successText = document.getElementById('success-text');
+                        const submitBtn = document.getElementById('submitBtn');
+                        const btnText = document.getElementById('btnText');
+                        const btnLoading = document.getElementById('btnLoading');
                         
                         // Hide previous messages
                         errorDiv.classList.add('hidden');
                         successDiv.classList.add('hidden');
+                        
+                        // Show loading state
+                        submitBtn.disabled = true;
+                        btnText.classList.add('hidden');
+                        btnLoading.classList.remove('hidden');
                         
                         try {
                             const response = await fetch('/api/auth/login', {
@@ -1702,24 +1832,44 @@ app.get('/login', (c) => {
                             const data = await response.json();
                             
                             if (data.success) {
-                                successDiv.textContent = data.message || 'Login successful! Redirecting...';
+                                successText.textContent = data.message || 'Login successful! Redirecting...';
                                 successDiv.classList.remove('hidden');
                                 setTimeout(() => {
                                     window.location.href = data.redirect || '/account';
                                 }, 1000);
                             } else {
-                                errorDiv.textContent = data.message;
+                                errorText.textContent = data.message;
                                 errorDiv.classList.remove('hidden');
+                                // Reset button
+                                submitBtn.disabled = false;
+                                btnText.classList.remove('hidden');
+                                btnLoading.classList.add('hidden');
                             }
                         } catch (error) {
-                            errorDiv.textContent = 'Login failed. Please try again.';
+                            errorText.textContent = 'Login failed. Please try again.';
                             errorDiv.classList.remove('hidden');
+                            // Reset button
+                            submitBtn.disabled = false;
+                            btnText.classList.remove('hidden');
+                            btnLoading.classList.add('hidden');
                         }
                     });
                 </script>
 
-                <p class="text-center mt-8 text-gray-600">
-                    Don't have an account? <a href="/register" class="text-sky-500 hover:text-sky-600 font-bold">Sign up</a>
+                <!-- Divider -->
+                <div class="relative my-8">
+                    <div class="absolute inset-0 flex items-center">
+                        <div class="w-full border-t border-gray-300"></div>
+                    </div>
+                    <div class="relative flex justify-center text-sm">
+                        <span class="px-4 bg-white text-gray-500">New to FLYQ?</span>
+                    </div>
+                </div>
+
+                <!-- Sign Up Link -->
+                <p class="text-center text-gray-600">
+                    Don't have an account? 
+                    <a href="/register" class="text-sky-600 hover:text-sky-700 font-bold hover:underline">Create Account</a>
                 </p>
             </div>
         </div>
@@ -1732,41 +1882,329 @@ app.get('/login', (c) => {
 // Register page (placeholder for Phase 2)
 app.get('/register', (c) => {
   const content = `
-    <div class="pt-32 pb-20">
+    <div class="min-h-screen pt-32 pb-20 bg-gradient-to-br from-sky-50 via-blue-50 to-indigo-50">
         <div class="container mx-auto px-6 max-w-md">
-            <div class="bg-white rounded-3xl shadow-2xl p-8">
-                <h1 class="text-4xl font-black mb-2 text-center">Create Account</h1>
-                <p class="text-gray-600 text-center mb-8">Join the FLYQ community</p>
+            <div class="bg-white rounded-3xl shadow-2xl p-8 md:p-10 transform transition-all hover:shadow-3xl">
+                <!-- Logo/Icon -->
+                <div class="text-center mb-6">
+                    <div class="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-sky-400 to-blue-600 rounded-2xl mb-4">
+                        <i class="fas fa-user-plus text-3xl text-white"></i>
+                    </div>
+                    <h1 class="text-4xl font-black mb-2 bg-gradient-to-r from-sky-600 to-blue-600 bg-clip-text text-transparent">Create Account</h1>
+                    <p class="text-gray-600">Join the FLYQ community today</p>
+                </div>
 
-                <div id="error-message" class="hidden mb-4 p-4 bg-red-100 text-red-700 rounded-xl"></div>
+                <!-- Messages -->
+                <div id="error-message" class="hidden mb-4 p-4 bg-red-50 border border-red-200 text-red-700 rounded-xl animate-shake">
+                    <div class="flex items-center">
+                        <i class="fas fa-exclamation-circle mr-2"></i>
+                        <span id="error-text"></span>
+                    </div>
+                </div>
+                <div id="success-message" class="hidden mb-4 p-4 bg-green-50 border border-green-200 text-green-700 rounded-xl animate-slideDown">
+                    <div class="flex items-center">
+                        <i class="fas fa-check-circle mr-2"></i>
+                        <span id="success-text"></span>
+                    </div>
+                </div>
                 
-                <form id="registerForm" class="space-y-6">
-                    <div>
-                        <label class="block text-sm font-bold mb-2">Full Name</label>
-                        <input type="text" id="name" name="name" class="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:border-sky-500 focus:outline-none" placeholder="John Doe" required>
+                <form id="registerForm" class="space-y-5">
+                    <!-- Full Name Field -->
+                    <div class="relative">
+                        <label class="block text-sm font-bold mb-2 text-gray-700">
+                            <i class="fas fa-user mr-1 text-sky-500"></i>
+                            Full Name
+                        </label>
+                        <input type="text" id="name" name="name" 
+                               class="w-full px-4 py-3 pl-12 border-2 border-gray-300 rounded-xl focus:border-sky-500 focus:ring-2 focus:ring-sky-200 focus:outline-none transition-all" 
+                               placeholder="John Doe" required minlength="2">
+                        <i class="fas fa-user absolute left-4 top-11 text-gray-400"></i>
+                        <div id="name-error" class="hidden text-red-500 text-xs mt-1">
+                            <i class="fas fa-exclamation-circle"></i> Name must be at least 2 characters
+                        </div>
                     </div>
 
-                    <div>
-                        <label class="block text-sm font-bold mb-2">Email</label>
-                        <input type="email" id="email" name="email" class="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:border-sky-500 focus:outline-none" placeholder="your@email.com" required>
+                    <!-- Email Field -->
+                    <div class="relative">
+                        <label class="block text-sm font-bold mb-2 text-gray-700">
+                            <i class="fas fa-envelope mr-1 text-sky-500"></i>
+                            Email Address
+                        </label>
+                        <input type="email" id="email" name="email" 
+                               class="w-full px-4 py-3 pl-12 border-2 border-gray-300 rounded-xl focus:border-sky-500 focus:ring-2 focus:ring-sky-200 focus:outline-none transition-all" 
+                               placeholder="your@email.com" required>
+                        <i class="fas fa-envelope absolute left-4 top-11 text-gray-400"></i>
+                        <div id="email-error" class="hidden text-red-500 text-xs mt-1">
+                            <i class="fas fa-exclamation-circle"></i> Please enter a valid email
+                        </div>
                     </div>
 
-                    <div>
-                        <label class="block text-sm font-bold mb-2">Password</label>
-                        <input type="password" id="password" name="password" class="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:border-sky-500 focus:outline-none" placeholder="••••••••" required>
+                    <!-- Password Field with Strength Indicator -->
+                    <div class="relative">
+                        <label class="block text-sm font-bold mb-2 text-gray-700">
+                            <i class="fas fa-lock mr-1 text-sky-500"></i>
+                            Password
+                        </label>
+                        <input type="password" id="password" name="password" 
+                               class="w-full px-4 py-3 pl-12 pr-12 border-2 border-gray-300 rounded-xl focus:border-sky-500 focus:ring-2 focus:ring-sky-200 focus:outline-none transition-all" 
+                               placeholder="••••••••" required minlength="8">
+                        <i class="fas fa-lock absolute left-4 top-11 text-gray-400"></i>
+                        <button type="button" id="togglePassword" class="absolute right-4 top-11 text-gray-400 hover:text-gray-600">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                        
+                        <!-- Password Strength Indicator -->
+                        <div id="password-strength" class="hidden mt-2">
+                            <div class="flex gap-1 mb-1">
+                                <div class="h-1 flex-1 rounded-full bg-gray-200" id="strength-bar-1"></div>
+                                <div class="h-1 flex-1 rounded-full bg-gray-200" id="strength-bar-2"></div>
+                                <div class="h-1 flex-1 rounded-full bg-gray-200" id="strength-bar-3"></div>
+                                <div class="h-1 flex-1 rounded-full bg-gray-200" id="strength-bar-4"></div>
+                            </div>
+                            <p id="strength-text" class="text-xs text-gray-600"></p>
+                        </div>
+                        
+                        <div id="password-requirements" class="mt-2 text-xs space-y-1">
+                            <div id="req-length" class="text-gray-500">
+                                <i class="fas fa-circle text-[6px] mr-1"></i> At least 8 characters
+                            </div>
+                            <div id="req-uppercase" class="text-gray-500">
+                                <i class="fas fa-circle text-[6px] mr-1"></i> One uppercase letter
+                            </div>
+                            <div id="req-lowercase" class="text-gray-500">
+                                <i class="fas fa-circle text-[6px] mr-1"></i> One lowercase letter
+                            </div>
+                            <div id="req-number" class="text-gray-500">
+                                <i class="fas fa-circle text-[6px] mr-1"></i> One number
+                            </div>
+                        </div>
                     </div>
 
-                    <div>
-                        <label class="block text-sm font-bold mb-2">Confirm Password</label>
-                        <input type="password" id="confirmPassword" name="confirmPassword" class="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:border-sky-500 focus:outline-none" placeholder="••••••••" required>
+                    <!-- Confirm Password Field -->
+                    <div class="relative">
+                        <label class="block text-sm font-bold mb-2 text-gray-700">
+                            <i class="fas fa-lock mr-1 text-sky-500"></i>
+                            Confirm Password
+                        </label>
+                        <input type="password" id="confirmPassword" name="confirmPassword" 
+                               class="w-full px-4 py-3 pl-12 pr-12 border-2 border-gray-300 rounded-xl focus:border-sky-500 focus:ring-2 focus:ring-sky-200 focus:outline-none transition-all" 
+                               placeholder="••••••••" required>
+                        <i class="fas fa-lock absolute left-4 top-11 text-gray-400"></i>
+                        <button type="button" id="toggleConfirmPassword" class="absolute right-4 top-11 text-gray-400 hover:text-gray-600">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                        <div id="confirm-error" class="hidden text-red-500 text-xs mt-1">
+                            <i class="fas fa-exclamation-circle"></i> Passwords do not match
+                        </div>
+                        <div id="confirm-success" class="hidden text-green-500 text-xs mt-1">
+                            <i class="fas fa-check-circle"></i> Passwords match
+                        </div>
                     </div>
 
-                    <button type="submit" class="w-full btn-primary text-white px-8 py-4 rounded-full font-bold text-lg">
-                        Create Account
+                    <!-- Submit Button -->
+                    <button type="submit" id="submitBtn" 
+                            class="w-full btn-primary text-white px-8 py-4 rounded-full font-bold text-lg shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all mt-6">
+                        <span id="btnText">
+                            <i class="fas fa-user-plus mr-2"></i>
+                            Create Account
+                        </span>
+                        <span id="btnLoading" class="hidden">
+                            <i class="fas fa-spinner fa-spin"></i> Creating account...
+                        </span>
                     </button>
                 </form>
 
+                <style>
+                    @keyframes shake {
+                        0%, 100% { transform: translateX(0); }
+                        25% { transform: translateX(-10px); }
+                        75% { transform: translateX(10px); }
+                    }
+                    @keyframes slideDown {
+                        from { transform: translateY(-10px); opacity: 0; }
+                        to { transform: translateY(0); opacity: 1; }
+                    }
+                    .animate-shake { animation: shake 0.3s ease-in-out; }
+                    .animate-slideDown { animation: slideDown 0.3s ease-out; }
+                </style>
+
                 <script>
+                    // Toggle password visibility
+                    document.getElementById('togglePassword').addEventListener('click', function() {
+                        const passwordInput = document.getElementById('password');
+                        const icon = this.querySelector('i');
+                        if (passwordInput.type === 'password') {
+                            passwordInput.type = 'text';
+                            icon.classList.remove('fa-eye');
+                            icon.classList.add('fa-eye-slash');
+                        } else {
+                            passwordInput.type = 'password';
+                            icon.classList.remove('fa-eye-slash');
+                            icon.classList.add('fa-eye');
+                        }
+                    });
+
+                    document.getElementById('toggleConfirmPassword').addEventListener('click', function() {
+                        const passwordInput = document.getElementById('confirmPassword');
+                        const icon = this.querySelector('i');
+                        if (passwordInput.type === 'password') {
+                            passwordInput.type = 'text';
+                            icon.classList.remove('fa-eye');
+                            icon.classList.add('fa-eye-slash');
+                        } else {
+                            passwordInput.type = 'password';
+                            icon.classList.remove('fa-eye-slash');
+                            icon.classList.add('fa-eye');
+                        }
+                    });
+
+                    // Password strength checker
+                    function checkPasswordStrength(password) {
+                        let strength = 0;
+                        const strengthBar1 = document.getElementById('strength-bar-1');
+                        const strengthBar2 = document.getElementById('strength-bar-2');
+                        const strengthBar3 = document.getElementById('strength-bar-3');
+                        const strengthBar4 = document.getElementById('strength-bar-4');
+                        const strengthText = document.getElementById('strength-text');
+                        
+                        // Reset bars
+                        [strengthBar1, strengthBar2, strengthBar3, strengthBar4].forEach(bar => {
+                            bar.className = 'h-1 flex-1 rounded-full bg-gray-200';
+                        });
+                        
+                        if (password.length >= 8) strength++;
+                        if (password.match(/[a-z]/)) strength++;
+                        if (password.match(/[A-Z]/)) strength++;
+                        if (password.match(/[0-9]/)) strength++;
+                        if (password.match(/[^a-zA-Z0-9]/)) strength++;
+                        
+                        const bars = [strengthBar1, strengthBar2, strengthBar3, strengthBar4];
+                        
+                        if (strength <= 2) {
+                            bars[0].className = 'h-1 flex-1 rounded-full bg-red-500';
+                            strengthText.textContent = 'Weak password';
+                            strengthText.className = 'text-xs text-red-500';
+                        } else if (strength === 3) {
+                            bars[0].className = 'h-1 flex-1 rounded-full bg-yellow-500';
+                            bars[1].className = 'h-1 flex-1 rounded-full bg-yellow-500';
+                            strengthText.textContent = 'Medium password';
+                            strengthText.className = 'text-xs text-yellow-600';
+                        } else if (strength === 4) {
+                            bars[0].className = 'h-1 flex-1 rounded-full bg-green-500';
+                            bars[1].className = 'h-1 flex-1 rounded-full bg-green-500';
+                            bars[2].className = 'h-1 flex-1 rounded-full bg-green-500';
+                            strengthText.textContent = 'Strong password';
+                            strengthText.className = 'text-xs text-green-600';
+                        } else if (strength === 5) {
+                            bars.forEach(bar => bar.className = 'h-1 flex-1 rounded-full bg-green-600');
+                            strengthText.textContent = 'Very strong password';
+                            strengthText.className = 'text-xs text-green-700 font-semibold';
+                        }
+                    }
+
+                    // Real-time password validation
+                    document.getElementById('password').addEventListener('input', function() {
+                        const password = this.value;
+                        const strengthDiv = document.getElementById('password-strength');
+                        
+                        if (password.length > 0) {
+                            strengthDiv.classList.remove('hidden');
+                            checkPasswordStrength(password);
+                            
+                            // Update requirements
+                            const reqLength = document.getElementById('req-length');
+                            const reqUppercase = document.getElementById('req-uppercase');
+                            const reqLowercase = document.getElementById('req-lowercase');
+                            const reqNumber = document.getElementById('req-number');
+                            
+                            if (password.length >= 8) {
+                                reqLength.className = 'text-green-600';
+                                reqLength.innerHTML = '<i class="fas fa-check-circle mr-1"></i> At least 8 characters';
+                            } else {
+                                reqLength.className = 'text-gray-500';
+                                reqLength.innerHTML = '<i class="fas fa-circle text-[6px] mr-1"></i> At least 8 characters';
+                            }
+                            
+                            if (password.match(/[A-Z]/)) {
+                                reqUppercase.className = 'text-green-600';
+                                reqUppercase.innerHTML = '<i class="fas fa-check-circle mr-1"></i> One uppercase letter';
+                            } else {
+                                reqUppercase.className = 'text-gray-500';
+                                reqUppercase.innerHTML = '<i class="fas fa-circle text-[6px] mr-1"></i> One uppercase letter';
+                            }
+                            
+                            if (password.match(/[a-z]/)) {
+                                reqLowercase.className = 'text-green-600';
+                                reqLowercase.innerHTML = '<i class="fas fa-check-circle mr-1"></i> One lowercase letter';
+                            } else {
+                                reqLowercase.className = 'text-gray-500';
+                                reqLowercase.innerHTML = '<i class="fas fa-circle text-[6px] mr-1"></i> One lowercase letter';
+                            }
+                            
+                            if (password.match(/[0-9]/)) {
+                                reqNumber.className = 'text-green-600';
+                                reqNumber.innerHTML = '<i class="fas fa-check-circle mr-1"></i> One number';
+                            } else {
+                                reqNumber.className = 'text-gray-500';
+                                reqNumber.innerHTML = '<i class="fas fa-circle text-[6px] mr-1"></i> One number';
+                            }
+                        } else {
+                            strengthDiv.classList.add('hidden');
+                        }
+                    });
+
+                    // Confirm password validation
+                    document.getElementById('confirmPassword').addEventListener('input', function() {
+                        const password = document.getElementById('password').value;
+                        const confirmPassword = this.value;
+                        const confirmError = document.getElementById('confirm-error');
+                        const confirmSuccess = document.getElementById('confirm-success');
+                        
+                        if (confirmPassword.length > 0) {
+                            if (password !== confirmPassword) {
+                                confirmError.classList.remove('hidden');
+                                confirmSuccess.classList.add('hidden');
+                                this.classList.add('border-red-500');
+                                this.classList.remove('border-green-500');
+                            } else {
+                                confirmError.classList.add('hidden');
+                                confirmSuccess.classList.remove('hidden');
+                                this.classList.remove('border-red-500');
+                                this.classList.add('border-green-500');
+                            }
+                        } else {
+                            confirmError.classList.add('hidden');
+                            confirmSuccess.classList.add('hidden');
+                            this.classList.remove('border-red-500', 'border-green-500');
+                        }
+                    });
+
+                    // Email validation
+                    document.getElementById('email').addEventListener('blur', function() {
+                        const emailError = document.getElementById('email-error');
+                        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                        if (!emailRegex.test(this.value)) {
+                            emailError.classList.remove('hidden');
+                            this.classList.add('border-red-500');
+                        } else {
+                            emailError.classList.add('hidden');
+                            this.classList.remove('border-red-500');
+                        }
+                    });
+
+                    // Name validation
+                    document.getElementById('name').addEventListener('blur', function() {
+                        const nameError = document.getElementById('name-error');
+                        if (this.value.length < 2) {
+                            nameError.classList.remove('hidden');
+                            this.classList.add('border-red-500');
+                        } else {
+                            nameError.classList.add('hidden');
+                            this.classList.remove('border-red-500');
+                        }
+                    });
+
+                    // Form submission
                     document.getElementById('registerForm').addEventListener('submit', async (e) => {
                         e.preventDefault();
                         
@@ -1775,6 +2213,21 @@ app.get('/register', (c) => {
                         const password = document.getElementById('password').value;
                         const confirmPassword = document.getElementById('confirmPassword').value;
                         const errorDiv = document.getElementById('error-message');
+                        const errorText = document.getElementById('error-text');
+                        const successDiv = document.getElementById('success-message');
+                        const successText = document.getElementById('success-text');
+                        const submitBtn = document.getElementById('submitBtn');
+                        const btnText = document.getElementById('btnText');
+                        const btnLoading = document.getElementById('btnLoading');
+                        
+                        // Hide previous messages
+                        errorDiv.classList.add('hidden');
+                        successDiv.classList.add('hidden');
+                        
+                        // Show loading state
+                        submitBtn.disabled = true;
+                        btnText.classList.add('hidden');
+                        btnLoading.classList.remove('hidden');
                         
                         try {
                             const response = await fetch('/api/auth/register', {
@@ -1786,20 +2239,44 @@ app.get('/register', (c) => {
                             const data = await response.json();
                             
                             if (data.success) {
-                                window.location.href = data.redirect || '/account';
+                                successText.textContent = 'Account created successfully! Redirecting...';
+                                successDiv.classList.remove('hidden');
+                                setTimeout(() => {
+                                    window.location.href = data.redirect || '/account';
+                                }, 1500);
                             } else {
-                                errorDiv.textContent = data.message;
+                                errorText.textContent = data.message;
                                 errorDiv.classList.remove('hidden');
+                                // Reset button
+                                submitBtn.disabled = false;
+                                btnText.classList.remove('hidden');
+                                btnLoading.classList.add('hidden');
                             }
                         } catch (error) {
-                            errorDiv.textContent = 'Registration failed. Please try again.';
+                            errorText.textContent = 'Registration failed. Please try again.';
                             errorDiv.classList.remove('hidden');
+                            // Reset button
+                            submitBtn.disabled = false;
+                            btnText.classList.remove('hidden');
+                            btnLoading.classList.add('hidden');
                         }
                     });
                 </script>
 
-                <p class="text-center mt-8 text-gray-600">
-                    Already have an account? <a href="/login" class="text-sky-500 hover:text-sky-600 font-bold">Sign in</a>
+                <!-- Divider -->
+                <div class="relative my-8">
+                    <div class="absolute inset-0 flex items-center">
+                        <div class="w-full border-t border-gray-300"></div>
+                    </div>
+                    <div class="relative flex justify-center text-sm">
+                        <span class="px-4 bg-white text-gray-500">Already a member?</span>
+                    </div>
+                </div>
+
+                <!-- Sign In Link -->
+                <p class="text-center text-gray-600">
+                    Already have an account? 
+                    <a href="/login" class="text-sky-600 hover:text-sky-700 font-bold hover:underline">Sign In</a>
                 </p>
             </div>
         </div>
@@ -6541,6 +7018,161 @@ app.get('/api/curriculum/access/:productId', async (c) => {
   }
 });
 
+// ==================== ANALYTICS API ====================
+
+// Track page visit
+app.post('/api/analytics/track', async (c) => {
+  try {
+    const body = await c.req.json();
+    const { pageUrl, pageTitle } = body;
+
+    if (!isDatabaseAvailable(c)) {
+      return c.json({ success: false }, 503);
+    }
+
+    // Get user info
+    const user = await getCurrentUser(c);
+    const userId = user ? user.id : null;
+
+    // Get request info
+    const userAgent = c.req.header('user-agent') || 'Unknown';
+    const referrer = c.req.header('referer') || '';
+    const cfConnectingIp = c.req.header('cf-connecting-ip');
+    const xForwardedFor = c.req.header('x-forwarded-for');
+    const ipAddress = cfConnectingIp || (xForwardedFor ? xForwardedFor.split(',')[0] : 'Unknown');
+
+    // @ts-ignore - DB binding
+    const db = c.env?.DB;
+
+    // Track page visit
+    await db.prepare(`
+      INSERT INTO page_visits (page_url, page_title, user_agent, referrer, ip_address, user_id)
+      VALUES (?, ?, ?, ?, ?, ?)
+    `).bind(pageUrl, pageTitle, userAgent, referrer, ipAddress, userId).run();
+
+    // Update popular pages
+    await db.prepare(`
+      INSERT INTO popular_pages (page_url, page_title, visit_count, unique_visitors)
+      VALUES (?, ?, 1, 1)
+      ON CONFLICT(page_url) DO UPDATE SET
+        visit_count = visit_count + 1,
+        last_updated = datetime('now')
+    `).bind(pageUrl, pageTitle).run();
+
+    return c.json({ success: true });
+
+  } catch (error) {
+    console.error('Analytics tracking error:', error);
+    return c.json({ success: false }, 500);
+  }
+});
+
+// Get analytics dashboard data (admin only)
+app.get('/api/analytics/dashboard', async (c) => {
+  try {
+    const user = await getCurrentUser(c);
+    if (!user) {
+      return c.json({ success: false, message: 'Unauthorized' }, 401);
+    }
+
+    // @ts-ignore - DB binding
+    const db = c.env?.DB;
+    const adminCheck: any = await db.prepare('SELECT is_admin FROM users WHERE id = ?').bind(user.id).first();
+    
+    if (!adminCheck || !adminCheck.is_admin) {
+      return c.json({ success: false, message: 'Access denied' }, 403);
+    }
+
+    // Get total visits (all time)
+    const totalVisits = await db.prepare('SELECT COUNT(*) as count FROM page_visits').first();
+
+    // Get unique visitors (by IP)
+    const uniqueVisitors = await db.prepare('SELECT COUNT(DISTINCT ip_address) as count FROM page_visits').first();
+
+    // Get visits today
+    const visitsToday = await db.prepare(`
+      SELECT COUNT(*) as count FROM page_visits 
+      WHERE DATE(created_at) = DATE('now')
+    `).first();
+
+    // Get visits this week
+    const visitsWeek = await db.prepare(`
+      SELECT COUNT(*) as count FROM page_visits 
+      WHERE DATE(created_at) >= DATE('now', '-7 days')
+    `).first();
+
+    // Get visits this month
+    const visitsMonth = await db.prepare(`
+      SELECT COUNT(*) as count FROM page_visits 
+      WHERE DATE(created_at) >= DATE('now', '-30 days')
+    `).first();
+
+    // Get popular pages
+    const popularPages = await db.prepare(`
+      SELECT page_url, page_title, visit_count, unique_visitors
+      FROM popular_pages
+      ORDER BY visit_count DESC
+      LIMIT 10
+    `).all();
+
+    // Get recent visits
+    const recentVisits = await db.prepare(`
+      SELECT pv.page_url, pv.page_title, pv.created_at, pv.ip_address, u.name as user_name
+      FROM page_visits pv
+      LEFT JOIN users u ON pv.user_id = u.id
+      ORDER BY pv.created_at DESC
+      LIMIT 20
+    `).all();
+
+    // Get daily visits for last 7 days
+    const dailyVisits = await db.prepare(`
+      SELECT DATE(created_at) as date, COUNT(*) as count
+      FROM page_visits
+      WHERE DATE(created_at) >= DATE('now', '-7 days')
+      GROUP BY DATE(created_at)
+      ORDER BY date DESC
+    `).all();
+
+    // Get total users
+    const totalUsers = await db.prepare('SELECT COUNT(*) as count FROM users').first();
+
+    // Get new users today
+    const newUsersToday = await db.prepare(`
+      SELECT COUNT(*) as count FROM users 
+      WHERE DATE(created_at) = DATE('now')
+    `).first();
+
+    // Get new users this week
+    const newUsersWeek = await db.prepare(`
+      SELECT COUNT(*) as count FROM users 
+      WHERE DATE(created_at) >= DATE('now', '-7 days')
+    `).first();
+
+    return c.json({
+      success: true,
+      data: {
+        overview: {
+          totalVisits: totalVisits?.count || 0,
+          uniqueVisitors: uniqueVisitors?.count || 0,
+          visitsToday: visitsToday?.count || 0,
+          visitsWeek: visitsWeek?.count || 0,
+          visitsMonth: visitsMonth?.count || 0,
+          totalUsers: totalUsers?.count || 0,
+          newUsersToday: newUsersToday?.count || 0,
+          newUsersWeek: newUsersWeek?.count || 0
+        },
+        popularPages: popularPages.results || [],
+        recentVisits: recentVisits.results || [],
+        dailyVisits: dailyVisits.results || []
+      }
+    });
+
+  } catch (error) {
+    console.error('Analytics dashboard error:', error);
+    return c.json({ success: false, message: 'Failed to load analytics' }, 500);
+  }
+});
+
 // ==================== NEWSLETTER API ====================
 
 // Subscribe to newsletter
@@ -6815,6 +7447,282 @@ app.get('/account', async (c) => {
   `;
 
   return c.html(renderPage('My Account', content));
+});
+
+// Analytics Dashboard
+app.get('/admin/analytics', async (c) => {
+  try {
+    const user = await getCurrentUser(c);
+    
+    if (!user) {
+      return c.redirect('/login?redirect=/admin/analytics');
+    }
+
+    if (!isDatabaseAvailable(c)) {
+      return c.html('<h1>Database Not Available</h1>', 503);
+    }
+
+    // Check if user is admin
+    const adminCheck = await c.env.DB.prepare('SELECT is_admin FROM users WHERE id = ?').bind(user.id).first();
+    if (!adminCheck || adminCheck.is_admin !== 1) {
+      return c.html('<h1>Access Denied</h1><p>Admin access only</p>', 403);
+    }
+
+    const content = `
+      <div class="pt-32 pb-20 bg-gray-50">
+        <div class="container mx-auto px-6 max-w-7xl">
+          <div class="flex justify-between items-center mb-8">
+            <h1 class="text-5xl font-black">Analytics Dashboard</h1>
+            <a href="/admin/dashboard" class="text-sky-500 hover:text-sky-600 font-semibold">
+              <i class="fas fa-database mr-2"></i>Database View
+            </a>
+          </div>
+
+          <!-- Loading State -->
+          <div id="analytics-loading" class="text-center py-20">
+            <i class="fas fa-spinner fa-spin text-6xl text-sky-500 mb-4"></i>
+            <p class="text-xl text-gray-600">Loading analytics data...</p>
+          </div>
+
+          <!-- Analytics Content -->
+          <div id="analytics-content" class="hidden">
+            <!-- Overview Cards -->
+            <div class="grid md:grid-cols-4 gap-6 mb-12">
+              <div class="bg-white p-6 rounded-2xl shadow-lg border-l-4 border-sky-500">
+                <div class="flex items-center justify-between mb-2">
+                  <i class="fas fa-eye text-3xl text-sky-500"></i>
+                  <span class="text-xs text-gray-500 uppercase">All Time</span>
+                </div>
+                <div id="total-visits" class="text-4xl font-black text-gray-900 mb-1">0</div>
+                <div class="text-gray-600 text-sm">Total Page Views</div>
+              </div>
+
+              <div class="bg-white p-6 rounded-2xl shadow-lg border-l-4 border-green-500">
+                <div class="flex items-center justify-between mb-2">
+                  <i class="fas fa-users text-3xl text-green-500"></i>
+                  <span class="text-xs text-gray-500 uppercase">Unique</span>
+                </div>
+                <div id="unique-visitors" class="text-4xl font-black text-gray-900 mb-1">0</div>
+                <div class="text-gray-600 text-sm">Unique Visitors</div>
+              </div>
+
+              <div class="bg-white p-6 rounded-2xl shadow-lg border-l-4 border-orange-500">
+                <div class="flex items-center justify-between mb-2">
+                  <i class="fas fa-calendar-day text-3xl text-orange-500"></i>
+                  <span class="text-xs text-gray-500 uppercase">Today</span>
+                </div>
+                <div id="visits-today" class="text-4xl font-black text-gray-900 mb-1">0</div>
+                <div class="text-gray-600 text-sm">Visits Today</div>
+              </div>
+
+              <div class="bg-white p-6 rounded-2xl shadow-lg border-l-4 border-purple-500">
+                <div class="flex items-center justify-between mb-2">
+                  <i class="fas fa-user-plus text-3xl text-purple-500"></i>
+                  <span class="text-xs text-gray-500 uppercase">Week</span>
+                </div>
+                <div id="new-users-week" class="text-4xl font-black text-gray-900 mb-1">0</div>
+                <div class="text-gray-600 text-sm">New Users This Week</div>
+              </div>
+            </div>
+
+            <!-- Stats Grid -->
+            <div class="grid md:grid-cols-3 gap-6 mb-12">
+              <div class="bg-white p-6 rounded-2xl shadow-lg">
+                <h3 class="text-xl font-bold mb-4 flex items-center">
+                  <i class="fas fa-chart-line text-sky-500 mr-2"></i>
+                  Weekly Visits
+                </h3>
+                <div class="text-3xl font-black mb-2" id="visits-week">0</div>
+                <div class="text-sm text-gray-600">Last 7 days</div>
+              </div>
+
+              <div class="bg-white p-6 rounded-2xl shadow-lg">
+                <h3 class="text-xl font-bold mb-4 flex items-center">
+                  <i class="fas fa-calendar-alt text-green-500 mr-2"></i>
+                  Monthly Visits
+                </h3>
+                <div class="text-3xl font-black mb-2" id="visits-month">0</div>
+                <div class="text-sm text-gray-600">Last 30 days</div>
+              </div>
+
+              <div class="bg-white p-6 rounded-2xl shadow-lg">
+                <h3 class="text-xl font-bold mb-4 flex items-center">
+                  <i class="fas fa-user-check text-purple-500 mr-2"></i>
+                  Total Users
+                </h3>
+                <div class="text-3xl font-black mb-2" id="total-users">0</div>
+                <div class="text-sm text-gray-600">Registered accounts</div>
+              </div>
+            </div>
+
+            <!-- Popular Pages -->
+            <div class="bg-white rounded-2xl shadow-lg p-8 mb-8">
+              <h2 class="text-3xl font-bold mb-6 flex items-center">
+                <i class="fas fa-fire text-orange-500 mr-3"></i>
+                Most Popular Pages
+              </h2>
+              <div class="overflow-x-auto">
+                <table class="w-full">
+                  <thead>
+                    <tr class="border-b-2 border-gray-200">
+                      <th class="text-left py-3 px-4">Page</th>
+                      <th class="text-left py-3 px-4">Title</th>
+                      <th class="text-right py-3 px-4">Visits</th>
+                      <th class="text-right py-3 px-4">Unique Visitors</th>
+                    </tr>
+                  </thead>
+                  <tbody id="popular-pages-table">
+                    <tr><td colspan="4" class="py-8 text-center text-gray-500">Loading...</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- Recent Visits -->
+            <div class="bg-white rounded-2xl shadow-lg p-8 mb-8">
+              <h2 class="text-3xl font-bold mb-6 flex items-center">
+                <i class="fas fa-clock text-blue-500 mr-3"></i>
+                Recent Visits
+              </h2>
+              <div class="overflow-x-auto">
+                <table class="w-full">
+                  <thead>
+                    <tr class="border-b-2 border-gray-200">
+                      <th class="text-left py-3 px-4">Time</th>
+                      <th class="text-left py-3 px-4">Page</th>
+                      <th class="text-left py-3 px-4">User</th>
+                      <th class="text-left py-3 px-4">IP Address</th>
+                    </tr>
+                  </thead>
+                  <tbody id="recent-visits-table">
+                    <tr><td colspan="4" class="py-8 text-center text-gray-500">Loading...</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- Daily Chart -->
+            <div class="bg-white rounded-2xl shadow-lg p-8">
+              <h2 class="text-3xl font-bold mb-6 flex items-center">
+                <i class="fas fa-chart-bar text-green-500 mr-3"></i>
+                Daily Visits (Last 7 Days)
+              </h2>
+              <div id="daily-chart" class="space-y-4">
+                <p class="text-center text-gray-500">Loading chart...</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-8 text-center">
+            <a href="/" class="btn-primary text-white px-8 py-3 rounded-full inline-block">Back to Home</a>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        // Load analytics data
+        async function loadAnalytics() {
+          try {
+            const response = await fetch('/api/analytics/dashboard');
+            const result = await response.json();
+
+            if (!result.success) {
+              throw new Error(result.message || 'Failed to load analytics');
+            }
+
+            const data = result.data;
+
+            // Update overview cards
+            document.getElementById('total-visits').textContent = data.overview.totalVisits.toLocaleString();
+            document.getElementById('unique-visitors').textContent = data.overview.uniqueVisitors.toLocaleString();
+            document.getElementById('visits-today').textContent = data.overview.visitsToday.toLocaleString();
+            document.getElementById('new-users-week').textContent = data.overview.newUsersWeek.toLocaleString();
+            document.getElementById('visits-week').textContent = data.overview.visitsWeek.toLocaleString();
+            document.getElementById('visits-month').textContent = data.overview.visitsMonth.toLocaleString();
+            document.getElementById('total-users').textContent = data.overview.totalUsers.toLocaleString();
+
+            // Populate popular pages
+            const popularPagesTable = document.getElementById('popular-pages-table');
+            if (data.popularPages.length > 0) {
+              popularPagesTable.innerHTML = data.popularPages.map(page => \`
+                <tr class="border-b hover:bg-gray-50">
+                  <td class="py-3 px-4">
+                    <code class="text-sm bg-gray-100 px-2 py-1 rounded">\${page.page_url}</code>
+                  </td>
+                  <td class="py-3 px-4">\${page.page_title || 'Untitled'}</td>
+                  <td class="py-3 px-4 text-right font-bold text-sky-600">\${page.visit_count.toLocaleString()}</td>
+                  <td class="py-3 px-4 text-right text-gray-600">\${page.unique_visitors.toLocaleString()}</td>
+                </tr>
+              \`).join('');
+            } else {
+              popularPagesTable.innerHTML = '<tr><td colspan="4" class="py-8 text-center text-gray-500">No data yet</td></tr>';
+            }
+
+            // Populate recent visits
+            const recentVisitsTable = document.getElementById('recent-visits-table');
+            if (data.recentVisits.length > 0) {
+              recentVisitsTable.innerHTML = data.recentVisits.map(visit => \`
+                <tr class="border-b hover:bg-gray-50">
+                  <td class="py-3 px-4 text-sm">\${new Date(visit.created_at).toLocaleString()}</td>
+                  <td class="py-3 px-4">
+                    <code class="text-sm bg-gray-100 px-2 py-1 rounded">\${visit.page_url}</code>
+                  </td>
+                  <td class="py-3 px-4">\${visit.user_name || 'Anonymous'}</td>
+                  <td class="py-3 px-4 text-gray-600">\${visit.ip_address}</td>
+                </tr>
+              \`).join('');
+            } else {
+              recentVisitsTable.innerHTML = '<tr><td colspan="4" class="py-8 text-center text-gray-500">No visits yet</td></tr>';
+            }
+
+            // Create simple bar chart for daily visits
+            const dailyChart = document.getElementById('daily-chart');
+            if (data.dailyVisits.length > 0) {
+              const maxVisits = Math.max(...data.dailyVisits.map(d => d.count));
+              dailyChart.innerHTML = data.dailyVisits.reverse().map(day => {
+                const percentage = (day.count / maxVisits) * 100;
+                return \`
+                  <div class="flex items-center space-x-4">
+                    <div class="w-24 text-sm text-gray-600">\${new Date(day.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</div>
+                    <div class="flex-1 bg-gray-200 rounded-full h-8 relative">
+                      <div class="bg-gradient-to-r from-sky-500 to-blue-600 h-8 rounded-full flex items-center justify-end px-3" 
+                           style="width: \${percentage}%">
+                        <span class="text-white font-bold text-sm">\${day.count}</span>
+                      </div>
+                    </div>
+                  </div>
+                \`;
+              }).join('');
+            } else {
+              dailyChart.innerHTML = '<p class="text-center text-gray-500">No data for the last 7 days</p>';
+            }
+
+            // Hide loading, show content
+            document.getElementById('analytics-loading').classList.add('hidden');
+            document.getElementById('analytics-content').classList.remove('hidden');
+
+          } catch (error) {
+            console.error('Analytics load error:', error);
+            document.getElementById('analytics-loading').innerHTML = \`
+              <i class="fas fa-exclamation-circle text-6xl text-red-500 mb-4"></i>
+              <p class="text-xl text-red-600">Failed to load analytics data</p>
+              <button onclick="location.reload()" class="mt-4 btn-primary text-white px-6 py-2 rounded-full">
+                Retry
+              </button>
+            \`;
+          }
+        }
+
+        // Load on page load
+        document.addEventListener('DOMContentLoaded', loadAnalytics);
+      </script>
+    `;
+
+    return c.html(renderPage('Analytics Dashboard', content, false));
+  } catch (error) {
+    console.error('Analytics page error:', error);
+    return c.html('<h1>Error loading analytics</h1>', 500);
+  }
 });
 
 // Admin Dashboard - Database Viewer
