@@ -8525,6 +8525,216 @@ app.get('/admin/analytics', async (c) => {
   }
 });
 
+// Enhanced Analytics API Endpoints
+
+// Get conversion funnel data
+app.get('/api/admin/analytics/funnel', async (c) => {
+  try {
+    const user = await getCurrentUser(c);
+    if (!user) return c.json({ success: false, message: 'Unauthorized' }, 401);
+    
+    if (!isDatabaseAvailable(c)) {
+      return c.json({ success: false, message: 'Database not available' }, 503);
+    }
+    
+    const adminCheck = await c.env.DB.prepare('SELECT is_admin FROM users WHERE id = ?').bind(user.id).first();
+    if (!adminCheck || adminCheck.is_admin !== 1) {
+      return c.json({ success: false, message: 'Admin access required' }, 403);
+    }
+    
+    const funnel = await c.env.DB.prepare(`
+      SELECT 
+        stage_name,
+        stage_number,
+        COUNT(DISTINCT session_id) as sessions,
+        COUNT(CASE WHEN completed = 1 THEN 1 END) as completed
+      FROM funnel_stages
+      GROUP BY stage_name, stage_number
+      ORDER BY stage_number
+    `).all();
+    
+    return c.json({ success: true, funnel: funnel.results });
+  } catch (error) {
+    console.error('Funnel API error:', error);
+    return c.json({ success: false, message: 'Error fetching funnel data' }, 500);
+  }
+});
+
+// Get product performance
+app.get('/api/admin/analytics/products', async (c) => {
+  try {
+    const user = await getCurrentUser(c);
+    if (!user) return c.json({ success: false, message: 'Unauthorized' }, 401);
+    
+    if (!isDatabaseAvailable(c)) {
+      return c.json({ success: false, message: 'Database not available' }, 503);
+    }
+    
+    const adminCheck = await c.env.DB.prepare('SELECT is_admin FROM users WHERE id = ?').bind(user.id).first();
+    if (!adminCheck || adminCheck.is_admin !== 1) {
+      return c.json({ success: false, message: 'Admin access required' }, 403);
+    }
+    
+    const days = parseInt(c.req.query('days') || '30');
+    const since = new Date(Date.now() - days * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
+    
+    const performance = await c.env.DB.prepare(`
+      SELECT 
+        p.id,
+        p.name,
+        COALESCE(SUM(pa.views), 0) as total_views,
+        COALESCE(SUM(pa.add_to_cart), 0) as total_add_to_cart,
+        COALESCE(SUM(pa.purchases), 0) as total_purchases,
+        COALESCE(SUM(pa.revenue), 0) as total_revenue,
+        ROUND(CAST(COALESCE(SUM(pa.purchases), 0) AS FLOAT) / NULLIF(COALESCE(SUM(pa.views), 0), 0) * 100, 2) as conversion_rate
+      FROM products p
+      LEFT JOIN product_analytics pa ON p.id = pa.product_id AND pa.date >= ?
+      GROUP BY p.id, p.name
+      ORDER BY total_revenue DESC
+    `).bind(since).all();
+    
+    return c.json({ success: true, products: performance.results });
+  } catch (error) {
+    console.error('Product analytics error:', error);
+    return c.json({ success: false, message: 'Error fetching product data' }, 500);
+  }
+});
+
+// Get traffic sources
+app.get('/api/admin/analytics/traffic-sources', async (c) => {
+  try {
+    const user = await getCurrentUser(c);
+    if (!user) return c.json({ success: false, message: 'Unauthorized' }, 401);
+    
+    if (!isDatabaseAvailable(c)) {
+      return c.json({ success: false, message: 'Database not available' }, 503);
+    }
+    
+    const adminCheck = await c.env.DB.prepare('SELECT is_admin FROM users WHERE id = ?').bind(user.id).first();
+    if (!adminCheck || adminCheck.is_admin !== 1) {
+      return c.json({ success: false, message: 'Admin access required' }, 403);
+    }
+    
+    const days = parseInt(c.req.query('days') || '30');
+    const since = new Date(Date.now() - days * 24 * 60 * 60 * 1000).toISOString();
+    
+    const sources = await c.env.DB.prepare(`
+      SELECT 
+        ts.source_type,
+        ts.source_name,
+        COUNT(DISTINCT ts.session_id) as sessions,
+        COUNT(DISTINCT CASE WHEN us.converted = 1 THEN us.session_id END) as conversions,
+        ROUND(CAST(COUNT(DISTINCT CASE WHEN us.converted = 1 THEN us.session_id END) AS FLOAT) / 
+              NULLIF(COUNT(DISTINCT ts.session_id), 0) * 100, 2) as conversion_rate
+      FROM traffic_sources ts
+      LEFT JOIN user_sessions us ON ts.session_id = us.session_id
+      WHERE ts.created_at >= ?
+      GROUP BY ts.source_type, ts.source_name
+      ORDER BY sessions DESC
+    `).bind(since).all();
+    
+    return c.json({ success: true, sources: sources.results });
+  } catch (error) {
+    console.error('Traffic sources error:', error);
+    return c.json({ success: false, message: 'Error fetching traffic data' }, 500);
+  }
+});
+
+// Get user journey for a specific session
+app.get('/api/admin/analytics/journey/:session_id', async (c) => {
+  try {
+    const user = await getCurrentUser(c);
+    if (!user) return c.json({ success: false, message: 'Unauthorized' }, 401);
+    
+    if (!isDatabaseAvailable(c)) {
+      return c.json({ success: false, message: 'Database not available' }, 503);
+    }
+    
+    const adminCheck = await c.env.DB.prepare('SELECT is_admin FROM users WHERE id = ?').bind(user.id).first();
+    if (!adminCheck || adminCheck.is_admin !== 1) {
+      return c.json({ success: false, message: 'Admin access required' }, 403);
+    }
+    
+    const session_id = c.req.param('session_id');
+    
+    const journey = await c.env.DB.prepare(`
+      SELECT page_url, page_title, time_spent_seconds, sequence_number, created_at
+      FROM session_page_views
+      WHERE session_id = ?
+      ORDER BY sequence_number
+    `).bind(session_id).all();
+    
+    const sessionInfo = await c.env.DB.prepare(`
+      SELECT * FROM user_sessions WHERE session_id = ?
+    `).bind(session_id).first();
+    
+    return c.json({ success: true, journey: journey.results, session: sessionInfo });
+  } catch (error) {
+    console.error('User journey error:', error);
+    return c.json({ success: false, message: 'Error fetching journey data' }, 500);
+  }
+});
+
+// Track conversion event (called from frontend)
+app.post('/api/analytics/track-conversion', async (c) => {
+  try {
+    if (!isDatabaseAvailable(c)) {
+      return c.json({ success: false, message: 'Database not available' }, 503);
+    }
+    
+    const { event_type, product_id, order_id, revenue } = await c.req.json();
+    
+    // Get or create session ID
+    const existingSession = c.req.header('cookie')?.match(/analytics_session=([^;]+)/)?.[1];
+    const session_id = existingSession || `sess_${Date.now()}_${Math.random().toString(36).substring(2, 15)}`;
+    
+    if (!existingSession) {
+      c.header('Set-Cookie', `analytics_session=${session_id}; Path=/; Max-Age=${60 * 60 * 24 * 30}; SameSite=Lax`);
+    }
+    
+    const user = await getCurrentUser(c);
+    const ip_address = c.req.header('cf-connecting-ip') || c.req.header('x-forwarded-for') || 'unknown';
+    const user_agent = c.req.header('user-agent') || 'unknown';
+    const referrer = c.req.header('referer') || '';
+    
+    await c.env.DB.prepare(`
+      INSERT INTO conversion_events 
+      (user_id, session_id, event_type, product_id, order_id, revenue, ip_address, user_agent, referrer)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+    `).bind(
+      user?.id || null,
+      session_id,
+      event_type,
+      product_id || null,
+      order_id || null,
+      revenue || 0,
+      ip_address,
+      user_agent,
+      referrer
+    ).run();
+    
+    // Update product analytics if applicable
+    if (product_id && ['product_view', 'add_to_cart', 'purchase'].includes(event_type)) {
+      const today = new Date().toISOString().split('T')[0];
+      const column = event_type === 'product_view' ? 'views' : 
+                    event_type === 'add_to_cart' ? 'add_to_cart' : 'purchases';
+      
+      await c.env.DB.prepare(`
+        INSERT INTO product_analytics (product_id, date, ${column}, revenue)
+        VALUES (?, ?, 1, ?)
+        ON CONFLICT(product_id, date) DO UPDATE SET
+          ${column} = ${column} + 1,
+          revenue = revenue + ?
+      `).bind(product_id, today, revenue || 0, revenue || 0).run();
+    }
+    
+    return c.json({ success: true, session_id });
+  } catch (error) {
+    console.error('Track conversion error:', error);
+    return c.json({ success: false, message: 'Error tracking conversion' }, 500);
+  }
+});
+
 // Admin Dashboard - Database Viewer
 app.get('/admin/dashboard', async (c) => {
   try {
