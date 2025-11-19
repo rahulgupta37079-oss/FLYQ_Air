@@ -7333,6 +7333,804 @@ app.post('/api/contact/update-status', async (c) => {
   }
 });
 
+// ==================== COMPLETE BACKEND APIs ====================
+
+// ==================== ORDER MANAGEMENT APIs ====================
+
+// Get all orders (Admin only)
+app.get('/api/admin/orders', async (c) => {
+  try {
+    const user = await getCurrentUser(c);
+    if (!user) {
+      return c.json({ success: false, message: 'Unauthorized' }, 401);
+    }
+
+    if (!isDatabaseAvailable(c)) {
+      return c.json({ success: false, message: 'Database unavailable' }, 503);
+    }
+
+    // @ts-ignore
+    const db = c.env?.DB;
+    const adminCheck: any = await db.prepare('SELECT is_admin FROM users WHERE id = ?').bind(user.id).first();
+    
+    if (!adminCheck || !adminCheck.is_admin) {
+      return c.json({ success: false, message: 'Access denied' }, 403);
+    }
+
+    const orders = await db.prepare(`
+      SELECT o.*, u.name as user_name, u.email as user_email
+      FROM orders o
+      LEFT JOIN users u ON o.user_id = u.id
+      ORDER BY o.created_at DESC
+    `).all();
+
+    return c.json({ success: true, orders: orders.results });
+  } catch (error) {
+    console.error('Get all orders error:', error);
+    return c.json({ success: false, message: 'Failed to fetch orders' }, 500);
+  }
+});
+
+// Update order status (Admin only)
+app.post('/api/admin/orders/update-status', async (c) => {
+  try {
+    const user = await getCurrentUser(c);
+    if (!user) {
+      return c.json({ success: false, message: 'Unauthorized' }, 401);
+    }
+
+    if (!isDatabaseAvailable(c)) {
+      return c.json({ success: false, message: 'Database unavailable' }, 503);
+    }
+
+    // @ts-ignore
+    const db = c.env?.DB;
+    const adminCheck: any = await db.prepare('SELECT is_admin FROM users WHERE id = ?').bind(user.id).first();
+    
+    if (!adminCheck || !adminCheck.is_admin) {
+      return c.json({ success: false, message: 'Access denied' }, 403);
+    }
+
+    const { orderId, status } = await c.req.json();
+    
+    const validStatuses = ['pending', 'confirmed', 'processing', 'shipped', 'delivered', 'cancelled'];
+    if (!validStatuses.includes(status)) {
+      return c.json({ success: false, message: 'Invalid status' }, 400);
+    }
+
+    await db.prepare('UPDATE orders SET status = ?, updated_at = datetime(\'now\') WHERE id = ?')
+      .bind(status, orderId).run();
+
+    return c.json({ success: true, message: 'Order status updated' });
+  } catch (error) {
+    console.error('Update order status error:', error);
+    return c.json({ success: false, message: 'Failed to update order status' }, 500);
+  }
+});
+
+// Cancel order (User or Admin)
+app.post('/api/orders/cancel', async (c) => {
+  try {
+    const user = await getCurrentUser(c);
+    if (!user) {
+      return c.json({ success: false, message: 'Unauthorized' }, 401);
+    }
+
+    if (!isDatabaseAvailable(c)) {
+      return c.json({ success: false, message: 'Database unavailable' }, 503);
+    }
+
+    const { orderId } = await c.req.json();
+
+    // @ts-ignore
+    const db = c.env?.DB;
+    const order: any = await db.prepare('SELECT * FROM orders WHERE id = ?').bind(orderId).first();
+    
+    if (!order) {
+      return c.json({ success: false, message: 'Order not found' }, 404);
+    }
+
+    // Check if user owns the order or is admin
+    const adminCheck: any = await db.prepare('SELECT is_admin FROM users WHERE id = ?').bind(user.id).first();
+    const isAdmin = adminCheck && adminCheck.is_admin;
+    
+    if (order.user_id !== user.id && !isAdmin) {
+      return c.json({ success: false, message: 'Access denied' }, 403);
+    }
+
+    // Can only cancel pending or confirmed orders
+    if (!['pending', 'confirmed'].includes(order.status)) {
+      return c.json({ success: false, message: 'Cannot cancel order in current status' }, 400);
+    }
+
+    await db.prepare('UPDATE orders SET status = ?, updated_at = datetime(\'now\') WHERE id = ?')
+      .bind('cancelled', orderId).run();
+
+    return c.json({ success: true, message: 'Order cancelled successfully' });
+  } catch (error) {
+    console.error('Cancel order error:', error);
+    return c.json({ success: false, message: 'Failed to cancel order' }, 500);
+  }
+});
+
+// ==================== PRODUCT MANAGEMENT APIs (Admin) ====================
+
+// Get all products (Public)
+app.get('/api/products', async (c) => {
+  try {
+    if (!isDatabaseAvailable(c)) {
+      return c.json({ success: false, message: 'Database unavailable' }, 503);
+    }
+
+    // @ts-ignore
+    const db = c.env?.DB;
+    const products = await db.prepare('SELECT * FROM products ORDER BY created_at DESC').all();
+
+    return c.json({ success: true, products: products.results });
+  } catch (error) {
+    console.error('Get products error:', error);
+    return c.json({ success: false, message: 'Failed to fetch products' }, 500);
+  }
+});
+
+// Get single product (Public)
+app.get('/api/products/:slug', async (c) => {
+  try {
+    if (!isDatabaseAvailable(c)) {
+      return c.json({ success: false, message: 'Database unavailable' }, 503);
+    }
+
+    const slug = c.req.param('slug');
+    // @ts-ignore
+    const db = c.env?.DB;
+    const product = await db.prepare('SELECT * FROM products WHERE slug = ?').bind(slug).first();
+
+    if (!product) {
+      return c.json({ success: false, message: 'Product not found' }, 404);
+    }
+
+    return c.json({ success: true, product });
+  } catch (error) {
+    console.error('Get product error:', error);
+    return c.json({ success: false, message: 'Failed to fetch product' }, 500);
+  }
+});
+
+// Create product (Admin only)
+app.post('/api/admin/products', async (c) => {
+  try {
+    const user = await getCurrentUser(c);
+    if (!user) {
+      return c.json({ success: false, message: 'Unauthorized' }, 401);
+    }
+
+    if (!isDatabaseAvailable(c)) {
+      return c.json({ success: false, message: 'Database unavailable' }, 503);
+    }
+
+    // @ts-ignore
+    const db = c.env?.DB;
+    const adminCheck: any = await db.prepare('SELECT is_admin FROM users WHERE id = ?').bind(user.id).first();
+    
+    if (!adminCheck || !adminCheck.is_admin) {
+      return c.json({ success: false, message: 'Access denied' }, 403);
+    }
+
+    const { name, slug, description, short_description, price, image_url, gallery_images, stock, featured, category, specifications } = await c.req.json();
+
+    if (!name || !slug || !price) {
+      return c.json({ success: false, message: 'Name, slug, and price are required' }, 400);
+    }
+
+    const result = await db.prepare(`
+      INSERT INTO products (name, slug, description, short_description, price, image_url, gallery_images, stock, featured, category, specifications)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    `).bind(name, slug, description, short_description, price, image_url, gallery_images, stock || 0, featured || 0, category, specifications).run();
+
+    return c.json({ success: true, message: 'Product created', productId: result.meta.last_row_id });
+  } catch (error) {
+    console.error('Create product error:', error);
+    return c.json({ success: false, message: 'Failed to create product' }, 500);
+  }
+});
+
+// Update product (Admin only)
+app.put('/api/admin/products/:id', async (c) => {
+  try {
+    const user = await getCurrentUser(c);
+    if (!user) {
+      return c.json({ success: false, message: 'Unauthorized' }, 401);
+    }
+
+    if (!isDatabaseAvailable(c)) {
+      return c.json({ success: false, message: 'Database unavailable' }, 503);
+    }
+
+    // @ts-ignore
+    const db = c.env?.DB;
+    const adminCheck: any = await db.prepare('SELECT is_admin FROM users WHERE id = ?').bind(user.id).first();
+    
+    if (!adminCheck || !adminCheck.is_admin) {
+      return c.json({ success: false, message: 'Access denied' }, 403);
+    }
+
+    const productId = c.req.param('id');
+    const { name, slug, description, short_description, price, image_url, gallery_images, stock, featured, category, specifications } = await c.req.json();
+
+    await db.prepare(`
+      UPDATE products 
+      SET name = ?, slug = ?, description = ?, short_description = ?, price = ?, image_url = ?, 
+          gallery_images = ?, stock = ?, featured = ?, category = ?, specifications = ?
+      WHERE id = ?
+    `).bind(name, slug, description, short_description, price, image_url, gallery_images, stock, featured, category, specifications, productId).run();
+
+    return c.json({ success: true, message: 'Product updated' });
+  } catch (error) {
+    console.error('Update product error:', error);
+    return c.json({ success: false, message: 'Failed to update product' }, 500);
+  }
+});
+
+// Delete product (Admin only)
+app.delete('/api/admin/products/:id', async (c) => {
+  try {
+    const user = await getCurrentUser(c);
+    if (!user) {
+      return c.json({ success: false, message: 'Unauthorized' }, 401);
+    }
+
+    if (!isDatabaseAvailable(c)) {
+      return c.json({ success: false, message: 'Database unavailable' }, 503);
+    }
+
+    // @ts-ignore
+    const db = c.env?.DB;
+    const adminCheck: any = await db.prepare('SELECT is_admin FROM users WHERE id = ?').bind(user.id).first();
+    
+    if (!adminCheck || !adminCheck.is_admin) {
+      return c.json({ success: false, message: 'Access denied' }, 403);
+    }
+
+    const productId = c.req.param('id');
+    await db.prepare('DELETE FROM products WHERE id = ?').bind(productId).run();
+
+    return c.json({ success: true, message: 'Product deleted' });
+  } catch (error) {
+    console.error('Delete product error:', error);
+    return c.json({ success: false, message: 'Failed to delete product' }, 500);
+  }
+});
+
+// ==================== USER PROFILE MANAGEMENT APIs ====================
+
+// Get user profile
+app.get('/api/user/profile', async (c) => {
+  try {
+    const user = await getCurrentUser(c);
+    if (!user) {
+      return c.json({ success: false, message: 'Unauthorized' }, 401);
+    }
+
+    return c.json({ success: true, user });
+  } catch (error) {
+    console.error('Get profile error:', error);
+    return c.json({ success: false, message: 'Failed to fetch profile' }, 500);
+  }
+});
+
+// Update user profile
+app.put('/api/user/profile', async (c) => {
+  try {
+    const user = await getCurrentUser(c);
+    if (!user) {
+      return c.json({ success: false, message: 'Unauthorized' }, 401);
+    }
+
+    if (!isDatabaseAvailable(c)) {
+      return c.json({ success: false, message: 'Database unavailable' }, 503);
+    }
+
+    const { name, phone, address, city, state, pincode } = await c.req.json();
+
+    // @ts-ignore
+    const db = c.env?.DB;
+    await db.prepare(`
+      UPDATE users 
+      SET name = ?, phone = ?, address = ?, city = ?, state = ?, pincode = ?, updated_at = datetime('now')
+      WHERE id = ?
+    `).bind(name, phone, address, city, state, pincode, user.id).run();
+
+    return c.json({ success: true, message: 'Profile updated successfully' });
+  } catch (error) {
+    console.error('Update profile error:', error);
+    return c.json({ success: false, message: 'Failed to update profile' }, 500);
+  }
+});
+
+// Change password
+app.post('/api/user/change-password', async (c) => {
+  try {
+    const user = await getCurrentUser(c);
+    if (!user) {
+      return c.json({ success: false, message: 'Unauthorized' }, 401);
+    }
+
+    if (!isDatabaseAvailable(c)) {
+      return c.json({ success: false, message: 'Database unavailable' }, 503);
+    }
+
+    const { currentPassword, newPassword } = await c.req.json();
+
+    if (!currentPassword || !newPassword) {
+      return c.json({ success: false, message: 'Current and new passwords are required' }, 400);
+    }
+
+    if (newPassword.length < 8) {
+      return c.json({ success: false, message: 'New password must be at least 8 characters' }, 400);
+    }
+
+    // @ts-ignore
+    const db = c.env?.DB;
+    const dbUser: any = await db.prepare('SELECT password_hash FROM users WHERE id = ?').bind(user.id).first();
+
+    const bcryptjs = await import('bcryptjs');
+    const isValid = bcryptjs.compareSync(currentPassword, dbUser.password_hash);
+    
+    if (!isValid) {
+      return c.json({ success: false, message: 'Current password is incorrect' }, 400);
+    }
+
+    const newPasswordHash = bcryptjs.hashSync(newPassword, 10);
+    await db.prepare('UPDATE users SET password_hash = ?, updated_at = datetime(\'now\') WHERE id = ?')
+      .bind(newPasswordHash, user.id).run();
+
+    return c.json({ success: true, message: 'Password changed successfully' });
+  } catch (error) {
+    console.error('Change password error:', error);
+    return c.json({ success: false, message: 'Failed to change password' }, 500);
+  }
+});
+
+// ==================== CART MANAGEMENT APIs ====================
+
+// Get cart
+app.get('/api/cart', async (c) => {
+  try {
+    const user = await getCurrentUser(c);
+    
+    if (!isDatabaseAvailable(c)) {
+      return c.json({ success: false, message: 'Database unavailable' }, 503);
+    }
+
+    // @ts-ignore
+    const db = c.env?.DB;
+    
+    let cartItems;
+    if (user) {
+      // Get cart for logged-in user
+      cartItems = await db.prepare(`
+        SELECT ci.*, p.name, p.price, p.image_url, p.stock
+        FROM cart_items ci
+        JOIN products p ON ci.product_id = p.id
+        WHERE ci.user_id = ?
+        ORDER BY ci.created_at DESC
+      `).bind(user.id).all();
+    } else {
+      // For guests, return empty cart (frontend will use localStorage)
+      return c.json({ success: true, items: [] });
+    }
+
+    return c.json({ success: true, items: cartItems.results });
+  } catch (error) {
+    console.error('Get cart error:', error);
+    return c.json({ success: false, message: 'Failed to fetch cart' }, 500);
+  }
+});
+
+// Add to cart
+app.post('/api/cart/add', async (c) => {
+  try {
+    const user = await getCurrentUser(c);
+    
+    if (!user) {
+      return c.json({ success: false, message: 'Please login to add items to cart' }, 401);
+    }
+
+    if (!isDatabaseAvailable(c)) {
+      return c.json({ success: false, message: 'Database unavailable' }, 503);
+    }
+
+    const { productId, quantity } = await c.req.json();
+
+    if (!productId || !quantity || quantity < 1) {
+      return c.json({ success: false, message: 'Invalid product or quantity' }, 400);
+    }
+
+    // @ts-ignore
+    const db = c.env?.DB;
+    
+    // Check if product exists and has stock
+    const product: any = await db.prepare('SELECT stock FROM products WHERE id = ?').bind(productId).first();
+    if (!product) {
+      return c.json({ success: false, message: 'Product not found' }, 404);
+    }
+    
+    if (product.stock < quantity) {
+      return c.json({ success: false, message: 'Insufficient stock' }, 400);
+    }
+
+    // Check if item already in cart
+    const existingItem: any = await db.prepare('SELECT id, quantity FROM cart_items WHERE user_id = ? AND product_id = ?')
+      .bind(user.id, productId).first();
+
+    if (existingItem) {
+      // Update quantity
+      const newQuantity = existingItem.quantity + quantity;
+      if (product.stock < newQuantity) {
+        return c.json({ success: false, message: 'Insufficient stock' }, 400);
+      }
+      await db.prepare('UPDATE cart_items SET quantity = ?, updated_at = datetime(\'now\') WHERE id = ?')
+        .bind(newQuantity, existingItem.id).run();
+    } else {
+      // Insert new item
+      await db.prepare('INSERT INTO cart_items (user_id, product_id, quantity) VALUES (?, ?, ?)')
+        .bind(user.id, productId, quantity).run();
+    }
+
+    return c.json({ success: true, message: 'Added to cart' });
+  } catch (error) {
+    console.error('Add to cart error:', error);
+    return c.json({ success: false, message: 'Failed to add to cart' }, 500);
+  }
+});
+
+// Update cart item quantity
+app.put('/api/cart/update', async (c) => {
+  try {
+    const user = await getCurrentUser(c);
+    
+    if (!user) {
+      return c.json({ success: false, message: 'Unauthorized' }, 401);
+    }
+
+    if (!isDatabaseAvailable(c)) {
+      return c.json({ success: false, message: 'Database unavailable' }, 503);
+    }
+
+    const { cartItemId, quantity } = await c.req.json();
+
+    if (!cartItemId || !quantity || quantity < 1) {
+      return c.json({ success: false, message: 'Invalid cart item or quantity' }, 400);
+    }
+
+    // @ts-ignore
+    const db = c.env?.DB;
+    
+    // Check if cart item belongs to user
+    const cartItem: any = await db.prepare('SELECT product_id FROM cart_items WHERE id = ? AND user_id = ?')
+      .bind(cartItemId, user.id).first();
+    
+    if (!cartItem) {
+      return c.json({ success: false, message: 'Cart item not found' }, 404);
+    }
+
+    // Check stock
+    const product: any = await db.prepare('SELECT stock FROM products WHERE id = ?').bind(cartItem.product_id).first();
+    if (product.stock < quantity) {
+      return c.json({ success: false, message: 'Insufficient stock' }, 400);
+    }
+
+    await db.prepare('UPDATE cart_items SET quantity = ?, updated_at = datetime(\'now\') WHERE id = ?')
+      .bind(quantity, cartItemId).run();
+
+    return c.json({ success: true, message: 'Cart updated' });
+  } catch (error) {
+    console.error('Update cart error:', error);
+    return c.json({ success: false, message: 'Failed to update cart' }, 500);
+  }
+});
+
+// Remove from cart
+app.delete('/api/cart/remove/:itemId', async (c) => {
+  try {
+    const user = await getCurrentUser(c);
+    
+    if (!user) {
+      return c.json({ success: false, message: 'Unauthorized' }, 401);
+    }
+
+    if (!isDatabaseAvailable(c)) {
+      return c.json({ success: false, message: 'Database unavailable' }, 503);
+    }
+
+    const itemId = c.req.param('itemId');
+
+    // @ts-ignore
+    const db = c.env?.DB;
+    await db.prepare('DELETE FROM cart_items WHERE id = ? AND user_id = ?').bind(itemId, user.id).run();
+
+    return c.json({ success: true, message: 'Item removed from cart' });
+  } catch (error) {
+    console.error('Remove from cart error:', error);
+    return c.json({ success: false, message: 'Failed to remove item' }, 500);
+  }
+});
+
+// Clear cart
+app.delete('/api/cart/clear', async (c) => {
+  try {
+    const user = await getCurrentUser(c);
+    
+    if (!user) {
+      return c.json({ success: false, message: 'Unauthorized' }, 401);
+    }
+
+    if (!isDatabaseAvailable(c)) {
+      return c.json({ success: false, message: 'Database unavailable' }, 503);
+    }
+
+    // @ts-ignore
+    const db = c.env?.DB;
+    await db.prepare('DELETE FROM cart_items WHERE user_id = ?').bind(user.id).run();
+
+    return c.json({ success: true, message: 'Cart cleared' });
+  } catch (error) {
+    console.error('Clear cart error:', error);
+    return c.json({ success: false, message: 'Failed to clear cart' }, 500);
+  }
+});
+
+// ==================== PRODUCT REVIEWS APIs ====================
+
+// Get product reviews
+app.get('/api/products/:slug/reviews', async (c) => {
+  try {
+    if (!isDatabaseAvailable(c)) {
+      return c.json({ success: false, message: 'Database unavailable' }, 503);
+    }
+
+    const slug = c.req.param('slug');
+    
+    // @ts-ignore
+    const db = c.env?.DB;
+    
+    // Get product
+    const product: any = await db.prepare('SELECT id FROM products WHERE slug = ?').bind(slug).first();
+    if (!product) {
+      return c.json({ success: false, message: 'Product not found' }, 404);
+    }
+
+    // Get reviews
+    const reviews = await db.prepare(`
+      SELECT r.*, u.name as user_name
+      FROM reviews r
+      JOIN users u ON r.user_id = u.id
+      WHERE r.product_id = ?
+      ORDER BY r.created_at DESC
+    `).bind(product.id).all();
+
+    // Get average rating
+    const avgRating: any = await db.prepare('SELECT AVG(rating) as avg, COUNT(*) as count FROM reviews WHERE product_id = ?')
+      .bind(product.id).first();
+
+    return c.json({ 
+      success: true, 
+      reviews: reviews.results,
+      averageRating: avgRating?.avg || 0,
+      totalReviews: avgRating?.count || 0
+    });
+  } catch (error) {
+    console.error('Get reviews error:', error);
+    return c.json({ success: false, message: 'Failed to fetch reviews' }, 500);
+  }
+});
+
+// Add product review
+app.post('/api/products/:slug/reviews', async (c) => {
+  try {
+    const user = await getCurrentUser(c);
+    
+    if (!user) {
+      return c.json({ success: false, message: 'Please login to leave a review' }, 401);
+    }
+
+    if (!isDatabaseAvailable(c)) {
+      return c.json({ success: false, message: 'Database unavailable' }, 503);
+    }
+
+    const slug = c.req.param('slug');
+    const { rating, title, comment } = await c.req.json();
+
+    if (!rating || rating < 1 || rating > 5) {
+      return c.json({ success: false, message: 'Rating must be between 1 and 5' }, 400);
+    }
+
+    // @ts-ignore
+    const db = c.env?.DB;
+    
+    // Get product
+    const product: any = await db.prepare('SELECT id FROM products WHERE slug = ?').bind(slug).first();
+    if (!product) {
+      return c.json({ success: false, message: 'Product not found' }, 404);
+    }
+
+    // Check if user already reviewed this product
+    const existing: any = await db.prepare('SELECT id FROM reviews WHERE user_id = ? AND product_id = ?')
+      .bind(user.id, product.id).first();
+    
+    if (existing) {
+      return c.json({ success: false, message: 'You have already reviewed this product' }, 400);
+    }
+
+    // Check if user purchased this product
+    const purchase: any = await db.prepare(`
+      SELECT o.id FROM orders o
+      JOIN order_items oi ON o.id = oi.order_id
+      WHERE o.user_id = ? AND oi.product_id = ? AND o.status IN ('delivered', 'completed')
+    `).bind(user.id, product.id).first();
+
+    const verifiedPurchase = purchase ? 1 : 0;
+    const orderId = purchase ? purchase.id : null;
+
+    await db.prepare(`
+      INSERT INTO reviews (user_id, product_id, order_id, rating, title, comment, verified_purchase)
+      VALUES (?, ?, ?, ?, ?, ?, ?)
+    `).bind(user.id, product.id, orderId, rating, title, comment, verifiedPurchase).run();
+
+    return c.json({ success: true, message: 'Review added successfully' });
+  } catch (error) {
+    console.error('Add review error:', error);
+    return c.json({ success: false, message: 'Failed to add review' }, 500);
+  }
+});
+
+// ==================== WISHLIST APIs ====================
+
+// Get user wishlist
+app.get('/api/wishlist', async (c) => {
+  try {
+    const user = await getCurrentUser(c);
+    
+    if (!user) {
+      return c.json({ success: false, message: 'Unauthorized' }, 401);
+    }
+
+    if (!isDatabaseAvailable(c)) {
+      return c.json({ success: false, message: 'Database unavailable' }, 503);
+    }
+
+    // @ts-ignore
+    const db = c.env?.DB;
+    const wishlist = await db.prepare(`
+      SELECT w.id as wishlist_id, p.*
+      FROM wishlist w
+      JOIN products p ON w.product_id = p.id
+      WHERE w.user_id = ?
+      ORDER BY w.created_at DESC
+    `).bind(user.id).all();
+
+    return c.json({ success: true, items: wishlist.results });
+  } catch (error) {
+    console.error('Get wishlist error:', error);
+    return c.json({ success: false, message: 'Failed to fetch wishlist' }, 500);
+  }
+});
+
+// Add to wishlist
+app.post('/api/wishlist/add', async (c) => {
+  try {
+    const user = await getCurrentUser(c);
+    
+    if (!user) {
+      return c.json({ success: false, message: 'Please login to add to wishlist' }, 401);
+    }
+
+    if (!isDatabaseAvailable(c)) {
+      return c.json({ success: false, message: 'Database unavailable' }, 503);
+    }
+
+    const { productId } = await c.req.json();
+
+    // @ts-ignore
+    const db = c.env?.DB;
+    
+    // Check if already in wishlist
+    const existing: any = await db.prepare('SELECT id FROM wishlist WHERE user_id = ? AND product_id = ?')
+      .bind(user.id, productId).first();
+    
+    if (existing) {
+      return c.json({ success: false, message: 'Already in wishlist' }, 400);
+    }
+
+    await db.prepare('INSERT INTO wishlist (user_id, product_id) VALUES (?, ?)')
+      .bind(user.id, productId).run();
+
+    return c.json({ success: true, message: 'Added to wishlist' });
+  } catch (error) {
+    console.error('Add to wishlist error:', error);
+    return c.json({ success: false, message: 'Failed to add to wishlist' }, 500);
+  }
+});
+
+// Remove from wishlist
+app.delete('/api/wishlist/remove/:productId', async (c) => {
+  try {
+    const user = await getCurrentUser(c);
+    
+    if (!user) {
+      return c.json({ success: false, message: 'Unauthorized' }, 401);
+    }
+
+    if (!isDatabaseAvailable(c)) {
+      return c.json({ success: false, message: 'Database unavailable' }, 503);
+    }
+
+    const productId = c.req.param('productId');
+
+    // @ts-ignore
+    const db = c.env?.DB;
+    await db.prepare('DELETE FROM wishlist WHERE user_id = ? AND product_id = ?')
+      .bind(user.id, productId).run();
+
+    return c.json({ success: true, message: 'Removed from wishlist' });
+  } catch (error) {
+    console.error('Remove from wishlist error:', error);
+    return c.json({ success: false, message: 'Failed to remove from wishlist' }, 500);
+  }
+});
+
+// ==================== SEARCH & FILTER APIs ====================
+
+// Search products
+app.get('/api/products/search', async (c) => {
+  try {
+    if (!isDatabaseAvailable(c)) {
+      return c.json({ success: false, message: 'Database unavailable' }, 503);
+    }
+
+    const query = c.req.query('q') || '';
+    const category = c.req.query('category') || '';
+    const minPrice = parseFloat(c.req.query('minPrice') || '0');
+    const maxPrice = parseFloat(c.req.query('maxPrice') || '999999');
+    const sortBy = c.req.query('sortBy') || 'created_at';
+    const order = c.req.query('order') || 'DESC';
+
+    // @ts-ignore
+    const db = c.env?.DB;
+    
+    let sql = 'SELECT * FROM products WHERE 1=1';
+    const params: any[] = [];
+
+    if (query) {
+      sql += ' AND (name LIKE ? OR description LIKE ? OR category LIKE ?)';
+      const searchTerm = `%${query}%`;
+      params.push(searchTerm, searchTerm, searchTerm);
+    }
+
+    if (category) {
+      sql += ' AND category = ?';
+      params.push(category);
+    }
+
+    sql += ' AND price >= ? AND price <= ?';
+    params.push(minPrice, maxPrice);
+
+    sql += ` ORDER BY ${sortBy} ${order}`;
+
+    let preparedQuery = db.prepare(sql);
+    for (const param of params) {
+      preparedQuery = preparedQuery.bind(param);
+    }
+
+    const products = await preparedQuery.all();
+
+    return c.json({ success: true, products: products.results });
+  } catch (error) {
+    console.error('Search products error:', error);
+    return c.json({ success: false, message: 'Failed to search products' }, 500);
+  }
+});
+
 // ==================== PROTECTED PAGES ====================
 
 // Account Dashboard
