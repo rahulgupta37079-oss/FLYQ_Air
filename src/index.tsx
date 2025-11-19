@@ -1692,16 +1692,16 @@ app.get('/login', (c) => {
                     </div>
                 </div>
 
-                <form id="loginForm" class="space-y-6">
+                <form id="loginForm" class="space-y-6" novalidate>
                     <!-- Email Field -->
                     <div class="relative">
                         <label class="block text-sm font-bold mb-2 text-gray-700">
                             <i class="fas fa-envelope mr-1 text-sky-500"></i>
                             Email Address
                         </label>
-                        <input type="email" id="email" name="email" 
+                        <input type="text" id="email" name="email" 
                                class="w-full px-4 py-3 pl-12 border-2 border-gray-300 rounded-xl focus:border-sky-500 focus:ring-2 focus:ring-sky-200 focus:outline-none transition-all" 
-                               placeholder="your@email.com" required>
+                               placeholder="your@email.com" required autocomplete="email" inputmode="email">
                         <i class="fas fa-envelope absolute left-4 top-11 text-gray-400"></i>
                         <div id="email-error" class="hidden text-red-500 text-xs mt-1">
                             <i class="fas fa-exclamation-circle"></i> Please enter a valid email
@@ -1775,11 +1775,12 @@ app.get('/login', (c) => {
                         }
                     });
 
-                    // Real-time validation
-                    document.getElementById('email').addEventListener('blur', function() {
+                    // Real-time email validation
+                    document.getElementById('email').addEventListener('input', function() {
                         const emailError = document.getElementById('email-error');
                         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                        if (!emailRegex.test(this.value)) {
+                        // Only show error if user has typed something AND it's invalid
+                        if (this.value.length > 0 && !emailRegex.test(this.value)) {
                             emailError.classList.remove('hidden');
                             this.classList.add('border-red-500');
                         } else {
@@ -1908,7 +1909,7 @@ app.get('/register', (c) => {
                     </div>
                 </div>
                 
-                <form id="registerForm" class="space-y-5">
+                <form id="registerForm" class="space-y-5" novalidate>
                     <!-- Full Name Field -->
                     <div class="relative">
                         <label class="block text-sm font-bold mb-2 text-gray-700">
@@ -1930,9 +1931,9 @@ app.get('/register', (c) => {
                             <i class="fas fa-envelope mr-1 text-sky-500"></i>
                             Email Address
                         </label>
-                        <input type="email" id="email" name="email" 
+                        <input type="text" id="email" name="email" 
                                class="w-full px-4 py-3 pl-12 border-2 border-gray-300 rounded-xl focus:border-sky-500 focus:ring-2 focus:ring-sky-200 focus:outline-none transition-all" 
-                               placeholder="your@email.com" required>
+                               placeholder="your@email.com" required autocomplete="email" inputmode="email">
                         <i class="fas fa-envelope absolute left-4 top-11 text-gray-400"></i>
                         <div id="email-error" class="hidden text-red-500 text-xs mt-1">
                             <i class="fas fa-exclamation-circle"></i> Please enter a valid email
@@ -2179,11 +2180,12 @@ app.get('/register', (c) => {
                         }
                     });
 
-                    // Email validation
-                    document.getElementById('email').addEventListener('blur', function() {
+                    // Email validation - real-time
+                    document.getElementById('email').addEventListener('input', function() {
                         const emailError = document.getElementById('email-error');
                         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                        if (!emailRegex.test(this.value)) {
+                        // Only show error if user has typed something AND it's invalid
+                        if (this.value.length > 0 && !emailRegex.test(this.value)) {
                             emailError.classList.remove('hidden');
                             this.classList.add('border-red-500');
                         } else {

@@ -2,6 +2,15 @@
 
 ## 📢 Latest Updates
 
+### 🔧 EMAIL VALIDATION FIX (2025-11-19) ⭐ NEW!
+✅ **Registration Email Validation Fixed** 🎯
+   - **Issue**: Gmail addresses (meshivam1402@gmail.com, professorhulk00@gmail.com) showing as invalid
+   - **Root Cause**: Browser HTML5 email validation conflicting with JavaScript validation
+   - **Solution**: Removed HTML5 validation, added `novalidate` to forms, changed to real-time input validation
+   - **Status**: ✅ Both emails successfully registered in database
+   - **User Experience**: Real-time feedback as users type, error disappears when email becomes valid
+   - **Documentation**: See EMAIL_VALIDATION_FIX.md for complete details
+
 ### 🚀 MAJOR UPDATE: FULLY FUNCTIONAL BACKEND (2025-11-09)
 ✅ **Complete Backend API System** 🎯
    - **Production URL**: https://2bd3f407.flyq-air.pages.dev ⭐ NEW!
@@ -22,9 +31,11 @@
    - **Register Page**: Password strength indicator, real-time validation, beautiful animations
    - **Design**: Gradient backgrounds, smooth transitions, FontAwesome icons
    - **UX Improvements**: Loading states, error/success messages, responsive design
+   - **Email Validation**: Fixed browser validation conflicts, real-time feedback
 
 ✅ **Comprehensive Analytics System** 📊
    - **Admin Dashboard**: https://fab76be6.flyq-air.pages.dev/admin/analytics ⭐ NEW!
+   - **Admin Credentials**: Email: `admin@flyq.com`, Password: `Admin@123` 🔐
    - **Visitor Tracking**: Automatic page visit tracking, unique visitors by IP
    - **Real-time Stats**: Total visits, visits today/week/month, new users
    - **Popular Pages**: Visit counts, unique visitors per page
