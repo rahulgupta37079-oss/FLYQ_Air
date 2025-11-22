@@ -222,6 +222,7 @@ const renderPage = (title: string, content: string, includeCart: boolean = true)
                         <a href="/" class="text-gray-700 hover:text-sky-500 font-semibold">Home</a>
                         <a href="/products" class="text-gray-700 hover:text-sky-500 font-semibold">Products</a>
                         <a href="/docs" class="text-gray-700 hover:text-sky-500 font-semibold">Docs</a>
+                        <a href="/blog" class="text-gray-700 hover:text-sky-500 font-semibold">Blog</a>
                         <a href="/about" class="text-gray-700 hover:text-sky-500 font-semibold">About</a>
                         <a href="/contact" class="text-gray-700 hover:text-sky-500 font-semibold">Contact</a>
                         
@@ -8732,6 +8733,257 @@ app.post('/api/analytics/track-conversion', async (c) => {
   } catch (error) {
     console.error('Track conversion error:', error);
     return c.json({ success: false, message: 'Error tracking conversion' }, 500);
+  }
+});
+
+// ==================== BLOG SYSTEM ====================
+
+// Blog listing page
+app.get('/blog', async (c) => {
+  try {
+    if (!isDatabaseAvailable(c)) {
+      return c.html(renderPage('Blog', '<div class="container mx-auto px-6 py-20"><h1 class="text-4xl font-bold">Blog Coming Soon</h1><p class="mt-4">Our blog is currently being set up. Check back soon!</p></div>'));
+    }
+    
+    const category = c.req.query('category') || '';
+    
+    let query = `
+      SELECT id, title, slug, excerpt, featured_image, category, reading_time, views, published_at
+      FROM blog_posts
+      WHERE status = 'published'
+    `;
+    
+    if (category) {
+      query += ` AND category = '${category}'`;
+    }
+    
+    query += ` ORDER BY published_at DESC LIMIT 50`;
+    
+    const posts = await c.env.DB.prepare(query).all();
+    const categories = await c.env.DB.prepare('SELECT * FROM blog_categories ORDER BY name').all();
+    
+    const content = `
+      <div class="min-h-screen bg-gray-50 pt-32 pb-20">
+        <div class="container mx-auto px-6">
+          <!-- Header -->
+          <div class="text-center mb-12">
+            <h1 class="text-5xl font-black mb-4 bg-gradient-to-r from-sky-600 to-blue-600 bg-clip-text text-transparent">
+              <i class="fas fa-book-open mr-3"></i>
+              FLYQ Blog
+            </h1>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+              Tutorials, guides, and tips for getting the most out of your FLYQ drone
+            </p>
+          </div>
+
+          <!-- Categories -->
+          <div class="flex flex-wrap justify-center gap-3 mb-12">
+            <a href="/blog" class="px-6 py-2 rounded-full ${!category ? 'bg-gradient-to-r from-sky-500 to-blue-600 text-white' : 'bg-white text-gray-700 hover:bg-gray-100'} font-semibold transition-all">
+              All Posts
+            </a>
+            ${categories.results.map(cat => `
+              <a href="/blog?category=${encodeURIComponent(cat.name)}" class="px-6 py-2 rounded-full ${category === cat.name ? 'bg-gradient-to-r from-sky-500 to-blue-600 text-white' : 'bg-white text-gray-700 hover:bg-gray-100'} font-semibold transition-all">
+                ${cat.name} ${cat.post_count > 0 ? `(${cat.post_count})` : ''}
+              </a>
+            `).join('')}
+          </div>
+
+          <!-- Blog Posts Grid -->
+          ${posts.results.length > 0 ? `
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              ${posts.results.map(post => `
+                <article class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all transform hover:-translate-y-1">
+                  ${post.featured_image ? `
+                    <div class="h-48 overflow-hidden bg-gradient-to-br from-sky-100 to-blue-100">
+                      <img src="${post.featured_image}" alt="${post.title}" class="w-full h-full object-cover">
+                    </div>
+                  ` : `
+                    <div class="h-48 bg-gradient-to-br from-sky-400 to-blue-600 flex items-center justify-center">
+                      <i class="fas fa-drone text-white text-6xl opacity-50"></i>
+                    </div>
+                  `}
+                  
+                  <div class="p-6">
+                    <div class="flex items-center gap-3 mb-3 text-sm text-gray-500">
+                      <span class="px-3 py-1 bg-sky-100 text-sky-700 rounded-full font-semibold">
+                        ${post.category}
+                      </span>
+                      <span><i class="far fa-clock"></i> ${post.reading_time} min read</span>
+                      <span><i class="far fa-eye"></i> ${post.views}</span>
+                    </div>
+                    
+                    <h2 class="text-2xl font-bold mb-3 text-gray-800 line-clamp-2">
+                      ${post.title}
+                    </h2>
+                    
+                    <p class="text-gray-600 mb-4 line-clamp-3">
+                      ${post.excerpt || ''}
+                    </p>
+                    
+                    <div class="flex justify-between items-center">
+                      <a href="/blog/${post.slug}" class="text-sky-600 hover:text-sky-700 font-semibold flex items-center gap-2">
+                        Read More <i class="fas fa-arrow-right"></i>
+                      </a>
+                      <span class="text-sm text-gray-400">
+                        ${new Date(post.published_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+                      </span>
+                    </div>
+                  </div>
+                </article>
+              `).join('')}
+            </div>
+          ` : `
+            <div class="text-center py-20">
+              <i class="fas fa-file-alt text-6xl text-gray-300 mb-4"></i>
+              <h3 class="text-2xl font-bold text-gray-600 mb-2">No posts found</h3>
+              <p class="text-gray-500">Check back soon for new content!</p>
+            </div>
+          `}
+        </div>
+      </div>
+      
+      <style>
+        .line-clamp-2 {
+          display: -webkit-box;
+          -webkit-line-clamp: 2;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+        }
+        .line-clamp-3 {
+          display: -webkit-box;
+          -webkit-line-clamp: 3;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+        }
+      </style>
+    `;
+    
+    return c.html(renderPage('Blog', content));
+  } catch (error) {
+    console.error('Blog listing error:', error);
+    return c.html(renderPage('Blog', '<div class="container mx-auto px-6 py-20"><h1 class="text-4xl font-bold text-red-600">Error loading blog</h1></div>'));
+  }
+});
+
+// Individual blog post
+app.get('/blog/:slug', async (c) => {
+  try {
+    if (!isDatabaseAvailable(c)) {
+      return c.html(renderPage('Blog Post', '<div class="container mx-auto px-6 py-20"><h1 class="text-4xl font-bold">Blog post not found</h1></div>', 404));
+    }
+    
+    const slug = c.req.param('slug');
+    
+    // Get post
+    const post = await c.env.DB.prepare(`
+      SELECT * FROM blog_posts WHERE slug = ? AND status = 'published'
+    `).bind(slug).first();
+    
+    if (!post) {
+      return c.html(renderPage('Blog Post Not Found', `
+        <div class="container mx-auto px-6 py-20 text-center">
+          <i class="fas fa-file-slash text-6xl text-gray-300 mb-4"></i>
+          <h1 class="text-4xl font-bold text-gray-800 mb-4">Post Not Found</h1>
+          <p class="text-gray-600 mb-8">The blog post you're looking for doesn't exist.</p>
+          <a href="/blog" class="btn-primary px-8 py-3 rounded-full inline-block">
+            <i class="fas fa-arrow-left mr-2"></i> Back to Blog
+          </a>
+        </div>
+      `), 404);
+    }
+    
+    // Increment views
+    await c.env.DB.prepare(`UPDATE blog_posts SET views = views + 1 WHERE id = ?`).bind(post.id).run();
+    
+    const content = `
+      <div class="min-h-screen bg-gray-50 pt-32 pb-20">
+        <!-- Hero Section -->
+        ${post.featured_image ? `
+          <div class="w-full h-96 bg-gradient-to-br from-sky-400 to-blue-600 relative overflow-hidden mb-12">
+            <img src="${post.featured_image}" alt="${post.title}" class="w-full h-full object-cover opacity-80">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+            <div class="absolute bottom-0 left-0 right-0 p-8">
+              <div class="container mx-auto">
+                <span class="px-4 py-2 bg-white/20 backdrop-blur-sm text-white rounded-full font-semibold">
+                  ${post.category}
+                </span>
+              </div>
+            </div>
+          </div>
+        ` : ''}
+        
+        <div class="container mx-auto px-6 max-w-4xl">
+          <!-- Post Header -->
+          <article class="bg-white rounded-3xl shadow-2xl p-8 md:p-12">
+            <header class="mb-8">
+              <h1 class="text-4xl md:text-5xl font-black mb-4 text-gray-900">
+                ${post.title}
+              </h1>
+              
+              <div class="flex flex-wrap items-center gap-4 text-gray-600">
+                <div class="flex items-center gap-2">
+                  <i class="far fa-calendar"></i>
+                  <span>${new Date(post.published_at).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</span>
+                </div>
+                <div class="flex items-center gap-2">
+                  <i class="far fa-clock"></i>
+                  <span>${post.reading_time} min read</span>
+                </div>
+                <div class="flex items-center gap-2">
+                  <i class="far fa-eye"></i>
+                  <span>${post.views + 1} views</span>
+                </div>
+              </div>
+            </header>
+            
+            <!-- Post Content -->
+            <div class="prose prose-lg max-w-none">
+              ${post.content}
+            </div>
+            
+            <!-- Share Buttons -->
+            <div class="mt-12 pt-8 border-t border-gray-200">
+              <h3 class="text-xl font-bold mb-4">Share this post</h3>
+              <div class="flex gap-3">
+                <a href="https://twitter.com/intent/tweet?text=${encodeURIComponent(post.title)}&url=${encodeURIComponent('https://flyqdrone.in/blog/' + post.slug)}" target="_blank" class="px-6 py-3 bg-sky-500 text-white rounded-full hover:bg-sky-600 transition-all">
+                  <i class="fab fa-twitter mr-2"></i> Twitter
+                </a>
+                <a href="https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent('https://flyqdrone.in/blog/' + post.slug)}" target="_blank" class="px-6 py-3 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-all">
+                  <i class="fab fa-facebook mr-2"></i> Facebook
+                </a>
+                <a href="https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent('https://flyqdrone.in/blog/' + post.slug)}&title=${encodeURIComponent(post.title)}" target="_blank" class="px-6 py-3 bg-blue-700 text-white rounded-full hover:bg-blue-800 transition-all">
+                  <i class="fab fa-linkedin mr-2"></i> LinkedIn
+                </a>
+              </div>
+            </div>
+          </article>
+          
+          <!-- Back to Blog -->
+          <div class="mt-8 text-center">
+            <a href="/blog" class="inline-flex items-center gap-2 text-sky-600 hover:text-sky-700 font-semibold">
+              <i class="fas fa-arrow-left"></i> Back to all posts
+            </a>
+          </div>
+        </div>
+      </div>
+      
+      <style>
+        .prose p { margin-bottom: 1.25em; line-height: 1.75; }
+        .prose h2 { font-size: 1.875em; font-weight: 800; margin-top: 2em; margin-bottom: 1em; color: #1e293b; }
+        .prose h3 { font-size: 1.5em; font-weight: 700; margin-top: 1.6em; margin-bottom: 0.6em; color: #334155; }
+        .prose ul, .prose ol { margin: 1.25em 0; padding-left: 1.625em; }
+        .prose li { margin: 0.5em 0; }
+        .prose strong { font-weight: 700; color: #0f172a; }
+        .prose code { background: #f1f5f9; padding: 0.2em 0.4em; border-radius: 0.25rem; font-size: 0.875em; }
+        .prose blockquote { border-left: 4px solid #0ea5e9; padding-left: 1em; margin: 1.5em 0; font-style: italic; color: #64748b; }
+        .prose img { border-radius: 0.75rem; margin: 2em 0; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+      </style>
+    `;
+    
+    return c.html(renderPage(post.title, content));
+  } catch (error) {
+    console.error('Blog post error:', error);
+    return c.html(renderPage('Error', '<div class="container mx-auto px-6 py-20"><h1 class="text-4xl font-bold text-red-600">Error loading post</h1></div>', 500));
   }
 });
 
