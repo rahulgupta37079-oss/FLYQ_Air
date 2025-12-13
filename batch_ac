@@ -1,0 +1,100 @@
+  datetime('now', '-8 days'), datetime('now', '-8 days')
+),
+(
+  'Data Logging and Flight Analysis',
+  'data-logging-analysis',
+  'Record flight data to SD card and analyze performance metrics.',
+  '<h2>SD Card Module</h2><p>SPI interface SD card adapter stores CSV logs of sensor data and flight parameters.</p><h2>Log Format</h2><p>Timestamp, battery, altitude, attitude, motor PWM, sensor readings at 50Hz.</p><h2>Analysis Tools</h2><p>Python pandas for data processing, matplotlib for visualization, identify issues.</p><h2>Insights</h2><p>Battery performance curves, PID tuning optimization, crash analysis, vibration detection.</p>',
+  'https://cdn1.genspark.ai/user-upload-image/rmbg_generated/0_435c9a66-800a-4537-80f8-cd513ea4bf15',
+  1, 'Tutorials', '["data logging", "analysis", "SD card", "telemetry"]', 'published', 9,
+  datetime('now', '-6 days'), datetime('now', '-6 days')
+),
+(
+  'Creating Custom Flight Controller Firmware',
+  'custom-firmware',
+  'Build your own flight controller code from scratch using Arduino.',
+  '<h2>Core Components</h2><p>Sensor fusion algorithm, PID controllers for stabilization, motor mixing, RC input processing.</p><h2>Main Loop</h2><pre><code>void loop() {\nreadSensors();\ncalculateAttitude();\nrunPID();\nmixMotors();\noutputPWM();\n}</code></pre><h2>Safety Systems</h2><p>Failsafe detection, low battery cutoff, range limits, crash detection.</p><h2>Testing</h2><p>Bench test without props, gradual flight testing, log data for debugging.</p>',
+  'https://cdn1.genspark.ai/user-upload-image/rmbg_generated/0_435c9a66-800a-4537-80f8-cd513ea4bf15',
+  1, 'Tutorials', '["firmware", "flight controller", "Arduino", "advanced"]', 'published', 15,
+  datetime('now', '-4 days'), datetime('now', '-4 days')
+),
+(
+  'Bluetooth Controller Integration',
+  'bluetooth-controller',
+  'Connect PS4/Xbox controllers via Bluetooth for traditional RC control.',
+  '<h2>BLE Setup</h2><p>ESP32 built-in Bluetooth Low Energy for gamepad connection.</p><h2>Controller Pairing</h2><pre><code>#include "PS4Controller.h"\nPS4.begin("MAC_ADDRESS");\nif(PS4.isConnected()) { ... }</code></pre><h2>Button Mapping</h2><p>Left stick = throttle/yaw, right stick = pitch/roll, buttons for modes and emergency.</p><h2>Latency</h2><p>BLE provides <20ms latency, sufficient for smooth control response.</p>',
+  'https://cdn1.genspark.ai/user-upload-image/rmbg_generated/0_435c9a66-800a-4537-80f8-cd513ea4bf15',
+  1, 'Tutorials', '["Bluetooth", "controller", "gamepad", "BLE"]', 'published', 8,
+  datetime('now', '-2 days'), datetime('now', '-2 days')
+),
+(
+  'Machine Learning for Obstacle Avoidance',
+  'ml-obstacle-avoidance',
+  'Train neural network for autonomous obstacle detection and avoidance.',
+  '<h2>Dataset Collection</h2><p>Capture thousands of images from drone camera during flights near obstacles.</p><h2>Model Training</h2><p>Use TensorFlow Lite to train object detection model, optimize for ESP32-S3.</p><h2>Inference</h2><p>Run model on-device for real-time detection. Adjust flight path automatically.</p><h2>Performance</h2><p>Achieve 10fps inference rate, 85% accuracy, <200ms response time.</p>',
+  'https://cdn1.genspark.ai/user-upload-image/rmbg_generated/0_f1a47aea-7dd7-431f-bfe8-e82d7d001b38',
+  1, 'Tutorials', '["machine learning", "AI", "obstacle avoidance", "TensorFlow"]', 'published', 14,
+  datetime('now', '-1 days'), datetime('now', '-1 days')
+);
+
+-- PROJECTS CATEGORY (12 posts)
+
+INSERT INTO blog_posts (title, slug, excerpt, content, featured_image, author_id, category, tags, status, reading_time, published_at, created_at) VALUES 
+(
+  'Autonomous Delivery Drone Project',
+  'autonomous-delivery-drone',
+  'Build a fully autonomous package delivery system with GPS waypoints.',
+  '<h2>Project Overview</h2><p>Create autonomous drone that picks up small packages, navigates to GPS coordinates, and delivers safely.</p><h2>Hardware Additions</h2><p>Servo gripper mechanism, GPS module, extended battery for longer range.</p><h2>Software</h2><p>Waypoint navigation, payload detection, safe landing algorithm, package release mechanism.</p><h2>Testing</h2><p>Start with short distances, gradually increase range, test various payloads up to 50g.</p><h2>Results</h2><p>Successfully deliver packages within 100m radius, 95% success rate, 6 minute average delivery time.</p>',
+  'https://cdn1.genspark.ai/user-upload-image/rmbg_generated/0_435c9a66-800a-4537-80f8-cd513ea4bf15',
+  1, 'Projects', '["autonomous", "delivery", "GPS", "waypoints"]', 'published', 10,
+  datetime('now', '-55 days'), datetime('now', '-55 days')
+),
+(
+  'Indoor Mapping Drone with SLAM',
+  'indoor-mapping-slam',
+  'Create 3D maps of indoor spaces using SLAM algorithm and ultrasonic sensors.',
+  '<h2>SLAM Basics</h2><p>Simultaneous Localization and Mapping - drone tracks position while building environment map.</p><h2>Hardware</h2><p>4x ultrasonic sensors, improved IMU, Raspberry Pi Zero for processing.</p><h2>Algorithm</h2><p>Use FastSLAM2.0 algorithm, particle filter for localization, occupancy grid for map.</p><h2>Visualization</h2><p>Real-time 3D map display in web browser, export to common formats (OBJ, STL).</p><h2>Applications</h2><p>Room measurement, furniture layout, emergency response, industrial inspection.</p>',
+  'https://cdn1.genspark.ai/user-upload-image/rmbg_generated/0_f1a47aea-7dd7-431f-bfe8-e82d7d001b38',
+  1, 'Projects', '["SLAM", "mapping", "3D", "computer vision"]', 'published', 12,
+  datetime('now', '-53 days'), datetime('now', '-53 days')
+),
+(
+  'Drone Swarm Coordination System',
+  'drone-swarm-coordination',
+  'Control multiple FLYQ drones in synchronized formation flying.',
+  '<h2>Swarm Architecture</h2><p>Master controller broadcasts commands to all drones via UDP multicast.</p><h2>Formation Control</h2><p>Each drone maintains relative position to neighbors. Leader-follower topology.</p><h2>Collision Avoidance</h2><p>Implement potential field algorithm, minimum separation distance 1m.</p><h2>Patterns</h2><p>Line formation, circle, V-formation, expanding/contracting shapes.</p><h2>Demonstration</h2><p>Coordinate 4 FLYQ drones in synchronized light show with music.</p>',
+  'https://cdn1.genspark.ai/user-upload-image/rmbg_generated/0_435c9a66-800a-4537-80f8-cd513ea4bf15',
+  1, 'Projects', '["swarm", "multi-drone", "coordination", "formations"]', 'published', 13,
+  datetime('now', '-51 days'), datetime('now', '-51 days')
+),
+(
+  'Aerial Photography Stabilization Rig',
+  'aerial-photography-rig',
+  'Build gimbal system for smooth, professional aerial photography.',
+  '<h2>Hardware</h2><p>2-axis brushless gimbal, stabilized camera mount, damping system.</p><h2>Stabilization Algorithm</h2><p>Complementary filter combines IMU data for smooth gimbal control.</p><h2>Camera Control</h2><p>Trigger photo/video via GPIO, adjust settings remotely, live preview.</p><h2>Flight Modes</h2><p>Smooth operator mode, point of interest orbit, cable cam simulation.</p><h2>Results</h2><p>Professional-quality stable footage, eliminates vibration, smooth panning shots.</p>',
+  'https://cdn1.genspark.ai/user-upload-image/rmbg_generated/0_f1a47aea-7dd7-431f-bfe8-e82d7d001b38',
+  1, 'Projects', '["photography", "gimbal", "stabilization", "camera"]', 'published', 11,
+  datetime('now', '-49 days'), datetime('now', '-49 days')
+),
+(
+  'Search and Rescue Thermal Camera Drone',
+  'search-rescue-thermal',
+  'Integrate thermal camera for search and rescue operations.',
+  '<h2>Thermal Camera</h2><p>MLX90640 32x24 pixel thermal array sensor, detects heat signatures.</p><h2>Image Processing</h2><p>Highlight temperature anomalies, detect humans in low visibility, log hotspot locations.</p><h2>Autonomous Search</h2><p>Grid pattern coverage, pause on detection, mark GPS coordinates.</p><h2>Ground Station</h2><p>Live thermal feed, temperature overlay, waypoint marking, emergency alert.</p><h2>Field Test</h2><p>Successfully detect person from 20m altitude, works in complete darkness.</p>',
+  'https://cdn1.genspark.ai/user-upload-image/rmbg_generated/0_f1a47aea-7dd7-431f-bfe8-e82d7d001b38',
+  1, 'Projects', '["thermal camera", "search rescue", "emergency", "sensors"]', 'published', 12,
+  datetime('now', '-47 days'), datetime('now', '-47 days')
+),
+(
+  'Educational Drone Programming Platform',
+  'educational-programming-platform',
+  'Create visual programming interface for teaching kids drone concepts.',
+  '<h2>Block-Based Programming</h2><p>Blockly interface like Scratch - drag and drop command blocks.</p><h2>Simulation Mode</h2><p>Test code in 3D simulator before real flight. Safe learning environment.</p><h2>Curriculum Integration</h2><p>Lessons on physics, math, programming, problem-solving through drone projects.</p><h2>Challenges</h2><p>Obstacle course navigation, package delivery, formation flying competitions.</p><h2>Impact</h2><p>Engage students aged 10-16, improve STEM interest, hands-on learning.</p>',
+  'https://cdn1.genspark.ai/user-upload-image/rmbg_generated/0_435c9a66-800a-4537-80f8-cd513ea4bf15',
+  1, 'Projects', '["education", "Blockly", "kids", "STEM"]', 'published', 10,
+  datetime('now', '-45 days'), datetime('now', '-45 days')
+),
+(
+  'Weather Station Drone for Data Collection',
+  'weather-station-drone',
+  'Collect atmospheric data at various altitudes for weather monitoring.',

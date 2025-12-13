@@ -5,10 +5,21 @@ import { defineConfig } from 'vite'
 
 export default defineConfig({
   plugins: [
-    build(),
+    build({
+      outputDir: 'dist',
+      minify: true,
+      external: [],
+      emptyOutDir: false
+    }),
     devServer({
       adapter,
       entry: 'src/index.tsx'
     })
-  ]
+  ],
+  build: {
+    rollupOptions: {
+      external: []
+    }
+  },
+  publicDir: 'public'
 })

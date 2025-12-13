@@ -1,0 +1,100 @@
+  '<h2>Sensors</h2><p>Temperature, humidity, pressure, air quality (PM2.5), wind speed.</p><h2>Data Collection</h2><p>Vertical profile from 0-100m altitude, record every 5m.</p><h2>Telemetry</h2><p>Real-time data transmission to ground station, CSV logging to SD card.</p><h2>Visualization</h2><p>Generate altitude vs temperature graphs, humidity profiles, pressure charts.</p><h2>Applications</h2><p>Microclimate studies, pollution monitoring, education, hobby meteorology.</p>',
+  'https://cdn1.genspark.ai/user-upload-image/rmbg_generated/0_435c9a66-800a-4537-80f8-cd513ea4bf15',
+  1, 'Projects', '["weather", "sensors", "data collection", "environment"]', 'published', 9,
+  datetime('now', '-43 days'), datetime('now', '-43 days')
+),
+(
+  'Line Following Autonomous Drone',
+  'line-following-drone',
+  'Build drone that autonomously follows colored lines on the ground.',
+  '<h2>Computer Vision</h2><p>Downward camera detects colored tape on floor using HSV color filtering.</p><h2>Control Algorithm</h2><p>PID controller maintains center position over line, adjusts yaw for turns.</p><h2>Implementation</h2><p>OpenCV on companion computer processes video, sends corrections to flight controller.</p><h2>Track Design</h2><p>Create race tracks with loops, intersections, varying widths for challenge.</p><h2>Competition</h2><p>Time trials, fastest completion, obstacle courses, multi-drone racing.</p>',
+  'https://cdn1.genspark.ai/user-upload-image/rmbg_generated/0_f1a47aea-7dd7-431f-bfe8-e82d7d001b38',
+  1, 'Projects', '["line following", "computer vision", "autonomous", "racing"]', 'published', 11,
+  datetime('now', '-41 days'), datetime('now', '-41 days')
+),
+(
+  'Agriculture Crop Monitoring System',
+  'agriculture-crop-monitoring',
+  'Use multispectral imaging to assess crop health and irrigation needs.',
+  '<h2>NDVI Camera</h2><p>Near-infrared camera captures plant health data invisible to human eye.</p><h2>Flight Planning</h2><p>Automated grid patterns cover entire field, consistent altitude and overlap.</p><h2>Image Analysis</h2><p>Generate NDVI maps showing vegetation health, identify problem areas.</p><h2>Insights</h2><p>Detect early disease, optimize irrigation, variable rate fertilization.</p><h2>Farmer Benefits</h2><p>Reduce costs 20%, improve yield 15%, data-driven decision making.</p>',
+  'https://cdn1.genspark.ai/user-upload-image/rmbg_generated/0_f1a47aea-7dd7-431f-bfe8-e82d7d001b38',
+  1, 'Projects', '["agriculture", "NDVI", "crop monitoring", "farming"]', 'published', 12,
+  datetime('now', '-39 days'), datetime('now', '-39 days')
+),
+(
+  'Drone-Based Home Security System',
+  'home-security-system',
+  'Automated patrol drone with intruder detection and alert system.',
+  '<h2>Patrol Routes</h2><p>Program scheduled flights around property perimeter, check all angles.</p><h2>Detection Systems</h2><p>Motion detection, face recognition, unusual sound detection via microphone.</p><h2>Alert Protocol</h2><p>Push notification to phone, stream live video, record evidence, sound alarm.</p><h2>Docking Station</h2><p>Automatic charging base, weather protection, scheduled launches.</p><h2>Privacy</h2><p>Configurable zones, logging, compliance with local regulations.</p>',
+  'https://cdn1.genspark.ai/user-upload-image/rmbg_generated/0_f1a47aea-7dd7-431f-bfe8-e82d7d001b38',
+  1, 'Projects', '["security", "surveillance", "automation", "home"]', 'published', 10,
+  datetime('now', '-37 days'), datetime('now', '-37 days')
+),
+(
+  'Interactive Light Painting Drone',
+  'light-painting-drone',
+  'Create stunning long-exposure photographs with programmable light trails.',
+  '<h2>LED Setup</h2><p>RGB LED strips on drone arms, programmable colors and patterns.</p><h2>Path Programming</h2><p>3D path planning interface, smooth Bezier curves, timing synchronization.</p><h2>Camera Setup</h2><p>DSLR with 10-30 second exposure, low ISO, tripod mounted.</p><h2>Patterns</h2><p>Spirals, helixes, geometric shapes, text writing, artistic designs.</p><h2>Gallery</h2><p>Showcase stunning light painting photos created with FLYQ.</p>',
+  'https://cdn1.genspark.ai/user-upload-image/rmbg_generated/0_435c9a66-800a-4537-80f8-cd513ea4bf15',
+  1, 'Projects', '["light painting", "photography", "LED", "art"]', 'published', 8,
+  datetime('now', '-35 days'), datetime('now', '-35 days')
+),
+(
+  'DIY Drone Racing Course Builder',
+  'racing-course-builder',
+  'Design and build FPV racing course with timing gates and obstacles.',
+  '<h2>Gate Design</h2><p>PVC pipe frames with LED strips, multiple size/shape options.</p><h2>Timing System</h2><p>IR sensors detect drone passage, Arduino-based lap timer.</p><h2>Course Layouts</h2><p>Indoor: tight turns, figure-8, slalom. Outdoor: long straights, vertical elements.</p><h2>Software</h2><p>Lap timing app, leaderboards, race replays, ghost drone comparison.</p><h2>Competition</h2><p>Host races, practice sessions, improve skills, compete with friends.</p>',
+  'https://cdn1.genspark.ai/user-upload-image/rmbg_generated/0_435c9a66-800a-4537-80f8-cd513ea4bf15',
+  1, 'Projects', '["FPV racing", "course", "competition", "DIY"]', 'published', 11,
+  datetime('now', '-33 days'), datetime('now', '-33 days')
+);
+
+-- TIPS & TRICKS CATEGORY (8 posts)
+
+INSERT INTO blog_posts (title, slug, excerpt, content, featured_image, author_id, category, tags, status, reading_time, published_at, created_at) VALUES 
+(
+  '10 Ways to Extend Flight Time',
+  'extend-flight-time',
+  'Practical tips to maximize your FLYQ drone battery life and flight duration.',
+  '<h2>1. Optimal Battery Care</h2><p>Store at 60% charge, avoid full discharge, charge before flight.</p><h2>2. Weight Reduction</h2><p>Remove unnecessary accessories, use lighter camera mounts.</p><h2>3. Smooth Flying</h2><p>Avoid aggressive maneuvers, use gentle inputs, maintain stable altitude.</p><h2>4. Weather Conditions</h2><p>Fly in calm weather, avoid wind, optimal temperature 20-25°C.</p><h2>5. Motor Maintenance</h2><p>Clean motors regularly, lubricate bearings, balance propellers.</p><h2>More Tips</h2><p>Use efficient flight modes, reduce video streaming quality, plan shorter routes, carry spare batteries.</p>',
+  'https://cdn1.genspark.ai/user-upload-image/rmbg_generated/0_435c9a66-800a-4537-80f8-cd513ea4bf15',
+  1, 'Tips & Tricks', '["battery life", "flight time", "optimization", "tips"]', 'published', 6,
+  datetime('now', '-31 days'), datetime('now', '-31 days')
+),
+(
+  'Crash Prevention: Common Mistakes to Avoid',
+  'crash-prevention',
+  'Learn from common mistakes and prevent crashes with these essential tips.',
+  '<h2>Pre-Flight Mistakes</h2><p>Skipping calibration, ignoring battery level, not checking propellers.</p><h2>Flying Errors</h2><p>Flying too high initially, over-correcting, losing orientation, ignoring warnings.</p><h2>Environmental Hazards</h2><p>Strong wind, obstacles, sun glare, electromagnetic interference.</p><h2>Recovery Techniques</h2><p>Level panic drop, emergency landing, regaining control, safe crash procedures.</p><h2>Post-Crash</h2><p>Inspection checklist, damage assessment, repair guide, insurance claims.</p>',
+  'https://cdn1.genspark.ai/user-upload-image/rmbg_generated/0_435c9a66-800a-4537-80f8-cd513ea4bf15',
+  1, 'Tips & Tricks', '["crash prevention", "safety", "mistakes", "recovery"]', 'published', 7,
+  datetime('now', '-29 days'), datetime('now', '-29 days')
+),
+(
+  'Perfect Propeller Balance for Smooth Flight',
+  'propeller-balance',
+  'How to check and balance propellers for vibration-free flying.',
+  '<h2>Why Balance Matters</h2><p>Unbalanced props cause vibration, reduce flight time, stress motors.</p><h2>Testing Balance</h2><p>Use propeller balancer or needle method. Check all four props.</p><h2>Correction Methods</h2><p>Add small pieces of tape to light side, sand heavier side carefully.</p><h2>Verification</h2><p>Re-test after adjustment, verify in hover test, check IMU vibration data.</p><h2>Maintenance Schedule</h2><p>Check every 10 flights, after crashes, when replacing props.</p>',
+  'https://cdn1.genspark.ai/user-upload-image/rmbg_generated/0_435c9a66-800a-4537-80f8-cd513ea4bf15',
+  1, 'Tips & Tricks', '["propellers", "balance", "maintenance", "vibration"]', 'published', 5,
+  datetime('now', '-27 days'), datetime('now', '-27 days')
+),
+(
+  'Mastering Indoor Flying Techniques',
+  'indoor-flying-techniques',
+  'Expert tips for safe and precise indoor drone operation.',
+  '<h2>Space Preparation</h2><p>Clear 3m x 3m area, remove fragile objects, good lighting, close windows.</p><h2>Control Adjustments</h2><p>Reduce expo settings, lower max tilt angle, enable altitude hold.</p><h2>Precision Maneuvers</h2><p>Slow movements, maintain low altitude (1-1.5m), use walls as reference.</p><h2>Common Challenges</h2><p>Ceiling bounce, GPS denial, Wi-Fi interference, limited space.</p><h2>Practice Drills</h2><p>Box patterns, figure-8, tight turns, precision landing on targets.</p>',
+  'https://cdn1.genspark.ai/user-upload-image/rmbg_generated/0_435c9a66-800a-4537-80f8-cd513ea4bf15',
+  1, 'Tips & Tricks', '["indoor flying", "techniques", "precision", "space"]', 'published', 6,
+  datetime('now', '-25 days'), datetime('now', '-25 days')
+),
+(
+  'Photography Tips for Aerial Shots',
+  'aerial-photography-tips',
+  'Capture stunning aerial photos with your FLYQ Vision drone.',
+  '<h2>Camera Settings</h2><p>Use manual mode, ISO 100-400, fast shutter speed 1/500+, RAW format.</p><h2>Composition Rules</h2><p>Rule of thirds, leading lines, symmetry, golden hour lighting.</p><h2>Flight Techniques</h2><p>Smooth movements, orbit shots, reveal techniques, altitude variation.</p><h2>Weather Conditions</h2><p>Best: early morning, late afternoon. Avoid: harsh midday sun, overcast.</p><h2>Post-Processing</h2><p>Adjust exposure, enhance colors, remove distortion, sharpen details.</p>',
+  'https://cdn1.genspark.ai/user-upload-image/rmbg_generated/0_f1a47aea-7dd7-431f-bfe8-e82d7d001b38',
+  1, 'Tips & Tricks', '["photography", "camera", "tips", "aerial shots"]', 'published', 7,
+  datetime('now', '-23 days'), datetime('now', '-23 days')
+),
+(

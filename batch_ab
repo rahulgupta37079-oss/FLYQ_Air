@@ -1,0 +1,100 @@
+-- TUTORIALS CATEGORY (15 posts)
+
+INSERT INTO blog_posts (title, slug, excerpt, content, featured_image, author_id, category, tags, status, reading_time, published_at, created_at) VALUES 
+(
+  'Programming Custom LED Patterns',
+  'programming-led-patterns',
+  'Create stunning LED displays using Arduino code for FLYQ status lights.',
+  '<h2>LED System Overview</h2><p>FLYQ has 3 status LEDs: PWR (GPIO12), SYS (GPIO13), LINK (GPIO14).</p><h2>Basic Control</h2><pre><code>digitalWrite(PWR_LED, HIGH);delay(500);digitalWrite(PWR_LED, LOW);</code></pre><h2>Advanced Patterns</h2><p>Knight Rider effect, breathing animation, battery status indicator, flight mode displays.</p><h2>Wi-Fi Control</h2><p>Create web server to control LEDs remotely via smartphone.</p><h2>Best Practices</h2><p>Use PWM for smooth fading, avoid rapid flashing, maintain system status indicators.</p>',
+  'https://cdn1.genspark.ai/user-upload-image/rmbg_generated/0_435c9a66-800a-4537-80f8-cd513ea4bf15',
+  1, 'Tutorials', '["Arduino", "LED", "programming", "GPIO"]', 'published', 10,
+  datetime('now', '-28 days'), datetime('now', '-28 days')
+),
+(
+  'Building Your First Python Flight Script',
+  'first-python-flight-script',
+  'Write automated flight scripts with Python for takeoff, patterns, and landing.',
+  '<h2>Basic Script Structure</h2><pre><code>from flyq import FLYQ\ndrone = FLYQ()\ndrone.connect()\ndrone.takeoff(1.0)\ntime.sleep(5)\ndrone.land()</code></pre><h2>Square Pattern</h2><p>Program 2m x 2m square flight path using movement commands.</p><h2>Error Handling</h2><p>Implement try-except blocks, check battery before flight, emergency stop on keyboard interrupt.</p><h2>Telemetry Logging</h2><p>Log flight data to CSV for later analysis.</p>',
+  'https://cdn1.genspark.ai/user-upload-image/rmbg_generated/0_435c9a66-800a-4537-80f8-cd513ea4bf15',
+  1, 'Tutorials', '["Python", "programming", "automation", "SDK"]', 'published', 12,
+  datetime('now', '-26 days'), datetime('now', '-26 days')
+),
+(
+  'Reading and Processing IMU Data',
+  'reading-imu-data',
+  'Access accelerometer and gyroscope data for custom flight algorithms.',
+  '<h2>IMU Basics</h2><p>MPU6050 provides 3-axis accelerometer and gyroscope data at up to 1000Hz.</p><h2>Reading Raw Data</h2><pre><code>Wire.begin();\nmpu.initialize();\nint16_t ax,ay,az,gx,gy,gz;\nmpu.getMotion6(&ax,&ay,&az,&gx,&gy,&gz);</code></pre><h2>Data Filtering</h2><p>Apply complementary filter to combine accel and gyro for accurate attitude estimation.</p><h2>Applications</h2><p>Custom stabilization, gesture detection, vibration monitoring, crash detection.</p>',
+  'https://cdn1.genspark.ai/user-upload-image/rmbg_generated/0_435c9a66-800a-4537-80f8-cd513ea4bf15',
+  1, 'Tutorials', '["IMU", "sensors", "data processing", "Arduino"]', 'published', 11,
+  datetime('now', '-24 days'), datetime('now', '-24 days')
+),
+(
+  'Creating a Web-Based Controller',
+  'web-based-controller',
+  'Build custom web interface for controlling FLYQ from any browser.',
+  '<h2>Setup Web Server</h2><p>Use ESPAsyncWebServer library to create HTTP server on ESP32-S3.</p><h2>HTML Interface</h2><p>Design responsive control panel with virtual joysticks, buttons, and telemetry display.</p><h2>WebSocket Communication</h2><p>Real-time bidirectional data transfer for low-latency control.</p><h2>Features</h2><p>Live video feed (Vision), gamepad support, mobile-responsive design, saved flight modes.</p>',
+  'https://cdn1.genspark.ai/user-upload-image/rmbg_generated/0_435c9a66-800a-4537-80f8-cd513ea4bf15',
+  1, 'Tutorials', '["web development", "controller", "Wi-Fi", "interface"]', 'published', 13,
+  datetime('now', '-22 days'), datetime('now', '-22 days')
+),
+(
+  'Implementing Altitude Hold with Barometer',
+  'altitude-hold-barometer',
+  'Use barometric pressure sensor for stable altitude hold functionality.',
+  '<h2>BMP280 Barometer</h2><p>Measures atmospheric pressure to calculate altitude with ±1m accuracy.</p><h2>PID Controller</h2><pre><code>float error = target_alt - current_alt;\nfloat pid_output = Kp*error + Ki*integral + Kd*derivative;</code></pre><h2>Tuning Parameters</h2><p>Start with Kp=2.0, Ki=0.5, Kd=1.0. Adjust based on flight response.</p><h2>Integration</h2><p>Combine with IMU data, handle pressure changes, compensate for temperature.</p>',
+  'https://cdn1.genspark.ai/user-upload-image/rmbg_generated/0_435c9a66-800a-4537-80f8-cd513ea4bf15',
+  1, 'Tutorials', '["barometer", "altitude hold", "PID", "sensors"]', 'published', 10,
+  datetime('now', '-20 days'), datetime('now', '-20 days')
+),
+(
+  'Adding External Sensors via GPIO',
+  'adding-external-sensors',
+  'Connect and read data from ultrasonic, IR, and environmental sensors.',
+  '<h2>GPIO Expansion</h2><p>FLYQ provides 24-pin GPIO header for sensor integration. 3.3V logic level.</p><h2>Ultrasonic Distance Sensor</h2><p>HC-SR04 for obstacle detection. Measure echo time to calculate distance.</p><h2>IR Sensors</h2><p>Line following, edge detection, proximity sensing applications.</p><h2>Environmental Sensors</h2><p>Temperature (DHT22), light (BH1750), humidity for data logging missions.</p><h2>Power Considerations</h2><p>Total GPIO current limit 40mA. Use external power for high-current sensors.</p>',
+  'https://cdn1.genspark.ai/user-upload-image/rmbg_generated/0_435c9a66-800a-4537-80f8-cd513ea4bf15',
+  1, 'Tutorials', '["GPIO", "sensors", "expansion", "hardware"]', 'published', 9,
+  datetime('now', '-18 days'), datetime('now', '-18 days')
+),
+(
+  'Voice Control with Speech Recognition',
+  'voice-control-speech',
+  'Control your FLYQ drone using voice commands via mobile app.',
+  '<h2>Architecture</h2><p>Mobile app captures speech, sends to cloud API for recognition, transmits commands to drone.</p><h2>Command Set</h2><p>"Take off", "Land", "Go forward", "Turn left", "Emergency stop", "Return home".</p><h2>Python Implementation</h2><pre><code>import speech_recognition as sr\nrecognizer = sr.Recognizer()\ncommand = recognizer.recognize_google(audio)</code></pre><h2>Safety Features</h2><p>Confidence threshold, emergency keywords, timeout limits, confirmation for dangerous commands.</p>',
+  'https://cdn1.genspark.ai/user-upload-image/rmbg_generated/0_435c9a66-800a-4537-80f8-cd513ea4bf15',
+  1, 'Tutorials', '["voice control", "speech recognition", "AI", "mobile"]', 'published', 11,
+  datetime('now', '-16 days'), datetime('now', '-16 days')
+),
+(
+  'Waypoint Navigation System',
+  'waypoint-navigation',
+  'Program autonomous flight paths with GPS waypoints (FLYQ Vision).',
+  '<h2>GPS Integration</h2><p>NEO-6M GPS module provides latitude/longitude coordinates for navigation.</p><h2>Waypoint Structure</h2><pre><code>struct Waypoint { float lat; float lon; float alt; int action; };</code></pre><h2>Path Planning</h2><p>Calculate bearing and distance between waypoints. Implement smooth transitions.</p><h2>Mission Execution</h2><p>Sequential waypoint following, hold actions, photo triggers, RTH on low battery.</p>',
+  'https://cdn1.genspark.ai/user-upload-image/rmbg_generated/0_435c9a66-800a-4537-80f8-cd513ea4bf15',
+  1, 'Tutorials', '["GPS", "navigation", "waypoints", "autonomous"]', 'published', 12,
+  datetime('now', '-14 days'), datetime('now', '-14 days')
+),
+(
+  'Camera Integration and Image Processing',
+  'camera-image-processing',
+  'Use FLYQ Vision camera for photos, video streaming, and computer vision.',
+  '<h2>Camera Module</h2><p>OV2640 provides 720p video and 2MP photos over Wi-Fi stream.</p><h2>Streaming Setup</h2><p>MJPEG stream at 30fps. Access via http://flyq-ip/stream.</p><h2>OpenCV Integration</h2><pre><code>import cv2\ncap = cv2.VideoCapture("http://flyq-ip/stream")\nret, frame = cap.read()</code></pre><h2>Applications</h2><p>Face detection, QR code reading, color tracking, optical flow navigation.</p>',
+  'https://cdn1.genspark.ai/user-upload-image/rmbg_generated/0_f1a47aea-7dd7-431f-bfe8-e82d7d001b38',
+  1, 'Tutorials', '["camera", "computer vision", "OpenCV", "Vision"]', 'published', 13,
+  datetime('now', '-12 days'), datetime('now', '-12 days')
+),
+(
+  'Gesture Control Using MediaPipe',
+  'gesture-control-mediapipe',
+  'Control drone with hand gestures detected through laptop webcam.',
+  '<h2>MediaPipe Hands</h2><p>Google''s ML solution for real-time hand tracking and gesture recognition.</p><h2>Setup</h2><pre><code>pip install mediapipe opencv-python\nimport mediapipe as mp\nhands = mp.solutions.hands.Hands()</code></pre><h2>Gesture Mapping</h2><p>Open palm = takeoff, closed fist = land, point up = ascend, swipe = direction control.</p><h2>Safety</h2><p>Require gesture hold time, emergency stop gesture, max altitude limit.</p>',
+  'https://cdn1.genspark.ai/user-upload-image/rmbg_generated/0_f1a47aea-7dd7-431f-bfe8-e82d7d001b38',
+  1, 'Tutorials', '["gesture control", "MediaPipe", "AI", "computer vision"]', 'published', 11,
+  datetime('now', '-10 days'), datetime('now', '-10 days')
+),
+(
+  'Building FPV Racing Mode',
+  'fpv-racing-mode',
+  'Configure FLYQ for FPV racing with acro mode and low-latency controls.',
+  '<h2>Acro Mode Setup</h2><p>Disable self-leveling, increase rotation rates, adjust expo curves for smooth control.</p><h2>Tuning for Speed</h2><p>Maximize motor output, optimize PID gains, reduce drag, lightweight modifications.</p><h2>FPV Video</h2><p>Stream camera feed to VR headset or smartphone. Minimize latency (<100ms).</p><h2>Racing Features</h2><p>Lap timer, speed overlay, crash detection, quick rearm for racing.</p>',
+  'https://cdn1.genspark.ai/user-upload-image/rmbg_generated/0_435c9a66-800a-4537-80f8-cd513ea4bf15',
+  1, 'Tutorials', '["FPV", "racing", "acro mode", "performance"]', 'published', 10,

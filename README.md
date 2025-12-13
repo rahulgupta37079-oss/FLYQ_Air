@@ -2,6 +2,22 @@
 
 ## 📢 Latest Updates
 
+### 🎥 HERO VIDEO INTEGRATION (2025-12-13) ⭐⭐⭐ MAJOR!
+✅ **Dynamic Video Hero Section** 🚁
+   - **Hero Video**: 8-second HD video loop replacing static image
+   - **Resolution**: 1280x720 (720p HD) at 24 fps
+   - **Features**: Auto-play, loop, muted, mobile-friendly (playsinline)
+   - **Blend Effect**: `mix-blend-mode: lighten` for natural background integration
+   - **Floating Animation**: Maintains original smooth floating effect
+   - **Fallback**: Static background-removed image for browsers without video support
+   - **File Size**: 1.9 MB optimized for web
+   - **Location**: `/public/videos/flyq-hero.mp4`
+   - **Cloudflare Configuration**: Automatic static asset serving with `_routes.json` exclusion
+   - **Build Automation**: `fix-routes.cjs` script ensures proper routing after each build
+   - **Production URL**: https://85e6b284.flyq-air.pages.dev
+   - **Status**: ✅ LIVE and working on production
+   - **Documentation**: See VIDEO_HERO_COMPLETE.md for technical details
+
 ### 📝 BLOG SYSTEM WITH 51 ARTICLES (2025-11-22) ⭐⭐⭐ MAJOR!
 ✅ **Complete Blog System with 51 Published Articles** 📚
    - **51 Published Blog Posts** across 5 categories:

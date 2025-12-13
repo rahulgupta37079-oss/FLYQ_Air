@@ -1,5 +1,7 @@
 import { Hono } from 'hono'
 import { serveStatic } from 'hono/cloudflare-workers'
+import admin from './admin'
+import ordersRouter from './admin-orders'
 
 const app = new Hono()
 
@@ -703,10 +705,19 @@ app.get('/', (c) => {
                             </div>
                         </div>
                     </div>
-                    <div class="float-animation">
-                        <img src="https://cdn1.genspark.ai/user-upload-image/rmbg_generated/0_435c9a66-800a-4537-80f8-cd513ea4bf15" 
-                             alt="FLYQ Drone" 
-                             class="w-full h-auto drop-shadow-2xl">
+                    <div class="float-animation relative">
+                        <video 
+                            autoplay 
+                            loop 
+                            muted 
+                            playsinline
+                            class="w-full h-auto drop-shadow-2xl rounded-2xl"
+                            style="mix-blend-mode: lighten;">
+                            <source src="/videos/flyq-hero.mp4" type="video/mp4">
+                            <img src="https://cdn1.genspark.ai/user-upload-image/rmbg_generated/0_435c9a66-800a-4537-80f8-cd513ea4bf15" 
+                                 alt="FLYQ Air Drone" 
+                                 class="w-full h-auto drop-shadow-2xl">
+                        </video>
                     </div>
                 </div>
             </div>
@@ -8987,324 +8998,326 @@ app.get('/blog/:slug', async (c) => {
   }
 });
 
-// Admin Dashboard - Database Viewer
-app.get('/admin/dashboard', async (c) => {
-  try {
-    const user = await getCurrentUser(c);
-    
-    if (!user) {
-      return c.html('<h1>Access Denied</h1><p>Please login first</p>', 403);
-    }
+// DISABLED: // Admin Dashboard - Database Viewer
+// DISABLED: app.get('/admin/dashboard', async (c) => {
+// DISABLED:   try {
+// DISABLED:     const user = await getCurrentUser(c);
+// DISABLED:     
+// DISABLED:     if (!user) {
+// DISABLED:       return c.html('<h1>Access Denied</h1><p>Please login first</p>', 403);
+// DISABLED:     }
+// DISABLED: 
+// DISABLED:     if (!isDatabaseAvailable(c)) {
+// DISABLED:       return c.html('<h1>Database Not Available</h1>', 503);
+// DISABLED:     }
+// DISABLED: 
+// DISABLED:     // Check if user is admin
+// DISABLED:     const adminCheck = await c.env.DB.prepare('SELECT is_admin FROM users WHERE id = ?').bind(user.id).first();
+// DISABLED:     if (!adminCheck || adminCheck.is_admin !== 1) {
+// DISABLED:       return c.html('<h1>Access Denied</h1><p>Admin access only</p>', 403);
+// DISABLED:     }
+// DISABLED: 
+// DISABLED:     // Get all users
+// DISABLED:     const usersResult = await c.env.DB.prepare('SELECT id, email, name, is_admin, created_at FROM users ORDER BY created_at DESC').all();
+// DISABLED:     
+// DISABLED:     // Get all orders with user info
+// DISABLED:     const ordersResult = await c.env.DB.prepare(`
+// DISABLED:       SELECT o.*, u.email, u.name 
+// DISABLED:       FROM orders o 
+// DISABLED:       JOIN users u ON o.user_id = u.id 
+// DISABLED:       ORDER BY o.created_at DESC 
+// DISABLED:       LIMIT 50
+// DISABLED:     `).all();
+// DISABLED:     
+// DISABLED:     // Get all sessions
+// DISABLED:     const sessionsResult = await c.env.DB.prepare(`
+// DISABLED:       SELECT s.*, u.email 
+// DISABLED:       FROM sessions s 
+// DISABLED:       JOIN users u ON s.user_id = u.id 
+// DISABLED:       WHERE s.expires_at > datetime('now') 
+// DISABLED:       ORDER BY s.created_at DESC
+// DISABLED:     `).all();
+// DISABLED: 
+// DISABLED:     // Get contact submissions
+// DISABLED:     const contactsResult = await c.env.DB.prepare(`
+// DISABLED:       SELECT * FROM contact_submissions 
+// DISABLED:       ORDER BY created_at DESC 
+// DISABLED:       LIMIT 50
+// DISABLED:     `).all();
+// DISABLED:     
+// DISABLED:     const newContactsCount = contactsResult.results?.filter((c: any) => c.status === 'new').length || 0;
+// DISABLED: 
+// DISABLED:     const content = `
+// DISABLED:       <div class="pt-32 pb-20 bg-gray-50">
+// DISABLED:         <div class="container mx-auto px-6 max-w-7xl">
+// DISABLED:           <h1 class="text-5xl font-black mb-12">Admin Dashboard</h1>
+// DISABLED:           
+// DISABLED:           <!-- Statistics Cards -->
+// DISABLED:           <div class="grid md:grid-cols-5 gap-6 mb-12">
+// DISABLED:             <div class="bg-white p-6 rounded-2xl shadow-lg">
+// DISABLED:               <div class="text-4xl font-black text-sky-500 mb-2">${usersResult.results?.length || 0}</div>
+// DISABLED:               <div class="text-gray-600">Total Users</div>
+// DISABLED:             </div>
+// DISABLED:             <div class="bg-white p-6 rounded-2xl shadow-lg">
+// DISABLED:               <div class="text-4xl font-black text-green-500 mb-2">${ordersResult.results?.length || 0}</div>
+// DISABLED:               <div class="text-gray-600">Total Orders</div>
+// DISABLED:             </div>
+// DISABLED:             <div class="bg-white p-6 rounded-2xl shadow-lg">
+// DISABLED:               <div class="text-4xl font-black text-blue-500 mb-2">${sessionsResult.results?.length || 0}</div>
+// DISABLED:               <div class="text-gray-600">Active Sessions</div>
+// DISABLED:             </div>
+// DISABLED:             <div class="bg-white p-6 rounded-2xl shadow-lg">
+// DISABLED:               <div class="text-4xl font-black text-orange-500 mb-2">${contactsResult.results?.length || 0}</div>
+// DISABLED:               <div class="text-gray-600">Contact Messages</div>
+// DISABLED:               ${newContactsCount > 0 ? `<div class="text-xs text-red-600 font-bold mt-1">${newContactsCount} new</div>` : ''}
+// DISABLED:             </div>
+// DISABLED:             <div class="bg-white p-6 rounded-2xl shadow-lg">
+// DISABLED:               <div class="text-4xl font-black text-purple-500 mb-2">₹${ordersResult.results?.reduce((sum: number, o: any) => sum + (o.total || 0), 0) || 0}</div>
+// DISABLED:               <div class="text-gray-600">Total Revenue</div>
+// DISABLED:             </div>
+// DISABLED:           </div>
+// DISABLED: 
+// DISABLED:           <!-- Users Table -->
+// DISABLED:           <div class="bg-white rounded-2xl shadow-lg p-8 mb-8">
+// DISABLED:             <h2 class="text-3xl font-bold mb-6">Registered Users</h2>
+// DISABLED:             <div class="overflow-x-auto">
+// DISABLED:               <table class="w-full">
+// DISABLED:                 <thead>
+// DISABLED:                   <tr class="border-b">
+// DISABLED:                     <th class="text-left py-3 px-4">ID</th>
+// DISABLED:                     <th class="text-left py-3 px-4">Name</th>
+// DISABLED:                     <th class="text-left py-3 px-4">Email</th>
+// DISABLED:                     <th class="text-left py-3 px-4">Registered</th>
+// DISABLED:                   </tr>
+// DISABLED:                 </thead>
+// DISABLED:                 <tbody>
+// DISABLED:                   ${usersResult.results?.map((u: any) => `
+// DISABLED:                     <tr class="border-b hover:bg-gray-50">
+// DISABLED:                       <td class="py-3 px-4">${u.id}</td>
+// DISABLED:                       <td class="py-3 px-4 font-semibold">${u.name}</td>
+// DISABLED:                       <td class="py-3 px-4">${u.email}</td>
+// DISABLED:                       <td class="py-3 px-4">${new Date(u.created_at).toLocaleString()}</td>
+// DISABLED:                     </tr>
+// DISABLED:                   `).join('') || '<tr><td colspan="4" class="py-8 text-center text-gray-500">No users yet</td></tr>'}
+// DISABLED:                 </tbody>
+// DISABLED:               </table>
+// DISABLED:             </div>
+// DISABLED:           </div>
+// DISABLED: 
+// DISABLED:           <!-- Orders Table -->
+// DISABLED:           <div class="bg-white rounded-2xl shadow-lg p-8 mb-8">
+// DISABLED:             <h2 class="text-3xl font-bold mb-6">Recent Orders</h2>
+// DISABLED:             <div class="overflow-x-auto">
+// DISABLED:               <table class="w-full">
+// DISABLED:                 <thead>
+// DISABLED:                   <tr class="border-b">
+// DISABLED:                     <th class="text-left py-3 px-4">Order #</th>
+// DISABLED:                     <th class="text-left py-3 px-4">Customer</th>
+// DISABLED:                     <th class="text-left py-3 px-4">Email</th>
+// DISABLED:                     <th class="text-left py-3 px-4">Total</th>
+// DISABLED:                     <th class="text-left py-3 px-4">Status</th>
+// DISABLED:                     <th class="text-left py-3 px-4">Date</th>
+// DISABLED:                   </tr>
+// DISABLED:                 </thead>
+// DISABLED:                 <tbody>
+// DISABLED:                   ${ordersResult.results?.map((o: any) => `
+// DISABLED:                     <tr class="border-b hover:bg-gray-50">
+// DISABLED:                       <td class="py-3 px-4 font-mono text-sm">#${o.id}</td>
+// DISABLED:                       <td class="py-3 px-4 font-semibold">${o.name}</td>
+// DISABLED:                       <td class="py-3 px-4">${o.email}</td>
+// DISABLED:                       <td class="py-3 px-4 font-bold text-green-600">₹${o.total}</td>
+// DISABLED:                       <td class="py-3 px-4">
+// DISABLED:                         <span class="px-3 py-1 rounded-full text-sm ${
+// DISABLED:                           o.status === 'completed' ? 'bg-green-100 text-green-800' :
+// DISABLED:                           o.status === 'pending' ? 'bg-yellow-100 text-yellow-800' :
+// DISABLED:                           'bg-gray-100 text-gray-800'
+// DISABLED:                         }">${o.status}</span>
+// DISABLED:                       </td>
+// DISABLED:                       <td class="py-3 px-4">${new Date(o.created_at).toLocaleString()}</td>
+// DISABLED:                     </tr>
+// DISABLED:                   `).join('') || '<tr><td colspan="6" class="py-8 text-center text-gray-500">No orders yet</td></tr>'}
+// DISABLED:                 </tbody>
+// DISABLED:               </table>
+// DISABLED:             </div>
+// DISABLED:           </div>
+// DISABLED: 
+// DISABLED:           <!-- Contact Form Submissions -->
+// DISABLED:           <div class="bg-white rounded-2xl shadow-lg p-8 mb-8">
+// DISABLED:             <h2 class="text-3xl font-bold mb-6">Contact Form Submissions</h2>
+// DISABLED:             <div class="overflow-x-auto">
+// DISABLED:               <table class="w-full">
+// DISABLED:                 <thead>
+// DISABLED:                   <tr class="border-b">
+// DISABLED:                     <th class="text-left py-3 px-4">ID</th>
+// DISABLED:                     <th class="text-left py-3 px-4">Name</th>
+// DISABLED:                     <th class="text-left py-3 px-4">Email</th>
+// DISABLED:                     <th class="text-left py-3 px-4">Message</th>
+// DISABLED:                     <th class="text-left py-3 px-4">Status</th>
+// DISABLED:                     <th class="text-left py-3 px-4">Date</th>
+// DISABLED:                     <th class="text-left py-3 px-4">Actions</th>
+// DISABLED:                   </tr>
+// DISABLED:                 </thead>
+// DISABLED:                 <tbody>
+// DISABLED:                   ${contactsResult.results?.map((contact: any) => `
+// DISABLED:                     <tr class="border-b hover:bg-gray-50" id="contact-${contact.id}">
+// DISABLED:                       <td class="py-3 px-4">#${contact.id}</td>
+// DISABLED:                       <td class="py-3 px-4 font-semibold">${contact.name}</td>
+// DISABLED:                       <td class="py-3 px-4">
+// DISABLED:                         <a href="mailto:${contact.email}" class="text-sky-500 hover:underline">${contact.email}</a>
+// DISABLED:                       </td>
+// DISABLED:                       <td class="py-3 px-4 max-w-md">
+// DISABLED:                         <div class="text-sm">${contact.message.length > 100 ? contact.message.substring(0, 100) + '...' : contact.message}</div>
+// DISABLED:                       </td>
+// DISABLED:                       <td class="py-3 px-4">
+// DISABLED:                         <select onchange="updateContactStatus(${contact.id}, this.value)" 
+// DISABLED:                                 class="px-3 py-1 rounded-full text-sm font-bold border-2 ${
+// DISABLED:                                   contact.status === 'new' ? 'bg-red-100 text-red-800 border-red-300' :
+// DISABLED:                                   contact.status === 'read' ? 'bg-yellow-100 text-yellow-800 border-yellow-300' :
+// DISABLED:                                   contact.status === 'replied' ? 'bg-green-100 text-green-800 border-green-300' :
+// DISABLED:                                   'bg-gray-100 text-gray-800 border-gray-300'
+// DISABLED:                                 }">
+// DISABLED:                           <option value="new" ${contact.status === 'new' ? 'selected' : ''}>New</option>
+// DISABLED:                           <option value="read" ${contact.status === 'read' ? 'selected' : ''}>Read</option>
+// DISABLED:                           <option value="replied" ${contact.status === 'replied' ? 'selected' : ''}>Replied</option>
+// DISABLED:                           <option value="archived" ${contact.status === 'archived' ? 'selected' : ''}>Archived</option>
+// DISABLED:                         </select>
+// DISABLED:                       </td>
+// DISABLED:                       <td class="py-3 px-4 text-sm">${new Date(contact.created_at).toLocaleString()}</td>
+// DISABLED:                       <td class="py-3 px-4">
+// DISABLED:                         <button onclick="viewContactDetails(${contact.id}, '${contact.name.replace(/'/g, "\\'")}', '${contact.email}', \`${contact.message.replace(/`/g, '\\`')}\`, '${contact.created_at}')" 
+// DISABLED:                                 class="text-sky-500 hover:text-sky-700">
+// DISABLED:                           <i class="fas fa-eye"></i>
+// DISABLED:                         </button>
+// DISABLED:                       </td>
+// DISABLED:                     </tr>
+// DISABLED:                   `).join('') || '<tr><td colspan="7" class="py-8 text-center text-gray-500">No contact submissions yet</td></tr>'}
+// DISABLED:                 </tbody>
+// DISABLED:               </table>
+// DISABLED:             </div>
+// DISABLED:           </div>
+// DISABLED: 
+// DISABLED:           <!-- Active Sessions -->
+// DISABLED:           <div class="bg-white rounded-2xl shadow-lg p-8">
+// DISABLED:             <h2 class="text-3xl font-bold mb-6">Active Sessions</h2>
+// DISABLED:             <div class="overflow-x-auto">
+// DISABLED:               <table class="w-full">
+// DISABLED:                 <thead>
+// DISABLED:                   <tr class="border-b">
+// DISABLED:                     <th class="text-left py-3 px-4">User Email</th>
+// DISABLED:                     <th class="text-left py-3 px-4">Session ID</th>
+// DISABLED:                     <th class="text-left py-3 px-4">Expires</th>
+// DISABLED:                   </tr>
+// DISABLED:                 </thead>
+// DISABLED:                 <tbody>
+// DISABLED:                   ${sessionsResult.results?.map((s: any) => `
+// DISABLED:                     <tr class="border-b hover:bg-gray-50">
+// DISABLED:                       <td class="py-3 px-4">${s.email}</td>
+// DISABLED:                       <td class="py-3 px-4 font-mono text-sm">${s.id ? (s.id.length > 20 ? s.id.substring(0, 20) + '...' : s.id) : 'N/A'}</td>
+// DISABLED:                       <td class="py-3 px-4">${new Date(s.expires_at).toLocaleString()}</td>
+// DISABLED:                     </tr>
+// DISABLED:                   `).join('') || '<tr><td colspan="3" class="py-8 text-center text-gray-500">No active sessions</td></tr>'}
+// DISABLED:                 </tbody>
+// DISABLED:               </table>
+// DISABLED:             </div>
+// DISABLED:           </div>
+// DISABLED: 
+// DISABLED:           <div class="mt-8 text-center">
+// DISABLED:             <a href="/" class="btn-primary text-white px-8 py-3 rounded-full inline-block">Back to Home</a>
+// DISABLED:           </div>
+// DISABLED:         </div>
+// DISABLED:       </div>
+// DISABLED: 
+// DISABLED:       <script>
+// DISABLED:         async function updateContactStatus(id, status) {
+// DISABLED:           try {
+// DISABLED:             const response = await fetch('/api/contact/update-status', {
+// DISABLED:               method: 'POST',
+// DISABLED:               headers: { 'Content-Type': 'application/json' },
+// DISABLED:               body: JSON.stringify({ id, status })
+// DISABLED:             });
+// DISABLED:             
+// DISABLED:             const data = await response.json();
+// DISABLED:             if (data.success) {
+// DISABLED:               // Update the row styling
+// DISABLED:               const select = document.querySelector('#contact-' + id + ' select');
+// DISABLED:               select.className = 'px-3 py-1 rounded-full text-sm font-bold border-2 ' + 
+// DISABLED:                 (status === 'new' ? 'bg-red-100 text-red-800 border-red-300' :
+// DISABLED:                  status === 'read' ? 'bg-yellow-100 text-yellow-800 border-yellow-300' :
+// DISABLED:                  status === 'replied' ? 'bg-green-100 text-green-800 border-green-300' :
+// DISABLED:                  'bg-gray-100 text-gray-800 border-gray-300');
+// DISABLED:             } else {
+// DISABLED:               alert('Failed to update status');
+// DISABLED:             }
+// DISABLED:           } catch (error) {
+// DISABLED:             console.error('Update error:', error);
+// DISABLED:             alert('Failed to update status');
+// DISABLED:           }
+// DISABLED:         }
+// DISABLED: 
+// DISABLED:         function viewContactDetails(id, name, email, message, date) {
+// DISABLED:           const modal = document.createElement('div');
+// DISABLED:           modal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50';
+// DISABLED:           modal.innerHTML = \`
+// DISABLED:             <div class="bg-white rounded-3xl p-8 max-w-2xl w-full mx-4 max-h-[90vh] overflow-y-auto">
+// DISABLED:               <div class="flex justify-between items-start mb-6">
+// DISABLED:                 <h2 class="text-3xl font-bold">Contact Details #\${id}</h2>
+// DISABLED:                 <button onclick="this.closest('.fixed').remove()" class="text-gray-500 hover:text-gray-700">
+// DISABLED:                   <i class="fas fa-times text-2xl"></i>
+// DISABLED:                 </button>
+// DISABLED:               </div>
+// DISABLED:               
+// DISABLED:               <div class="space-y-4">
+// DISABLED:                 <div>
+// DISABLED:                   <div class="text-sm font-bold text-gray-600 mb-1">Name</div>
+// DISABLED:                   <div class="text-lg">\${name}</div>
+// DISABLED:                 </div>
+// DISABLED:                 
+// DISABLED:                 <div>
+// DISABLED:                   <div class="text-sm font-bold text-gray-600 mb-1">Email</div>
+// DISABLED:                   <a href="mailto:\${email}" class="text-lg text-sky-500 hover:underline">\${email}</a>
+// DISABLED:                 </div>
+// DISABLED:                 
+// DISABLED:                 <div>
+// DISABLED:                   <div class="text-sm font-bold text-gray-600 mb-1">Submitted</div>
+// DISABLED:                   <div class="text-lg">\${new Date(date).toLocaleString()}</div>
+// DISABLED:                 </div>
+// DISABLED:                 
+// DISABLED:                 <div>
+// DISABLED:                   <div class="text-sm font-bold text-gray-600 mb-1">Message</div>
+// DISABLED:                   <div class="bg-gray-50 p-4 rounded-xl text-gray-800 whitespace-pre-wrap">\${message}</div>
+// DISABLED:                 </div>
+// DISABLED:               </div>
+// DISABLED:               
+// DISABLED:               <div class="mt-6 flex space-x-4">
+// DISABLED:                 <a href="mailto:\${email}?subject=Re: Your FLYQ Inquiry" 
+// DISABLED:                    class="flex-1 bg-sky-500 text-white px-6 py-3 rounded-full font-bold text-center hover:bg-sky-600 transition">
+// DISABLED:                   <i class="fas fa-reply mr-2"></i>Reply via Email
+// DISABLED:                 </a>
+// DISABLED:                 <button onclick="this.closest('.fixed').remove()" 
+// DISABLED:                         class="flex-1 bg-gray-200 text-gray-700 px-6 py-3 rounded-full font-bold hover:bg-gray-300 transition">
+// DISABLED:                   Close
+// DISABLED:                 </button>
+// DISABLED:               </div>
+// DISABLED:             </div>
+// DISABLED:           \`;
+// DISABLED:           document.body.appendChild(modal);
+// DISABLED:           
+// DISABLED:           // Close on background click
+// DISABLED:           modal.addEventListener('click', (e) => {
+// DISABLED:             if (e.target === modal) modal.remove();
+// DISABLED:           });
+// DISABLED:         }
+// DISABLED:       </script>
+// DISABLED:     `;
+// DISABLED: 
+// DISABLED:     return c.html(renderPage('Admin Dashboard', content));
+// DISABLED:   } catch (error) {
+// DISABLED:     console.error('Admin dashboard error:', error);
+// DISABLED:     return c.html('<h1>Error loading dashboard</h1>', 500);
+// DISABLED:   }
+// DISABLED: });
 
-    if (!isDatabaseAvailable(c)) {
-      return c.html('<h1>Database Not Available</h1>', 503);
-    }
-
-    // Check if user is admin
-    const adminCheck = await c.env.DB.prepare('SELECT is_admin FROM users WHERE id = ?').bind(user.id).first();
-    if (!adminCheck || adminCheck.is_admin !== 1) {
-      return c.html('<h1>Access Denied</h1><p>Admin access only</p>', 403);
-    }
-
-    // Get all users
-    const usersResult = await c.env.DB.prepare('SELECT id, email, name, is_admin, created_at FROM users ORDER BY created_at DESC').all();
-    
-    // Get all orders with user info
-    const ordersResult = await c.env.DB.prepare(`
-      SELECT o.*, u.email, u.name 
-      FROM orders o 
-      JOIN users u ON o.user_id = u.id 
-      ORDER BY o.created_at DESC 
-      LIMIT 50
-    `).all();
-    
-    // Get all sessions
-    const sessionsResult = await c.env.DB.prepare(`
-      SELECT s.*, u.email 
-      FROM sessions s 
-      JOIN users u ON s.user_id = u.id 
-      WHERE s.expires_at > datetime('now') 
-      ORDER BY s.created_at DESC
-    `).all();
-
-    // Get contact submissions
-    const contactsResult = await c.env.DB.prepare(`
-      SELECT * FROM contact_submissions 
-      ORDER BY created_at DESC 
-      LIMIT 50
-    `).all();
-    
-    const newContactsCount = contactsResult.results?.filter((c: any) => c.status === 'new').length || 0;
-
-    const content = `
-      <div class="pt-32 pb-20 bg-gray-50">
-        <div class="container mx-auto px-6 max-w-7xl">
-          <h1 class="text-5xl font-black mb-12">Admin Dashboard</h1>
-          
-          <!-- Statistics Cards -->
-          <div class="grid md:grid-cols-5 gap-6 mb-12">
-            <div class="bg-white p-6 rounded-2xl shadow-lg">
-              <div class="text-4xl font-black text-sky-500 mb-2">${usersResult.results?.length || 0}</div>
-              <div class="text-gray-600">Total Users</div>
-            </div>
-            <div class="bg-white p-6 rounded-2xl shadow-lg">
-              <div class="text-4xl font-black text-green-500 mb-2">${ordersResult.results?.length || 0}</div>
-              <div class="text-gray-600">Total Orders</div>
-            </div>
-            <div class="bg-white p-6 rounded-2xl shadow-lg">
-              <div class="text-4xl font-black text-blue-500 mb-2">${sessionsResult.results?.length || 0}</div>
-              <div class="text-gray-600">Active Sessions</div>
-            </div>
-            <div class="bg-white p-6 rounded-2xl shadow-lg">
-              <div class="text-4xl font-black text-orange-500 mb-2">${contactsResult.results?.length || 0}</div>
-              <div class="text-gray-600">Contact Messages</div>
-              ${newContactsCount > 0 ? `<div class="text-xs text-red-600 font-bold mt-1">${newContactsCount} new</div>` : ''}
-            </div>
-            <div class="bg-white p-6 rounded-2xl shadow-lg">
-              <div class="text-4xl font-black text-purple-500 mb-2">₹${ordersResult.results?.reduce((sum: number, o: any) => sum + (o.total || 0), 0) || 0}</div>
-              <div class="text-gray-600">Total Revenue</div>
-            </div>
-          </div>
-
-          <!-- Users Table -->
-          <div class="bg-white rounded-2xl shadow-lg p-8 mb-8">
-            <h2 class="text-3xl font-bold mb-6">Registered Users</h2>
-            <div class="overflow-x-auto">
-              <table class="w-full">
-                <thead>
-                  <tr class="border-b">
-                    <th class="text-left py-3 px-4">ID</th>
-                    <th class="text-left py-3 px-4">Name</th>
-                    <th class="text-left py-3 px-4">Email</th>
-                    <th class="text-left py-3 px-4">Registered</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  ${usersResult.results?.map((u: any) => `
-                    <tr class="border-b hover:bg-gray-50">
-                      <td class="py-3 px-4">${u.id}</td>
-                      <td class="py-3 px-4 font-semibold">${u.name}</td>
-                      <td class="py-3 px-4">${u.email}</td>
-                      <td class="py-3 px-4">${new Date(u.created_at).toLocaleString()}</td>
-                    </tr>
-                  `).join('') || '<tr><td colspan="4" class="py-8 text-center text-gray-500">No users yet</td></tr>'}
-                </tbody>
-              </table>
-            </div>
-          </div>
-
-          <!-- Orders Table -->
-          <div class="bg-white rounded-2xl shadow-lg p-8 mb-8">
-            <h2 class="text-3xl font-bold mb-6">Recent Orders</h2>
-            <div class="overflow-x-auto">
-              <table class="w-full">
-                <thead>
-                  <tr class="border-b">
-                    <th class="text-left py-3 px-4">Order #</th>
-                    <th class="text-left py-3 px-4">Customer</th>
-                    <th class="text-left py-3 px-4">Email</th>
-                    <th class="text-left py-3 px-4">Total</th>
-                    <th class="text-left py-3 px-4">Status</th>
-                    <th class="text-left py-3 px-4">Date</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  ${ordersResult.results?.map((o: any) => `
-                    <tr class="border-b hover:bg-gray-50">
-                      <td class="py-3 px-4 font-mono text-sm">#${o.id}</td>
-                      <td class="py-3 px-4 font-semibold">${o.name}</td>
-                      <td class="py-3 px-4">${o.email}</td>
-                      <td class="py-3 px-4 font-bold text-green-600">₹${o.total}</td>
-                      <td class="py-3 px-4">
-                        <span class="px-3 py-1 rounded-full text-sm ${
-                          o.status === 'completed' ? 'bg-green-100 text-green-800' :
-                          o.status === 'pending' ? 'bg-yellow-100 text-yellow-800' :
-                          'bg-gray-100 text-gray-800'
-                        }">${o.status}</span>
-                      </td>
-                      <td class="py-3 px-4">${new Date(o.created_at).toLocaleString()}</td>
-                    </tr>
-                  `).join('') || '<tr><td colspan="6" class="py-8 text-center text-gray-500">No orders yet</td></tr>'}
-                </tbody>
-              </table>
-            </div>
-          </div>
-
-          <!-- Contact Form Submissions -->
-          <div class="bg-white rounded-2xl shadow-lg p-8 mb-8">
-            <h2 class="text-3xl font-bold mb-6">Contact Form Submissions</h2>
-            <div class="overflow-x-auto">
-              <table class="w-full">
-                <thead>
-                  <tr class="border-b">
-                    <th class="text-left py-3 px-4">ID</th>
-                    <th class="text-left py-3 px-4">Name</th>
-                    <th class="text-left py-3 px-4">Email</th>
-                    <th class="text-left py-3 px-4">Message</th>
-                    <th class="text-left py-3 px-4">Status</th>
-                    <th class="text-left py-3 px-4">Date</th>
-                    <th class="text-left py-3 px-4">Actions</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  ${contactsResult.results?.map((contact: any) => `
-                    <tr class="border-b hover:bg-gray-50" id="contact-${contact.id}">
-                      <td class="py-3 px-4">#${contact.id}</td>
-                      <td class="py-3 px-4 font-semibold">${contact.name}</td>
-                      <td class="py-3 px-4">
-                        <a href="mailto:${contact.email}" class="text-sky-500 hover:underline">${contact.email}</a>
-                      </td>
-                      <td class="py-3 px-4 max-w-md">
-                        <div class="text-sm">${contact.message.length > 100 ? contact.message.substring(0, 100) + '...' : contact.message}</div>
-                      </td>
-                      <td class="py-3 px-4">
-                        <select onchange="updateContactStatus(${contact.id}, this.value)" 
-                                class="px-3 py-1 rounded-full text-sm font-bold border-2 ${
-                                  contact.status === 'new' ? 'bg-red-100 text-red-800 border-red-300' :
-                                  contact.status === 'read' ? 'bg-yellow-100 text-yellow-800 border-yellow-300' :
-                                  contact.status === 'replied' ? 'bg-green-100 text-green-800 border-green-300' :
-                                  'bg-gray-100 text-gray-800 border-gray-300'
-                                }">
-                          <option value="new" ${contact.status === 'new' ? 'selected' : ''}>New</option>
-                          <option value="read" ${contact.status === 'read' ? 'selected' : ''}>Read</option>
-                          <option value="replied" ${contact.status === 'replied' ? 'selected' : ''}>Replied</option>
-                          <option value="archived" ${contact.status === 'archived' ? 'selected' : ''}>Archived</option>
-                        </select>
-                      </td>
-                      <td class="py-3 px-4 text-sm">${new Date(contact.created_at).toLocaleString()}</td>
-                      <td class="py-3 px-4">
-                        <button onclick="viewContactDetails(${contact.id}, '${contact.name.replace(/'/g, "\\'")}', '${contact.email}', \`${contact.message.replace(/`/g, '\\`')}\`, '${contact.created_at}')" 
-                                class="text-sky-500 hover:text-sky-700">
-                          <i class="fas fa-eye"></i>
-                        </button>
-                      </td>
-                    </tr>
-                  `).join('') || '<tr><td colspan="7" class="py-8 text-center text-gray-500">No contact submissions yet</td></tr>'}
-                </tbody>
-              </table>
-            </div>
-          </div>
-
-          <!-- Active Sessions -->
-          <div class="bg-white rounded-2xl shadow-lg p-8">
-            <h2 class="text-3xl font-bold mb-6">Active Sessions</h2>
-            <div class="overflow-x-auto">
-              <table class="w-full">
-                <thead>
-                  <tr class="border-b">
-                    <th class="text-left py-3 px-4">User Email</th>
-                    <th class="text-left py-3 px-4">Session ID</th>
-                    <th class="text-left py-3 px-4">Expires</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  ${sessionsResult.results?.map((s: any) => `
-                    <tr class="border-b hover:bg-gray-50">
-                      <td class="py-3 px-4">${s.email}</td>
-                      <td class="py-3 px-4 font-mono text-sm">${s.id ? (s.id.length > 20 ? s.id.substring(0, 20) + '...' : s.id) : 'N/A'}</td>
-                      <td class="py-3 px-4">${new Date(s.expires_at).toLocaleString()}</td>
-                    </tr>
-                  `).join('') || '<tr><td colspan="3" class="py-8 text-center text-gray-500">No active sessions</td></tr>'}
-                </tbody>
-              </table>
-            </div>
-          </div>
-
-          <div class="mt-8 text-center">
-            <a href="/" class="btn-primary text-white px-8 py-3 rounded-full inline-block">Back to Home</a>
-          </div>
-        </div>
-      </div>
-
-      <script>
-        async function updateContactStatus(id, status) {
-          try {
-            const response = await fetch('/api/contact/update-status', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ id, status })
-            });
-            
-            const data = await response.json();
-            if (data.success) {
-              // Update the row styling
-              const select = document.querySelector('#contact-' + id + ' select');
-              select.className = 'px-3 py-1 rounded-full text-sm font-bold border-2 ' + 
-                (status === 'new' ? 'bg-red-100 text-red-800 border-red-300' :
-                 status === 'read' ? 'bg-yellow-100 text-yellow-800 border-yellow-300' :
-                 status === 'replied' ? 'bg-green-100 text-green-800 border-green-300' :
-                 'bg-gray-100 text-gray-800 border-gray-300');
-            } else {
-              alert('Failed to update status');
-            }
-          } catch (error) {
-            console.error('Update error:', error);
-            alert('Failed to update status');
-          }
-        }
-
-        function viewContactDetails(id, name, email, message, date) {
-          const modal = document.createElement('div');
-          modal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50';
-          modal.innerHTML = \`
-            <div class="bg-white rounded-3xl p-8 max-w-2xl w-full mx-4 max-h-[90vh] overflow-y-auto">
-              <div class="flex justify-between items-start mb-6">
-                <h2 class="text-3xl font-bold">Contact Details #\${id}</h2>
-                <button onclick="this.closest('.fixed').remove()" class="text-gray-500 hover:text-gray-700">
-                  <i class="fas fa-times text-2xl"></i>
-                </button>
-              </div>
-              
-              <div class="space-y-4">
-                <div>
-                  <div class="text-sm font-bold text-gray-600 mb-1">Name</div>
-                  <div class="text-lg">\${name}</div>
-                </div>
-                
-                <div>
-                  <div class="text-sm font-bold text-gray-600 mb-1">Email</div>
-                  <a href="mailto:\${email}" class="text-lg text-sky-500 hover:underline">\${email}</a>
-                </div>
-                
-                <div>
-                  <div class="text-sm font-bold text-gray-600 mb-1">Submitted</div>
-                  <div class="text-lg">\${new Date(date).toLocaleString()}</div>
-                </div>
-                
-                <div>
-                  <div class="text-sm font-bold text-gray-600 mb-1">Message</div>
-                  <div class="bg-gray-50 p-4 rounded-xl text-gray-800 whitespace-pre-wrap">\${message}</div>
-                </div>
-              </div>
-              
-              <div class="mt-6 flex space-x-4">
-                <a href="mailto:\${email}?subject=Re: Your FLYQ Inquiry" 
-                   class="flex-1 bg-sky-500 text-white px-6 py-3 rounded-full font-bold text-center hover:bg-sky-600 transition">
-                  <i class="fas fa-reply mr-2"></i>Reply via Email
-                </a>
-                <button onclick="this.closest('.fixed').remove()" 
-                        class="flex-1 bg-gray-200 text-gray-700 px-6 py-3 rounded-full font-bold hover:bg-gray-300 transition">
-                  Close
-                </button>
-              </div>
-            </div>
-          \`;
-          document.body.appendChild(modal);
-          
-          // Close on background click
-          modal.addEventListener('click', (e) => {
-            if (e.target === modal) modal.remove();
-          });
-        }
-      </script>
-    `;
-
-    return c.html(renderPage('Admin Dashboard', content));
-  } catch (error) {
-    console.error('Admin dashboard error:', error);
-    return c.html('<h1>Error loading dashboard</h1>', 500);
-  }
-});
-
+// Admin Backend System
+app.route('/admin', admin)
 
 export default app

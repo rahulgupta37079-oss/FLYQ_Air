@@ -1,0 +1,100 @@
+<p>Before powering up your FLYQ drone, complete these essential checks to ensure a safe and successful flight:</p>
+
+<h3>1. Choose Your Flying Location</h3>
+<ul>
+<li>Find a flat, level surface free of obstacles</li>
+<li>Ensure at least 3 meters clearance in all directions</li>
+<li>Avoid flying near people, animals, or fragile objects</li>
+<li>Check for adequate lighting conditions</li>
+<li>Verify no strong winds (max recommended: 10 km/h for beginners)</li>
+</ul>
+
+<h3>2. Position the Drone Correctly</h3>
+<ul>
+<li>Place your FLYQ on a completely flat surface</li>
+<li>Orient the drone with the <strong>front (nose) facing away</strong> from you</li>
+<li>The FLYQ logo on top should be clearly visible</li>
+<li>Ensure all four landing gear pads are touching the ground evenly</li>
+</ul>
+
+<h3>3. Battery Installation and Securing</h3>
+<p><strong>FLYQ Air</strong>:</p>
+<ul>
+<li>Slide the 3.7V 600mAh LiPo battery into the battery compartment</li>
+<li>Connect the JST connector (red = positive, black = negative)</li>
+<li>Secure with the Velcro strap to prevent movement during flight</li>
+</ul>
+
+<p><strong>FLYQ Vision</strong>:</p>
+<ul>
+<li>Install the larger 3.7V 800mAh battery for extended flight with camera</li>
+<li>Ensure battery is seated flush in the compartment</li>
+<li>Double-check Velcro strap is tight</li>
+</ul>
+
+<blockquote>
+<p><strong>⚠️ Battery Safety Warning</strong>: Never use a damaged or swollen battery. Ensure correct polarity when connecting. Remove battery when not in use for extended periods.</p>
+</blockquote>
+
+<h2>Powering Up Your FLYQ Drone</h2>
+
+<h3>Power-On Sequence</h3>
+<ol>
+<li><strong>Turn on the drone</strong> using the power button on the side</li>
+<li><strong>Wait 3-5 seconds</strong> for the ESP32-S3 to initialize</li>
+<li><strong>Do NOT move or touch the drone</strong> during initialization - The accelerometer and gyroscope are calibrating</li>
+</ol>
+
+<h3>Understanding LED Indicators</h3>
+<p>Your FLYQ has three status LEDs that provide important information:</p>
+
+<h4>PWR LED (Power)</h4>
+<ul>
+<li><strong>Solid Blue</strong>: Power on, normal operation</li>
+<li><strong>Off</strong>: No power/battery disconnected</li>
+</ul>
+
+<h4>SYS LED (System Status)</h4>
+<ul>
+<li><strong>Slow Blink (1 Hz)</strong>: System initializing</li>
+<li><strong>Solid Green</strong>: Ready to fly</li>
+<li><strong>Fast Blink (5 Hz)</strong>: Calibration in progress</li>
+<li><strong>Red Solid</strong>: System error, check battery or restart</li>
+</ul>
+
+<h4>LINK LED (Connection Status)</h4>
+<ul>
+<li><strong>Off</strong>: Not connected to controller/app</li>
+<li><strong>Slow Blink</strong>: Searching for connection</li>
+<li><strong>Solid Blue</strong>: Successfully connected to Wi-Fi/app</li>
+<li><strong>Fast Blink</strong>: Receiving control commands</li>
+</ul>
+
+<h2>FLYQ Mobile App Setup</h2>
+
+<h3>Download and Install</h3>
+<p><strong>For iOS (iPhone/iPad)</strong>:</p>
+<ol>
+<li>Open the App Store</li>
+<li>Search for "FLYQ Drone Controller"</li>
+<li>Tap "Get" and install (requires iOS 13.0 or later)</li>
+<li>Grant permissions: Location, Camera (for FLYQ Vision), Bluetooth</li>
+</ol>
+
+<p><strong>For Android</strong>:</p>
+<ol>
+<li>Open Google Play Store</li>
+<li>Search for "FLYQ Drone Controller"</li>
+<li>Tap "Install" (requires Android 8.0 or later)</li>
+</ol>
+
+<h2>Connecting to Your FLYQ Drone</h2>
+
+<h3>Step 1: Configure Your Phone</h3>
+<p>Before connecting, optimize your phone settings:</p>
+<ul>
+<li><strong>Disable Mobile Data</strong>: Go to Settings → Mobile Data → Turn OFF</li>
+<li><strong>Enable Location Services</strong>: Settings → Privacy → Location → Turn ON</li>
+<li><strong>Enable Wi-Fi</strong>: Settings → Wi-Fi → Turn ON</li>
+</ul>
+

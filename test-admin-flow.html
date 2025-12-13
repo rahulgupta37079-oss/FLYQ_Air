@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Flow Test</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.6.0/dist/axios.min.js"></script>
+</head>
+<body>
+    <h1>Admin Login Flow Test</h1>
+    <div id="status"></div>
+    <br>
+    <button onclick="testLogin()">1. Test Login</button>
+    <button onclick="testDashboard()">2. Test Dashboard</button>
+    <button onclick="goToDashboard()">3. Go to Dashboard</button>
+    
+    <script>
+        const status = document.getElementById('status')
+        
+        async function testLogin() {
+            try {
+                const response = await axios.post('/admin/api/login', {
+                    email: 'admin@flyq.com',
+                    password: 'admin123'
+                })
+                status.innerHTML = '<p style="color:green">✅ Login successful: ' + JSON.stringify(response.data) + '</p>'
+            } catch (error) {
+                status.innerHTML = '<p style="color:red">❌ Login failed: ' + error.message + '</p>'
+            }
+        }
+        
+        async function testDashboard() {
+            try {
+                const response = await axios.get('/admin/api/recent-activity')
+                status.innerHTML = '<p style="color:green">✅ Dashboard API works: ' + JSON.stringify(response.data) + '</p>'
+            } catch (error) {
+                status.innerHTML = '<p style="color:red">❌ Dashboard API failed: ' + error.message + '</p>'
+            }
+        }
+        
+        function goToDashboard() {
+            window.location.href = '/admin/dashboard'
+        }
+    </script>
+</body>
+</html>
