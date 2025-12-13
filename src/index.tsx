@@ -199,16 +199,26 @@ const renderPage = (title: string, content: string, includeCart: boolean = true)
                 gap: 40px;
             }
             
-            /* Welcome message */
+            /* Welcome message - Enhanced */
             .welcome-message {
                 font-family: 'Rajdhani', sans-serif;
-                font-size: 32px;
-                font-weight: 600;
-                color: #94A3B8;
+                font-size: 42px;
+                font-weight: 700;
+                background: linear-gradient(135deg, #38BDF8 0%, #0EA5E9 100%);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
                 text-align: center;
                 opacity: 0;
-                animation: fadeInUp 1s ease-out forwards;
-                margin-bottom: 20px;
+                animation: fadeInUp 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards,
+                           textPulse 2s ease-in-out infinite 0.8s;
+                margin-bottom: 30px;
+                text-shadow: 0 0 30px rgba(14, 165, 233, 0.5);
+            }
+            
+            @keyframes textPulse {
+                0%, 100% { transform: scale(1); }
+                50% { transform: scale(1.05); }
             }
             
             @keyframes fadeInUp {
@@ -237,7 +247,8 @@ const renderPage = (title: string, content: string, includeCart: boolean = true)
             
             .flyq-letter {
                 display: inline-block;
-                background: linear-gradient(135deg, #38BDF8 0%, #0EA5E9 50%, #0284C7 100%);
+                background: linear-gradient(135deg, #FFD700 0%, #FFA500 25%, #38BDF8 50%, #0EA5E9 75%, #8B5CF6 100%);
+                background-size: 200% 200%;
                 -webkit-background-clip: text;
                 -webkit-text-fill-color: transparent;
                 background-clip: text;
@@ -245,6 +256,12 @@ const renderPage = (title: string, content: string, includeCart: boolean = true)
                 transform: scale(0);
                 position: relative;
                 cursor: default;
+                animation: gradientShift 3s ease-in-out infinite;
+            }
+            
+            @keyframes gradientShift {
+                0%, 100% { background-position: 0% 50%; }
+                50% { background-position: 100% 50%; }
             }
             
             /* Letter reveal animation */
@@ -291,15 +308,26 @@ const renderPage = (title: string, content: string, includeCart: boolean = true)
                 box-shadow: 0 0 10px #38BDF8, 0 0 20px #0EA5E9;
             }
             
-            /* Tagline */
+            /* Tagline - Enhanced */
             .tagline {
                 font-family: 'Inter', sans-serif;
-                font-size: 24px;
-                font-weight: 400;
-                color: #64748B;
+                font-size: 28px;
+                font-weight: 500;
+                background: linear-gradient(90deg, #64748B 0%, #94A3B8 50%, #64748B 100%);
+                background-size: 200% auto;
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
                 text-align: center;
                 opacity: 0;
-                animation: fadeInUp 1s ease-out 2.5s forwards;
+                animation: fadeInUp 1s cubic-bezier(0.34, 1.56, 0.64, 1) 1.8s forwards,
+                           shimmerText 3s linear infinite;
+                letter-spacing: 2px;
+            }
+            
+            @keyframes shimmerText {
+                0% { background-position: 0% center; }
+                100% { background-position: 200% center; }
             }
             
             /* Video background removal effect */
@@ -796,18 +824,18 @@ const renderPage = (title: string, content: string, includeCart: boolean = true)
         <div id="intro-animation">
             <div class="intro-container">
                 <!-- Welcome Message -->
-                <div class="welcome-message">Welcome to</div>
+                <div class="welcome-message">✨ Get Ready to Experience ✨</div>
                 
                 <!-- FLYQ Text -->
                 <div class="flyq-text">
-                    <span class="flyq-letter" data-letter="F">F</span>
-                    <span class="flyq-letter" data-letter="L">L</span>
-                    <span class="flyq-letter" data-letter="Y">Y</span>
-                    <span class="flyq-letter" data-letter="Q">Q</span>
+                    <span class="flyq-letter" data-letter="F" data-sound="high">F</span>
+                    <span class="flyq-letter" data-letter="L" data-sound="mid">L</span>
+                    <span class="flyq-letter" data-letter="Y" data-sound="low">Y</span>
+                    <span class="flyq-letter" data-letter="Q" data-sound="bass">Q</span>
                 </div>
                 
                 <!-- Tagline -->
-                <div class="tagline">Premium Programmable Drones</div>
+                <div class="tagline">🚁 The Future of Programmable Drones 🚀</div>
             </div>
         </div>
         
@@ -1060,7 +1088,7 @@ const renderPage = (title: string, content: string, includeCart: boolean = true)
             // Initialize cart count on page load
             document.addEventListener('DOMContentLoaded', updateCartCount);
             
-            // Intro animation - USER REVEAL (No Drone)
+            // Intro animation - USER REVEAL with Sound Effects
             window.addEventListener('load', () => {
                 const introAnimation = document.getElementById('intro-animation');
                 const letters = document.querySelectorAll('.flyq-letter');
@@ -1068,36 +1096,76 @@ const renderPage = (title: string, content: string, includeCart: boolean = true)
                 // Disable body scroll during intro
                 document.body.style.overflow = 'hidden';
                 
-                // Sequential letter reveal with sparkles
-                const delays = [500, 700, 900, 1100]; // Timing for each letter
+                // Create Web Audio API context for sound effects
+                const AudioContext = window.AudioContext || window.webkitAudioContext;
+                let audioCtx = null;
+                
+                // Initialize audio on first user interaction (autoplay policy)
+                const initAudio = () => {
+                    if (!audioCtx) {
+                        audioCtx = new AudioContext();
+                    }
+                };
+                
+                // Function to play sound effect
+                const playSound = (frequency, duration = 0.15) => {
+                    if (!audioCtx) return;
+                    
+                    const oscillator = audioCtx.createOscillator();
+                    const gainNode = audioCtx.createGain();
+                    
+                    oscillator.connect(gainNode);
+                    gainNode.connect(audioCtx.destination);
+                    
+                    oscillator.frequency.value = frequency;
+                    oscillator.type = 'sine';
+                    
+                    gainNode.gain.setValueAtTime(0.3, audioCtx.currentTime);
+                    gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + duration);
+                    
+                    oscillator.start(audioCtx.currentTime);
+                    oscillator.stop(audioCtx.currentTime + duration);
+                };
+                
+                // Initialize audio context
+                initAudio();
+                
+                // IMPROVED TIMING - Faster, more dynamic
+                const delays = [400, 600, 800, 1000]; // Faster rhythm
+                const soundFrequencies = [880, 660, 554, 440]; // Musical notes (A5, E5, C#5, A4)
                 
                 letters.forEach((letter, index) => {
                     setTimeout(() => {
-                        // Reveal letter with animation
-                        letter.style.animation = 'letterReveal 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards';
+                        // Play sound effect
+                        playSound(soundFrequencies[index], 0.2);
                         
-                        // Create ring pulse effect
+                        // Reveal letter with animation
+                        letter.style.animation = 'letterReveal 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards';
+                        
+                        // Create ring pulse effect with color
                         const ring = document.createElement('div');
+                        const ringColors = ['#FFD700', '#FFA500', '#38BDF8', '#8B5CF6'];
                         ring.style.cssText = \`
                             position: absolute;
                             top: 50%;
                             left: 50%;
                             transform: translate(-50%, -50%);
-                            border: 3px solid rgba(14, 165, 233, 0.6);
+                            border: 4px solid \${ringColors[index]};
                             border-radius: 50%;
                             pointer-events: none;
                             z-index: 1;
+                            box-shadow: 0 0 20px \${ringColors[index]};
                         \`;
                         letter.appendChild(ring);
-                        ring.style.animation = 'ringPulse 1s ease-out forwards';
+                        ring.style.animation = 'ringPulse 0.8s ease-out forwards';
                         
-                        setTimeout(() => ring.remove(), 1000);
+                        setTimeout(() => ring.remove(), 800);
                         
-                        // Create sparkle burst (30 particles per letter)
+                        // Create ENHANCED sparkle burst (40 particles per letter!)
                         const letterRect = letter.getBoundingClientRect();
                         const containerRect = document.querySelector('.intro-container').getBoundingClientRect();
                         
-                        for (let i = 0; i < 30; i++) {
+                        for (let i = 0; i < 40; i++) {
                             const sparkle = document.createElement('div');
                             sparkle.className = 'letter-sparkle';
                             
@@ -1107,42 +1175,66 @@ const renderPage = (title: string, content: string, includeCart: boolean = true)
                             sparkle.style.left = relX + 'px';
                             sparkle.style.top = relY + 'px';
                             
-                            const angle = (i / 30) * Math.PI * 2;
-                            const distance = 100 + Math.random() * 50;
+                            const angle = (i / 40) * Math.PI * 2;
+                            const distance = 120 + Math.random() * 60;
                             const endX = relX + Math.cos(angle) * distance;
                             const endY = relY + Math.sin(angle) * distance;
                             
-                            const colors = ['#38BDF8', '#0EA5E9', '#0284C7', '#ffffff'];
+                            // Enhanced color palette with gold, orange, blue, purple
+                            const colors = ['#FFD700', '#FFA500', '#38BDF8', '#0EA5E9', '#8B5CF6', '#A78BFA', '#ffffff'];
                             sparkle.style.background = colors[Math.floor(Math.random() * colors.length)];
+                            sparkle.style.boxShadow = \`0 0 10px \${colors[Math.floor(Math.random() * colors.length)]}\`;
                             
                             document.querySelector('.intro-container').appendChild(sparkle);
                             
                             setTimeout(() => {
-                                sparkle.style.transition = 'all 1s cubic-bezier(0, 0.5, 0.5, 1)';
+                                sparkle.style.transition = 'all 0.9s cubic-bezier(0, 0.5, 0.5, 1)';
                                 sparkle.style.left = endX + 'px';
                                 sparkle.style.top = endY + 'px';
                                 sparkle.style.opacity = '1';
-                                sparkle.style.transform = 'scale(2)';
+                                sparkle.style.transform = 'scale(2.5)';
                             }, 50);
                             
                             setTimeout(() => {
                                 sparkle.style.opacity = '0';
                                 sparkle.style.transform = 'scale(0)';
-                            }, 500);
+                            }, 450);
                             
-                            setTimeout(() => sparkle.remove(), 1500);
+                            setTimeout(() => sparkle.remove(), 1400);
                         }
+                        
+                        // Add letter shake effect
+                        setTimeout(() => {
+                            letter.style.animation += ', letterShake 0.3s ease-in-out';
+                        }, 200);
                     }, delays[index]);
                 });
                 
-                // Fade out after all letters revealed
+                // Play final "whoosh" sound and fade out
                 setTimeout(() => {
+                    // Final chord sound
+                    playSound(880, 0.3);
+                    playSound(660, 0.3);
+                    playSound(440, 0.3);
+                    
                     introAnimation.classList.add('fade-out');
                     setTimeout(() => {
                         introAnimation.style.display = 'none';
                         document.body.style.overflow = 'auto';
+                        if (audioCtx) audioCtx.close();
                     }, 1200);
-                }, 2500);
+                }, 2200); // Faster finish!
+                
+                // Add shake animation
+                const style = document.createElement('style');
+                style.textContent = \`
+                    @keyframes letterShake {
+                        0%, 100% { transform: translateX(0) scale(1); }
+                        25% { transform: translateX(-5px) scale(1.02); }
+                        75% { transform: translateX(5px) scale(1.02); }
+                    }
+                \`;
+                document.head.appendChild(style);
             });
             
             // Create floating particles
