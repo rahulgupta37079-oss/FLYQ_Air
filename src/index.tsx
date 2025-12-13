@@ -142,19 +142,23 @@ const renderPage = (title: string, content: string, includeCart: boolean = true)
                 background: linear-gradient(90deg, transparent, var(--sky-blue), transparent);
             }
             
-            /* Intro Animation Styles */
+            /* Professional Intro Animation - Drone Writes FLYQ */
             #intro-animation {
                 position: fixed;
                 top: 0;
                 left: 0;
                 width: 100vw;
                 height: 100vh;
-                background: linear-gradient(135deg, #0F172A 0%, #1E293B 50%, #0F172A 100%);
+                background: radial-gradient(ellipse at center, #1e293b 0%, #0f172a 100%);
                 display: flex;
                 align-items: center;
                 justify-content: center;
                 z-index: 9999;
-                animation: fadeOut 0.8s ease-in-out 3.5s forwards;
+                overflow: hidden;
+            }
+            
+            #intro-animation.fade-out {
+                animation: fadeOut 1s ease-out forwards;
             }
             
             @keyframes fadeOut {
@@ -164,99 +168,92 @@ const renderPage = (title: string, content: string, includeCart: boolean = true)
                 }
             }
             
-            .drone-intro {
+            .intro-container {
                 position: relative;
-                width: 300px;
-                height: 300px;
-                animation: droneEntry 3s ease-in-out forwards;
+                width: 800px;
+                height: 400px;
             }
             
-            @keyframes droneEntry {
-                0% {
-                    transform: translateX(-150vw) translateY(50vh) rotate(-45deg) scale(0.3);
-                    opacity: 0;
-                }
-                20% {
-                    opacity: 1;
-                }
-                50% {
-                    transform: translateX(0) translateY(-20px) rotate(0deg) scale(1.2);
-                }
-                70% {
-                    transform: translateX(0) translateY(20px) rotate(5deg) scale(1.1);
-                }
-                85% {
-                    transform: translateX(0) translateY(-10px) rotate(-3deg) scale(1.05);
-                }
-                100% {
-                    transform: translateX(0) translateY(0) rotate(0deg) scale(1);
-                }
-            }
-            
-            .propeller {
+            /* Drone that flies and writes */
+            .writing-drone {
                 position: absolute;
-                width: 40px;
-                height: 40px;
-                background: rgba(14, 165, 233, 0.4);
-                border-radius: 50%;
-                animation: spin 0.15s linear infinite;
+                width: 80px;
+                height: 80px;
+                filter: drop-shadow(0 0 20px rgba(14, 165, 233, 0.8));
+                z-index: 10;
             }
             
-            @keyframes spin {
-                100% { transform: rotate(360deg); }
+            .writing-drone img {
+                width: 100%;
+                height: 100%;
+                object-fit: contain;
             }
             
-            .propeller-1 { top: 10px; left: 10px; }
-            .propeller-2 { top: 10px; right: 10px; }
-            .propeller-3 { bottom: 10px; left: 10px; }
-            .propeller-4 { bottom: 10px; right: 10px; }
-            
-            .drone-body {
+            /* FLYQ Text Container */
+            .flyq-text {
                 position: absolute;
                 top: 50%;
                 left: 50%;
                 transform: translate(-50%, -50%);
-                width: 120px;
-                height: 120px;
-                filter: drop-shadow(0 0 30px rgba(14, 165, 233, 0.6));
+                font-family: 'Rajdhani', sans-serif;
+                font-size: 120px;
+                font-weight: 900;
+                letter-spacing: 20px;
+                display: flex;
+                gap: 15px;
             }
             
-            .brand-text {
-                position: absolute;
-                bottom: -80px;
-                left: 50%;
-                transform: translateX(-50%);
-                font-family: 'Rajdhani', sans-serif;
-                font-size: 48px;
-                font-weight: 700;
+            .flyq-letter {
+                display: inline-block;
                 background: linear-gradient(135deg, #38BDF8 0%, #0EA5E9 50%, #0284C7 100%);
                 -webkit-background-clip: text;
                 -webkit-text-fill-color: transparent;
-                animation: brandPulse 2s ease-in-out 1s infinite;
-                white-space: nowrap;
+                background-clip: text;
+                opacity: 0;
+                transform: scale(0) rotate(180deg);
+                position: relative;
             }
             
-            @keyframes brandPulse {
-                0%, 100% { opacity: 1; transform: translateX(-50%) scale(1); }
-                50% { opacity: 0.8; transform: translateX(-50%) scale(1.05); }
-            }
-            
-            .loading-text {
+            /* Trail effect behind drone */
+            .drone-trail {
                 position: absolute;
-                bottom: -120px;
-                left: 50%;
-                transform: translateX(-50%);
-                color: #38BDF8;
-                font-size: 14px;
-                letter-spacing: 2px;
-                animation: loadingDots 1.5s infinite;
+                width: 3px;
+                background: linear-gradient(to bottom, transparent, rgba(14, 165, 233, 0.6), transparent);
+                opacity: 0;
+                pointer-events: none;
+                z-index: 5;
             }
             
-            @keyframes loadingDots {
-                0%, 20% { content: 'LOADING'; }
-                40% { content: 'LOADING.'; }
-                60% { content: 'LOADING..'; }
-                80%, 100% { content: 'LOADING...'; }
+            /* Propeller glow */
+            .propeller-glow {
+                position: absolute;
+                width: 60px;
+                height: 60px;
+                background: radial-gradient(circle, rgba(14, 165, 233, 0.4) 0%, transparent 70%);
+                border-radius: 50%;
+                top: 10px;
+                left: 10px;
+                animation: propellerSpin 0.1s linear infinite, propellerPulse 1s ease-in-out infinite;
+                pointer-events: none;
+            }
+            
+            @keyframes propellerSpin {
+                100% { transform: rotate(360deg); }
+            }
+            
+            @keyframes propellerPulse {
+                0%, 100% { opacity: 0.6; transform: scale(1); }
+                50% { opacity: 1; transform: scale(1.2); }
+            }
+            
+            /* Sparkle effect when letter appears */
+            .letter-sparkle {
+                position: absolute;
+                width: 4px;
+                height: 4px;
+                background: #38BDF8;
+                border-radius: 50%;
+                opacity: 0;
             }
             
             /* Video background removal effect */
@@ -267,9 +264,25 @@ const renderPage = (title: string, content: string, includeCart: boolean = true)
             }
             
             .video-masked {
-                filter: contrast(1.1) saturate(1.2);
-                mix-blend-mode: screen;
+                /* Advanced background removal for video */
+                filter: contrast(1.3) saturate(1.4) brightness(1.2);
+                mix-blend-mode: lighten;
                 background: transparent;
+                opacity: 0.95;
+            }
+            
+            /* Green screen effect simulation */
+            .video-container::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: #0f172a;
+                mix-blend-mode: multiply;
+                pointer-events: none;
+                opacity: 0.3;
             }
             
             /* Enhanced video styling */
@@ -735,21 +748,23 @@ const renderPage = (title: string, content: string, includeCart: boolean = true)
     <body class="bg-gray-50">
         <!-- Intro Animation -->
         <div id="intro-animation">
-            <div class="drone-intro">
-                <!-- Propellers -->
-                <div class="propeller propeller-1"></div>
-                <div class="propeller propeller-2"></div>
-                <div class="propeller propeller-3"></div>
-                <div class="propeller propeller-4"></div>
+            <div class="intro-container">
+                <!-- Drone that flies and writes -->
+                <div class="writing-drone" id="writing-drone">
+                    <div class="propeller-glow"></div>
+                    <img src="https://www.genspark.ai/api/files/s/FioKyNgi" alt="FLYQ Drone">
+                </div>
                 
-                <!-- Drone Body -->
-                <img src="https://www.genspark.ai/api/files/s/FioKyNgi" 
-                     alt="FLYQ Drone" 
-                     class="drone-body">
+                <!-- Trail effect -->
+                <div class="drone-trail" id="drone-trail"></div>
                 
-                <!-- Brand Text -->
-                <div class="brand-text">FLYQ</div>
-                <div class="loading-text">LOADING...</div>
+                <!-- FLYQ Text -->
+                <div class="flyq-text">
+                    <span class="flyq-letter" data-letter="F">F</span>
+                    <span class="flyq-letter" data-letter="L">L</span>
+                    <span class="flyq-letter" data-letter="Y">Y</span>
+                    <span class="flyq-letter" data-letter="Q">Q</span>
+                </div>
             </div>
         </div>
         
@@ -1003,23 +1018,140 @@ const renderPage = (title: string, content: string, includeCart: boolean = true)
             document.addEventListener('DOMContentLoaded', updateCartCount);
             
             // Intro animation - hide after animation completes
+            // Professional Drone Writing Animation
             window.addEventListener('load', () => {
                 const introAnimation = document.getElementById('intro-animation');
-                // Hide intro after 4 seconds (animation duration + fade out)
-                setTimeout(() => {
-                    if (introAnimation) {
-                        introAnimation.style.display = 'none';
-                    }
-                    // Enable body scroll
-                    document.body.style.overflow = 'auto';
-                    
-                    // Initialize enhanced animations after intro
-                    initParticles();
-                    initScrollAnimations();
-                }, 4300);
+                const drone = document.getElementById('writing-drone');
+                const trail = document.getElementById('drone-trail');
+                const letters = document.querySelectorAll('.flyq-letter');
                 
                 // Disable body scroll during intro
                 document.body.style.overflow = 'hidden';
+                
+                // Animation timeline
+                const timeline = [
+                    // F - Start from left, move to first letter position
+                    { x: -200, y: 150, duration: 0 },
+                    { x: 180, y: 150, duration: 800, letter: 0 },
+                    
+                    // L - Move to second letter
+                    { x: 280, y: 150, duration: 600, letter: 1 },
+                    
+                    // Y - Move to third letter
+                    { x: 380, y: 150, duration: 600, letter: 2 },
+                    
+                    // Q - Move to fourth letter
+                    { x: 480, y: 150, duration: 600, letter: 3 },
+                    
+                    // Final position - hover beside FLYQ
+                    { x: 600, y: 150, duration: 800, final: true }
+                ];
+                
+                let currentStep = 0;
+                
+                function animateDrone() {
+                    if (currentStep >= timeline.length) {
+                        // Animation complete - fade out and show main site
+                        setTimeout(() => {
+                            introAnimation.classList.add('fade-out');
+                            setTimeout(() => {
+                                introAnimation.style.display = 'none';
+                                document.body.style.overflow = 'auto';
+                                // Animations removed for better performance
+                            }, 1000);
+                        }, 1500);
+                        return;
+                    }
+                    
+                    const step = timeline[currentStep];
+                    const prevStep = currentStep > 0 ? timeline[currentStep - 1] : null;
+                    
+                    // Animate drone movement
+                    drone.style.transition = \`all \${step.duration}ms cubic-bezier(0.4, 0, 0.2, 1)\`;
+                    drone.style.left = step.x + 'px';
+                    drone.style.top = step.y + 'px';
+                    
+                    // Show trail during movement
+                    if (prevStep && step.duration > 0) {
+                        trail.style.left = prevStep.x + 40 + 'px';
+                        trail.style.top = prevStep.y + 40 + 'px';
+                        trail.style.height = Math.abs(step.y - prevStep.y) + Math.abs(step.x - prevStep.x) + 'px';
+                        trail.style.opacity = '1';
+                        trail.style.transition = \`opacity \${step.duration}ms ease-out\`;
+                        
+                        setTimeout(() => {
+                            trail.style.opacity = '0';
+                        }, step.duration);
+                    }
+                    
+                    // Reveal letter with sparkle effect
+                    if (step.letter !== undefined) {
+                        setTimeout(() => {
+                            const letter = letters[step.letter];
+                            letter.style.transition = 'all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+                            letter.style.opacity = '1';
+                            letter.style.transform = 'scale(1) rotate(0deg)';
+                            
+                            // Sparkle effect
+                            for (let i = 0; i < 8; i++) {
+                                const sparkle = document.createElement('div');
+                                sparkle.className = 'letter-sparkle';
+                                sparkle.style.left = (step.x + 40) + 'px';
+                                sparkle.style.top = (step.y + 40) + 'px';
+                                
+                                const angle = (i / 8) * Math.PI * 2;
+                                const distance = 50;
+                                const endX = step.x + 40 + Math.cos(angle) * distance;
+                                const endY = step.y + 40 + Math.sin(angle) * distance;
+                                
+                                document.querySelector('.intro-container').appendChild(sparkle);
+                                
+                                setTimeout(() => {
+                                    sparkle.style.transition = 'all 0.6s ease-out';
+                                    sparkle.style.left = endX + 'px';
+                                    sparkle.style.top = endY + 'px';
+                                    sparkle.style.opacity = '1';
+                                }, 50);
+                                
+                                setTimeout(() => {
+                                    sparkle.style.opacity = '0';
+                                }, 300);
+                                
+                                setTimeout(() => {
+                                    sparkle.remove();
+                                }, 900);
+                            }
+                        }, step.duration - 200);
+                    }
+                    
+                    // Final hover animation
+                    if (step.final) {
+                        setTimeout(() => {
+                            drone.style.animation = 'gentleHover 2s ease-in-out infinite';
+                        }, step.duration);
+                    }
+                    
+                    // Next step
+                    setTimeout(() => {
+                        currentStep++;
+                        animateDrone();
+                    }, step.duration);
+                }
+                
+                // Add gentle hover animation
+                const style = document.createElement('style');
+                style.textContent = \`
+                    @keyframes gentleHover {
+                        0%, 100% { transform: translateY(0px); }
+                        50% { transform: translateY(-15px); }
+                    }
+                \`;
+                document.head.appendChild(style);
+                
+                // Start animation after a brief delay
+                setTimeout(() => {
+                    animateDrone();
+                }, 500);
             });
             
             // Create floating particles
