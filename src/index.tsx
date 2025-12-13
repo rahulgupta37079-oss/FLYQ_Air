@@ -142,7 +142,7 @@ const renderPage = (title: string, content: string, includeCart: boolean = true)
                 background: linear-gradient(90deg, transparent, var(--sky-blue), transparent);
             }
             
-            /* IMPACTFUL Intro Animation - Drone Writes FLYQ */
+            /* USER REVEAL Intro Animation - No Drone */
             #intro-animation {
                 position: fixed;
                 top: 0;
@@ -177,7 +177,7 @@ const renderPage = (title: string, content: string, includeCart: boolean = true)
             }
             
             #intro-animation.fade-out {
-                animation: fadeOut 1.5s ease-out forwards;
+                animation: fadeOut 1.2s ease-out forwards;
             }
             
             @keyframes fadeOut {
@@ -190,59 +190,49 @@ const renderPage = (title: string, content: string, includeCart: boolean = true)
             
             .intro-container {
                 position: relative;
-                width: 900px;
-                height: 500px;
-                animation: containerPulse 2s ease-in-out infinite;
-            }
-            
-            @keyframes containerPulse {
-                0%, 100% { transform: scale(1); }
-                50% { transform: scale(1.02); }
-            }
-            
-            /* Drone that flies and writes - LARGER */
-            .writing-drone {
-                position: absolute;
-                width: 120px;
-                height: 120px;
-                filter: drop-shadow(0 0 40px rgba(14, 165, 233, 1)) 
-                        drop-shadow(0 0 80px rgba(14, 165, 233, 0.5));
-                z-index: 10;
-                animation: droneRotate 0.5s ease-in-out;
-            }
-            
-            @keyframes droneRotate {
-                0%, 100% { transform: rotate(0deg); }
-                25% { transform: rotate(-5deg); }
-                75% { transform: rotate(5deg); }
-            }
-            
-            .writing-drone img {
                 width: 100%;
                 height: 100%;
-                object-fit: contain;
-                animation: droneTilt 2s ease-in-out infinite;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-direction: column;
+                gap: 40px;
             }
             
-            @keyframes droneTilt {
-                0%, 100% { transform: rotateX(0deg); }
-                50% { transform: rotateX(10deg); }
+            /* Welcome message */
+            .welcome-message {
+                font-family: 'Rajdhani', sans-serif;
+                font-size: 32px;
+                font-weight: 600;
+                color: #94A3B8;
+                text-align: center;
+                opacity: 0;
+                animation: fadeInUp 1s ease-out forwards;
+                margin-bottom: 20px;
+            }
+            
+            @keyframes fadeInUp {
+                from {
+                    opacity: 0;
+                    transform: translateY(30px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
             }
             
             /* FLYQ Text Container - MASSIVE */
             .flyq-text {
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
                 font-family: 'Rajdhani', sans-serif;
-                font-size: 160px;
+                font-size: 180px;
                 font-weight: 900;
-                letter-spacing: 30px;
+                letter-spacing: 40px;
                 display: flex;
-                gap: 20px;
-                text-shadow: 0 0 40px rgba(14, 165, 233, 0.8),
-                             0 0 80px rgba(14, 165, 233, 0.4);
+                gap: 30px;
+                text-shadow: 0 0 60px rgba(14, 165, 233, 0.9),
+                             0 0 120px rgba(14, 165, 233, 0.5);
+                position: relative;
             }
             
             .flyq-letter {
@@ -252,72 +242,45 @@ const renderPage = (title: string, content: string, includeCart: boolean = true)
                 -webkit-text-fill-color: transparent;
                 background-clip: text;
                 opacity: 0;
-                transform: scale(0) rotate(360deg);
+                transform: scale(0);
                 position: relative;
-                animation: letterGlow 1s ease-in-out infinite;
+                cursor: default;
             }
             
-            @keyframes letterGlow {
-                0%, 100% {
-                    filter: drop-shadow(0 0 5px rgba(14, 165, 233, 0.8));
+            /* Letter reveal animation */
+            @keyframes letterReveal {
+                0% {
+                    opacity: 0;
+                    transform: scale(0) rotateY(180deg);
+                    filter: blur(20px);
                 }
                 50% {
-                    filter: drop-shadow(0 0 20px rgba(14, 165, 233, 1))
-                            drop-shadow(0 0 40px rgba(14, 165, 233, 0.6));
+                    opacity: 1;
+                    transform: scale(1.2) rotateY(0deg);
+                    filter: blur(0px);
+                }
+                100% {
+                    opacity: 1;
+                    transform: scale(1) rotateY(0deg);
+                    filter: blur(0px);
                 }
             }
             
-            /* INTENSE Trail effect behind drone */
-            .drone-trail {
-                position: absolute;
-                width: 8px;
-                background: linear-gradient(to bottom, 
-                    transparent, 
-                    rgba(14, 165, 233, 1), 
-                    rgba(14, 165, 233, 0.8),
-                    transparent);
-                opacity: 0;
-                pointer-events: none;
-                z-index: 5;
-                box-shadow: 0 0 20px rgba(14, 165, 233, 0.8);
-                border-radius: 4px;
-            }
-            
-            /* POWERFUL Propeller glow */
-            .propeller-glow {
-                position: absolute;
-                width: 100px;
-                height: 100px;
-                background: radial-gradient(circle, 
-                    rgba(14, 165, 233, 0.8) 0%, 
-                    rgba(14, 165, 233, 0.4) 40%,
-                    transparent 70%);
-                border-radius: 50%;
-                top: 10px;
-                left: 10px;
-                animation: propellerSpin 0.05s linear infinite, 
-                           propellerPulse 0.8s ease-in-out infinite;
-                pointer-events: none;
-                filter: blur(5px);
-            }
-            
-            @keyframes propellerSpin {
-                100% { transform: rotate(360deg); }
-            }
-            
-            @keyframes propellerPulse {
-                0%, 100% { 
-                    opacity: 0.8; 
-                    transform: scale(1) rotate(0deg); 
+            /* Ring pulse effect around letters */
+            @keyframes ringPulse {
+                0% {
+                    width: 0;
+                    height: 0;
+                    opacity: 1;
                 }
-                50% { 
-                    opacity: 1; 
-                    transform: scale(1.5) rotate(180deg); 
-                    box-shadow: 0 0 40px rgba(14, 165, 233, 1);
+                100% {
+                    width: 300px;
+                    height: 300px;
+                    opacity: 0;
                 }
             }
             
-            /* EXPLOSIVE Sparkle effect */
+            /* Sparkle burst effect */
             .letter-sparkle {
                 position: absolute;
                 width: 8px;
@@ -326,6 +289,17 @@ const renderPage = (title: string, content: string, includeCart: boolean = true)
                 border-radius: 50%;
                 opacity: 0;
                 box-shadow: 0 0 10px #38BDF8, 0 0 20px #0EA5E9;
+            }
+            
+            /* Tagline */
+            .tagline {
+                font-family: 'Inter', sans-serif;
+                font-size: 24px;
+                font-weight: 400;
+                color: #64748B;
+                text-align: center;
+                opacity: 0;
+                animation: fadeInUp 1s ease-out 2.5s forwards;
             }
             
             /* Video background removal effect */
@@ -821,14 +795,8 @@ const renderPage = (title: string, content: string, includeCart: boolean = true)
         <!-- Intro Animation -->
         <div id="intro-animation">
             <div class="intro-container">
-                <!-- Drone that flies and writes -->
-                <div class="writing-drone" id="writing-drone">
-                    <div class="propeller-glow"></div>
-                    <img src="/images/flyq-drone.png" alt="FLYQ Drone">
-                </div>
-                
-                <!-- Trail effect -->
-                <div class="drone-trail" id="drone-trail"></div>
+                <!-- Welcome Message -->
+                <div class="welcome-message">Welcome to</div>
                 
                 <!-- FLYQ Text -->
                 <div class="flyq-text">
@@ -837,6 +805,9 @@ const renderPage = (title: string, content: string, includeCart: boolean = true)
                     <span class="flyq-letter" data-letter="Y">Y</span>
                     <span class="flyq-letter" data-letter="Q">Q</span>
                 </div>
+                
+                <!-- Tagline -->
+                <div class="tagline">Premium Programmable Drones</div>
             </div>
         </div>
         
@@ -1089,148 +1060,89 @@ const renderPage = (title: string, content: string, includeCart: boolean = true)
             // Initialize cart count on page load
             document.addEventListener('DOMContentLoaded', updateCartCount);
             
-            // Intro animation - hide after animation completes
-            // Professional Drone Writing Animation
+            // Intro animation - USER REVEAL (No Drone)
             window.addEventListener('load', () => {
                 const introAnimation = document.getElementById('intro-animation');
-                const drone = document.getElementById('writing-drone');
-                const trail = document.getElementById('drone-trail');
                 const letters = document.querySelectorAll('.flyq-letter');
                 
                 // Disable body scroll during intro
                 document.body.style.overflow = 'hidden';
                 
-                // Animation timeline
-                const timeline = [
-                    // FAST & DRAMATIC entrance
-                    // F - Zoom in from left
-                    { x: -300, y: 150, duration: 0 },
-                    { x: 150, y: 150, duration: 500, letter: 0, zoom: true },
-                    
-                    // L - Quick dash
-                    { x: 280, y: 150, duration: 350, letter: 1 },
-                    
-                    // Y - Arc movement
-                    { x: 410, y: 120, duration: 350, letter: 2, arc: true },
-                    
-                    // Q - Final letter with flourish
-                    { x: 540, y: 150, duration: 350, letter: 3 },
-                    
-                    // Dramatic final position - circle around FLYQ
-                    { x: 700, y: 150, duration: 500, final: true, circle: true }
-                ];
+                // Sequential letter reveal with sparkles
+                const delays = [500, 700, 900, 1100]; // Timing for each letter
                 
-                let currentStep = 0;
-                
-                function animateDrone() {
-                    if (currentStep >= timeline.length) {
-                        // Animation complete - fade out and show main site
-                        setTimeout(() => {
-                            introAnimation.classList.add('fade-out');
-                            setTimeout(() => {
-                                introAnimation.style.display = 'none';
-                                document.body.style.overflow = 'auto';
-                                // Animations removed for better performance
-                            }, 1000);
-                        }, 1500);
-                        return;
-                    }
-                    
-                    const step = timeline[currentStep];
-                    const prevStep = currentStep > 0 ? timeline[currentStep - 1] : null;
-                    
-                    // Animate drone movement
-                    drone.style.transition = \`all \${step.duration}ms cubic-bezier(0.4, 0, 0.2, 1)\`;
-                    drone.style.left = step.x + 'px';
-                    drone.style.top = step.y + 'px';
-                    
-                    // Show trail during movement
-                    if (prevStep && step.duration > 0) {
-                        trail.style.left = prevStep.x + 40 + 'px';
-                        trail.style.top = prevStep.y + 40 + 'px';
-                        trail.style.height = Math.abs(step.y - prevStep.y) + Math.abs(step.x - prevStep.x) + 'px';
-                        trail.style.opacity = '1';
-                        trail.style.transition = \`opacity \${step.duration}ms ease-out\`;
-                        
-                        setTimeout(() => {
-                            trail.style.opacity = '0';
-                        }, step.duration);
-                    }
-                    
-                    // Reveal letter with sparkle effect
-                    if (step.letter !== undefined) {
-                        setTimeout(() => {
-                            const letter = letters[step.letter];
-                            letter.style.transition = 'all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
-                            letter.style.opacity = '1';
-                            letter.style.transform = 'scale(1) rotate(0deg)';
-                            
-                            // EXPLOSIVE Sparkle effect - 20 particles!
-                            for (let i = 0; i < 20; i++) {
-                                const sparkle = document.createElement('div');
-                                sparkle.className = 'letter-sparkle';
-                                sparkle.style.left = (step.x + 60) + 'px';
-                                sparkle.style.top = (step.y + 60) + 'px';
-                                
-                                const angle = (i / 20) * Math.PI * 2;
-                                const distance = 80 + Math.random() * 40; // Varied distance
-                                const endX = step.x + 60 + Math.cos(angle) * distance;
-                                const endY = step.y + 60 + Math.sin(angle) * distance;
-                                
-                                // Add random colors for variety
-                                const colors = ['#38BDF8', '#0EA5E9', '#0284C7', '#ffffff'];
-                                sparkle.style.background = colors[Math.floor(Math.random() * colors.length)];
-                                
-                                document.querySelector('.intro-container').appendChild(sparkle);
-                                
-                                setTimeout(() => {
-                                    sparkle.style.transition = 'all 0.8s cubic-bezier(0, 0.5, 0.5, 1)';
-                                    sparkle.style.left = endX + 'px';
-                                    sparkle.style.top = endY + 'px';
-                                    sparkle.style.opacity = '1';
-                                    sparkle.style.transform = 'scale(2)';
-                                }, 30);
-                                
-                                setTimeout(() => {
-                                    sparkle.style.opacity = '0';
-                                    sparkle.style.transform = 'scale(0)';
-                                }, 400);
-                                
-                                setTimeout(() => {
-                                    sparkle.remove();
-                                }, 1200);
-                            }
-                        }, step.duration - 200);
-                    }
-                    
-                    // Final hover animation
-                    if (step.final) {
-                        setTimeout(() => {
-                            drone.style.animation = 'gentleHover 2s ease-in-out infinite';
-                        }, step.duration);
-                    }
-                    
-                    // Next step
+                letters.forEach((letter, index) => {
                     setTimeout(() => {
-                        currentStep++;
-                        animateDrone();
-                    }, step.duration);
-                }
+                        // Reveal letter with animation
+                        letter.style.animation = 'letterReveal 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards';
+                        
+                        // Create ring pulse effect
+                        const ring = document.createElement('div');
+                        ring.style.cssText = \`
+                            position: absolute;
+                            top: 50%;
+                            left: 50%;
+                            transform: translate(-50%, -50%);
+                            border: 3px solid rgba(14, 165, 233, 0.6);
+                            border-radius: 50%;
+                            pointer-events: none;
+                            z-index: 1;
+                        \`;
+                        letter.appendChild(ring);
+                        ring.style.animation = 'ringPulse 1s ease-out forwards';
+                        
+                        setTimeout(() => ring.remove(), 1000);
+                        
+                        // Create sparkle burst (30 particles per letter)
+                        const letterRect = letter.getBoundingClientRect();
+                        const containerRect = document.querySelector('.intro-container').getBoundingClientRect();
+                        
+                        for (let i = 0; i < 30; i++) {
+                            const sparkle = document.createElement('div');
+                            sparkle.className = 'letter-sparkle';
+                            
+                            const relX = letterRect.left - containerRect.left + letterRect.width / 2;
+                            const relY = letterRect.top - containerRect.top + letterRect.height / 2;
+                            
+                            sparkle.style.left = relX + 'px';
+                            sparkle.style.top = relY + 'px';
+                            
+                            const angle = (i / 30) * Math.PI * 2;
+                            const distance = 100 + Math.random() * 50;
+                            const endX = relX + Math.cos(angle) * distance;
+                            const endY = relY + Math.sin(angle) * distance;
+                            
+                            const colors = ['#38BDF8', '#0EA5E9', '#0284C7', '#ffffff'];
+                            sparkle.style.background = colors[Math.floor(Math.random() * colors.length)];
+                            
+                            document.querySelector('.intro-container').appendChild(sparkle);
+                            
+                            setTimeout(() => {
+                                sparkle.style.transition = 'all 1s cubic-bezier(0, 0.5, 0.5, 1)';
+                                sparkle.style.left = endX + 'px';
+                                sparkle.style.top = endY + 'px';
+                                sparkle.style.opacity = '1';
+                                sparkle.style.transform = 'scale(2)';
+                            }, 50);
+                            
+                            setTimeout(() => {
+                                sparkle.style.opacity = '0';
+                                sparkle.style.transform = 'scale(0)';
+                            }, 500);
+                            
+                            setTimeout(() => sparkle.remove(), 1500);
+                        }
+                    }, delays[index]);
+                });
                 
-                // Add gentle hover animation
-                const style = document.createElement('style');
-                style.textContent = \`
-                    @keyframes gentleHover {
-                        0%, 100% { transform: translateY(0px); }
-                        50% { transform: translateY(-15px); }
-                    }
-                \`;
-                document.head.appendChild(style);
-                
-                // Start animation after a brief delay
+                // Fade out after all letters revealed
                 setTimeout(() => {
-                    animateDrone();
-                }, 500);
+                    introAnimation.classList.add('fade-out');
+                    setTimeout(() => {
+                        introAnimation.style.display = 'none';
+                        document.body.style.overflow = 'auto';
+                    }, 1200);
+                }, 2500);
             });
             
             // Create floating particles
