@@ -15,7 +15,7 @@ const products = [
     name: 'FLYQ Air',
     slug: 'flyq-air',
     price: 4999,
-    image: 'https://cdn1.genspark.ai/user-upload-image/rmbg_generated/0_435c9a66-800a-4537-80f8-cd513ea4bf15',
+    image: 'https://www.genspark.ai/api/files/s/FioKyNgi',
     shortDesc: 'ESP32-S3 powered programmable drone with Wi-Fi control',
     features: ['ESP32-S3 Dual-Core', 'Wi-Fi Control', 'Open Source', '24-pin GPIO', 'Python/Arduino SDK'],
     stock: 50
@@ -25,7 +25,7 @@ const products = [
     name: 'FLYQ Vision',
     slug: 'flyq-vision',
     price: 8999,
-    image: 'https://cdn1.genspark.ai/user-upload-image/rmbg_generated/0_f1a47aea-7dd7-431f-bfe8-e82d7d001b38',
+    image: 'https://www.genspark.ai/api/files/s/FioKyNgi',
     shortDesc: 'ESP32-S3 camera drone with HD video streaming',
     features: ['ESP32-S3 Dual-Core', 'HD 720p Camera', 'Gesture Control', 'Wi-Fi Streaming', 'Python/Arduino SDK'],
     stock: 30
@@ -282,6 +282,216 @@ const renderPage = (title: string, content: string, includeCart: boolean = true)
                     rgba(0,0,0,0.95) 100%);
             }
             
+            /* Enhanced 3D Card Effects */
+            .card-3d {
+                perspective: 1000px;
+                transform-style: preserve-3d;
+                transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            }
+            
+            .card-3d:hover {
+                transform: rotateY(10deg) rotateX(5deg) scale(1.05);
+            }
+            
+            .card-3d::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: linear-gradient(135deg, rgba(14, 165, 233, 0.1) 0%, transparent 50%);
+                opacity: 0;
+                transition: opacity 0.3s;
+                border-radius: inherit;
+            }
+            
+            .card-3d:hover::before {
+                opacity: 1;
+            }
+            
+            /* Particle Background Animation */
+            .particles {
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                overflow: hidden;
+                pointer-events: none;
+            }
+            
+            .particle {
+                position: absolute;
+                width: 4px;
+                height: 4px;
+                background: rgba(14, 165, 233, 0.3);
+                border-radius: 50%;
+                animation: particleFloat 15s linear infinite;
+            }
+            
+            @keyframes particleFloat {
+                0% {
+                    transform: translateY(100vh) translateX(0) rotate(0deg);
+                    opacity: 0;
+                }
+                10% {
+                    opacity: 1;
+                }
+                90% {
+                    opacity: 1;
+                }
+                100% {
+                    transform: translateY(-100vh) translateX(100px) rotate(360deg);
+                    opacity: 0;
+                }
+            }
+            
+            /* Glitch Effect for Headings */
+            .glitch {
+                position: relative;
+                animation: glitchAnim 5s infinite;
+            }
+            
+            @keyframes glitchAnim {
+                0%, 90%, 100% {
+                    transform: translate(0);
+                }
+                91% {
+                    transform: translate(-2px, 2px);
+                }
+                92% {
+                    transform: translate(2px, -2px);
+                }
+                93% {
+                    transform: translate(-2px, -2px);
+                }
+                94% {
+                    transform: translate(2px, 2px);
+                }
+            }
+            
+            /* Pulse Animation for Important Elements */
+            .pulse-glow {
+                animation: pulseGlow 2s ease-in-out infinite;
+            }
+            
+            @keyframes pulseGlow {
+                0%, 100% {
+                    box-shadow: 0 0 20px rgba(14, 165, 233, 0.4);
+                }
+                50% {
+                    box-shadow: 0 0 40px rgba(14, 165, 233, 0.8), 
+                                0 0 60px rgba(14, 165, 233, 0.4);
+                }
+            }
+            
+            /* Parallax Scroll Effect */
+            .parallax {
+                transform: translateZ(0);
+                will-change: transform;
+            }
+            
+            /* Typing Animation */
+            .typing-effect {
+                overflow: hidden;
+                border-right: 3px solid #0EA5E9;
+                white-space: nowrap;
+                animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
+            }
+            
+            @keyframes typing {
+                from { width: 0; }
+                to { width: 100%; }
+            }
+            
+            @keyframes blink-caret {
+                from, to { border-color: transparent; }
+                50% { border-color: #0EA5E9; }
+            }
+            
+            /* Zoom on Scroll */
+            .zoom-scroll {
+                transition: transform 0.3s ease-out;
+            }
+            
+            .zoom-scroll.visible {
+                transform: scale(1);
+                opacity: 1;
+            }
+            
+            /* Slide In Animations */
+            .slide-in-left {
+                animation: slideInLeft 0.8s ease-out forwards;
+            }
+            
+            .slide-in-right {
+                animation: slideInRight 0.8s ease-out forwards;
+            }
+            
+            .slide-in-up {
+                animation: slideInUp 0.8s ease-out forwards;
+            }
+            
+            @keyframes slideInLeft {
+                from {
+                    transform: translateX(-100%);
+                    opacity: 0;
+                }
+                to {
+                    transform: translateX(0);
+                    opacity: 1;
+                }
+            }
+            
+            @keyframes slideInRight {
+                from {
+                    transform: translateX(100%);
+                    opacity: 0;
+                }
+                to {
+                    transform: translateX(0);
+                    opacity: 1;
+                }
+            }
+            
+            @keyframes slideInUp {
+                from {
+                    transform: translateY(100%);
+                    opacity: 0;
+                }
+                to {
+                    transform: translateY(0);
+                    opacity: 1;
+                }
+            }
+            
+            /* Rainbow Border Effect */
+            .rainbow-border {
+                position: relative;
+                background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+                border-radius: 1rem;
+                padding: 2px;
+            }
+            
+            .rainbow-border::before {
+                content: '';
+                position: absolute;
+                top: -2px;
+                left: -2px;
+                right: -2px;
+                bottom: -2px;
+                background: linear-gradient(45deg, #0EA5E9, #38BDF8, #0284C7, #0EA5E9);
+                background-size: 400%;
+                border-radius: 1rem;
+                z-index: -1;
+                animation: rainbowRotate 3s linear infinite;
+            }
+            
+            @keyframes rainbowRotate {
+                0% { background-position: 0% 50%; }
+                50% { background-position: 100% 50%; }
+                100% { background-position: 0% 50%; }
+            }
+            
             .bg-midnight {
                 background-color: var(--midnight);
             }
@@ -349,6 +559,177 @@ const renderPage = (title: string, content: string, includeCart: boolean = true)
                 background: linear-gradient(to right, #f0f9ff, #e0f2fe);
                 transform: translateX(5px);
             }
+            
+            /* Advanced Scroll Reveal Animations */
+            .scroll-reveal {
+                opacity: 0;
+                transform: translateY(50px);
+                transition: opacity 0.8s ease, transform 0.8s ease;
+            }
+            
+            .scroll-reveal.revealed {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            
+            .scroll-reveal-left {
+                opacity: 0;
+                transform: translateX(-50px);
+                transition: opacity 0.8s ease, transform 0.8s ease;
+            }
+            
+            .scroll-reveal-left.revealed {
+                opacity: 1;
+                transform: translateX(0);
+            }
+            
+            .scroll-reveal-right {
+                opacity: 0;
+                transform: translateX(50px);
+                transition: opacity 0.8s ease, transform 0.8s ease;
+            }
+            
+            .scroll-reveal-right.revealed {
+                opacity: 1;
+                transform: translateX(0);
+            }
+            
+            /* Parallax Effect */
+            .parallax {
+                transition: transform 0.3s ease-out;
+            }
+            
+            /* Enhanced Hover Glow Effect */
+            .glow-on-hover {
+                position: relative;
+                overflow: hidden;
+            }
+            
+            .glow-on-hover::before {
+                content: '';
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                width: 0;
+                height: 0;
+                border-radius: 50%;
+                background: radial-gradient(circle, rgba(14, 165, 233, 0.4) 0%, transparent 70%);
+                transform: translate(-50%, -50%);
+                transition: width 0.6s ease, height 0.6s ease;
+                z-index: 0;
+            }
+            
+            .glow-on-hover:hover::before {
+                width: 300px;
+                height: 300px;
+            }
+            
+            /* Floating Elements */
+            .float-slow {
+                animation: float-slow 6s ease-in-out infinite;
+            }
+            
+            @keyframes float-slow {
+                0%, 100% { transform: translateY(0px); }
+                50% { transform: translateY(-15px); }
+            }
+            
+            /* Pulse Glow Animation */
+            .pulse-glow {
+                animation: pulse-glow 2s ease-in-out infinite;
+            }
+            
+            @keyframes pulse-glow {
+                0%, 100% { 
+                    box-shadow: 0 0 20px rgba(14, 165, 233, 0.3);
+                }
+                50% { 
+                    box-shadow: 0 0 40px rgba(14, 165, 233, 0.6),
+                                0 0 60px rgba(14, 165, 233, 0.4);
+                }
+            }
+            
+            /* Shimmer Effect */
+            .shimmer {
+                background: linear-gradient(
+                    90deg,
+                    rgba(255, 255, 255, 0) 0%,
+                    rgba(255, 255, 255, 0.3) 50%,
+                    rgba(255, 255, 255, 0) 100%
+                );
+                background-size: 200% 100%;
+                animation: shimmer 3s infinite;
+            }
+            
+            @keyframes shimmer {
+                0% { background-position: -200% 0; }
+                100% { background-position: 200% 0; }
+            }
+            
+            /* Rotate on Hover */
+            .rotate-on-hover {
+                transition: transform 0.5s ease;
+            }
+            
+            .rotate-on-hover:hover {
+                transform: rotate(5deg) scale(1.05);
+            }
+            
+            /* Scale Bounce */
+            .scale-bounce {
+                animation: scale-bounce 2s ease-in-out infinite;
+            }
+            
+            @keyframes scale-bounce {
+                0%, 100% { transform: scale(1); }
+                50% { transform: scale(1.05); }
+            }
+            
+            /* Text Gradient Animation */
+            .gradient-text-animated {
+                background: linear-gradient(
+                    90deg,
+                    #38BDF8 0%,
+                    #0EA5E9 25%,
+                    #0284C7 50%,
+                    #0EA5E9 75%,
+                    #38BDF8 100%
+                );
+                background-size: 200% auto;
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+                animation: gradient-flow 3s linear infinite;
+            }
+            
+            @keyframes gradient-flow {
+                0% { background-position: 0% center; }
+                100% { background-position: 200% center; }
+            }
+            
+            /* Slide In Animations */
+            @keyframes slideInUp {
+                from {
+                    opacity: 0;
+                    transform: translateY(30px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+            
+            .slide-in-up {
+                animation: slideInUp 0.6s ease-out;
+            }
+            
+            /* Stagger Animation Classes */
+            .stagger-1 { animation-delay: 0.1s; }
+            .stagger-2 { animation-delay: 0.2s; }
+            .stagger-3 { animation-delay: 0.3s; }
+            .stagger-4 { animation-delay: 0.4s; }
+            .stagger-5 { animation-delay: 0.5s; }
+            .stagger-6 { animation-delay: 0.6s; }
         </style>
     </head>
     <body class="bg-gray-50">
@@ -362,7 +743,7 @@ const renderPage = (title: string, content: string, includeCart: boolean = true)
                 <div class="propeller propeller-4"></div>
                 
                 <!-- Drone Body -->
-                <img src="https://cdn1.genspark.ai/user-upload-image/rmbg_generated/0_435c9a66-800a-4537-80f8-cd513ea4bf15" 
+                <img src="https://www.genspark.ai/api/files/s/FioKyNgi" 
                      alt="FLYQ Drone" 
                      class="drone-body">
                 
@@ -631,11 +1012,70 @@ const renderPage = (title: string, content: string, includeCart: boolean = true)
                     }
                     // Enable body scroll
                     document.body.style.overflow = 'auto';
+                    
+                    // Initialize enhanced animations after intro
+                    initParticles();
+                    initScrollAnimations();
                 }, 4300);
                 
                 // Disable body scroll during intro
                 document.body.style.overflow = 'hidden';
             });
+            
+            // Create floating particles
+            function initParticles() {
+                const heroSection = document.querySelector('section');
+                if (!heroSection) return;
+                
+                const particlesContainer = document.createElement('div');
+                particlesContainer.className = 'particles';
+                heroSection.style.position = 'relative';
+                heroSection.appendChild(particlesContainer);
+                
+                for (let i = 0; i < 20; i++) {
+                    const particle = document.createElement('div');
+                    particle.className = 'particle';
+                    particle.style.left = Math.random() * 100 + '%';
+                    particle.style.animationDelay = Math.random() * 15 + 's';
+                    particle.style.animationDuration = (15 + Math.random() * 10) + 's';
+                    particlesContainer.appendChild(particle);
+                }
+            }
+            
+            // Scroll animations and 3D effects
+            function initScrollAnimations() {
+                const observerOptions = {
+                    threshold: 0.1,
+                    rootMargin: '0px 0px -100px 0px'
+                };
+                
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('visible');
+                            if (entry.target.classList.contains('slide-in-left') ||
+                                entry.target.classList.contains('slide-in-right') ||
+                                entry.target.classList.contains('slide-in-up')) {
+                                observer.unobserve(entry.target);
+                            }
+                        }
+                    });
+                }, observerOptions);
+                
+                // Observe all elements with animation classes
+                document.querySelectorAll('.zoom-scroll, .slide-in-left, .slide-in-right, .slide-in-up').forEach(el => {
+                    observer.observe(el);
+                });
+                
+                // Parallax effect on scroll
+                window.addEventListener('scroll', () => {
+                    const scrolled = window.pageYOffset;
+                    document.querySelectorAll('.parallax').forEach(el => {
+                        const speed = el.dataset.speed || 0.5;
+                        el.style.transform = \`translateY(\${scrolled * speed}px)\`;
+                    });
+                });
+            }
 
             // Authentication check and user menu
             async function checkAuth() {
@@ -890,7 +1330,7 @@ app.get('/', (c) => {
                             class="w-full h-auto drop-shadow-2xl rounded-2xl video-masked"
                             style="mix-blend-mode: screen; filter: contrast(1.2) saturate(1.3) brightness(1.1);">
                             <source src="/videos/flyq-hero.mp4" type="video/mp4">
-                            <img src="https://cdn1.genspark.ai/user-upload-image/rmbg_generated/0_435c9a66-800a-4537-80f8-cd513ea4bf15" 
+                            <img src="https://www.genspark.ai/api/files/s/FioKyNgi" 
                                  alt="FLYQ Air Drone" 
                                  class="w-full h-auto drop-shadow-2xl">
                         </video>
@@ -993,7 +1433,7 @@ app.get('/', (c) => {
                 </div>
                 <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
                     <div class="bg-gradient-to-br from-gray-900 to-gray-800 overflow-hidden rounded-3xl border-4 border-sky-500 shadow-2xl p-6" style="box-shadow: 0 0 30px rgba(14, 165, 233, 0.3);">
-                        <img src="https://cdn1.genspark.ai/user-upload-image/rmbg_generated/0_435c9a66-800a-4537-80f8-cd513ea4bf15" 
+                        <img src="https://www.genspark.ai/api/files/s/D7kJFJhq?cache_control=3600" 
                              alt="FLYQ Air - Hero View" 
                              class="w-full h-80 object-contain hover:scale-110 transition-transform duration-500">
                         <div class="mt-4 text-center">
