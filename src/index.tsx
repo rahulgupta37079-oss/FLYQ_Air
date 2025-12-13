@@ -142,6 +142,146 @@ const renderPage = (title: string, content: string, includeCart: boolean = true)
                 background: linear-gradient(90deg, transparent, var(--sky-blue), transparent);
             }
             
+            /* Intro Animation Styles */
+            #intro-animation {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100vw;
+                height: 100vh;
+                background: linear-gradient(135deg, #0F172A 0%, #1E293B 50%, #0F172A 100%);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 9999;
+                animation: fadeOut 0.8s ease-in-out 3.5s forwards;
+            }
+            
+            @keyframes fadeOut {
+                to {
+                    opacity: 0;
+                    visibility: hidden;
+                }
+            }
+            
+            .drone-intro {
+                position: relative;
+                width: 300px;
+                height: 300px;
+                animation: droneEntry 3s ease-in-out forwards;
+            }
+            
+            @keyframes droneEntry {
+                0% {
+                    transform: translateX(-150vw) translateY(50vh) rotate(-45deg) scale(0.3);
+                    opacity: 0;
+                }
+                20% {
+                    opacity: 1;
+                }
+                50% {
+                    transform: translateX(0) translateY(-20px) rotate(0deg) scale(1.2);
+                }
+                70% {
+                    transform: translateX(0) translateY(20px) rotate(5deg) scale(1.1);
+                }
+                85% {
+                    transform: translateX(0) translateY(-10px) rotate(-3deg) scale(1.05);
+                }
+                100% {
+                    transform: translateX(0) translateY(0) rotate(0deg) scale(1);
+                }
+            }
+            
+            .propeller {
+                position: absolute;
+                width: 40px;
+                height: 40px;
+                background: rgba(14, 165, 233, 0.4);
+                border-radius: 50%;
+                animation: spin 0.15s linear infinite;
+            }
+            
+            @keyframes spin {
+                100% { transform: rotate(360deg); }
+            }
+            
+            .propeller-1 { top: 10px; left: 10px; }
+            .propeller-2 { top: 10px; right: 10px; }
+            .propeller-3 { bottom: 10px; left: 10px; }
+            .propeller-4 { bottom: 10px; right: 10px; }
+            
+            .drone-body {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                width: 120px;
+                height: 120px;
+                filter: drop-shadow(0 0 30px rgba(14, 165, 233, 0.6));
+            }
+            
+            .brand-text {
+                position: absolute;
+                bottom: -80px;
+                left: 50%;
+                transform: translateX(-50%);
+                font-family: 'Rajdhani', sans-serif;
+                font-size: 48px;
+                font-weight: 700;
+                background: linear-gradient(135deg, #38BDF8 0%, #0EA5E9 50%, #0284C7 100%);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                animation: brandPulse 2s ease-in-out 1s infinite;
+                white-space: nowrap;
+            }
+            
+            @keyframes brandPulse {
+                0%, 100% { opacity: 1; transform: translateX(-50%) scale(1); }
+                50% { opacity: 0.8; transform: translateX(-50%) scale(1.05); }
+            }
+            
+            .loading-text {
+                position: absolute;
+                bottom: -120px;
+                left: 50%;
+                transform: translateX(-50%);
+                color: #38BDF8;
+                font-size: 14px;
+                letter-spacing: 2px;
+                animation: loadingDots 1.5s infinite;
+            }
+            
+            @keyframes loadingDots {
+                0%, 20% { content: 'LOADING'; }
+                40% { content: 'LOADING.'; }
+                60% { content: 'LOADING..'; }
+                80%, 100% { content: 'LOADING...'; }
+            }
+            
+            /* Video background removal effect */
+            .video-container {
+                position: relative;
+                overflow: hidden;
+                border-radius: 1rem;
+            }
+            
+            .video-masked {
+                filter: contrast(1.1) saturate(1.2);
+                mix-blend-mode: screen;
+                background: transparent;
+            }
+            
+            /* Enhanced video styling */
+            video {
+                -webkit-mask-image: -webkit-gradient(linear, left top, left bottom, 
+                    color-stop(0%, rgba(0,0,0,1)),
+                    color-stop(100%, rgba(0,0,0,0.95)));
+                mask-image: linear-gradient(to bottom, 
+                    rgba(0,0,0,1) 0%,
+                    rgba(0,0,0,0.95) 100%);
+            }
+            
             .bg-midnight {
                 background-color: var(--midnight);
             }
@@ -212,6 +352,26 @@ const renderPage = (title: string, content: string, includeCart: boolean = true)
         </style>
     </head>
     <body class="bg-gray-50">
+        <!-- Intro Animation -->
+        <div id="intro-animation">
+            <div class="drone-intro">
+                <!-- Propellers -->
+                <div class="propeller propeller-1"></div>
+                <div class="propeller propeller-2"></div>
+                <div class="propeller propeller-3"></div>
+                <div class="propeller propeller-4"></div>
+                
+                <!-- Drone Body -->
+                <img src="https://cdn1.genspark.ai/user-upload-image/rmbg_generated/0_435c9a66-800a-4537-80f8-cd513ea4bf15" 
+                     alt="FLYQ Drone" 
+                     class="drone-body">
+                
+                <!-- Brand Text -->
+                <div class="brand-text">FLYQ</div>
+                <div class="loading-text">LOADING...</div>
+            </div>
+        </div>
+        
         <!-- Navigation -->
         <nav class="fixed w-full z-50 bg-white shadow-md">
             <div class="container mx-auto px-6 py-4">
@@ -460,6 +620,22 @@ const renderPage = (title: string, content: string, includeCart: boolean = true)
 
             // Initialize cart count on page load
             document.addEventListener('DOMContentLoaded', updateCartCount);
+            
+            // Intro animation - hide after animation completes
+            window.addEventListener('load', () => {
+                const introAnimation = document.getElementById('intro-animation');
+                // Hide intro after 4 seconds (animation duration + fade out)
+                setTimeout(() => {
+                    if (introAnimation) {
+                        introAnimation.style.display = 'none';
+                    }
+                    // Enable body scroll
+                    document.body.style.overflow = 'auto';
+                }, 4300);
+                
+                // Disable body scroll during intro
+                document.body.style.overflow = 'hidden';
+            });
 
             // Authentication check and user menu
             async function checkAuth() {
@@ -705,19 +881,21 @@ app.get('/', (c) => {
                             </div>
                         </div>
                     </div>
-                    <div class="float-animation relative">
+                    <div class="float-animation relative video-container">
                         <video 
                             autoplay 
                             loop 
                             muted 
                             playsinline
-                            class="w-full h-auto drop-shadow-2xl rounded-2xl"
-                            style="mix-blend-mode: lighten;">
+                            class="w-full h-auto drop-shadow-2xl rounded-2xl video-masked"
+                            style="mix-blend-mode: screen; filter: contrast(1.2) saturate(1.3) brightness(1.1);">
                             <source src="/videos/flyq-hero.mp4" type="video/mp4">
                             <img src="https://cdn1.genspark.ai/user-upload-image/rmbg_generated/0_435c9a66-800a-4537-80f8-cd513ea4bf15" 
                                  alt="FLYQ Air Drone" 
                                  class="w-full h-auto drop-shadow-2xl">
                         </video>
+                        <!-- Glow effect behind video -->
+                        <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 80%; height: 80%; background: radial-gradient(circle, rgba(14, 165, 233, 0.3) 0%, transparent 70%); z-index: -1; filter: blur(40px);"></div>
                     </div>
                 </div>
             </div>
