@@ -15,7 +15,7 @@ const products = [
     name: 'FLYQ Air',
     slug: 'flyq-air',
     price: 4999,
-    image: 'https://www.genspark.ai/api/files/s/QbZGB34L?cache_control=3600',
+    image: '/images/flyq-drone.png',
     shortDesc: 'ESP32-S3 powered programmable drone with Wi-Fi control',
     features: ['ESP32-S3 Dual-Core', 'Wi-Fi Control', 'Open Source', '24-pin GPIO', 'Python/Arduino SDK'],
     stock: 50
@@ -25,7 +25,7 @@ const products = [
     name: 'FLYQ Vision',
     slug: 'flyq-vision',
     price: 8999,
-    image: 'https://www.genspark.ai/api/files/s/QbZGB34L?cache_control=3600',
+    image: '/images/flyq-drone.png',
     shortDesc: 'ESP32-S3 camera drone with HD video streaming',
     features: ['ESP32-S3 Dual-Core', 'HD 720p Camera', 'Gesture Control', 'Wi-Fi Streaming', 'Python/Arduino SDK'],
     stock: 30
@@ -824,7 +824,7 @@ const renderPage = (title: string, content: string, includeCart: boolean = true)
                 <!-- Drone that flies and writes -->
                 <div class="writing-drone" id="writing-drone">
                     <div class="propeller-glow"></div>
-                    <img src="https://www.genspark.ai/api/files/s/QbZGB34L?cache_control=3600" alt="FLYQ Drone">
+                    <img src="/images/flyq-drone.png" alt="FLYQ Drone">
                 </div>
                 
                 <!-- Trail effect -->
@@ -1541,7 +1541,7 @@ app.get('/', (c) => {
                             class="w-full h-auto drop-shadow-2xl rounded-2xl video-masked"
                             style="mix-blend-mode: screen; filter: contrast(1.2) saturate(1.3) brightness(1.1);">
                             <source src="/videos/flyq-hero.mp4" type="video/mp4">
-                            <img src="https://www.genspark.ai/api/files/s/QbZGB34L?cache_control=3600" 
+                            <img src="/images/flyq-drone.png" 
                                  alt="FLYQ Air Drone" 
                                  class="w-full h-auto drop-shadow-2xl">
                         </video>
@@ -1644,7 +1644,7 @@ app.get('/', (c) => {
                 </div>
                 <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
                     <div class="bg-gradient-to-br from-gray-900 to-gray-800 overflow-hidden rounded-3xl border-4 border-sky-500 shadow-2xl p-6" style="box-shadow: 0 0 30px rgba(14, 165, 233, 0.3);">
-                        <img src="https://www.genspark.ai/api/files/s/QbZGB34L?cache_control=3600" 
+                        <img src="/images/flyq-drone.png" 
                              alt="FLYQ Air - Hero View" 
                              class="w-full h-80 object-contain hover:scale-110 transition-transform duration-500">
                         <div class="mt-4 text-center">
