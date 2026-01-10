@@ -14,7 +14,7 @@ const products = [
     id: 1,
     name: 'FLYQ Air',
     slug: 'flyq-air',
-    price: 4999,
+    price: 7999,
     image: '/images/flyq-drone.png',
     shortDesc: 'ESP32-S3 powered programmable drone with Wi-Fi control',
     features: ['ESP32-S3 Dual-Core', 'Wi-Fi Control', 'Open Source', '24-pin GPIO', 'Python/Arduino SDK'],
@@ -24,7 +24,7 @@ const products = [
     id: 2,
     name: 'FLYQ Vision',
     slug: 'flyq-vision',
-    price: 8999,
+    price: 11999,
     image: '/images/flyq-drone.png',
     shortDesc: 'ESP32-S3 camera drone with HD video streaming',
     features: ['ESP32-S3 Dual-Core', 'HD 720p Camera', 'Gesture Control', 'Wi-Fi Streaming', 'Python/Arduino SDK'],
@@ -7088,7 +7088,7 @@ esptool.py --chip esp32s3 --port /dev/ttyUSB0 verify_flash 0x0 firmware.bin</pre
                         <div>
                             <h4 class="text-2xl font-bold mb-3">✅ Always:</h4>
                             <ul class="space-y-2">
-                                <li>• Inspect drone before flight</li>
+                                <li>• Inspect drone before flight</lii>
                                 <li>• Use propeller guards indoors</li>
                                 <li>• Keep clear 3m safety zone</li>
                                 <li>• Calibrate IMU before flying</li>
@@ -7354,7 +7354,7 @@ esptool.py --chip esp32s3 --port /dev/ttyUSB0 verify_flash 0x0 firmware.bin</pre
 
                         <div class="border-l-4 border-teal-500 pl-6 bg-gray-50 p-4 rounded">
                             <h4 class="text-lg font-bold text-gray-800 mb-2">FLYQ.setThrottle(value)</h4>
-                            <p class="text-gray-700 mb-2">Set all motors to same speed</p>
+                           <p class="text-gray-700 mb-2">Set all motors to same speed</p>
                             <p class="text-gray-600"><strong>Parameters:</strong> value (0-255)</p>
                         </div>
 
@@ -10154,3 +10154,4 @@ app.get('/blog/:slug', async (c) => {
 app.route('/admin', admin)
 
 export default app
+
