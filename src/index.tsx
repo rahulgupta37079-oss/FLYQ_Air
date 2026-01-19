@@ -10657,8 +10657,9 @@ app.post('/api/payment/initiate', async (c) => {
     const txnid = 'FLYQ' + Date.now();
     
     // PayU credentials (from environment or hardcoded for testing)
-    const PAYU_MERCHANT_KEY = c.env?.PAYU_MERCHANT_KEY || 'rBxHIl';
-    const PAYU_SALT = c.env?.PAYU_SALT || 'euyRUxvATr6SbkOtG9loHobIfY7FJrTr';
+    // Using PayU Biz test credentials
+    const PAYU_MERCHANT_KEY = c.env?.PAYU_MERCHANT_KEY || 'gtKFFx';
+    const PAYU_SALT = c.env?.PAYU_SALT || '4R38IvwiV57FwVpsgOvTXBdLE4tHUXFW';
     const PAYU_BASE_URL = c.env?.PAYU_MODE === 'live' 
       ? 'https://secure.payu.in/_payment'
       : 'https://test.payu.in/_payment';
