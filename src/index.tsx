@@ -10607,11 +10607,29 @@ app.get('/checkout', (c) => {
           
           const data = await response.json();
           
-          if (data.success) {
-            // Redirect to PayU payment page
-            window.location.href = data.paymentUrl;
+          if (data.success && data.paymentData) {
+            // Create a form and submit to PayU
+            const form = document.createElement('form');
+            form.method = 'POST';
+            form.action = data.paymentData.url;
+            
+            // Add all payment parameters as hidden fields
+            const params = data.paymentData;
+            for (const key in params) {
+              if (key !== 'url') {
+                const input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = key;
+                input.value = params[key];
+                form.appendChild(input);
+              }
+            }
+            
+            // Append form to body and submit
+            document.body.appendChild(form);
+            form.submit();
           } else {
-            alert('Payment initiation failed: ' + data.error);
+            alert('Payment initiation failed: ' + (data.error || 'Unknown error'));
           }
         } catch (error) {
           console.error('Error:', error);
@@ -10673,11 +10691,23 @@ app.post('/api/payment/initiate', async (c) => {
       service_provider: 'payu_paisa'
     });
     
-    const paymentUrl = `${PAYU_BASE_URL}?${params.toString()}`;
-    
+    // Return payment parameters for POST form submission
     return c.json({
       success: true,
-      paymentUrl: paymentUrl,
+      paymentData: {
+        url: PAYU_BASE_URL,
+        key: PAYU_MERCHANT_KEY,
+        txnid: txnid,
+        amount: total.toString(),
+        productinfo: 'FLYQ Drones Order',
+        firstname: name,
+        email: email,
+        phone: phone,
+        surl: `${siteUrl}/payment/success`,
+        furl: `${siteUrl}/payment/failure`,
+        hash: hash,
+        service_provider: 'payu_paisa'
+      },
       txnid: txnid
     });
     
