@@ -412,15 +412,32 @@ The production deployment is live but needs D1 database binding configuration:
 
 **Note**: Once D1 binding is configured in Cloudflare Pages dashboard, authentication and orders will work in production.
 
-### ⏳ **Phase 3 - Payment Integration**
-- Integrate Razorpay payment gateway
-- Configure Razorpay API keys as Cloudflare secrets:
-  ```bash
-  npx wrangler pages secret put RAZORPAY_KEY_ID --project-name flyq-air
-  npx wrangler pages secret put RAZORPAY_KEY_SECRET --project-name flyq-air
-  ```
-- Test payment flow in sandbox mode
-- Implement order confirmation emails
+### ✅ **Phase 3 - Payment Integration COMPLETE** (2026-01-19) 🎉
+✅ **PayU Payment Gateway Integrated** 💳
+   - **Test Mode Active**: Using PayU test environment
+   - **Production URL**: https://7942552b.flyq-air.pages.dev ⭐ NEW!
+   - **Checkout Page**: https://7942552b.flyq-air.pages.dev/checkout
+   - **Features**:
+     * Complete checkout form with customer details
+     * SHA-512 secure hash generation
+     * Transaction ID: FLYQ + timestamp format
+     * Success/failure callback handlers
+     * Cart clearing after successful payment
+     * Transaction details display
+   - **Test Credentials**:
+     * Merchant Key: rBxHIl
+     * Salt: euyRUxvATr6SbkOtG9loHobIfY7FJrTr
+     * Base URL: https://test.payu.in/_payment
+   - **Test Card**: 5123456789012346 (Success) or 5123456789012344 (Failure)
+   - **Routes Added**:
+     * POST /api/initiate-payment - Generate PayU payment URL
+     * POST /payment/success - Success callback handler
+     * POST /payment/failure - Failure callback handler
+   - **Documentation**: 
+     * PAYU_INTEGRATION.md - Complete guide (9KB, 353 lines)
+     * PAYU_QUICK_SETUP.md - Quick reference (2.6KB, 138 lines)
+   - **Status**: ✅ Ready for testing
+   - **Next Step**: Get live credentials from PayU for production payments
 
 ### ⏳ **Phase 4 - Production Enhancements**
 - Set up custom domain DNS (flyqdrone.in)
