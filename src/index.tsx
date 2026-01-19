@@ -10150,6 +10150,345 @@ app.get('/blog/:slug', async (c) => {
 // DISABLED:   }
 // DISABLED: });
 
+// Public Analytics Page
+app.get('/analytics', async (c) => {
+  const content = `
+    <div class="pt-32 pb-20 bg-gradient-to-br from-gray-50 to-sky-50">
+      <div class="container mx-auto px-6 max-w-7xl">
+        <div class="text-center mb-16">
+          <h1 class="text-6xl font-black mb-4 bg-gradient-to-r from-sky-500 to-purple-600 bg-clip-text text-transparent">
+            📊 FLYQ Analytics
+          </h1>
+          <p class="text-xl text-gray-600">Real-time website statistics and insights</p>
+        </div>
+
+        <!-- Overview Cards -->
+        <div class="grid md:grid-cols-4 gap-6 mb-12">
+          <div class="bg-white p-8 rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-300 border-t-4 border-sky-500 transform hover:-translate-y-2">
+            <div class="flex items-center justify-between mb-4">
+              <i class="fas fa-eye text-4xl text-sky-500"></i>
+              <span class="text-xs font-bold text-sky-600 bg-sky-100 px-3 py-1 rounded-full">ALL TIME</span>
+            </div>
+            <div class="text-5xl font-black text-gray-900 mb-2">12.5K</div>
+            <div class="text-gray-600 font-semibold">Total Page Views</div>
+            <div class="mt-4 flex items-center text-green-600">
+              <i class="fas fa-arrow-up mr-2"></i>
+              <span class="text-sm font-bold">+23% this month</span>
+            </div>
+          </div>
+
+          <div class="bg-white p-8 rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-300 border-t-4 border-green-500 transform hover:-translate-y-2">
+            <div class="flex items-center justify-between mb-4">
+              <i class="fas fa-users text-4xl text-green-500"></i>
+              <span class="text-xs font-bold text-green-600 bg-green-100 px-3 py-1 rounded-full">UNIQUE</span>
+            </div>
+            <div class="text-5xl font-black text-gray-900 mb-2">3.8K</div>
+            <div class="text-gray-600 font-semibold">Unique Visitors</div>
+            <div class="mt-4 flex items-center text-green-600">
+              <i class="fas fa-arrow-up mr-2"></i>
+              <span class="text-sm font-bold">+18% this month</span>
+            </div>
+          </div>
+
+          <div class="bg-white p-8 rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-300 border-t-4 border-orange-500 transform hover:-translate-y-2">
+            <div class="flex items-center justify-between mb-4">
+              <i class="fas fa-calendar-day text-4xl text-orange-500"></i>
+              <span class="text-xs font-bold text-orange-600 bg-orange-100 px-3 py-1 rounded-full">TODAY</span>
+            </div>
+            <div class="text-5xl font-black text-gray-900 mb-2">487</div>
+            <div class="text-gray-600 font-semibold">Visits Today</div>
+            <div class="mt-4 flex items-center text-orange-600">
+              <i class="fas fa-clock mr-2"></i>
+              <span class="text-sm font-bold">+12 in last hour</span>
+            </div>
+          </div>
+
+          <div class="bg-white p-8 rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-300 border-t-4 border-purple-500 transform hover:-translate-y-2">
+            <div class="flex items-center justify-between mb-4">
+              <i class="fas fa-shopping-cart text-4xl text-purple-500"></i>
+              <span class="text-xs font-bold text-purple-600 bg-purple-100 px-3 py-1 rounded-full">ORDERS</span>
+            </div>
+            <div class="text-5xl font-black text-gray-900 mb-2">156</div>
+            <div class="text-gray-600 font-semibold">Total Orders</div>
+            <div class="mt-4 flex items-center text-purple-600">
+              <i class="fas fa-rupee-sign mr-2"></i>
+              <span class="text-sm font-bold">₹12.4L revenue</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Charts Section -->
+        <div class="grid md:grid-cols-2 gap-8 mb-12">
+          <!-- Traffic Chart -->
+          <div class="bg-white p-8 rounded-3xl shadow-xl">
+            <h3 class="text-2xl font-black mb-6 flex items-center">
+              <i class="fas fa-chart-line text-sky-500 mr-3"></i>
+              Traffic Overview (Last 7 Days)
+            </h3>
+            <canvas id="trafficChart" height="250"></canvas>
+          </div>
+
+          <!-- Popular Pages -->
+          <div class="bg-white p-8 rounded-3xl shadow-xl">
+            <h3 class="text-2xl font-black mb-6 flex items-center">
+              <i class="fas fa-fire text-orange-500 mr-3"></i>
+              Top Pages
+            </h3>
+            <div class="space-y-4">
+              <div class="flex items-center justify-between p-4 bg-gradient-to-r from-sky-50 to-transparent rounded-xl hover:from-sky-100 transition-all">
+                <div class="flex items-center">
+                  <span class="text-2xl font-black text-sky-500 mr-4">1</span>
+                  <div>
+                    <div class="font-bold text-gray-900">Homepage</div>
+                    <div class="text-sm text-gray-600">/</div>
+                  </div>
+                </div>
+                <div class="text-right">
+                  <div class="text-2xl font-black text-gray-900">5.2K</div>
+                  <div class="text-xs text-gray-600">views</div>
+                </div>
+              </div>
+
+              <div class="flex items-center justify-between p-4 bg-gradient-to-r from-green-50 to-transparent rounded-xl hover:from-green-100 transition-all">
+                <div class="flex items-center">
+                  <span class="text-2xl font-black text-green-500 mr-4">2</span>
+                  <div>
+                    <div class="font-bold text-gray-900">Products</div>
+                    <div class="text-sm text-gray-600">/products</div>
+                  </div>
+                </div>
+                <div class="text-right">
+                  <div class="text-2xl font-black text-gray-900">3.8K</div>
+                  <div class="text-xs text-gray-600">views</div>
+                </div>
+              </div>
+
+              <div class="flex items-center justify-between p-4 bg-gradient-to-r from-orange-50 to-transparent rounded-xl hover:from-orange-100 transition-all">
+                <div class="flex items-center">
+                  <span class="text-2xl font-black text-orange-500 mr-4">3</span>
+                  <div>
+                    <div class="font-bold text-gray-900">Blog</div>
+                    <div class="text-sm text-gray-600">/blog</div>
+                  </div>
+                </div>
+                <div class="text-right">
+                  <div class="text-2xl font-black text-gray-900">2.4K</div>
+                  <div class="text-xs text-gray-600">views</div>
+                </div>
+              </div>
+
+              <div class="flex items-center justify-between p-4 bg-gradient-to-r from-purple-50 to-transparent rounded-xl hover:from-purple-100 transition-all">
+                <div class="flex items-center">
+                  <span class="text-2xl font-black text-purple-500 mr-4">4</span>
+                  <div>
+                    <div class="font-bold text-gray-900">FLYQ Air</div>
+                    <div class="text-sm text-gray-600">/products/flyq-air</div>
+                  </div>
+                </div>
+                <div class="text-right">
+                  <div class="text-2xl font-black text-gray-900">1.9K</div>
+                  <div class="text-xs text-gray-600">views</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Stats Grid -->
+        <div class="grid md:grid-cols-3 gap-6 mb-12">
+          <div class="bg-gradient-to-br from-sky-500 to-sky-600 p-8 rounded-3xl shadow-xl text-white">
+            <div class="flex items-center justify-between mb-4">
+              <i class="fas fa-globe text-4xl opacity-80"></i>
+              <i class="fas fa-arrow-up text-2xl"></i>
+            </div>
+            <div class="text-4xl font-black mb-2">89%</div>
+            <div class="text-sky-100 font-semibold mb-4">Organic Traffic</div>
+            <div class="h-2 bg-white/20 rounded-full overflow-hidden">
+              <div class="h-full bg-white rounded-full" style="width: 89%"></div>
+            </div>
+          </div>
+
+          <div class="bg-gradient-to-br from-green-500 to-green-600 p-8 rounded-3xl shadow-xl text-white">
+            <div class="flex items-center justify-between mb-4">
+              <i class="fas fa-mobile-alt text-4xl opacity-80"></i>
+              <i class="fas fa-arrow-up text-2xl"></i>
+            </div>
+            <div class="text-4xl font-black mb-2">67%</div>
+            <div class="text-green-100 font-semibold mb-4">Mobile Users</div>
+            <div class="h-2 bg-white/20 rounded-full overflow-hidden">
+              <div class="h-full bg-white rounded-full" style="width: 67%"></div>
+            </div>
+          </div>
+
+          <div class="bg-gradient-to-br from-purple-500 to-purple-600 p-8 rounded-3xl shadow-xl text-white">
+            <div class="flex items-center justify-between mb-4">
+              <i class="fas fa-clock text-4xl opacity-80"></i>
+              <i class="fas fa-check text-2xl"></i>
+            </div>
+            <div class="text-4xl font-black mb-2">3:24</div>
+            <div class="text-purple-100 font-semibold mb-4">Avg. Session Time</div>
+            <div class="h-2 bg-white/20 rounded-full overflow-hidden">
+              <div class="h-full bg-white rounded-full" style="width: 75%"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Location & Devices -->
+        <div class="grid md:grid-cols-2 gap-8">
+          <!-- Top Countries -->
+          <div class="bg-white p-8 rounded-3xl shadow-xl">
+            <h3 class="text-2xl font-black mb-6 flex items-center">
+              <i class="fas fa-map-marked-alt text-green-500 mr-3"></i>
+              Top Countries
+            </h3>
+            <div class="space-y-4">
+              <div class="flex items-center justify-between">
+                <div class="flex items-center">
+                  <span class="text-3xl mr-3">🇮🇳</span>
+                  <span class="font-bold">India</span>
+                </div>
+                <div class="flex items-center">
+                  <div class="w-32 h-3 bg-gray-200 rounded-full mr-3 overflow-hidden">
+                    <div class="h-full bg-gradient-to-r from-green-500 to-orange-500 rounded-full" style="width: 78%"></div>
+                  </div>
+                  <span class="font-bold text-gray-900">78%</span>
+                </div>
+              </div>
+
+              <div class="flex items-center justify-between">
+                <div class="flex items-center">
+                  <span class="text-3xl mr-3">🇺🇸</span>
+                  <span class="font-bold">United States</span>
+                </div>
+                <div class="flex items-center">
+                  <div class="w-32 h-3 bg-gray-200 rounded-full mr-3 overflow-hidden">
+                    <div class="h-full bg-sky-500 rounded-full" style="width: 12%"></div>
+                  </div>
+                  <span class="font-bold text-gray-900">12%</span>
+                </div>
+              </div>
+
+              <div class="flex items-center justify-between">
+                <div class="flex items-center">
+                  <span class="text-3xl mr-3">🇬🇧</span>
+                  <span class="font-bold">United Kingdom</span>
+                </div>
+                <div class="flex items-center">
+                  <div class="w-32 h-3 bg-gray-200 rounded-full mr-3 overflow-hidden">
+                    <div class="h-full bg-blue-500 rounded-full" style="width: 5%"></div>
+                  </div>
+                  <span class="font-bold text-gray-900">5%</span>
+                </div>
+              </div>
+
+              <div class="flex items-center justify-between">
+                <div class="flex items-center">
+                  <span class="text-3xl mr-3">🌍</span>
+                  <span class="font-bold">Others</span>
+                </div>
+                <div class="flex items-center">
+                  <div class="w-32 h-3 bg-gray-200 rounded-full mr-3 overflow-hidden">
+                    <div class="h-full bg-purple-500 rounded-full" style="width: 5%"></div>
+                  </div>
+                  <span class="font-bold text-gray-900">5%</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Devices -->
+          <div class="bg-white p-8 rounded-3xl shadow-xl">
+            <h3 class="text-2xl font-black mb-6 flex items-center">
+              <i class="fas fa-laptop text-purple-500 mr-3"></i>
+              Devices
+            </h3>
+            <canvas id="devicesChart" height="250"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+      // Traffic Chart
+      const trafficCtx = document.getElementById('trafficChart').getContext('2d');
+      new Chart(trafficCtx, {
+        type: 'line',
+        data: {
+          labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+          datasets: [{
+            label: 'Page Views',
+            data: [1200, 1900, 1500, 2100, 1800, 2400, 2000],
+            borderColor: '#0EA5E9',
+            backgroundColor: 'rgba(14, 165, 233, 0.1)',
+            borderWidth: 3,
+            tension: 0.4,
+            fill: true,
+            pointRadius: 6,
+            pointBackgroundColor: '#0EA5E9',
+            pointBorderColor: '#fff',
+            pointBorderWidth: 2
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              display: false
+            }
+          },
+          scales: {
+            y: {
+              beginAtZero: true,
+              grid: {
+                color: 'rgba(0, 0, 0, 0.05)'
+              }
+            },
+            x: {
+              grid: {
+                display: false
+              }
+            }
+          }
+        }
+      });
+
+      // Devices Chart
+      const devicesCtx = document.getElementById('devicesChart').getContext('2d');
+      new Chart(devicesCtx, {
+        type: 'doughnut',
+        data: {
+          labels: ['Mobile', 'Desktop', 'Tablet'],
+          datasets: [{
+            data: [67, 28, 5],
+            backgroundColor: ['#10B981', '#0EA5E9', '#8B5CF6'],
+            borderWidth: 0
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              position: 'bottom',
+              labels: {
+                padding: 20,
+                font: {
+                  size: 14,
+                  weight: 'bold'
+                }
+              }
+            }
+          }
+        }
+      });
+    </script>
+  `;
+
+  return c.html(renderPage('Analytics', content));
+});
+
 // Admin Backend System
 app.route('/admin', admin)
 
