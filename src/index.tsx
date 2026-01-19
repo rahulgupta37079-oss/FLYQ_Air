@@ -10492,5 +10492,304 @@ app.get('/analytics', async (c) => {
 // Admin Backend System
 app.route('/admin', admin)
 
+// Checkout Page
+app.get('/checkout', (c) => {
+  const content = `
+    <div class="pt-32 pb-20 bg-gray-50">
+      <div class="container mx-auto px-6 max-w-4xl">
+        <h1 class="text-5xl font-black mb-8">Checkout</h1>
+        
+        <div class="bg-white rounded-2xl shadow-xl p-8">
+          <h2 class="text-2xl font-bold mb-6">Order Summary</h2>
+          
+          <div id="cart-items" class="mb-6">
+            <p class="text-gray-600">Loading cart...</p>
+          </div>
+          
+          <div class="border-t pt-6">
+            <div class="flex justify-between text-xl font-bold mb-6">
+              <span>Total:</span>
+              <span id="cart-total" class="text-sky-600">₹0</span>
+            </div>
+            
+            <form id="checkout-form" class="space-y-4">
+              <div>
+                <label class="block text-sm font-semibold mb-2">Full Name</label>
+                <input type="text" id="customer-name" required 
+                  class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-sky-500">
+              </div>
+              
+              <div>
+                <label class="block text-sm font-semibold mb-2">Email</label>
+                <input type="email" id="customer-email" required 
+                  class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-sky-500">
+              </div>
+              
+              <div>
+                <label class="block text-sm font-semibold mb-2">Phone</label>
+                <input type="tel" id="customer-phone" required 
+                  class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-sky-500">
+              </div>
+              
+              <div>
+                <label class="block text-sm font-semibold mb-2">Address</label>
+                <textarea id="customer-address" required rows="3"
+                  class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-sky-500"></textarea>
+              </div>
+              
+              <button type="submit" 
+                class="w-full bg-gradient-to-r from-sky-500 to-sky-600 text-white font-bold py-4 px-8 rounded-xl hover:from-sky-600 hover:to-sky-700 transition-all">
+                <i class="fas fa-lock mr-2"></i>
+                Proceed to Payment
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <script>
+      // Load cart
+      function loadCart() {
+        const cart = JSON.parse(localStorage.getItem('flyq_cart') || '[]');
+        const itemsDiv = document.getElementById('cart-items');
+        const totalDiv = document.getElementById('cart-total');
+        
+        if (cart.length === 0) {
+          itemsDiv.innerHTML = '<p class="text-gray-600">Your cart is empty</p>';
+          return;
+        }
+        
+        let total = 0;
+        let html = '<div class="space-y-4">';
+        
+        cart.forEach(item => {
+          const subtotal = item.price * item.quantity;
+          total += subtotal;
+          html += \`
+            <div class="flex justify-between items-center py-3 border-b">
+              <div>
+                <div class="font-bold">\${item.name}</div>
+                <div class="text-sm text-gray-600">Qty: \${item.quantity}</div>
+              </div>
+              <div class="font-bold">₹\${subtotal.toLocaleString('en-IN')}</div>
+            </div>
+          \`;
+        });
+        
+        html += '</div>';
+        itemsDiv.innerHTML = html;
+        totalDiv.textContent = '₹' + total.toLocaleString('en-IN');
+      }
+      
+      // Handle checkout
+      document.getElementById('checkout-form').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const cart = JSON.parse(localStorage.getItem('flyq_cart') || '[]');
+        if (cart.length === 0) {
+          alert('Your cart is empty');
+          return;
+        }
+        
+        const customerData = {
+          name: document.getElementById('customer-name').value,
+          email: document.getElementById('customer-email').value,
+          phone: document.getElementById('customer-phone').value,
+          address: document.getElementById('customer-address').value,
+          cart: cart
+        };
+        
+        try {
+          const response = await fetch('/api/payment/initiate', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(customerData)
+          });
+          
+          const data = await response.json();
+          
+          if (data.success) {
+            // Redirect to PayU payment page
+            window.location.href = data.paymentUrl;
+          } else {
+            alert('Payment initiation failed: ' + data.error);
+          }
+        } catch (error) {
+          console.error('Error:', error);
+          alert('An error occurred. Please try again.');
+        }
+      });
+      
+      loadCart();
+    </script>
+  `;
+  
+  return c.html(renderPage('Checkout', content));
+});
+
+// PayU Payment Initiation
+app.post('/api/payment/initiate', async (c) => {
+  try {
+    const body = await c.req.json();
+    const { name, email, phone, address, cart } = body;
+    
+    // Calculate total
+    const total = cart.reduce((sum: number, item: any) => sum + (item.price * item.quantity), 0);
+    
+    // Generate transaction ID
+    const txnid = 'FLYQ' + Date.now();
+    
+    // PayU credentials (from environment or hardcoded for testing)
+    const PAYU_MERCHANT_KEY = c.env?.PAYU_MERCHANT_KEY || 'rBxHIl';
+    const PAYU_SALT = c.env?.PAYU_SALT || 'euyRUxvATr6SbkOtG9loHobIfY7FJrTr';
+    const PAYU_BASE_URL = c.env?.PAYU_MODE === 'live' 
+      ? 'https://secure.payu.in/_payment'
+      : 'https://test.payu.in/_payment';
+    
+    // Generate hash
+    const hashString = `${PAYU_MERCHANT_KEY}|${txnid}|${total}|FLYQ Drones Order|${name}|${email}|||||||||||${PAYU_SALT}`;
+    
+    // Create hash using Web Crypto API
+    const encoder = new TextEncoder();
+    const data = encoder.encode(hashString);
+    const hashBuffer = await crypto.subtle.digest('SHA-512', data);
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    const hash = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+    
+    // Construct payment form URL
+    const baseUrl = new URL(c.req.url);
+    const siteUrl = `${baseUrl.protocol}//${baseUrl.host}`;
+    
+    const params = new URLSearchParams({
+      key: PAYU_MERCHANT_KEY,
+      txnid: txnid,
+      amount: total.toString(),
+      productinfo: 'FLYQ Drones Order',
+      firstname: name,
+      email: email,
+      phone: phone,
+      surl: `${siteUrl}/payment/success`,
+      furl: `${siteUrl}/payment/failure`,
+      hash: hash,
+      service_provider: 'payu_paisa'
+    });
+    
+    const paymentUrl = `${PAYU_BASE_URL}?${params.toString()}`;
+    
+    return c.json({
+      success: true,
+      paymentUrl: paymentUrl,
+      txnid: txnid
+    });
+    
+  } catch (error: any) {
+    return c.json({
+      success: false,
+      error: error.message
+    }, 500);
+  }
+});
+
+// Payment Success Handler
+app.post('/payment/success', async (c) => {
+  const formData = await c.req.parseBody();
+  
+  const content = `
+    <div class="pt-32 pb-20 bg-gray-50">
+      <div class="container mx-auto px-6 max-w-2xl text-center">
+        <div class="bg-white rounded-3xl shadow-2xl p-12">
+          <div class="w-24 h-24 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+            <i class="fas fa-check text-5xl text-green-500"></i>
+          </div>
+          
+          <h1 class="text-4xl font-black mb-4 text-green-600">Payment Successful!</h1>
+          <p class="text-xl text-gray-600 mb-8">Thank you for your order!</p>
+          
+          <div class="bg-gray-50 rounded-xl p-6 mb-8 text-left">
+            <div class="grid grid-cols-2 gap-4">
+              <div class="font-semibold text-gray-600">Transaction ID:</div>
+              <div class="font-bold">${formData.txnid || 'N/A'}</div>
+              
+              <div class="font-semibold text-gray-600">Amount:</div>
+              <div class="font-bold text-green-600">₹${formData.amount || '0'}</div>
+              
+              <div class="font-semibold text-gray-600">Status:</div>
+              <div class="font-bold text-green-600">${formData.status || 'Success'}</div>
+            </div>
+          </div>
+          
+          <p class="text-gray-600 mb-8">
+            Your order has been placed successfully. You will receive an order confirmation email shortly.
+          </p>
+          
+          <a href="/" class="inline-block bg-sky-500 text-white font-bold py-3 px-8 rounded-xl hover:bg-sky-600 transition-all">
+            <i class="fas fa-home mr-2"></i>
+            Back to Home
+          </a>
+        </div>
+      </div>
+    </div>
+    
+    <script>
+      // Clear cart after successful payment
+      localStorage.removeItem('flyq_cart');
+      updateCartCount();
+    </script>
+  `;
+  
+  return c.html(renderPage('Payment Successful', content));
+});
+
+// Payment Failure Handler
+app.post('/payment/failure', async (c) => {
+  const formData = await c.req.parseBody();
+  
+  const content = `
+    <div class="pt-32 pb-20 bg-gray-50">
+      <div class="container mx-auto px-6 max-w-2xl text-center">
+        <div class="bg-white rounded-3xl shadow-2xl p-12">
+          <div class="w-24 h-24 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-6">
+            <i class="fas fa-times text-5xl text-red-500"></i>
+          </div>
+          
+          <h1 class="text-4xl font-black mb-4 text-red-600">Payment Failed</h1>
+          <p class="text-xl text-gray-600 mb-8">Unfortunately, your payment could not be processed.</p>
+          
+          <div class="bg-gray-50 rounded-xl p-6 mb-8 text-left">
+            <div class="grid grid-cols-2 gap-4">
+              <div class="font-semibold text-gray-600">Transaction ID:</div>
+              <div class="font-bold">${formData.txnid || 'N/A'}</div>
+              
+              <div class="font-semibold text-gray-600">Status:</div>
+              <div class="font-bold text-red-600">${formData.status || 'Failed'}</div>
+              
+              <div class="font-semibold text-gray-600">Message:</div>
+              <div class="text-sm">${formData.error_Message || 'Payment was not successful'}</div>
+            </div>
+          </div>
+          
+          <p class="text-gray-600 mb-8">
+            Please try again or contact support if the issue persists.
+          </p>
+          
+          <div class="flex gap-4 justify-center">
+            <a href="/checkout" class="inline-block bg-sky-500 text-white font-bold py-3 px-8 rounded-xl hover:bg-sky-600 transition-all">
+              <i class="fas fa-redo mr-2"></i>
+              Try Again
+            </a>
+            <a href="/" class="inline-block bg-gray-300 text-gray-700 font-bold py-3 px-8 rounded-xl hover:bg-gray-400 transition-all">
+              <i class="fas fa-home mr-2"></i>
+              Back to Home
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+  
+  return c.html(renderPage('Payment Failed', content));
+});
+
 export default app
 
