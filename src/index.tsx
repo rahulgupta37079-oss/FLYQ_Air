@@ -2463,10 +2463,10 @@ app.get('/cart', (c) => {
                                     </div>
                                 </div>
                             </div>
-                            <button onclick="alert('Checkout coming soon! Please login first.')" class="w-full btn-primary text-white px-8 py-4 rounded-full font-bold text-lg mb-4">
-                                <i class="fas fa-lock mr-2"></i>
+                            <a href="/checkout" class="block w-full btn-primary text-white px-8 py-4 rounded-full font-bold text-lg mb-4 text-center">
+                                <i class="fas fa-shopping-bag mr-2"></i>
                                 Proceed to Checkout
-                            </button>
+                            </a>
                             <a href="/products" class="block text-center text-sky-500 hover:text-sky-600 font-semibold">
                                 <i class="fas fa-arrow-left mr-2"></i>
                                 Continue Shopping
