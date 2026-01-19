@@ -10566,15 +10566,13 @@ app.get('/checkout', (c) => {
         cart.forEach(item => {
           const subtotal = item.price * item.quantity;
           total += subtotal;
-          html += \`
-            <div class="flex justify-between items-center py-3 border-b">
-              <div>
-                <div class="font-bold">\${item.name}</div>
-                <div class="text-sm text-gray-600">Qty: \${item.quantity}</div>
-              </div>
-              <div class="font-bold">₹\${subtotal.toLocaleString('en-IN')}</div>
-            </div>
-          \`;
+          html += '<div class="flex justify-between items-center py-3 border-b">';
+          html += '<div>';
+          html += '<div class="font-bold">' + item.name + '</div>';
+          html += '<div class="text-sm text-gray-600">Qty: ' + item.quantity + '</div>';
+          html += '</div>';
+          html += '<div class="font-bold">₹' + subtotal.toLocaleString('en-IN') + '</div>';
+          html += '</div>';
         });
         
         html += '</div>';
