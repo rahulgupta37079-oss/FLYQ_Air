@@ -1088,9 +1088,24 @@ const renderPage = (title: string, content: string, includeCart: boolean = true)
             // Initialize cart count on page load
             document.addEventListener('DOMContentLoaded', updateCartCount);
             
-            // Intro animation - USER REVEAL with Sound Effects
+            // Intro animation - USER REVEAL with Sound Effects (plays once per user)
             window.addEventListener('load', () => {
                 const introAnimation = document.getElementById('intro-animation');
+                
+                // Check if animation has been shown before
+                const hasSeenIntro = localStorage.getItem('flyq_intro_seen');
+                
+                if (hasSeenIntro) {
+                    // User has seen the intro before, hide it immediately
+                    if (introAnimation) {
+                        introAnimation.style.display = 'none';
+                    }
+                    return;
+                }
+                
+                // Mark that user has seen the intro
+                localStorage.setItem('flyq_intro_seen', 'true');
+                
                 const letters = document.querySelectorAll('.flyq-letter');
                 
                 // Disable body scroll during intro
