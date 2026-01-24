@@ -162,9 +162,9 @@ customerPortalRouter.get('/customer-credentials', async (c) => {
                         <div class="flex items-center justify-between text-sm mt-2">
                           <span class="text-gray-600">
                             <i class="fas fa-calendar mr-1"></i>
-                            Delivery:
+                            Pickup:
                           </span>
-                          <span class="font-semibold text-blue-600">${new Date(order.estimated_delivery).toLocaleDateString('en-IN', { weekday: 'short', month: 'short', day: 'numeric' })}</span>
+                          <span class="font-semibold text-blue-600">Monday, ${new Date(order.estimated_delivery).toLocaleDateString('en-IN', { month: 'short', day: 'numeric' })}</span>
                         </div>
                       </div>
 
