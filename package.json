@@ -17,7 +17,8 @@
     "bcryptjs": "^3.0.3",
     "hono": "^4.10.3",
     "hono-sessions": "^0.8.0",
-    "resend": "^6.8.0"
+    "resend": "^6.8.0",
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "@hono/vite-build": "^1.2.0",
