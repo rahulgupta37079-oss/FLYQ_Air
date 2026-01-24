@@ -181,7 +181,7 @@ adminBulkImportUI.get('/bulk-import', (c) => {
               },
               body: JSON.stringify({
                 customers: data.customersWithEmail,
-                useOldPricing: true
+                useOldPricing: false
               })
             });
 
@@ -198,7 +198,7 @@ adminBulkImportUI.get('/bulk-import', (c) => {
               resultsSection.classList.remove('hidden');
               
               if (result.success) {
-                resultsContent.innerHTML = \`
+                resultsContent.innerHTML = `
                   <div class="space-y-4">
                     <div class="bg-green-50 border-2 border-green-200 rounded-lg p-6">
                       <h4 class="font-bold text-green-800 text-lg mb-3">Success Summary</h4>
@@ -222,54 +222,54 @@ adminBulkImportUI.get('/bulk-import', (c) => {
                       </div>
                     </div>
 
-                    \${result.results.failed.length > 0 ? \`
+                    \${result.results.failed.length > 0 ? `
                       <div class="bg-yellow-50 border-2 border-yellow-200 rounded-lg p-6">
                         <h4 class="font-bold text-yellow-800 text-lg mb-3">
                           <i class="fas fa-exclamation-triangle mr-2"></i>
                           \${result.results.failed.length} Failed
                         </h4>
                         <div class="space-y-2 max-h-64 overflow-y-auto">
-                          \${result.results.failed.map(f => \`
+                          \${result.results.failed.map(f => `
                             <div class="bg-white rounded p-3 border border-yellow-300">
                               <div class="font-semibold text-gray-800">\${f.email}</div>
                               <div class="text-sm text-gray-600">\${f.error}</div>
                             </div>
-                          \`).join('')}
+                          `).join('')}
                         </div>
                       </div>
-                    \` : ''}
+                    ` : ''}
 
                     <div class="flex gap-4">
                       <a href="/admin/orders" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg text-center transition-all">
                         <i class="fas fa-box mr-2"></i>
                         View Orders
                       </a>
-                      <a href="/admin/shipping/bulk" class="flex-1 bg-cyan-600 hover:bg-cyan-700 text-white font-bold py-3 px-6 rounded-lg text-center transition-all">
-                        <i class="fas fa-shipping-fast mr-2"></i>
-                        Manage Shipping
-                      </a>
+                      <button onclick="exportToExcel()" class="flex-1 bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg text-center transition-all">
+                        <i class="fas fa-file-excel mr-2"></i>
+                        Export to Excel
+                      </button>
                     </div>
                   </div>
-                \`;
+                `;
               } else {
-                resultsContent.innerHTML = \`
+                resultsContent.innerHTML = `
                   <div class="bg-red-50 border-2 border-red-200 rounded-lg p-6">
                     <h4 class="font-bold text-red-800 text-lg mb-2">Import Failed</h4>
                     <p class="text-red-600">\${result.message}</p>
                   </div>
-                \`;
+                `;
               }
             }, 500);
 
           } catch (error) {
             console.error('Import error:', error);
             resultsSection.classList.remove('hidden');
-            resultsContent.innerHTML = \`
+            resultsContent.innerHTML = `
               <div class="bg-red-50 border-2 border-red-200 rounded-lg p-6">
                 <h4 class="font-bold text-red-800 text-lg mb-2">Import Failed</h4>
                 <p class="text-red-600">\${error.message}</p>
               </div>
-            \`;
+            `;
             btn.disabled = false;
             btn.innerHTML = '<i class="fas fa-upload mr-2"></i> Start Bulk Import';
           }
