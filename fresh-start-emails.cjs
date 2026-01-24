@@ -64,7 +64,7 @@ function generatePassword(email, userId) {
 
 // Email template
 function createWelcomeEmail(order, password) {
-  const pickupDate = 'Monday, January 27, 2026';
+  const pickupDate = 'Monday, January 26, 2026';
   const loginUrl = 'https://abf76357.flyq-air.pages.dev/login';
   const trackUrl = `https://abf76357.flyq-air.pages.dev/track-order?tracking=${order.tracking_id}`;
   
