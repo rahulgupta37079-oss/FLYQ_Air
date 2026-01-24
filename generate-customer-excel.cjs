@@ -76,8 +76,8 @@ const excelData = orders.map((order, index) => {
     'City': order.city || 'N/A',
     'State': order.state || 'N/A',
     'Pincode': order.pincode || 'N/A',
-    'Login URL': 'https://df6fc469.flyq-air.pages.dev/login',
-    'Track URL': `https://df6fc469.flyq-air.pages.dev/track-order?tracking=${order.tracking_id}`,
+    'Login URL': 'https://flyqdrone.in/login',
+    'Track URL': `https://flyqdrone.in/track-order?tracking=${order.tracking_id}`,
     'Order Date': new Date(order.created_at).toLocaleDateString('en-IN')
   };
 });

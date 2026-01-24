@@ -65,8 +65,8 @@ function generatePassword(email, userId) {
 // Email template
 function createWelcomeEmail(order, password) {
   const pickupDate = 'Monday, January 26, 2026';
-  const loginUrl = 'https://df6fc469.flyq-air.pages.dev/login';
-  const trackUrl = `https://df6fc469.flyq-air.pages.dev/track-order?tracking=${order.tracking_id}`;
+  const loginUrl = 'https://flyqdrone.in/login';
+  const trackUrl = `https://flyqdrone.in/track-order?tracking=${order.tracking_id}`;
   
   return `
 <!DOCTYPE html>
@@ -234,12 +234,15 @@ async function sendEmails() {
     const password = generatePassword(order.email, order.user_id);
     
     try {
-      // Send email
+      // Send email with click tracking disabled
       await resend.emails.send({
         from: 'FLYQ Drones <onboarding@resend.dev>',
         to: order.email,
         subject: `Welcome to FLYQ! Order ${order.order_number} Confirmed 🚁`,
-        html: createWelcomeEmail(order, password)
+        html: createWelcomeEmail(order, password),
+        tags: [
+          { name: 'category', value: 'welcome' }
+        ]
       });
       
       results.emailsSent++;

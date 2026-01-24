@@ -15,8 +15,8 @@ const sampleOrder = {
 
 const password = '63696d7fde2f';
 const pickupDate = 'Monday, January 26, 2026';
-const loginUrl = 'https://df6fc469.flyq-air.pages.dev/login';
-const trackUrl = `https://df6fc469.flyq-air.pages.dev/track-order?tracking=${sampleOrder.tracking_id}`;
+const loginUrl = 'https://flyqdrone.in/login';
+const trackUrl = `https://flyqdrone.in/track-order?tracking=${sampleOrder.tracking_id}`;
 
 const emailHtml = `
 <!DOCTYPE html>
@@ -181,6 +181,7 @@ const emailHtml = `
     console.log('📧 Sending FIXED sample email to rahulgupta37079@gmail.com...');
     console.log('   ✅ Using correct API key');
     console.log('   ✅ Using verified domain (onboarding@resend.dev)');
+    console.log('   ✅ Using custom domain (flyqdrone.in)');
     console.log('   ✅ Removed "Estimated Delivery" date');
     console.log('   ✅ Kept "Pickup Date" only\n');
     
@@ -188,7 +189,10 @@ const emailHtml = `
       from: 'FLYQ Drones <onboarding@resend.dev>',
       to: 'rahulgupta37079@gmail.com',
       subject: '🚁 Welcome to FLYQ! Order ' + sampleOrder.order_number + ' Confirmed',
-      html: emailHtml
+      html: emailHtml,
+      tags: [
+        { name: 'category', value: 'test' }
+      ]
     });
     
     console.log('✅ Email sent successfully!\n');
