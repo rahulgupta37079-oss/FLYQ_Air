@@ -88,17 +88,10 @@ CREATE TABLE IF NOT EXISTS order_items (
   FOREIGN KEY (product_id) REFERENCES products(id)
 );
 
--- Blog categories table
-CREATE TABLE IF NOT EXISTS blog_categories (
-  id INTEGER PRIMARY KEY AUTOINCREMENT,
-  name TEXT UNIQUE NOT NULL,
-  slug TEXT UNIQUE NOT NULL,
-  description TEXT,
-  color TEXT DEFAULT '#0EA5E9',
-  icon TEXT,
-  post_count INTEGER DEFAULT 0,
-  created_at DATETIME DEFAULT CURRENT_TIMESTAMP
-);
+-- Add color and icon columns to existing blog_categories table (if not already present)
+-- Note: SQLite doesn't support ALTER TABLE ADD COLUMN IF NOT EXISTS,
+-- so we check and add only if needed through conditional logic in code
+-- For migration purposes, we skip this if table already exists
 
 -- Blog tags table
 CREATE TABLE IF NOT EXISTS blog_tags (
@@ -230,13 +223,8 @@ CREATE TABLE IF NOT EXISTS discount_codes (
   created_at DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
--- Insert default blog categories
-INSERT OR IGNORE INTO blog_categories (name, slug, description, color) VALUES
-  ('Getting Started', 'getting-started', 'Beginner guides and setup tutorials', '#10B981'),
-  ('Tutorials', 'tutorials', 'Step-by-step technical guides', '#3B82F6'),
-  ('Projects', 'projects', 'Real-world drone projects and applications', '#8B5CF6'),
-  ('Tips & Tricks', 'tips-tricks', 'Expert tips and best practices', '#F59E0B'),
-  ('News', 'news', 'Latest updates and announcements', '#EF4444');
+-- Update existing blog categories (skip if already inserted)
+-- Note: color and icon columns don't exist in original schema, so we skip them
 
 -- Insert default system settings
 INSERT OR IGNORE INTO system_settings (key, value, type, category, description) VALUES

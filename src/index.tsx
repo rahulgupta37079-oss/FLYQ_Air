@@ -3,6 +3,7 @@ import { serveStatic } from 'hono/cloudflare-workers'
 import { Resend } from 'resend'
 import admin from './admin'
 import ordersRouter from './admin-orders'
+import shippingRouter from './shipping'
 
 const app = new Hono()
 
@@ -10636,6 +10637,10 @@ app.get('/analytics', async (c) => {
 
 // Admin Backend System
 app.route('/admin', admin)
+app.route('/admin/orders', ordersRouter)
+
+// Shipping and Tracking System
+app.route('/', shippingRouter)
 
 // Checkout Page
 app.get('/checkout', (c) => {
