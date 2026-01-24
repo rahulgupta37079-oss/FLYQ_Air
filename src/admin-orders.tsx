@@ -13,12 +13,16 @@ ordersRouter.get('/', async (c) => {
   const limit = 20
   const offset = (page - 1) * limit
 
-  let query = 'SELECT * FROM orders_enhanced'
-  let countQuery = 'SELECT COUNT(*) as total FROM orders_enhanced'
+  let query = `
+    SELECT o.*, u.name as customer_name, u.email as customer_email 
+    FROM orders o 
+    LEFT JOIN users u ON o.user_id = u.id
+  `
+  let countQuery = 'SELECT COUNT(*) as total FROM orders'
   
   if (status !== 'all') {
-    query += ' WHERE order_status = ?'
-    countQuery += ' WHERE order_status = ?'
+    query += ' WHERE o.status = ?'
+    countQuery += ' WHERE status = ?'
   }
   
   query += ' ORDER BY created_at DESC LIMIT ? OFFSET ?'
@@ -100,13 +104,13 @@ ordersRouter.get('/', async (c) => {
                                     ${new Date(order.created_at).toLocaleDateString()}
                                 </td>
                                 <td class="px-6 py-4 font-semibold text-gray-800">
-                                    $${order.total.toFixed(2)}
+                                    ₹${order.total.toFixed(2)}
                                 </td>
                                 <td class="px-6 py-4">
                                     ${getPaymentBadge(order.payment_status)}
                                 </td>
                                 <td class="px-6 py-4">
-                                    ${getOrderStatusBadge(order.order_status)}
+                                    ${getOrderStatusBadge(order.status)}
                                 </td>
                                 <td class="px-6 py-4">
                                     <div class="flex space-x-2">
@@ -160,7 +164,7 @@ ordersRouter.get('/', async (c) => {
 ordersRouter.get('/:id', async (c) => {
   const orderId = c.req.param('id')
   
-  const order = await c.env.DB.prepare('SELECT * FROM orders_enhanced WHERE id = ?').bind(orderId).first()
+  const order = await c.env.DB.prepare('SELECT * FROM orders WHERE id = ?').bind(orderId).first()
   
   if (!order) {
     return c.html('<h1>Order not found</h1>', 404)
@@ -217,20 +221,19 @@ ordersRouter.get('/:id', async (c) => {
                                     <tr class="border-b">
                                         <td class="py-3">
                                             <p class="font-medium">${item.product_name}</p>
-                                            ${item.product_sku ? `<p class="text-sm text-gray-500">SKU: ${item.product_sku}</p>` : ''}
                                         </td>
                                         <td class="text-right">${item.quantity}</td>
-                                        <td class="text-right">$${item.unit_price.toFixed(2)}</td>
-                                        <td class="text-right font-semibold">$${item.total_price.toFixed(2)}</td>
+                                        <td class="text-right">₹${item.price.toFixed(2)}</td>
+                                        <td class="text-right font-semibold">₹${(item.price * item.quantity).toFixed(2)}</td>
                                     </tr>
                                 `).join('')}
                             </tbody>
                             <tfoot class="font-semibold">
-                                <tr><td colspan="3" class="text-right py-2">Subtotal:</td><td class="text-right">$${order.subtotal.toFixed(2)}</td></tr>
-                                <tr><td colspan="3" class="text-right py-2">Tax:</td><td class="text-right">$${order.tax.toFixed(2)}</td></tr>
-                                <tr><td colspan="3" class="text-right py-2">Shipping:</td><td class="text-right">$${order.shipping_cost.toFixed(2)}</td></tr>
-                                ${order.discount > 0 ? `<tr><td colspan="3" class="text-right py-2 text-green-600">Discount:</td><td class="text-right text-green-600">-$${order.discount.toFixed(2)}</td></tr>` : ''}
-                                <tr class="text-lg border-t"><td colspan="3" class="text-right py-2">Total:</td><td class="text-right">$${order.total.toFixed(2)}</td></tr>
+                                <tr><td colspan="3" class="text-right py-2">Subtotal:</td><td class="text-right">₹${order.subtotal.toFixed(2)}</td></tr>
+                                <tr><td colspan="3" class="text-right py-2">Tax:</td><td class="text-right">₹${order.tax.toFixed(2)}</td></tr>
+                                <tr><td colspan="3" class="text-right py-2">Shipping:</td><td class="text-right">₹${(order.shipping || 0).toFixed(2)}</td></tr>
+                                ${(order.discount || 0) > 0 ? `<tr><td colspan="3" class="text-right py-2 text-green-600">Discount:</td><td class="text-right text-green-600">-₹${order.discount.toFixed(2)}</td></tr>` : ''}
+                                <tr class="text-lg border-t"><td colspan="3" class="text-right py-2">Total:</td><td class="text-right">₹${order.total.toFixed(2)}</td></tr>
                             </tfoot>
                         </table>
                     </div>
@@ -260,7 +263,7 @@ ordersRouter.get('/:id', async (c) => {
                         <div class="space-y-3">
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-2">Order Status</label>
-                                ${getOrderStatusBadge(order.order_status)}
+                                ${getOrderStatusBadge(order.status)}
                             </div>
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-2">Payment Status</label>
