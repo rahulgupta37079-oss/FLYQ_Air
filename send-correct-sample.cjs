@@ -15,8 +15,8 @@ const sampleOrder = {
 
 const password = '63696d7fde2f';
 const pickupDate = 'Monday, January 26, 2026';
-const loginUrl = 'https://abf76357.flyq-air.pages.dev/login';
-const trackUrl = `https://abf76357.flyq-air.pages.dev/track-order?tracking=${sampleOrder.tracking_id}`;
+const loginUrl = 'https://df6fc469.flyq-air.pages.dev/login';
+const trackUrl = `https://df6fc469.flyq-air.pages.dev/track-order?tracking=${sampleOrder.tracking_id}`;
 
 const emailHtml = `
 <!DOCTYPE html>
