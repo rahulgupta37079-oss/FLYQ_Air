@@ -3,7 +3,7 @@ const Database = require('better-sqlite3');
 const path = require('path');
 const fs = require('fs');
 
-const RESEND_API_KEY = 're_Thq9M1VWe_4UZbTVyc8p6GiDXGRW65Pgf';
+const RESEND_API_KEY = 're_NMszkEgy_89qF21MfGhJWpZBztp6ScrVA';
 const resend = new Resend(RESEND_API_KEY);
 
 // Find the SQLite database file
@@ -236,7 +236,7 @@ async function sendEmails() {
     try {
       // Send email
       await resend.emails.send({
-        from: 'FLYQ Drones <orders@flyqdrones.com>',
+        from: 'FLYQ Drones <onboarding@resend.dev>',
         to: order.email,
         subject: `Welcome to FLYQ! Order ${order.order_number} Confirmed 🚁`,
         html: createWelcomeEmail(order, password)
