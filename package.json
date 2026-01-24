@@ -18,6 +18,7 @@
     "better-sqlite3": "^12.6.2",
     "hono": "^4.10.3",
     "hono-sessions": "^0.8.0",
+    "node-fetch": "^3.3.2",
     "resend": "^6.8.0",
     "xlsx": "^0.18.5"
   },
