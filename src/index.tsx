@@ -4,6 +4,10 @@ import { Resend } from 'resend'
 import admin from './admin'
 import ordersRouter from './admin-orders'
 import shippingRouter from './shipping'
+import smsRouter from './sms-service'
+import carrierRouter from './carrier-service'
+import adminShippingRouter from './admin-shipping'
+import analyticsShippingRouter from './shipping-analytics'
 
 const app = new Hono()
 
