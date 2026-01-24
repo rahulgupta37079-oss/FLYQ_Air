@@ -1,0 +1,10 @@
+# Local development environment variables
+# DO NOT commit this file to git!
+
+# Resend API Key (get from https://resend.com/api-keys)
+RESEND_API_KEY=re_your_api_key_here
+
+# PayU Payment Gateway (Test Mode)
+PAYU_MERCHANT_KEY=gtKFFx
+PAYU_SALT=4R38IvwiV57FwVpsgOvTXBdLE4tHUXFW
+PAYU_MODE=test

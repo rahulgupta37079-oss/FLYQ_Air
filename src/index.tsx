@@ -1,5 +1,6 @@
 import { Hono } from 'hono'
 import { serveStatic } from 'hono/cloudflare-workers'
+import { Resend } from 'resend'
 import admin from './admin'
 import ordersRouter from './admin-orders'
 
@@ -8072,6 +8073,61 @@ app.post('/api/newsletter/subscribe', async (c) => {
       VALUES (?)
     `).bind(email.toLowerCase()).run();
 
+    // Send welcome email (async, don't wait)
+    try {
+      const resendApiKey = c.env?.RESEND_API_KEY;
+      if (resendApiKey) {
+        const resend = new Resend(resendApiKey);
+        
+        resend.emails.send({
+          from: 'FLYQ Drones <newsletter@flyqdrones.com>',
+          to: email,
+          subject: 'Welcome to FLYQ Drones Newsletter!',
+          html: `
+            <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+              <div style="background: linear-gradient(135deg, #0ea5e9 0%, #38bdf8 100%); padding: 30px; text-align: center;">
+                <h1 style="color: white; margin: 0;">Welcome to FLYQ!</h1>
+              </div>
+              
+              <div style="padding: 30px; background: #f9fafb;">
+                <p style="font-size: 16px; color: #374151;">Hi there,</p>
+                
+                <p style="font-size: 16px; color: #374151;">
+                  Thank you for subscribing to the FLYQ Drones newsletter! 🚁
+                </p>
+                
+                <p style="font-size: 16px; color: #374151;">
+                  You'll now receive updates about:
+                </p>
+                
+                <ul style="font-size: 16px; color: #374151; line-height: 1.8;">
+                  <li>New product launches</li>
+                  <li>Exclusive offers and discounts</li>
+                  <li>Drone flying tips and tutorials</li>
+                  <li>Community events and competitions</li>
+                </ul>
+                
+                <div style="text-align: center; margin: 30px 0;">
+                  <a href="https://flyqdrones.com/products" 
+                     style="background: #0ea5e9; color: white; padding: 12px 30px; text-decoration: none; border-radius: 8px; display: inline-block;">
+                    Explore Our Drones
+                  </a>
+                </div>
+              </div>
+              
+              <div style="background: #1f2937; padding: 20px; text-align: center;">
+                <p style="color: #9ca3af; margin: 0; font-size: 14px;">
+                  © 2026 FLYQ Drones. All rights reserved.
+                </p>
+              </div>
+            </div>
+          `
+        }).catch(err => console.error('Newsletter email error:', err));
+      }
+    } catch (emailError) {
+      console.error('Newsletter email failed:', emailError);
+    }
+
     return c.json({
       success: true,
       message: 'Successfully subscribed to newsletter!'
@@ -8119,6 +8175,80 @@ app.post('/api/contact/submit', async (c) => {
       INSERT INTO contact_submissions (name, email, message)
       VALUES (?, ?, ?)
     `).bind(sanitizeInput(name), email.toLowerCase(), sanitizeInput(message)).run();
+
+    // Send notification email to admin (async)
+    try {
+      const resendApiKey = c.env?.RESEND_API_KEY;
+      if (resendApiKey) {
+        const resend = new Resend(resendApiKey);
+        
+        // Notify admin
+        resend.emails.send({
+          from: 'FLYQ Contact Form <contact@flyqdrones.com>',
+          to: 'admin@flyqdrones.com', // Change to your actual admin email
+          subject: `New Contact Form Submission from ${name}`,
+          html: `
+            <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+              <div style="background: linear-gradient(135deg, #0ea5e9 0%, #38bdf8 100%); padding: 30px; text-align: center;">
+                <h1 style="color: white; margin: 0;">New Contact Submission</h1>
+              </div>
+              
+              <div style="padding: 30px; background: #f9fafb;">
+                <div style="background: white; border-radius: 8px; padding: 20px; margin: 20px 0;">
+                  <p style="margin: 10px 0;"><strong>Name:</strong> ${sanitizeInput(name)}</p>
+                  <p style="margin: 10px 0;"><strong>Email:</strong> ${email}</p>
+                  <p style="margin: 10px 0;"><strong>Message:</strong></p>
+                  <div style="background: #f3f4f6; padding: 15px; border-radius: 8px; margin-top: 10px;">
+                    ${sanitizeInput(message)}
+                  </div>
+                </div>
+              </div>
+            </div>
+          `
+        }).catch(err => console.error('Contact notification email error:', err));
+        
+        // Send auto-reply to customer
+        resend.emails.send({
+          from: 'FLYQ Drones <support@flyqdrones.com>',
+          to: email,
+          subject: 'We received your message - FLYQ Drones',
+          html: `
+            <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+              <div style="background: linear-gradient(135deg, #0ea5e9 0%, #38bdf8 100%); padding: 30px; text-align: center;">
+                <h1 style="color: white; margin: 0;">Thank You for Contacting Us!</h1>
+              </div>
+              
+              <div style="padding: 30px; background: #f9fafb;">
+                <p style="font-size: 16px; color: #374151;">Hi ${sanitizeInput(name)},</p>
+                
+                <p style="font-size: 16px; color: #374151;">
+                  Thank you for reaching out to FLYQ Drones! We've received your message and our team will get back to you within 24 hours.
+                </p>
+                
+                <div style="background: white; border-radius: 8px; padding: 20px; margin: 20px 0;">
+                  <p style="margin: 0; color: #6b7280;"><strong>Your message:</strong></p>
+                  <div style="background: #f3f4f6; padding: 15px; border-radius: 8px; margin-top: 10px; color: #374151;">
+                    ${sanitizeInput(message)}
+                  </div>
+                </div>
+                
+                <p style="font-size: 14px; color: #6b7280;">
+                  In the meantime, feel free to explore our products and resources on our website.
+                </p>
+              </div>
+              
+              <div style="background: #1f2937; padding: 20px; text-align: center;">
+                <p style="color: #9ca3af; margin: 0; font-size: 14px;">
+                  © 2026 FLYQ Drones. All rights reserved.
+                </p>
+              </div>
+            </div>
+          `
+        }).catch(err => console.error('Contact auto-reply error:', err));
+      }
+    } catch (emailError) {
+      console.error('Contact form email failed:', emailError);
+    }
 
     return c.json({
       success: true,
@@ -10738,6 +10868,74 @@ app.post('/api/payment/initiate', async (c) => {
 // Payment Success Handler
 app.post('/payment/success', async (c) => {
   const formData = await c.req.parseBody();
+  
+  // Send order confirmation email (async, don't wait)
+  try {
+    const resendApiKey = c.env?.RESEND_API_KEY;
+    if (resendApiKey && formData.email) {
+      const resend = new Resend(resendApiKey);
+      
+      // Send email asynchronously (fire and forget)
+      resend.emails.send({
+        from: 'FLYQ Drones <orders@flyqdrones.com>',
+        to: String(formData.email),
+        subject: `Order Confirmation - Transaction ${formData.txnid}`,
+        html: `
+          <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+            <div style="background: linear-gradient(135deg, #0ea5e9 0%, #38bdf8 100%); padding: 30px; text-align: center;">
+              <h1 style="color: white; margin: 0;">Thank You for Your Order!</h1>
+            </div>
+            
+            <div style="padding: 30px; background: #f9fafb;">
+              <p style="font-size: 16px; color: #374151;">Dear Customer,</p>
+              
+              <p style="font-size: 16px; color: #374151;">
+                Your order has been confirmed! We're excited to get your FLYQ drone to you.
+              </p>
+              
+              <div style="background: white; border-radius: 8px; padding: 20px; margin: 20px 0;">
+                <h2 style="color: #0ea5e9; margin-top: 0;">Order Details</h2>
+                <table style="width: 100%; border-collapse: collapse;">
+                  <tr>
+                    <td style="padding: 10px 0; color: #6b7280;"><strong>Transaction ID:</strong></td>
+                    <td style="padding: 10px 0; text-align: right;">${formData.txnid}</td>
+                  </tr>
+                  <tr>
+                    <td style="padding: 10px 0; color: #6b7280;"><strong>Amount Paid:</strong></td>
+                    <td style="padding: 10px 0; text-align: right; color: #10b981; font-weight: bold;">₹${formData.amount}</td>
+                  </tr>
+                  <tr>
+                    <td style="padding: 10px 0; color: #6b7280;"><strong>Status:</strong></td>
+                    <td style="padding: 10px 0; text-align: right; color: #10b981;">
+                      <span style="background: #d1fae5; padding: 4px 12px; border-radius: 12px;">Confirmed</span>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+              
+              <p style="font-size: 14px; color: #6b7280; margin-top: 30px;">
+                You will receive a shipping confirmation email once your order is dispatched.
+              </p>
+              
+              <p style="font-size: 14px; color: #6b7280;">
+                If you have any questions, please don't hesitate to contact us at 
+                <a href="mailto:support@flyqdrones.com" style="color: #0ea5e9;">support@flyqdrones.com</a>
+              </p>
+            </div>
+            
+            <div style="background: #1f2937; padding: 20px; text-align: center;">
+              <p style="color: #9ca3af; margin: 0; font-size: 14px;">
+                © 2026 FLYQ Drones. All rights reserved.
+              </p>
+            </div>
+          </div>
+        `
+      }).catch(err => console.error('Email send error:', err));
+    }
+  } catch (emailError) {
+    console.error('Email sending failed:', emailError);
+    // Don't fail the payment success page if email fails
+  }
   
   const content = `
     <div class="pt-32 pb-20 bg-gray-50">
