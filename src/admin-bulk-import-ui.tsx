@@ -167,7 +167,7 @@ adminBulkImportUI.get('/bulk-import', (c) => {
             progressText.textContent = 'Loading customer data...';
             progressBar.style.width = '10%';
 
-            const dataResponse = await fetch('/customer-import-data.json');
+            const dataResponse = await fetch('/static/customer-import-data.json');
             const data = await dataResponse.json();
 
             progressText.textContent = 'Starting bulk import...';
