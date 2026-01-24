@@ -11,6 +11,7 @@ import carrierRouter from './carrier-service'
 import bulkImportRouter from './bulk-import'
 // import adminBulkImportUI from './admin-bulk-import-ui'
 import customerPortalRouter from './customer-portal'
+import cancelOrdersRouter from './cancel-orders'
 import exportRouter from './export-orders'
 
 const app = new Hono()
@@ -10656,6 +10657,7 @@ app.route('/', smsRouter)
 app.route('/', carrierRouter)
 app.route('/', bulkImportRouter)
 app.route('/', customerPortalRouter)
+app.route('/', cancelOrdersRouter)
 app.route('/', exportRouter)
 
 // Checkout Page
