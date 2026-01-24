@@ -10638,9 +10638,13 @@ app.get('/analytics', async (c) => {
 // Admin Backend System
 app.route('/admin', admin)
 app.route('/admin/orders', ordersRouter)
+app.route('/admin/shipping', adminShippingRouter)
+app.route('/admin/shipping', analyticsShippingRouter)
 
 // Shipping and Tracking System
 app.route('/', shippingRouter)
+app.route('/', smsRouter)
+app.route('/', carrierRouter)
 
 // Checkout Page
 app.get('/checkout', (c) => {
