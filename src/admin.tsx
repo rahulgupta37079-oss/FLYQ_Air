@@ -850,7 +850,7 @@ admin.get('/orders', requireAuth, async (c) => {
     c.env.DB.prepare('SELECT COUNT(*) as count FROM orders WHERE status = "pending"').first(),
     c.env.DB.prepare('SELECT COUNT(*) as count FROM orders WHERE status = "processing"').first(),
     c.env.DB.prepare('SELECT COUNT(*) as count FROM orders WHERE status = "completed"').first(),
-    c.env.DB.prepare('SELECT SUM(total_amount) as revenue FROM orders WHERE status = "completed"').first()
+    c.env.DB.prepare('SELECT SUM(total) as revenue FROM orders WHERE status = "completed"').first()
   ])
   
   const [totalOrders, pendingOrders, processingOrders, completedOrders, revenue] = stats
@@ -954,7 +954,7 @@ admin.get('/orders', requireAuth, async (c) => {
                                         <div class="font-medium text-gray-800">${order.customer_name || 'Guest'}</div>
                                         <div class="text-sm text-gray-500">${order.customer_email || ''}</div>
                                     </td>
-                                    <td class="px-6 py-4 font-semibold text-gray-800">$${order.total_amount.toFixed(2)}</td>
+                                    <td class="px-6 py-4 font-semibold text-gray-800">₹${order.total.toFixed(2)}</td>
                                     <td class="px-6 py-4">
                                         <select onchange="updateOrderStatus(${order.id}, this.value)" 
                                                 class="px-2 py-1 text-xs font-medium rounded-full border-0 cursor-pointer ${
