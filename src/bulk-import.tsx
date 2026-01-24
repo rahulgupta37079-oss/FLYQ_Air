@@ -214,13 +214,9 @@ bulkImportRouter.post('/api/admin/bulk-import-customers', async (c) => {
                         <span style="color: #6b7280; font-weight: 600;">Price:</span>
                         <span style="color: #111827; font-weight: 700;">₹${productPrice.toLocaleString('en-IN')}</span>
                       </div>
-                      <div class="info-row">
+                      <div class="info-row" style="border-bottom: none;">
                         <span style="color: #6b7280; font-weight: 600;">Quantity:</span>
                         <span style="color: #111827; font-weight: 700;">1</span>
-                      </div>
-                      <div class="info-row" style="border-bottom: none;">
-                        <span style="color: #6b7280; font-weight: 600;">Estimated Delivery:</span>
-                        <span style="color: #0EA5E9; font-weight: 700;">${deliveryDateFormatted}</span>
                       </div>
                     </div>
 

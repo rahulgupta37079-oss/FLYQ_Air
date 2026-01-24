@@ -1,74 +1,24 @@
 const { Resend } = require('resend');
-const Database = require('better-sqlite3');
-const path = require('path');
-const fs = require('fs');
 
-const RESEND_API_KEY = 're_Thq9M1VWe_4UZbTVyc8p6GiDXGRW65Pgf';
+const RESEND_API_KEY = 're_NMszkEgy_89qF21MfGhJWpZBztp6ScrVA';
 const resend = new Resend(RESEND_API_KEY);
 
-// Find the SQLite database file
-const wranglerDir = path.join(__dirname, '.wrangler/state/v3/d1/miniflare-D1DatabaseObject');
-const files = fs.readdirSync(wranglerDir);
-const dbFile = files.find(f => f.endsWith('.sqlite'));
-const dbPath = path.join(wranglerDir, dbFile);
-
-console.log('📊 Starting Fresh Email Campaign...\n');
-console.log('Database:', dbPath);
-
-const db = new Database(dbPath);
-
-// Step 1: Delete old cancelled orders (1-63) and related data
-console.log('\n🗑️  Step 1: Cleaning up old cancelled orders...');
-db.prepare('DELETE FROM order_items WHERE order_id <= 63').run();
-db.prepare('DELETE FROM shipping_updates WHERE order_id <= 63').run();
-db.prepare('DELETE FROM orders WHERE id <= 63').run();
-console.log('✅ Deleted orders 1-63 and related data');
-
-// Step 2: Get all remaining orders with user details
-console.log('\n📋 Step 2: Fetching active orders...');
-const orders = db.prepare(`
-  SELECT 
-    o.id,
-    o.order_number,
-    o.total,
-    o.shipping_id,
-    o.tracking_id,
-    u.id as user_id,
-    u.name as customer_name,
-    u.email,
-    u.phone,
-    u.password_hash,
-    oi.product_name,
-    oi.price
-  FROM orders o
-  JOIN users u ON o.user_id = u.id
-  LEFT JOIN order_items oi ON o.id = oi.order_id
-  WHERE o.status = 'confirmed'
-  ORDER BY o.id
-`).all();
-
-console.log(`Found ${orders.length} orders to process\n`);
-
-// Step 3: Generate passwords for each user and send emails
-const results = {
-  emailsSent: 0,
-  failed: [],
-  success: []
+const sampleOrder = {
+  customer_name: 'Rahul Gupta',
+  email: 'rahulgupta37079@gmail.com',
+  order_number: 'FLYQ-1769275064206-Q485NH',
+  total: 7999,
+  product_name: 'FLYQ Air',
+  tracking_id: 'TRK176927506422962EM7G',
+  shipping_id: 'SHIP-FLYQ-1769275064206-Q485NH-1769275064229'
 };
 
-// Helper function to generate readable password
-function generatePassword(email, userId) {
-  const hash = require('crypto').createHash('md5').update(email + userId).digest('hex');
-  return hash.substring(0, 12);
-}
+const password = '63696d7fde2f';
+const pickupDate = 'Monday, January 27, 2026';
+const loginUrl = 'https://abf76357.flyq-air.pages.dev/login';
+const trackUrl = `https://abf76357.flyq-air.pages.dev/track-order?tracking=${sampleOrder.tracking_id}`;
 
-// Email template
-function createWelcomeEmail(order, password) {
-  const pickupDate = 'Monday, January 27, 2026';
-  const loginUrl = 'https://abf76357.flyq-air.pages.dev/login';
-  const trackUrl = `https://abf76357.flyq-air.pages.dev/track-order?tracking=${order.tracking_id}`;
-  
-  return `
+const emailHtml = `
 <!DOCTYPE html>
 <html>
 <head>
@@ -93,7 +43,7 @@ function createWelcomeEmail(order, password) {
           <!-- Welcome Message -->
           <tr>
             <td style="padding: 40px;">
-              <h2 style="margin: 0 0 20px; color: #1a202c; font-size: 24px;">Hello ${order.customer_name}! 👋</h2>
+              <h2 style="margin: 0 0 20px; color: #1a202c; font-size: 24px;">Hello ${sampleOrder.customer_name}! 👋</h2>
               <p style="margin: 0 0 20px; color: #4a5568; font-size: 16px; line-height: 1.6;">
                 Thank you for choosing FLYQ! We're thrilled to have you as part of our drone community. 
                 Your order has been confirmed and we've created your personal account.
@@ -109,15 +59,15 @@ function createWelcomeEmail(order, password) {
                 <table style="width: 100%; border-collapse: collapse;">
                   <tr>
                     <td style="padding: 8px 0; color: #718096; font-size: 14px;">Order Number:</td>
-                    <td style="padding: 8px 0; color: #2d3748; font-size: 14px; font-weight: 600; text-align: right;">${order.order_number}</td>
+                    <td style="padding: 8px 0; color: #2d3748; font-size: 14px; font-weight: 600; text-align: right;">${sampleOrder.order_number}</td>
                   </tr>
                   <tr>
                     <td style="padding: 8px 0; color: #718096; font-size: 14px;">Product:</td>
-                    <td style="padding: 8px 0; color: #2d3748; font-size: 14px; font-weight: 600; text-align: right;">${order.product_name}</td>
+                    <td style="padding: 8px 0; color: #2d3748; font-size: 14px; font-weight: 600; text-align: right;">${sampleOrder.product_name}</td>
                   </tr>
                   <tr>
                     <td style="padding: 8px 0; color: #718096; font-size: 14px;">Price:</td>
-                    <td style="padding: 8px 0; color: #2d3748; font-size: 14px; font-weight: 600; text-align: right;">₹${order.total.toFixed(2)}</td>
+                    <td style="padding: 8px 0; color: #2d3748; font-size: 14px; font-weight: 600; text-align: right;">₹${sampleOrder.total.toFixed(2)}</td>
                   </tr>
                   <tr>
                     <td style="padding: 8px 0; color: #718096; font-size: 14px;">Status:</td>
@@ -136,11 +86,11 @@ function createWelcomeEmail(order, password) {
                 <table style="width: 100%; border-collapse: collapse;">
                   <tr>
                     <td style="padding: 8px 0; color: #718096; font-size: 14px;">Tracking ID:</td>
-                    <td style="padding: 8px 0; color: #2d3748; font-size: 14px; font-weight: 600; text-align: right; font-family: monospace;">${order.tracking_id}</td>
+                    <td style="padding: 8px 0; color: #2d3748; font-size: 14px; font-weight: 600; text-align: right; font-family: monospace;">${sampleOrder.tracking_id}</td>
                   </tr>
                   <tr>
                     <td style="padding: 8px 0; color: #718096; font-size: 14px;">Shipping ID:</td>
-                    <td style="padding: 8px 0; color: #2d3748; font-size: 14px; font-weight: 600; text-align: right; font-family: monospace;">${order.shipping_id}</td>
+                    <td style="padding: 8px 0; color: #2d3748; font-size: 14px; font-weight: 600; text-align: right; font-family: monospace;">${sampleOrder.shipping_id}</td>
                   </tr>
                   <tr>
                     <td style="padding: 8px 0; color: #718096; font-size: 14px;">Pickup Date:</td>
@@ -160,11 +110,13 @@ function createWelcomeEmail(order, password) {
                 <table style="width: 100%; border-collapse: collapse;">
                   <tr>
                     <td style="padding: 8px 0; color: #718096; font-size: 14px;">Email:</td>
-                    <td style="padding: 8px 0; color: #2d3748; font-size: 14px; font-weight: 600; text-align: right;">${order.email}</td>
+                    <td style="padding: 8px 0; color: #2d3748; font-size: 14px; font-weight: 600; text-align: right;">${sampleOrder.email}</td>
                   </tr>
                   <tr>
                     <td style="padding: 8px 0; color: #718096; font-size: 14px;">Password:</td>
-                    <td style="padding: 8px 0; color: #2d3748; font-size: 14px; font-weight: 600; text-align: right; font-family: monospace; background: white; padding: 8px 12px; border-radius: 4px;">${password}</td>
+                    <td style="padding: 8px 0; text-align: right;">
+                      <span style="color: #2d3748; font-size: 16px; font-weight: 700; font-family: 'Courier New', monospace; background: white; padding: 12px 20px; border-radius: 6px; display: inline-block; border: 2px solid #f59e0b;">${password}</span>
+                    </td>
                   </tr>
                 </table>
               </div>
@@ -197,7 +149,7 @@ function createWelcomeEmail(order, password) {
               <h3 style="margin: 0 0 15px; color: #2d3748; font-size: 18px;">📋 What's Next?</h3>
               <ol style="margin: 0; padding-left: 20px; color: #4a5568; font-size: 14px; line-height: 1.8;">
                 <li>Your order will be picked up on <strong>${pickupDate}</strong></li>
-                <li>You'll receive shipping updates via email and SMS</li>
+                <li>You'll receive shipping updates via email</li>
                 <li>Track your order anytime using the tracking link above</li>
                 <li>Login to your account to view complete order details</li>
               </ol>
@@ -222,76 +174,31 @@ function createWelcomeEmail(order, password) {
   </table>
 </body>
 </html>
-  `;
-}
+`;
 
-// Process each order
-async function sendEmails() {
-  console.log('📧 Step 3: Sending welcome emails...\n');
-  
-  for (let i = 0; i < orders.length; i++) {
-    const order = orders[i];
-    const password = generatePassword(order.email, order.user_id);
-    
-    try {
-      // Send email
-      await resend.emails.send({
-        from: 'FLYQ Drones <orders@flyqdrones.com>',
-        to: order.email,
-        subject: `Welcome to FLYQ! Order ${order.order_number} Confirmed 🚁`,
-        html: createWelcomeEmail(order, password)
-      });
-      
-      results.emailsSent++;
-      results.success.push({
-        email: order.email,
-        name: order.customer_name,
-        orderNumber: order.order_number,
-        trackingId: order.tracking_id
-      });
-      
-      console.log(`✅ [${i + 1}/${orders.length}] Sent to ${order.customer_name} (${order.email})`);
-      
-      // Rate limiting - wait 100ms between emails
-      await new Promise(resolve => setTimeout(resolve, 100));
-      
-    } catch (error) {
-      results.failed.push({
-        email: order.email,
-        error: error.message
-      });
-      console.log(`❌ [${i + 1}/${orders.length}] Failed: ${order.email} - ${error.message}`);
-    }
-  }
-}
-
-// Main execution
 (async () => {
   try {
-    await sendEmails();
+    console.log('📧 Sending FIXED sample email to rahulgupta37079@gmail.com...');
+    console.log('   ✅ Using correct API key');
+    console.log('   ✅ Using verified domain (onboarding@resend.dev)');
+    console.log('   ✅ Removed "Estimated Delivery" date');
+    console.log('   ✅ Kept "Pickup Date" only\n');
     
-    // Save results
-    fs.writeFileSync(
-      path.join(__dirname, 'fresh-start-results.json'),
-      JSON.stringify(results, null, 2)
-    );
+    const result = await resend.emails.send({
+      from: 'FLYQ Drones <onboarding@resend.dev>',
+      to: 'rahulgupta37079@gmail.com',
+      subject: '🚁 Welcome to FLYQ! Order ' + sampleOrder.order_number + ' Confirmed',
+      html: emailHtml
+    });
     
-    console.log('\n' + '='.repeat(60));
-    console.log('📊 FRESH START EMAIL CAMPAIGN COMPLETE!');
-    console.log('='.repeat(60));
-    console.log(`✅ Emails Sent: ${results.emailsSent}`);
-    console.log(`❌ Failed: ${results.failed.length}`);
-    console.log(`📧 Total Customers: ${orders.length}`);
-    console.log('\n📄 Results saved to: fresh-start-results.json');
-    
-    if (results.failed.length > 0) {
-      console.log('\n⚠️  Failed Emails:');
-      results.failed.forEach(f => console.log(`   - ${f.email}: ${f.error}`));
-    }
+    console.log('✅ Email sent successfully!\n');
+    console.log('📋 Message ID:', result.data.id);
+    console.log('\n📬 Check your inbox: rahulgupta37079@gmail.com');
+    console.log('📬 Should arrive in INBOX (not SPAM) now!\n');
+    console.log('🎯 This is the CORRECT format that will be sent to all customers');
     
   } catch (error) {
-    console.error('❌ Error:', error);
-  } finally {
-    db.close();
+    console.error('❌ Error:', error.message);
+    console.error('Full error:', error);
   }
 })();

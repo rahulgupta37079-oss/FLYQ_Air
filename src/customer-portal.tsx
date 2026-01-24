@@ -20,7 +20,6 @@ customerPortalRouter.get('/customer-credentials', async (c) => {
         o.payment_id as transaction_id,
         o.payment_status,
         o.shipping_status,
-        o.estimated_delivery,
         o.created_at,
         u.name,
         u.email,
@@ -164,7 +163,7 @@ customerPortalRouter.get('/customer-credentials', async (c) => {
                             <i class="fas fa-calendar mr-1"></i>
                             Pickup:
                           </span>
-                          <span class="font-semibold text-blue-600">Monday, ${new Date(order.estimated_delivery).toLocaleDateString('en-IN', { month: 'short', day: 'numeric' })}</span>
+                          <span class="font-semibold text-blue-600">Monday, Jan 27</span>
                         </div>
                       </div>
 
