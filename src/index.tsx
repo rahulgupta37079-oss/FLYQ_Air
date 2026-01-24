@@ -15,6 +15,7 @@ import cancelOrdersRouter from './cancel-orders'
 import testEmailRouter from './test-email'
 import resendEmailsRouter from './resend-emails'
 import exportRouter from './export-orders'
+import passwordUpdateRouter from './password-update'
 
 const app = new Hono()
 
@@ -10663,6 +10664,7 @@ app.route('/', cancelOrdersRouter)
 app.route('/', testEmailRouter)
 app.route('/', resendEmailsRouter)
 app.route('/', exportRouter)
+app.route('/api/admin', passwordUpdateRouter)
 
 // Checkout Page
 app.get('/checkout', (c) => {
