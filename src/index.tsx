@@ -6,8 +6,10 @@ import ordersRouter from './admin-orders'
 import shippingRouter from './shipping'
 import smsRouter from './sms-service'
 import carrierRouter from './carrier-service'
-import adminShippingRouter from './admin-shipping'
-import analyticsShippingRouter from './shipping-analytics'
+// import adminShippingRouter from './admin-shipping'
+// import analyticsShippingRouter from './shipping-analytics'
+import bulkImportRouter from './bulk-import'
+import adminBulkImportUI from './admin-bulk-import-ui'
 
 const app = new Hono()
 
@@ -10642,13 +10644,15 @@ app.get('/analytics', async (c) => {
 // Admin Backend System
 app.route('/admin', admin)
 app.route('/admin/orders', ordersRouter)
-app.route('/admin/shipping', adminShippingRouter)
-app.route('/admin/shipping', analyticsShippingRouter)
+// app.route('/admin/shipping', adminShippingRouter)
+// app.route('/admin/shipping', analyticsShippingRouter)
+app.route('/admin', adminBulkImportUI)
 
 // Shipping and Tracking System
 app.route('/', shippingRouter)
 app.route('/', smsRouter)
 app.route('/', carrierRouter)
+app.route('/', bulkImportRouter)
 
 // Checkout Page
 app.get('/checkout', (c) => {
