@@ -16,6 +16,10 @@ import testEmailRouter from './test-email'
 import resendEmailsRouter from './resend-emails'
 import exportRouter from './export-orders'
 import passwordUpdateRouter from './password-update'
+import customerAccountRouter from './customer-account'
+import customerOrdersRouter from './customer-orders'
+import customerProfileRouter from './customer-profile'
+import customerCurriculumRouter from './customer-curriculum'
 
 const app = new Hono()
 
@@ -10653,6 +10657,12 @@ app.route('/admin/orders', ordersRouter)
 // app.route('/admin/shipping', adminShippingRouter)
 // app.route('/admin/shipping', analyticsShippingRouter)
 // app.route('/admin', adminBulkImportUI)
+
+// Customer Account System
+app.route('/', customerAccountRouter)
+app.route('/', customerOrdersRouter)
+app.route('/', customerProfileRouter)
+app.route('/', customerCurriculumRouter)
 
 // Shipping and Tracking System
 app.route('/', shippingRouter)
