@@ -20,6 +20,7 @@ import customerAccountRouter from './customer-account'
 import customerOrdersRouter from './customer-orders'
 import customerProfileRouter from './customer-profile'
 import customerCurriculumRouter from './customer-curriculum'
+import invoiceRouter from './invoice-generator'
 
 const app = new Hono()
 
@@ -10663,6 +10664,7 @@ app.route('/', customerAccountRouter)
 app.route('/', customerOrdersRouter)
 app.route('/', customerProfileRouter)
 app.route('/', customerCurriculumRouter)
+app.route('/', invoiceRouter)
 
 // Shipping and Tracking System
 app.route('/', shippingRouter)
