@@ -2230,7 +2230,20 @@ app.get('/', (c) => {
 });
 
 // Products listing page
-app.get('/products', (c) => {
+app.get('/products', async (c) => {
+  try {
+    // Fetch products from database
+    let dbProducts = [];
+    if (isDatabaseAvailable(c)) {
+      // @ts-ignore
+      const db = c.env?.DB;
+      const result = await db.prepare('SELECT * FROM products WHERE featured = 1 ORDER BY id ASC').all();
+      dbProducts = result.results || [];
+    }
+    
+    // Fallback to hardcoded products if database is not available
+    const productsToDisplay = dbProducts.length > 0 ? dbProducts : products;
+
   const content = `
     <div class="pt-32 pb-20">
         <div class="container mx-auto px-6">
@@ -2241,30 +2254,25 @@ app.get('/products', (c) => {
                 <p class="text-xl text-gray-600">Premium programmable drones for every need</p>
             </div>
 
-            <div class="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
-                ${products.map(product => `
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+                ${productsToDisplay.map(product => {
+                    const image = product.image_url || product.image || '/images/flyq-drone.png';
+                    const shortDesc = product.short_description || product.shortDesc || '';
+                    return `
                     <div class="product-card bg-white rounded-3xl overflow-hidden shadow-lg">
                         <div class="p-8 bg-gradient-to-br from-gray-900 to-gray-800">
-                            <img src="${product.image}" alt="${product.name}" class="w-full h-80 object-contain">
+                            <img src="${image}" alt="${product.name}" class="w-full h-80 object-contain">
                         </div>
                         <div class="p-8">
                             <div class="flex items-start justify-between mb-4">
                                 <div>
                                     <h3 class="text-3xl font-black mb-2">${product.name}</h3>
-                                    <p class="text-gray-600">${product.shortDesc}</p>
+                                    <p class="text-gray-600">${shortDesc}</p>
                                 </div>
                                 ${product.stock > 0 
                                     ? '<span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-bold">In Stock</span>' 
                                     : '<span class="bg-red-100 text-red-800 px-3 py-1 rounded-full text-sm font-bold">Out of Stock</span>'}
                             </div>
-                            <ul class="space-y-2 mb-6">
-                                ${product.features.map(f => `
-                                    <li class="flex items-center text-sm text-gray-700">
-                                        <i class="fas fa-check text-green-500 mr-2"></i>
-                                        ${f}
-                                    </li>
-                                `).join('')}
-                            </ul>
                             <div class="border-t pt-6 mt-6">
                                 <div class="flex items-center justify-between mb-4">
                                     <span class="text-4xl font-black text-sky-500">₹${product.price.toLocaleString()}</span>
@@ -2274,7 +2282,7 @@ app.get('/products', (c) => {
                                     <a href="/products/${product.slug}" class="flex-1 text-center border-2 border-sky-500 text-sky-500 px-6 py-3 rounded-full font-bold hover:bg-sky-50 transition">
                                         View Details
                                     </a>
-                                    <button onclick="addToCart(${product.id}, '${product.name}', ${product.price}, '${product.image}')" 
+                                    <button onclick="addToCart(${product.id}, '${product.name.replace(/'/g, "\\'")}', ${product.price}, '${image}')" 
                                             class="flex-1 btn-primary text-white px-6 py-3 rounded-full font-bold ${product.stock === 0 ? 'opacity-50 cursor-not-allowed' : ''}"
                                             ${product.stock === 0 ? 'disabled' : ''}>
                                         <i class="fas fa-cart-plus mr-2"></i>
@@ -2284,7 +2292,8 @@ app.get('/products', (c) => {
                             </div>
                         </div>
                     </div>
-                `).join('')}
+                    `;
+                }).join('')}
             </div>
         </div>
     </div>
@@ -2310,16 +2319,36 @@ app.get('/products', (c) => {
   `;
 
   return c.html(renderPage('Products', content));
+  } catch (error) {
+    console.error('Products page error:', error);
+    // Return error page
+    return c.html(renderPage('Error', '<div class="pt-32 pb-20 text-center"><h1 class="text-4xl font-bold">Error loading products</h1><p class="mt-4"><a href="/" class="text-sky-500">Go to homepage</a></p></div>'));
+  }
 });
 
 // Individual product page
-app.get('/products/:slug', (c) => {
-  const slug = c.req.param('slug');
-  const product = products.find(p => p.slug === slug);
+app.get('/products/:slug', async (c) => {
+  try {
+    const slug = c.req.param('slug');
+    let product = null;
 
-  if (!product) {
-    return c.html(renderPage('Product Not Found', '<div class="pt-32 pb-20 text-center"><h1 class="text-4xl font-bold">Product not found</h1><p class="mt-4"><a href="/products" class="text-sky-500">Back to products</a></p></div>'));
-  }
+    // Try to fetch from database first
+    if (isDatabaseAvailable(c)) {
+      // @ts-ignore
+      const db = c.env?.DB;
+      product = await db.prepare('SELECT * FROM products WHERE slug = ?').bind(slug).first();
+    }
+    
+    // Fallback to hardcoded products
+    if (!product) {
+      product = products.find(p => p.slug === slug);
+    }
+
+    if (!product) {
+      return c.html(renderPage('Product Not Found', '<div class="pt-32 pb-20 text-center"><h1 class="text-4xl font-bold">Product not found</h1><p class="mt-4"><a href="/products" class="text-sky-500">Back to products</a></p></div>'));
+    }
+    
+    const image = product.image_url || product.image || '/images/flyq-drone.png';
 
   const content = `
     <div class="pt-32 pb-20">
@@ -2327,7 +2356,7 @@ app.get('/products/:slug', (c) => {
             <div class="grid lg:grid-cols-2 gap-12 max-w-7xl mx-auto">
                 <!-- Product Image -->
                 <div class="bg-gradient-to-br from-gray-900 to-gray-800 rounded-3xl p-12">
-                    <img src="${product.image}" alt="${product.name}" class="w-full h-auto float-animation">
+                    <img src="${image}" alt="${product.name}" class="w-full h-auto float-animation">
                 </div>
 
                 <!-- Product Info -->
@@ -2339,27 +2368,29 @@ app.get('/products/:slug', (c) => {
                     </div>
 
                     <h1 class="text-5xl font-black mb-4">${product.name}</h1>
-                    <p class="text-xl text-gray-600 mb-8">${product.shortDesc}</p>
+                    <p class="text-xl text-gray-600 mb-8">${product.short_description || product.shortDesc || product.description || ''}</p>
 
                     <div class="mb-8">
                         <div class="text-5xl font-black text-sky-500 mb-2">₹${product.price.toLocaleString()}</div>
                         <div class="text-gray-500">${product.stock} units available</div>
                     </div>
 
+                    ${product.features || product.specifications ? `
                     <div class="bg-gray-50 rounded-2xl p-6 mb-8">
                         <h3 class="font-bold text-lg mb-4">Key Features:</h3>
-                        <ul class="space-y-3">
-                            ${product.features.map(f => `
-                                <li class="flex items-center text-gray-700">
+                        <div class="text-gray-700 prose">
+                            ${product.features ? product.features.map(f => `
+                                <div class="flex items-center mb-2">
                                     <i class="fas fa-check-circle text-green-500 mr-3 text-xl"></i>
                                     <span>${f}</span>
-                                </li>
-                            `).join('')}
-                        </ul>
+                                </div>
+                            `).join('') : `<p>${product.short_description || product.description || ''}</p>`}
+                        </div>
                     </div>
+                    ` : ''}
 
                     <div class="flex gap-4">
-                        <button onclick="addToCart(${product.id}, '${product.name}', ${product.price}, '${product.image}')" 
+                        <button onclick="addToCart(${product.id}, '${product.name.replace(/'/g, "\\'")}', ${product.price}, '${image}')" 
                                 class="flex-1 btn-primary text-white px-8 py-4 rounded-full font-bold text-lg ${product.stock === 0 ? 'opacity-50 cursor-not-allowed' : ''}"
                                 ${product.stock === 0 ? 'disabled' : ''}>
                             <i class="fas fa-shopping-cart mr-2"></i>
@@ -2414,6 +2445,10 @@ app.get('/products/:slug', (c) => {
   `;
 
   return c.html(renderPage(product.name, content));
+  } catch (error) {
+    console.error('Product page error:', error);
+    return c.html(renderPage('Error', '<div class="pt-32 pb-20 text-center"><h1 class="text-4xl font-bold">Error loading product</h1><p class="mt-4"><a href="/products" class="text-sky-500">Back to products</a></p></div>'));
+  }
 });
 
 // Shopping Cart Page
