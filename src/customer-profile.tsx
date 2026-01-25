@@ -1,27 +1,11 @@
 import { Hono } from 'hono'
-import { getCookie } from 'hono/cookie'
+import { getCurrentUser } from './lib/auth'
 
 type Bindings = {
   DB: D1Database
 }
 
 const customerProfileRouter = new Hono<{ Bindings: Bindings }>()
-
-// Helper to get current user
-async function getCurrentUser(c: any) {
-  const sessionId = getCookie(c, 'session_id')
-  if (!sessionId) return null
-
-  try {
-    const session = await c.env.DB.prepare('SELECT user_id FROM sessions WHERE id = ? AND expires_at > datetime("now")').bind(sessionId).first()
-    if (!session) return null
-
-    const user = await c.env.DB.prepare('SELECT * FROM users WHERE id = ?').bind(session.user_id).first()
-    return user
-  } catch (error) {
-    return null
-  }
-}
 
 // Profile Page
 customerProfileRouter.get('/account/profile', async (c) => {
