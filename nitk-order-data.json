@@ -1,0 +1,40 @@
+{
+  "customer": {
+    "name": "Director NITK",
+    "email": "csd.ra01@nitk.edu.in",
+    "phone": "7899421596",
+    "address": "National Institute of Technology Karnataka (NITK), NH 66, Srinivasnagar Post, Surathkal, Mangalore, Karnataka - 575 025",
+    "city": "Mangalore",
+    "state": "Karnataka",
+    "pincode": "575025",
+    "password": ".x1c6s96bdjg"
+  },
+  "order": {
+    "id": 127,
+    "orderNumber": "FLYQ-1769360779114-CPFTQP",
+    "trackingId": "TRK1769360779114MZIP0UZ4",
+    "total": 23596.696,
+    "subtotal": 19798.2,
+    "gst": 3563.676,
+    "codCharges": 234.82,
+    "discount": 2199.8,
+    "unitPrice": 10999,
+    "quantity": 2,
+    "status": "confirmed",
+    "paymentStatus": "cod",
+    "estimatedDelivery": "2026-02-01"
+  },
+  "pricing": {
+    "unitPrice": 10999,
+    "quantity": 2,
+    "subtotal": 21998,
+    "discount": 2199.8,
+    "afterDiscount": 19798.2,
+    "gstAmount": 3563.68,
+    "totalWithGST": 23361.88,
+    "codCharges": 199,
+    "codGST": 35.82,
+    "totalCOD": 234.82,
+    "grandTotal": 23596.7
+  }
+}
