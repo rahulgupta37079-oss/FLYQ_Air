@@ -48,6 +48,16 @@ const products = [
     shortDesc: 'ESP32-S3 camera drone with HD video streaming',
     features: ['ESP32-S3 Dual-Core', 'HD 720p Camera', 'Gesture Control', 'Wi-Fi Streaming', 'Python/Arduino SDK'],
     stock: 30
+  },
+  {
+    id: 3,
+    name: 'FLYQ Nano',
+    slug: 'flyq-nano',
+    price: 4999,
+    image: '/images/products/flyq-nano/1-package.jpg',
+    shortDesc: 'Foldable drone with dual 1080P HD cameras (90° adjustable), 360° obstacle avoidance, WiFi FPV real-time transmission, VR 3D experience, and 2× 1800mAh batteries for 40-50 minutes total flight time',
+    features: ['Dual 1080P HD Cameras', '360° Obstacle Avoidance', 'WiFi FPV Real-time', 'VR 3D Compatible', '40-50 min Flight Time'],
+    stock: 100
   }
 ]
 
@@ -1600,7 +1610,7 @@ app.get('/', (c) => {
                     <p class="text-xl text-gray-600">Choose the perfect drone for your needs</p>
                 </div>
 
-                <div class="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
                     ${products.map(product => `
                         <div class="product-card bg-white rounded-3xl overflow-hidden shadow-lg">
                             <div class="p-8 bg-gradient-to-br from-gray-900 to-gray-800">
