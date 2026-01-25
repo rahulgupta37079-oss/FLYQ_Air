@@ -78,7 +78,10 @@ const excelData = orders.map((order, index) => {
     'Pincode': order.pincode || 'N/A',
     'Login URL': 'https://flyqdrone.in/login',
     'Track URL': `https://flyqdrone.in/track-order?tracking=${order.tracking_id}`,
-    'Order Date': new Date(order.created_at).toLocaleDateString('en-IN')
+    'Order Date': new Date(order.created_at).toLocaleDateString('en-IN'),
+    'Support Email': 'info@passion3dworld.com',
+    'Support WhatsApp': '+91 9137361474',
+    'WhatsApp Link': 'https://wa.me/919137361474'
   };
 });
 
@@ -231,7 +234,10 @@ ws['!cols'] = [
   { wch: 10 }, // Pincode
   { wch: 50 }, // Login URL
   { wch: 70 }, // Track URL
-  { wch: 15 }  // Order Date
+  { wch: 15 }, // Order Date
+  { wch: 30 }, // Support Email
+  { wch: 18 }, // Support WhatsApp
+  { wch: 35 }  // WhatsApp Link
 ];
 
 XLSX.utils.book_append_sheet(wb, ws, 'Customer Orders');
