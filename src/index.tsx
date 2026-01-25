@@ -2349,14 +2349,29 @@ app.get('/products/:slug', async (c) => {
     }
     
     const image = product.image_url || product.image || '/images/flyq-drone.png';
+    const galleryImages = product.gallery_images 
+      ? (typeof product.gallery_images === 'string' ? product.gallery_images.split(',') : product.gallery_images)
+      : [image];
 
   const content = `
     <div class="pt-32 pb-20">
         <div class="container mx-auto px-6">
             <div class="grid lg:grid-cols-2 gap-12 max-w-7xl mx-auto">
-                <!-- Product Image -->
-                <div class="bg-gradient-to-br from-gray-900 to-gray-800 rounded-3xl p-12">
-                    <img src="${image}" alt="${product.name}" class="w-full h-auto float-animation">
+                <!-- Product Image Gallery -->
+                <div>
+                    <div id="mainImageContainer" class="bg-gradient-to-br from-gray-900 to-gray-800 rounded-3xl p-12 mb-4">
+                        <img id="mainImage" src="${image}" alt="${product.name}" class="w-full h-auto float-animation">
+                    </div>
+                    ${galleryImages.length > 1 ? `
+                    <div class="grid grid-cols-4 gap-2">
+                        ${galleryImages.map((img, idx) => `
+                            <div class="cursor-pointer border-2 border-gray-300 rounded-lg overflow-hidden hover:border-sky-500 transition ${idx === 0 ? 'border-sky-500' : ''}" 
+                                 onclick="changeMainImage('${img.trim()}', this)">
+                                <img src="${img.trim()}" alt="${product.name} ${idx + 1}" class="w-full h-20 object-cover">
+                            </div>
+                        `).join('')}
+                    </div>
+                    ` : ''}
                 </div>
 
                 <!-- Product Info -->
@@ -2426,6 +2441,20 @@ app.get('/products/:slug', async (c) => {
     </div>
 
     <script>
+        function changeMainImage(newSrc, element) {
+            // Update main image
+            document.getElementById('mainImage').src = newSrc;
+            
+            // Update border styling
+            const thumbnails = element.parentElement.querySelectorAll('div');
+            thumbnails.forEach(thumb => {
+                thumb.classList.remove('border-sky-500');
+                thumb.classList.add('border-gray-300');
+            });
+            element.classList.remove('border-gray-300');
+            element.classList.add('border-sky-500');
+        }
+
         function addToCart(id, name, price, image) {
             let cart = JSON.parse(localStorage.getItem('flyq_cart') || '[]');
             
