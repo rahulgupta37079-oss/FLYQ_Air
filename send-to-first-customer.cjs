@@ -3,7 +3,6 @@ const Database = require('better-sqlite3');
 const path = require('path');
 const fs = require('fs');
 
-// IMPORTANT: Use your actual Resend API key
 const RESEND_API_KEY = 're_4HUjptkC_7SVRK3pcyzJ6tERhEM1ySY4q';
 const resend = new Resend(RESEND_API_KEY);
 
@@ -13,15 +12,13 @@ const files = fs.readdirSync(wranglerDir);
 const dbFile = files.find(f => f.endsWith('.sqlite'));
 const dbPath = path.join(wranglerDir, dbFile);
 
-console.log('📊 SENDING EMAILS TO ALL 63 CUSTOMERS');
-console.log('⏱️  2 SECOND DELAY PER EMAIL\n');
-console.log('Database:', dbPath);
-console.log('API Key:', RESEND_API_KEY.substring(0, 15) + '...\n');
+console.log('📧 SENDING EMAIL TO FIRST CUSTOMER (CHIRAG)\n');
+console.log('Database:', dbPath, '\n');
 
 const db = new Database(dbPath);
 
-// Get all active orders with user details
-const orders = db.prepare(`
+// Get the FIRST customer order
+const order = db.prepare(`
   SELECT 
     o.id,
     o.order_number,
@@ -40,11 +37,17 @@ const orders = db.prepare(`
   LEFT JOIN order_items oi ON o.id = oi.order_id
   WHERE o.status = 'confirmed'
   ORDER BY o.id
-`).all();
+  LIMIT 1
+`).get();
 
-console.log(`📧 Found ${orders.length} confirmed orders\n`);
-console.log('═'.repeat(70));
-console.log('Starting email campaign...\n');
+console.log('👤 Customer Details:');
+console.log('   Name:', order.customer_name);
+console.log('   Email:', order.email);
+console.log('   Order:', order.order_number);
+console.log('   Product:', order.product_name);
+console.log('   Price: ₹' + order.total);
+console.log('   Tracking:', order.tracking_id);
+console.log('');
 
 // Helper function to generate password
 function generatePassword(email, userId) {
@@ -52,7 +55,11 @@ function generatePassword(email, userId) {
   return hash.substring(0, 12);
 }
 
-// Email template with plain text URLs
+const password = generatePassword(order.email, order.user_id);
+console.log('🔑 Password:', password);
+console.log('');
+
+// Email template
 function createWelcomeEmail(order, password) {
   const pickupDate = 'Monday, January 26, 2026';
   const loginUrl = 'https://flyqdrone.in/login';
@@ -200,9 +207,7 @@ function createWelcomeEmail(order, password) {
           <tr>
             <td style="background: #f7fafc; padding: 30px 40px; border-radius: 0 0 12px 12px; text-align: center;">
               <p style="margin: 0 0 10px; color: #718096; font-size: 14px;">
-                Questions? Contact us:<br>
-                📧 Email: <a href="mailto:info@passion3dworld.com" style="color: #667eea; text-decoration: none;">info@passion3dworld.com</a><br>
-                📱 WhatsApp: <a href="https://wa.me/919137361474" style="color: #25D366; text-decoration: none;">+91 9137361474</a>
+                Questions? Contact us at support@flyqdrones.com
               </p>
               <p style="margin: 0; color: #a0aec0; font-size: 12px;">
                 © 2026 FLYQ Drones. All rights reserved.
@@ -219,121 +224,62 @@ function createWelcomeEmail(order, password) {
   `;
 }
 
-// Results tracking
-const results = {
-  emailsSent: 0,
-  failed: [],
-  success: [],
-  timestamp: new Date().toISOString(),
-  startTime: Date.now()
-};
-
-// Process each order with 2-second delay
-async function sendEmails() {
-  const totalEmails = orders.length;
-  const estimatedTime = totalEmails * 2; // 2 seconds per email
+// Send email
+async function sendTestEmail() {
+  console.log('📤 Sending email...\n');
   
-  console.log(`⏱️  Estimated time: ${estimatedTime} seconds (${Math.ceil(estimatedTime / 60)} minutes)\n`);
-  
-  for (let i = 0; i < orders.length; i++) {
-    const order = orders[i];
-    const password = generatePassword(order.email, order.user_id);
-    const startTime = Date.now();
-    
-    try {
-      // Send email
-      const result = await resend.emails.send({
-        from: 'FLYQ Drones <orders@flyqdrone.in>',
-        to: order.email,
-        subject: `Welcome to FLYQ! Order ${order.order_number} Confirmed 🚁`,
-        html: createWelcomeEmail(order, password),
-        tags: [
-          { name: 'category', value: 'welcome' },
-          { name: 'order_id', value: order.order_number }
-        ]
-      });
-      
-      const messageId = result.data?.id || result.id || 'unknown';
-      
-      results.emailsSent++;
-      results.success.push({
-        email: order.email,
-        name: order.customer_name,
-        orderNumber: order.order_number,
-        trackingId: order.tracking_id,
-        password: password,
-        messageId: messageId
-      });
-      
-      const elapsed = ((Date.now() - startTime) / 1000).toFixed(2);
-      const remaining = totalEmails - (i + 1);
-      const eta = remaining * 2;
-      
-      console.log(`✅ [${i + 1}/${totalEmails}] ${order.customer_name} (${order.email})`);
-      console.log(`   📧 Message ID: ${messageId}`);
-      console.log(`   🔑 Password: ${password}`);
-      console.log(`   ⏱️  Sent in ${elapsed}s | Remaining: ${remaining} emails (~${eta}s)`);
-      console.log('');
-      
-      // Wait 2 seconds before next email (except for last one)
-      if (i < orders.length - 1) {
-        await new Promise(resolve => setTimeout(resolve, 2000));
-      }
-      
-    } catch (error) {
-      results.failed.push({
-        email: order.email,
-        name: order.customer_name,
-        error: error.message
-      });
-      console.log(`❌ [${i + 1}/${totalEmails}] FAILED: ${order.customer_name} (${order.email})`);
-      console.log(`   Error: ${error.message}\n`);
-      
-      // Still wait 2 seconds even if failed
-      if (i < orders.length - 1) {
-        await new Promise(resolve => setTimeout(resolve, 2000));
-      }
-    }
-  }
-}
-
-// Main execution
-(async () => {
   try {
-    const campaignStart = Date.now();
+    const result = await resend.emails.send({
+      from: 'FLYQ Drones <orders@flyqdrone.in>',
+      to: order.email,
+      subject: `Welcome to FLYQ! Order ${order.order_number} Confirmed 🚁`,
+      html: createWelcomeEmail(order, password),
+      tags: [
+        { name: 'category', value: 'welcome' },
+        { name: 'order_id', value: order.order_number }
+      ]
+    });
     
-    await sendEmails();
+    console.log('✅ EMAIL SENT SUCCESSFULLY!\n');
+    console.log('Response:', JSON.stringify(result, null, 2));
     
-    const totalTime = ((Date.now() - campaignStart) / 1000).toFixed(2);
-    
-    // Save results
-    const resultsPath = path.join(__dirname, 'slow-email-campaign-results.json');
-    fs.writeFileSync(resultsPath, JSON.stringify(results, null, 2));
-    
-    console.log('\n' + '═'.repeat(70));
-    console.log('📊 EMAIL CAMPAIGN COMPLETE!');
-    console.log('═'.repeat(70));
-    console.log(`✅ Emails Sent: ${results.emailsSent}/${orders.length}`);
-    console.log(`❌ Failed: ${results.failed.length}`);
-    console.log(`⏱️  Total Time: ${totalTime} seconds (${(totalTime / 60).toFixed(2)} minutes)`);
-    console.log(`🕐 Timestamp: ${results.timestamp}`);
-    console.log(`\n📄 Results saved to: slow-email-campaign-results.json`);
-    console.log(`\n🔗 Login URL: https://flyqdrone.in/login`);
-    console.log(`🔗 Track URL: https://flyqdrone.in/track-order?tracking=[TRACKING_ID]`);
-    
-    if (results.failed.length > 0) {
-      console.log('\n⚠️  Failed Emails:');
-      results.failed.forEach(f => console.log(`   - ${f.name} (${f.email}): ${f.error}`));
-    } else {
-      console.log('\n✨ All emails sent successfully!');
+    if (result.data) {
+      console.log('\n📧 Message ID:', result.data.id);
     }
     
-    console.log('\n📧 Check your Resend dashboard to verify delivery');
-    console.log('🎯 Customers should receive emails within 1-5 minutes');
+    console.log('\n═══════════════════════════════════════════════════');
+    console.log('📋 SUMMARY');
+    console.log('═══════════════════════════════════════════════════');
+    console.log('✅ Email sent to:', order.email);
+    console.log('👤 Customer:', order.customer_name);
+    console.log('📦 Order:', order.order_number);
+    console.log('🔑 Password:', password);
+    console.log('🔗 Login:', 'https://flyqdrone.in/login');
+    console.log('🔗 Track:', `https://flyqdrone.in/track-order?tracking=${order.tracking_id}`);
+    console.log('═══════════════════════════════════════════════════\n');
+    
+    console.log('✅ Check customer email:', order.email);
+    console.log('✅ Check Resend dashboard: https://resend.com/emails');
+    console.log('\nℹ️  If this works, we can send to all 63 customers!');
     
   } catch (error) {
-    console.error('\n❌ Error:', error);
+    console.error('❌ ERROR SENDING EMAIL\n');
+    console.error('Message:', error.message);
+    console.error('Status:', error.statusCode);
+    console.error('Full Error:', JSON.stringify(error, null, 2));
+    
+    if (error.statusCode === 422) {
+      console.error('\n⚠️  422 Error - Possible causes:');
+      console.error('   - Daily/monthly quota exceeded');
+      console.error('   - Invalid email format');
+      console.error('   - Domain not verified');
+    }
+    if (error.statusCode === 403) {
+      console.error('\n⚠️  403 Error - Domain not verified or API key restricted');
+    }
   } finally {
     db.close();
   }
-})();
+}
+
+sendTestEmail();
