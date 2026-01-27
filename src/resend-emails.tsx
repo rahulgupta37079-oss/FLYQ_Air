@@ -48,17 +48,9 @@ resendEmailsRouter.post('/api/admin/resend-confirmation-emails', async (c) => {
       passwordMap[c.email] = c.password
     })
 
-    // Calculate Monday pickup date
-    const today = new Date()
-    const daysUntilMonday = (8 - today.getDay()) % 7 || 7
-    const pickupDate = new Date(today)
-    pickupDate.setDate(today.getDate() + daysUntilMonday)
-    const pickupDateFormatted = pickupDate.toLocaleDateString('en-US', { 
-      weekday: 'long', 
-      month: 'long', 
-      day: 'numeric',
-      year: 'numeric'
-    })
+    // Set pickup date to January 27, 2026
+    const pickupDateFormatted = "Monday, January 27, 2026"
+
 
     // Send email to each customer
     for (const order of orders.results) {
@@ -317,7 +309,7 @@ resendEmailsRouter.post('/api/admin/send-pricing-correction/:orderId', async (c)
                 <ul style="margin: 8px 0 0 0; padding-left: 20px; color: #047857;">
                   <li>Your order is confirmed and will ship as scheduled</li>
                   <li>Tracking ID: <strong>${order.tracking_id}</strong></li>
-                  <li>Estimated Delivery: <strong>${order.estimated_delivery || 'To be updated'}</strong></li>
+                  <li>Pickup Schedule: <strong>January 27, 2026</strong></li>
                   <li>No action needed from your side</li>
                 </ul>
               </div>

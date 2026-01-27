@@ -255,7 +255,7 @@ function generateInvoiceHTML(order: any, user: any): string {
     <div class="notes">
       <strong>Shipping Information:</strong><br>
       Status: ${order.shipping_status.toUpperCase()}<br>
-      ${order.estimated_delivery ? `Estimated Delivery: ${new Date(order.estimated_delivery).toLocaleDateString('en-IN', { year: 'numeric', month: 'long', day: 'numeric' })}<br>` : ''}
+      Pickup Schedule: January 27, 2026<br>
       ${order.tracking_id ? `Tracking: ${order.tracking_id}` : ''}
     </div>
     ` : ''}
