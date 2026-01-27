@@ -356,4 +356,206 @@ resendEmailsRouter.post('/api/admin/send-pricing-correction/:orderId', async (c)
   }
 })
 
+// Send order cancellation and replacement email
+resendEmailsRouter.post('/api/admin/send-order-replacement/:orderId', async (c) => {
+  try {
+    const orderId = c.req.param('orderId')
+    const resend = new Resend(c.env.RESEND_API_KEY)
+
+    // Get order details
+    const order = await c.env.DB.prepare(`
+      SELECT 
+        o.*,
+        u.name,
+        u.email
+      FROM orders o
+      JOIN users u ON o.user_id = u.id
+      WHERE o.id = ?
+    `).bind(orderId).first()
+
+    if (!order) {
+      return c.json({ success: false, error: 'Order not found' }, 404)
+    }
+
+    // Get order items
+    const items = await c.env.DB.prepare(`
+      SELECT * FROM order_items WHERE order_id = ?
+    `).bind(orderId).all()
+
+    await resend.emails.send({
+      from: 'FLYQ Drones <orders@flyqdrones.com>',
+      to: [order.email],
+      subject: `Important Update: Previous Order Cancelled & Replaced with Better Pricing | FLYQ Drones`,
+      html: `
+        <!DOCTYPE html>
+        <html>
+        <head>
+          <meta charset="UTF-8">
+          <style>
+            body { font-family: 'Segoe UI', sans-serif; background: #f3f4f6; margin: 0; padding: 0; }
+            .container { max-width: 600px; margin: 40px auto; background: white; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+            .header { background: linear-gradient(135deg, #0EA5E9 0%, #38BDF8 100%); padding: 40px; text-align: center; }
+            .header h1 { color: white; margin: 0; font-size: 28px; }
+            .content { padding: 40px; }
+            .box { background: #f0f9ff; border: 2px solid #0EA5E9; border-radius: 12px; padding: 24px; margin: 24px 0; }
+            .highlight { font-size: 20px; font-weight: 700; color: #0EA5E9; font-family: monospace; }
+            .cancelled-box { background: #fee2e2; border: 2px solid #dc2626; border-radius: 12px; padding: 24px; margin: 24px 0; }
+            .savings-box { background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); border: 2px solid #f59e0b; padding: 24px; border-radius: 12px; text-align: center; margin: 24px 0; }
+            .old-price { text-decoration: line-through; color: #dc2626; }
+            .new-price { color: #10b981; font-size: 24px; font-weight: 700; }
+          </style>
+        </head>
+        <body>
+          <div class="container">
+            <div class="header">
+              <h1>🔄 Important Order Update</h1>
+              <p style="color: white; margin: 10px 0 0 0;">Previous Order Cancelled - New Order with Better Pricing!</p>
+            </div>
+            
+            <div class="content">
+              <p style="font-size: 16px;">Dear <strong>${order.name}</strong>,</p>
+              
+              <p style="font-size: 16px; line-height: 1.6; color: #374151;">
+                We're writing to inform you about an important update regarding your order. Due to a pricing policy 
+                change, we have <strong>cancelled your previous order</strong> and created a <strong>new order with 
+                significantly reduced pricing</strong>. 🎉
+              </p>
+
+              <div class="cancelled-box">
+                <div style="text-align: center;">
+                  <div style="color: #dc2626; font-size: 18px; font-weight: 700; margin-bottom: 12px;">❌ PREVIOUS ORDER CANCELLED</div>
+                  <div style="color: #7f1d1d; font-size: 14px; margin-bottom: 8px;">
+                    Due to incorrect GST calculation
+                  </div>
+                  <div class="old-price" style="font-size: 22px; font-weight: 700;">
+                    Total was: ₹23,596.70
+                  </div>
+                  <div style="color: #991b1b; font-size: 12px; margin-top: 8px; font-style: italic;">
+                    (GST was incorrectly added separately)
+                  </div>
+                </div>
+              </div>
+
+              <div style="text-align: center; margin: 24px 0;">
+                <div style="font-size: 32px; color: #0EA5E9;">⬇️</div>
+                <div style="font-size: 16px; font-weight: 600; color: #6b7280; margin: 8px 0;">REPLACED WITH</div>
+              </div>
+
+              <div class="box">
+                <div style="text-align: center;">
+                  <div style="color: #0EA5E9; font-size: 14px; font-weight: 600; margin-bottom: 8px;">✅ NEW ORDER NUMBER</div>
+                  <div class="highlight">${order.order_number}</div>
+                </div>
+              </div>
+
+              <div class="savings-box">
+                <div style="font-size: 18px; font-weight: 600; color: #92400e; margin-bottom: 16px;">💰 New Pricing with GST Included</div>
+                <div style="margin: 16px 0;">
+                  <div style="font-size: 16px; color: #78350f; margin-bottom: 8px;">Previous Order Total:</div>
+                  <div class="old-price" style="font-size: 20px;">₹23,596.70</div>
+                </div>
+                <div style="margin: 16px 0;">
+                  <div style="font-size: 16px; color: #065f46; margin-bottom: 8px;">New Order Total:</div>
+                  <div class="new-price">₹${order.total.toLocaleString('en-IN')}</div>
+                </div>
+                <div style="background: white; padding: 12px; border-radius: 8px; margin-top: 16px;">
+                  <div style="font-size: 20px; font-weight: 700; color: #10b981;">You Save: ₹${(23596.70 - order.total).toFixed(2)}</div>
+                </div>
+              </div>
+
+              <div style="background: #f0f9ff; padding: 20px; border-radius: 12px; margin: 24px 0; border-left: 4px solid #0EA5E9;">
+                <h3 style="color: #0EA5E9; margin: 0 0 12px 0;">📋 New Order Summary</h3>
+                <div style="margin-top: 12px;">
+                  <div style="display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #e5e7eb;">
+                    <span style="color: #6b7280;">Subtotal (incl. 18% GST):</span>
+                    <span style="font-weight: 600;">₹${order.subtotal.toLocaleString('en-IN')}</span>
+                  </div>
+                  <div style="display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #e5e7eb;">
+                    <span style="color: #6b7280;">Shipping:</span>
+                    <span style="font-weight: 600;">₹${order.shipping.toLocaleString('en-IN')}</span>
+                  </div>
+                  <div style="display: flex; justify-content: space-between; padding: 16px 0; background: #ecfdf5; margin: 8px -12px -12px -12px; padding: 16px 12px; border-radius: 0 0 8px 8px;">
+                    <span style="color: #065f46; font-size: 18px; font-weight: 700;">Total Amount:</span>
+                    <span style="color: #10b981; font-size: 18px; font-weight: 700;">₹${order.total.toLocaleString('en-IN')}</span>
+                  </div>
+                </div>
+              </div>
+
+              <div style="background: #fef3c7; padding: 16px; border-radius: 8px; border-left: 4px solid #f59e0b; margin: 24px 0;">
+                <p style="margin: 0; color: #92400e; font-weight: 600;">ℹ️ Why This Change?</p>
+                <p style="margin: 8px 0 0 0; color: #78350f; font-size: 14px;">
+                  We discovered that GST (18%) was being calculated separately on top of product prices, 
+                  which was incorrect. We've now updated our system to include GST within the product prices 
+                  themselves, as per standard practice. This results in a <strong>lower total price</strong> for you!
+                </p>
+                <p style="margin: 8px 0 0 0; color: #78350f; font-size: 14px;">
+                  To ensure you get the benefit of this corrected pricing, we cancelled the previous order 
+                  and created this new order automatically.
+                </p>
+              </div>
+
+              <div style="background: #ecfdf5; padding: 16px; border-radius: 8px; border-left: 4px solid #10b981;">
+                <p style="margin: 0; color: #065f46; font-weight: 600;">✨ New Order Status</p>
+                <ul style="margin: 8px 0 0 0; padding-left: 20px; color: #047857;">
+                  <li>Your new order is confirmed and will ship as scheduled</li>
+                  <li>New Tracking ID: <strong>${order.tracking_id}</strong></li>
+                  <li>Pickup Schedule: <strong>January 27, 2026</strong></li>
+                  <li>Same products, same quality, better price!</li>
+                  <li>No action needed from your side</li>
+                </ul>
+              </div>
+
+              <div style="text-align: center; margin: 32px 0;">
+                <a href="https://flyqdrone.in/customer/orders" 
+                   style="display: inline-block; background: linear-gradient(135deg, #0EA5E9 0%, #38BDF8 100%); color: white; padding: 16px 32px; text-decoration: none; border-radius: 8px; font-weight: 600;">
+                  View Your New Order
+                </a>
+              </div>
+
+              <div style="background: #dbeafe; padding: 16px; border-radius: 8px; margin: 24px 0;">
+                <p style="margin: 0; color: #1e40af; font-weight: 600;">💡 Quick Summary</p>
+                <ul style="margin: 8px 0 0 0; padding-left: 20px; color: #1e3a8a; font-size: 14px;">
+                  <li>Previous order: Cancelled due to pricing error</li>
+                  <li>New order: Created with correct GST-inclusive pricing</li>
+                  <li>Your savings: ₹3,563.68</li>
+                  <li>New order number: ${order.order_number}</li>
+                  <li>Delivery timeline: Unchanged (Pickup: January 27, 2026)</li>
+                </ul>
+              </div>
+            </div>
+            
+            <div style="background: #f9fafb; padding: 24px; text-align: center; color: #6b7280; font-size: 14px;">
+              <p style="margin: 0;">Questions? Contact us at <a href="mailto:support@flyqdrones.com">support@flyqdrones.com</a></p>
+              <p style="margin: 8px 0 0 0;">📞 WhatsApp: <a href="https://wa.me/919137361474">+91 91373 61474</a></p>
+              <p style="margin: 8px 0 0 0;">© 2026 FLYQ Drones. All rights reserved.</p>
+            </div>
+          </div>
+        </body>
+        </html>
+      `
+    })
+
+    return c.json({
+      success: true,
+      message: `Order replacement email sent to ${order.email}`,
+      order: {
+        id: order.id,
+        order_number: order.order_number,
+        customer: order.name,
+        email: order.email,
+        old_total: 23596.70,
+        new_total: order.total,
+        savings: (23596.70 - order.total).toFixed(2)
+      }
+    })
+
+  } catch (error) {
+    console.error('Email error:', error)
+    return c.json({
+      success: false,
+      error: error.message
+    }, 500)
+  }
+})
+
 export default resendEmailsRouter
