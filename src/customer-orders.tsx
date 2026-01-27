@@ -158,12 +158,10 @@ customerOrdersRouter.get('/account/orders', async (c) => {
                                 ${order.shipping_status ? order.shipping_status.toUpperCase() : 'PENDING'}
                               </span>
                             </div>
-                            ${order.estimated_delivery ? `
-                              <div class="flex justify-between">
-                                <span class="text-gray-600">Estimated Delivery:</span>
-                                <span class="font-semibold">${new Date(order.estimated_delivery).toLocaleDateString('en-IN', { month: 'short', day: 'numeric', year: 'numeric' })}</span>
-                              </div>
-                            ` : ''}
+                            <div class="flex justify-between">
+                              <span class="text-gray-600">Pickup Schedule:</span>
+                              <span class="font-semibold">27 Jan 2026</span>
+                            </div>
                             ${order.shipping_address ? `
                               <div>
                                 <div class="text-gray-600 mb-1">Delivery Address:</div>
