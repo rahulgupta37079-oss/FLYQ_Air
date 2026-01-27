@@ -233,12 +233,8 @@ function generateInvoiceHTML(order: any, user: any): string {
     <div class="totals">
       <table>
         <tr>
-          <td>Subtotal:</td>
+          <td>Subtotal (incl. 18% GST):</td>
           <td class="text-right">₹${(order.subtotal || order.total).toLocaleString('en-IN')}</td>
-        </tr>
-        <tr>
-          <td>Tax (GST ${order.tax ? '18%' : '0%'}):</td>
-          <td class="text-right">₹${(order.tax || 0).toLocaleString('en-IN')}</td>
         </tr>
         <tr>
           <td>Shipping:</td>
@@ -246,7 +242,10 @@ function generateInvoiceHTML(order: any, user: any): string {
         </tr>
         <tr>
           <td>Total Amount:</td>
-          <td class="text-right">₹${order.total.toLocaleString('en-IN')}</td>
+          <td class="text-right">₹${((order.subtotal || order.total) + (order.shipping || 0)).toLocaleString('en-IN')}</td>
+        </tr>
+        <tr>
+          <td colspan="2" style="text-align: right; font-size: 10px; color: #666; padding-top: 5px;">* All prices include GST</td>
         </tr>
       </table>
     </div>

@@ -229,11 +229,11 @@ ordersRouter.get('/:id', async (c) => {
                                 `).join('')}
                             </tbody>
                             <tfoot class="font-semibold">
-                                <tr><td colspan="3" class="text-right py-2">Subtotal:</td><td class="text-right">₹${order.subtotal.toFixed(2)}</td></tr>
-                                <tr><td colspan="3" class="text-right py-2">Tax:</td><td class="text-right">₹${order.tax.toFixed(2)}</td></tr>
+                                <tr><td colspan="3" class="text-right py-2">Subtotal (incl. GST):</td><td class="text-right">₹${order.subtotal.toFixed(2)}</td></tr>
                                 <tr><td colspan="3" class="text-right py-2">Shipping:</td><td class="text-right">₹${(order.shipping || 0).toFixed(2)}</td></tr>
                                 ${(order.discount || 0) > 0 ? `<tr><td colspan="3" class="text-right py-2 text-green-600">Discount:</td><td class="text-right text-green-600">-₹${order.discount.toFixed(2)}</td></tr>` : ''}
-                                <tr class="text-lg border-t"><td colspan="3" class="text-right py-2">Total:</td><td class="text-right">₹${order.total.toFixed(2)}</td></tr>
+                                <tr class="text-lg border-t"><td colspan="3" class="text-right py-2">Total:</td><td class="text-right">₹${(order.subtotal + (order.shipping || 0) - (order.discount || 0)).toFixed(2)}</td></tr>
+                                <tr><td colspan="4" class="text-right py-1 text-xs text-gray-500">* All prices include GST</td></tr>
                             </tfoot>
                         </table>
                     </div>

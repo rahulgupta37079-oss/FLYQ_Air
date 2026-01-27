@@ -417,12 +417,8 @@ customerOrdersRouter.get('/account/orders/:id', async (c) => {
           <div class="mt-6 pt-6 border-t border-gray-200">
             <div class="space-y-2 max-w-md ml-auto">
               <div class="flex justify-between">
-                <span class="text-gray-600">Subtotal:</span>
+                <span class="text-gray-600">Subtotal (incl. GST):</span>
                 <span class="font-semibold">₹${(order.subtotal || order.total).toLocaleString('en-IN')}</span>
-              </div>
-              <div class="flex justify-between">
-                <span class="text-gray-600">Tax:</span>
-                <span class="font-semibold">₹${(order.tax || 0).toLocaleString('en-IN')}</span>
               </div>
               <div class="flex justify-between">
                 <span class="text-gray-600">Shipping:</span>
@@ -430,8 +426,9 @@ customerOrdersRouter.get('/account/orders/:id', async (c) => {
               </div>
               <div class="flex justify-between pt-2 border-t-2 border-gray-300">
                 <span class="text-lg font-bold">Total:</span>
-                <span class="text-2xl font-bold text-blue-600">₹${order.total.toLocaleString('en-IN')}</span>
+                <span class="text-2xl font-bold text-blue-600">₹${((order.subtotal || order.total) + (order.shipping || 0)).toLocaleString('en-IN')}</span>
               </div>
+              <div class="text-xs text-gray-500 text-right mt-1">* All prices include GST</div>
             </div>
           </div>
         </div>
