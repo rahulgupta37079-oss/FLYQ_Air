@@ -199,4 +199,169 @@ resendEmailsRouter.post('/api/admin/resend-confirmation-emails', async (c) => {
   }
 })
 
+// Send pricing correction email to specific customer
+resendEmailsRouter.post('/api/admin/send-pricing-correction/:orderId', async (c) => {
+  try {
+    const orderId = c.req.param('orderId')
+    const resend = new Resend(c.env.RESEND_API_KEY)
+
+    // Get order details
+    const order = await c.env.DB.prepare(`
+      SELECT 
+        o.*,
+        u.name,
+        u.email
+      FROM orders o
+      JOIN users u ON o.user_id = u.id
+      WHERE o.id = ?
+    `).bind(orderId).first()
+
+    if (!order) {
+      return c.json({ success: false, error: 'Order not found' }, 404)
+    }
+
+    // Get order items
+    const items = await c.env.DB.prepare(`
+      SELECT * FROM order_items WHERE order_id = ?
+    `).bind(orderId).all()
+
+    await resend.emails.send({
+      from: 'FLYQ Drones <orders@flyqdrones.com>',
+      to: [order.email],
+      subject: `Important: Pricing Update for Order ${order.order_number} | FLYQ Drones`,
+      html: `
+        <!DOCTYPE html>
+        <html>
+        <head>
+          <meta charset="UTF-8">
+          <style>
+            body { font-family: 'Segoe UI', sans-serif; background: #f3f4f6; margin: 0; padding: 0; }
+            .container { max-width: 600px; margin: 40px auto; background: white; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+            .header { background: linear-gradient(135deg, #10b981 0%, #059669 100%); padding: 40px; text-align: center; }
+            .header h1 { color: white; margin: 0; font-size: 28px; }
+            .content { padding: 40px; }
+            .box { background: #ecfdf5; border: 2px solid #10b981; border-radius: 12px; padding: 24px; margin: 24px 0; }
+            .highlight { font-size: 20px; font-weight: 700; color: #059669; font-family: monospace; }
+            .info-row { display: flex; justify-content: space-between; padding: 12px; border-bottom: 1px solid #e5e7eb; }
+            .savings-box { background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); border: 2px solid #f59e0b; padding: 24px; border-radius: 12px; text-align: center; margin: 24px 0; }
+            .old-price { text-decoration: line-through; color: #dc2626; }
+            .new-price { color: #10b981; font-size: 24px; font-weight: 700; }
+          </style>
+        </head>
+        <body>
+          <div class="container">
+            <div class="header">
+              <h1>✅ Great News - Price Reduced!</h1>
+              <p style="color: white; margin: 10px 0 0 0;">Your Invoice Has Been Updated</p>
+            </div>
+            
+            <div class="content">
+              <p style="font-size: 16px;">Dear <strong>${order.name}</strong>,</p>
+              
+              <p style="font-size: 16px; line-height: 1.6; color: #374151;">
+                We're pleased to inform you that we've corrected the pricing on your order <strong>${order.order_number}</strong>. 
+                You'll be happy to know that your order total has been <strong>reduced</strong>! 🎉
+              </p>
+
+              <div class="box">
+                <div style="text-align: center;">
+                  <div style="color: #059669; font-size: 14px; font-weight: 600; margin-bottom: 8px;">📦 ORDER NUMBER</div>
+                  <div class="highlight">${order.order_number}</div>
+                </div>
+              </div>
+
+              <div class="savings-box">
+                <div style="font-size: 18px; font-weight: 600; color: #92400e; margin-bottom: 16px;">💰 Updated Pricing</div>
+                <div style="margin: 16px 0;">
+                  <div style="font-size: 16px; color: #78350f; margin-bottom: 8px;">Previous Total:</div>
+                  <div class="old-price" style="font-size: 20px;">₹23,596.70</div>
+                </div>
+                <div style="margin: 16px 0;">
+                  <div style="font-size: 16px; color: #065f46; margin-bottom: 8px;">New Total:</div>
+                  <div class="new-price">₹${order.total.toLocaleString('en-IN')}</div>
+                </div>
+                <div style="background: white; padding: 12px; border-radius: 8px; margin-top: 16px;">
+                  <div style="font-size: 20px; font-weight: 700; color: #10b981;">You Save: ₹${(23596.70 - order.total).toFixed(2)}</div>
+                </div>
+              </div>
+
+              <div style="background: #f0f9ff; padding: 20px; border-radius: 12px; margin: 24px 0; border-left: 4px solid #0EA5E9;">
+                <h3 style="color: #0EA5E9; margin: 0 0 12px 0;">📋 Updated Order Summary</h3>
+                <div style="margin-top: 12px;">
+                  <div class="info-row" style="border-bottom: 1px solid #e5e7eb;">
+                    <span style="color: #6b7280;">Subtotal (incl. 18% GST):</span>
+                    <span style="font-weight: 600;">₹${order.subtotal.toLocaleString('en-IN')}</span>
+                  </div>
+                  <div class="info-row" style="border-bottom: 1px solid #e5e7eb;">
+                    <span style="color: #6b7280;">Shipping:</span>
+                    <span style="font-weight: 600;">₹${order.shipping.toLocaleString('en-IN')}</span>
+                  </div>
+                  <div class="info-row" style="border-bottom: none; background: #ecfdf5; margin: 8px -12px -12px -12px; padding: 16px 12px; border-radius: 0 0 8px 8px;">
+                    <span style="color: #065f46; font-size: 18px; font-weight: 700;">Total Amount:</span>
+                    <span style="color: #10b981; font-size: 18px; font-weight: 700;">₹${order.total.toLocaleString('en-IN')}</span>
+                  </div>
+                </div>
+              </div>
+
+              <div style="background: #fef3c7; padding: 16px; border-radius: 8px; border-left: 4px solid #f59e0b; margin: 24px 0;">
+                <p style="margin: 0; color: #92400e; font-weight: 600;">ℹ️ What Changed?</p>
+                <p style="margin: 8px 0 0 0; color: #78350f; font-size: 14px;">
+                  We updated our pricing structure to include GST (18%) within the product prices. 
+                  Your previous invoice had GST calculated separately, which we've now corrected. 
+                  This results in a <strong>lower total price</strong> for you!
+                </p>
+              </div>
+
+              <div style="background: #ecfdf5; padding: 16px; border-radius: 8px; border-left: 4px solid #10b981;">
+                <p style="margin: 0; color: #065f46; font-weight: 600;">✨ Order Status</p>
+                <ul style="margin: 8px 0 0 0; padding-left: 20px; color: #047857;">
+                  <li>Your order is confirmed and will ship as scheduled</li>
+                  <li>Tracking ID: <strong>${order.tracking_id}</strong></li>
+                  <li>Estimated Delivery: <strong>${order.estimated_delivery || 'To be updated'}</strong></li>
+                  <li>No action needed from your side</li>
+                </ul>
+              </div>
+
+              <div style="text-align: center; margin: 32px 0;">
+                <a href="https://flyqdrone.in/customer/orders" 
+                   style="display: inline-block; background: linear-gradient(135deg, #0EA5E9 0%, #38BDF8 100%); color: white; padding: 16px 32px; text-decoration: none; border-radius: 8px; font-weight: 600;">
+                  View Your Orders
+                </a>
+              </div>
+            </div>
+            
+            <div style="background: #f9fafb; padding: 24px; text-align: center; color: #6b7280; font-size: 14px;">
+              <p style="margin: 0;">Questions? Contact us at <a href="mailto:support@flyqdrones.com">support@flyqdrones.com</a></p>
+              <p style="margin: 8px 0 0 0;">📞 WhatsApp: <a href="https://wa.me/919137361474">+91 91373 61474</a></p>
+              <p style="margin: 8px 0 0 0;">© 2026 FLYQ Drones. All rights reserved.</p>
+            </div>
+          </div>
+        </body>
+        </html>
+      `
+    })
+
+    return c.json({
+      success: true,
+      message: `Pricing correction email sent to ${order.email}`,
+      order: {
+        id: order.id,
+        order_number: order.order_number,
+        customer: order.name,
+        email: order.email,
+        old_total: 23596.70,
+        new_total: order.total,
+        savings: (23596.70 - order.total).toFixed(2)
+      }
+    })
+
+  } catch (error) {
+    console.error('Email error:', error)
+    return c.json({
+      success: false,
+      error: error.message
+    }, 500)
+  }
+})
+
 export default resendEmailsRouter
