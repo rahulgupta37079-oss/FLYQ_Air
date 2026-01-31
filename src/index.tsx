@@ -11138,5 +11138,395 @@ app.post('/payment/failure', async (c) => {
   return c.html(renderPage('Payment Failed', content));
 });
 
+// ==================== ORDER TRACKING PAGE ====================
+
+app.get('/track-order', async (c) => {
+  const trackingId = c.req.query('tracking');
+  
+  if (!trackingId) {
+    return c.html(renderPage('Track Order', `
+      <div class="min-h-screen bg-gradient-to-br from-blue-50 to-cyan-50 py-12">
+        <div class="container mx-auto px-6 max-w-2xl">
+          <div class="bg-white rounded-2xl shadow-xl p-8 text-center">
+            <i class="fas fa-search-location text-6xl text-gray-400 mb-4"></i>
+            <h1 class="text-3xl font-bold text-gray-800 mb-4">Track Your Order</h1>
+            <p class="text-gray-600 mb-6">Enter your tracking ID to see your shipment status</p>
+            <form method="GET" action="/track-order" class="max-w-md mx-auto">
+              <input 
+                type="text" 
+                name="tracking" 
+                placeholder="Enter Tracking ID" 
+                required
+                class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg mb-4 focus:border-blue-500 focus:outline-none"
+              >
+              <button type="submit" class="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition">
+                <i class="fas fa-search mr-2"></i>Track Shipment
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    `));
+  }
+
+  // Fetch order details
+  const order = await c.env.DB.prepare(`
+    SELECT 
+      o.*,
+      u.name as customer_name,
+      u.email as customer_email
+    FROM orders o
+    JOIN users u ON o.user_id = u.id
+    WHERE o.tracking_id = ?
+  `).bind(trackingId).first();
+
+  if (!order) {
+    return c.html(renderPage('Tracking Not Found', `
+      <div class="min-h-screen bg-gradient-to-br from-blue-50 to-cyan-50 py-12">
+        <div class="container mx-auto px-6 max-w-2xl">
+          <div class="bg-white rounded-2xl shadow-xl p-8 text-center">
+            <i class="fas fa-exclamation-circle text-6xl text-red-500 mb-4"></i>
+            <h1 class="text-3xl font-bold text-gray-800 mb-4">Tracking ID Not Found</h1>
+            <p class="text-gray-600 mb-6">We couldn't find any shipment with tracking ID: <strong>${trackingId}</strong></p>
+            <a href="/track-order" class="inline-block bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition">
+              <i class="fas fa-arrow-left mr-2"></i>Try Again
+            </a>
+          </div>
+        </div>
+      </div>
+    `));
+  }
+
+  // Extract city from shipping address
+  const extractCity = (address: string | null) => {
+    if (!address) return 'Your Location';
+    // Try to extract city/location from address
+    const parts = address.split(',').map(p => p.trim());
+    // Look for common patterns: City, State, PIN
+    for (let i = parts.length - 1; i >= 0; i--) {
+      const part = parts[i];
+      // If it contains numbers (likely PIN code), take the previous part
+      if (/\d{6}/.test(part) && i > 0) {
+        return parts[i - 1];
+      }
+    }
+    // If no PIN found, try to find state and return city before it
+    const states = ['Maharashtra', 'Karnataka', 'Tamil Nadu', 'Delhi', 'Gujarat', 'Rajasthan', 'UP', 'Uttar Pradesh', 'MP', 'Madhya Pradesh', 'Kerala', 'Punjab', 'Haryana', 'Bihar', 'West Bengal', 'Andhra Pradesh', 'Telangana', 'Assam', 'Odisha', 'Jharkhand'];
+    for (let i = 0; i < parts.length; i++) {
+      for (const state of states) {
+        if (parts[i].toLowerCase().includes(state.toLowerCase()) && i > 0) {
+          return parts[i - 1];
+        }
+      }
+    }
+    // Fallback: return second-to-last part if available
+    return parts.length > 1 ? parts[parts.length - 2] : parts[0];
+  };
+
+  const destination = extractCity(order.shipping_address);
+
+  // Generate tracking timeline
+  const orderDate = new Date(order.created_at);
+  const pickupDate = new Date('2026-01-27T10:00:00'); // Jan 27, 2026
+  const hubDate = new Date('2026-01-28T08:00:00'); // Jan 28, 2026
+  const now = new Date();
+
+  const content = `
+    <div class="min-h-screen bg-gradient-to-br from-blue-50 via-cyan-50 to-sky-100 py-12">
+      <div class="container mx-auto px-6 max-w-5xl">
+        <!-- Header -->
+        <div class="text-center mb-8">
+          <h1 class="text-4xl md:text-5xl font-black text-gray-800 mb-2">
+            <i class="fas fa-route text-blue-600 mr-3"></i>
+            Track Your Shipment
+          </h1>
+          <p class="text-gray-600 text-lg">Real-time updates for your order</p>
+        </div>
+
+        <!-- Tracking Info Card -->
+        <div class="bg-white rounded-3xl shadow-2xl overflow-hidden mb-8">
+          <!-- Status Banner -->
+          <div class="bg-gradient-to-r from-blue-600 to-cyan-500 p-6 text-white">
+            <div class="flex items-center justify-between flex-wrap gap-4">
+              <div>
+                <div class="text-sm opacity-90 mb-1">Tracking ID</div>
+                <div class="text-2xl font-bold font-mono">${trackingId}</div>
+              </div>
+              <div class="bg-white/20 backdrop-blur-sm px-6 py-3 rounded-full">
+                <div class="text-sm opacity-90 mb-1">Current Status</div>
+                <div class="text-xl font-bold">
+                  ${order.shipping_status === 'delivered' ? '✅ Delivered' : 
+                    order.shipping_status === 'shipped' ? '🚚 In Transit' : 
+                    '📦 Processing'}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Order Details -->
+          <div class="p-6 border-b border-gray-200">
+            <div class="grid md:grid-cols-2 gap-6">
+              <div>
+                <div class="text-sm text-gray-600 mb-1">Order Number</div>
+                <div class="text-lg font-bold text-gray-800">${order.order_number}</div>
+              </div>
+              <div>
+                <div class="text-sm text-gray-600 mb-1">Order Date</div>
+                <div class="text-lg font-bold text-gray-800">${orderDate.toLocaleDateString('en-IN', { year: 'numeric', month: 'long', day: 'numeric' })}</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Route Visualization -->
+          <div class="p-8 bg-gradient-to-br from-blue-50 to-cyan-50">
+            <div class="flex items-center justify-between mb-6">
+              <div class="text-center flex-1">
+                <div class="w-16 h-16 bg-green-500 rounded-full mx-auto flex items-center justify-center text-white text-2xl mb-2 shadow-lg">
+                  <i class="fas fa-map-marker-alt"></i>
+                </div>
+                <div class="font-bold text-gray-800">Mumbai</div>
+                <div class="text-sm text-gray-600">Origin</div>
+              </div>
+              
+              <div class="flex-1 relative" style="height: 4px; background: linear-gradient(to right, #10b981 0%, #3b82f6 50%, #94a3b8 100%); margin: 0 20px; border-radius: 2px;">
+                <!-- Animated dot -->
+                <div style="position: absolute; top: 50%; left: 50%; width: 16px; height: 16px; background: #3b82f6; border: 3px solid white; border-radius: 50%; transform: translate(-50%, -50%); box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.7); animation: pulse 2s infinite;"></div>
+              </div>
+              
+              <div class="text-center flex-1">
+                <div class="w-16 h-16 bg-blue-500 rounded-full mx-auto flex items-center justify-center text-white text-2xl mb-2 shadow-lg">
+                  <i class="fas fa-map-pin"></i>
+                </div>
+                <div class="font-bold text-gray-800">${destination}</div>
+                <div class="text-sm text-gray-600">Destination</div>
+              </div>
+            </div>
+
+            <div class="text-center text-sm text-gray-600 bg-white/50 backdrop-blur-sm rounded-lg p-3">
+              <i class="fas fa-truck-moving mr-2 text-blue-600"></i>
+              Your package is on its way from <strong>Mumbai</strong> to <strong>${destination}</strong>
+            </div>
+          </div>
+
+          <!-- Timeline -->
+          <div class="p-8">
+            <h3 class="text-2xl font-bold text-gray-800 mb-6">
+              <i class="fas fa-clock text-blue-600 mr-2"></i>
+              Shipment Timeline
+            </h3>
+
+            <div class="space-y-6">
+              <!-- Order Placed -->
+              <div class="flex gap-4">
+                <div class="flex flex-col items-center">
+                  <div class="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center text-white shadow-lg">
+                    <i class="fas fa-check"></i>
+                  </div>
+                  <div class="w-1 h-full bg-green-300 mt-2"></div>
+                </div>
+                <div class="flex-1 pb-8">
+                  <div class="bg-green-50 border-l-4 border-green-500 rounded-r-lg p-4">
+                    <div class="flex items-center justify-between mb-2">
+                      <div class="font-bold text-gray-800 text-lg">Order Confirmed</div>
+                      <div class="text-sm text-gray-600">${orderDate.toLocaleDateString('en-IN', { month: 'short', day: 'numeric' })}</div>
+                    </div>
+                    <div class="text-gray-600">Your order has been received and confirmed</div>
+                    <div class="text-sm text-gray-500 mt-1">Mumbai Hub</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Picked Up -->
+              <div class="flex gap-4">
+                <div class="flex flex-col items-center">
+                  <div class="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center text-white shadow-lg">
+                    <i class="fas fa-box"></i>
+                  </div>
+                  <div class="w-1 h-full bg-blue-300 mt-2"></div>
+                </div>
+                <div class="flex-1 pb-8">
+                  <div class="bg-blue-50 border-l-4 border-blue-500 rounded-r-lg p-4">
+                    <div class="flex items-center justify-between mb-2">
+                      <div class="font-bold text-gray-800 text-lg">Picked Up</div>
+                      <div class="text-sm text-gray-600">27 Jan 2026</div>
+                    </div>
+                    <div class="text-gray-600">Package picked up from warehouse</div>
+                    <div class="text-sm text-gray-500 mt-1">Mumbai - Warehouse, Maharashtra</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Left Hub -->
+              <div class="flex gap-4">
+                <div class="flex flex-col items-center">
+                  <div class="w-12 h-12 bg-cyan-500 rounded-full flex items-center justify-center text-white shadow-lg">
+                    <i class="fas fa-shipping-fast"></i>
+                  </div>
+                  <div class="w-1 h-full bg-cyan-300 mt-2"></div>
+                </div>
+                <div class="flex-1 pb-8">
+                  <div class="bg-cyan-50 border-l-4 border-cyan-500 rounded-r-lg p-4">
+                    <div class="flex items-center justify-between mb-2">
+                      <div class="font-bold text-gray-800 text-lg">Departed from Hub</div>
+                      <div class="text-sm text-gray-600">28 Jan 2026</div>
+                    </div>
+                    <div class="text-gray-600">Package left Mumbai hub for destination</div>
+                    <div class="text-sm text-gray-500 mt-1">Mumbai - Distribution Center</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- In Transit -->
+              <div class="flex gap-4">
+                <div class="flex flex-col items-center">
+                  <div class="w-12 h-12 bg-purple-500 rounded-full flex items-center justify-center text-white shadow-lg animate-pulse">
+                    <i class="fas fa-truck"></i>
+                  </div>
+                  ${order.shipping_status !== 'delivered' ? '<div class="w-1 h-full bg-gray-300 mt-2"></div>' : ''}
+                </div>
+                <div class="flex-1 pb-8">
+                  <div class="bg-purple-50 border-l-4 border-purple-500 rounded-r-lg p-4">
+                    <div class="flex items-center justify-between mb-2">
+                      <div class="font-bold text-gray-800 text-lg">In Transit</div>
+                      <div class="text-sm text-gray-600">Current</div>
+                    </div>
+                    <div class="text-gray-600">Your package is on the way to ${destination}</div>
+                    <div class="text-sm text-gray-500 mt-1">En route to destination</div>
+                    <div class="mt-3 bg-purple-100 rounded-lg p-2 text-center">
+                      <div class="text-sm font-semibold text-purple-700">
+                        <i class="fas fa-clock mr-1"></i>
+                        Expected Delivery: 30-31 Jan 2026
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Out for Delivery (Pending) -->
+              ${order.shipping_status === 'delivered' ? `
+              <div class="flex gap-4">
+                <div class="flex flex-col items-center">
+                  <div class="w-12 h-12 bg-orange-500 rounded-full flex items-center justify-center text-white shadow-lg">
+                    <i class="fas fa-motorcycle"></i>
+                  </div>
+                  <div class="w-1 h-full bg-orange-300 mt-2"></div>
+                </div>
+                <div class="flex-1 pb-8">
+                  <div class="bg-orange-50 border-l-4 border-orange-500 rounded-r-lg p-4">
+                    <div class="flex items-center justify-between mb-2">
+                      <div class="font-bold text-gray-800 text-lg">Out for Delivery</div>
+                      <div class="text-sm text-gray-600">Jan 30</div>
+                    </div>
+                    <div class="text-gray-600">Package is out for delivery</div>
+                    <div class="text-sm text-gray-500 mt-1">${destination} - Local Delivery</div>
+                  </div>
+                </div>
+              </div>
+              ` : `
+              <div class="flex gap-4 opacity-50">
+                <div class="flex flex-col items-center">
+                  <div class="w-12 h-12 bg-gray-300 rounded-full flex items-center justify-center text-white">
+                    <i class="fas fa-motorcycle"></i>
+                  </div>
+                  <div class="w-1 h-full bg-gray-200 mt-2"></div>
+                </div>
+                <div class="flex-1 pb-8">
+                  <div class="bg-gray-50 border-l-4 border-gray-300 rounded-r-lg p-4">
+                    <div class="font-bold text-gray-600 text-lg mb-2">Out for Delivery</div>
+                    <div class="text-gray-500">Pending</div>
+                  </div>
+                </div>
+              </div>
+              `}
+
+              <!-- Delivered (Pending) -->
+              ${order.shipping_status === 'delivered' ? `
+              <div class="flex gap-4">
+                <div class="flex flex-col items-center">
+                  <div class="w-12 h-12 bg-green-600 rounded-full flex items-center justify-center text-white shadow-lg">
+                    <i class="fas fa-check-double"></i>
+                  </div>
+                </div>
+                <div class="flex-1">
+                  <div class="bg-green-50 border-l-4 border-green-600 rounded-r-lg p-4">
+                    <div class="flex items-center justify-between mb-2">
+                      <div class="font-bold text-gray-800 text-lg">Delivered</div>
+                      <div class="text-sm text-gray-600">Completed</div>
+                    </div>
+                    <div class="text-gray-600">Package delivered successfully</div>
+                    <div class="text-sm text-gray-500 mt-1">${destination}</div>
+                  </div>
+                </div>
+              </div>
+              ` : `
+              <div class="flex gap-4 opacity-50">
+                <div class="flex flex-col items-center">
+                  <div class="w-12 h-12 bg-gray-300 rounded-full flex items-center justify-center text-white">
+                    <i class="fas fa-check-double"></i>
+                  </div>
+                </div>
+                <div class="flex-1">
+                  <div class="bg-gray-50 border-l-4 border-gray-300 rounded-r-lg p-4">
+                    <div class="font-bold text-gray-600 text-lg mb-2">Delivered</div>
+                    <div class="text-gray-500">Pending</div>
+                  </div>
+                </div>
+              </div>
+              `}
+            </div>
+          </div>
+
+          <!-- Shipping Address -->
+          ${order.shipping_address ? `
+          <div class="p-6 bg-gray-50 border-t border-gray-200">
+            <h4 class="font-bold text-gray-800 mb-3">
+              <i class="fas fa-map-marker-alt text-red-500 mr-2"></i>
+              Delivery Address
+            </h4>
+            <div class="text-gray-700 leading-relaxed">${order.shipping_address}</div>
+          </div>
+          ` : ''}
+
+          <!-- Support -->
+          <div class="p-6 bg-gradient-to-r from-blue-600 to-cyan-500 text-white">
+            <div class="text-center">
+              <h4 class="font-bold text-xl mb-2">Need Help?</h4>
+              <p class="mb-4 opacity-90">Contact our support team for any queries</p>
+              <div class="flex justify-center gap-4">
+                <a href="mailto:support@flyqdrones.com" class="bg-white text-blue-600 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition">
+                  <i class="fas fa-envelope mr-2"></i>Email Support
+                </a>
+                <a href="https://wa.me/919137361474" target="_blank" class="bg-green-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-700 transition">
+                  <i class="fab fa-whatsapp mr-2"></i>WhatsApp
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Back Button -->
+        <div class="text-center">
+          <a href="/account/orders" class="inline-block bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-50 transition shadow-lg">
+            <i class="fas fa-arrow-left mr-2"></i>Back to Orders
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <style>
+      @keyframes pulse {
+        0%, 100% {
+          box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.7);
+        }
+        50% {
+          box-shadow: 0 0 0 10px rgba(59, 130, 246, 0);
+        }
+      }
+    </style>
+  `;
+
+  return c.html(renderPage(`Track Order - ${trackingId}`, content));
+});
+
 export default app
 
