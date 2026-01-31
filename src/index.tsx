@@ -11169,27 +11169,17 @@ app.get('/track-order', async (c) => {
     `));
   }
 
-  // Fetch order details
-  const order = await c.env.DB.prepare(`
-    SELECT 
-      o.*,
-      u.name as customer_name,
-      u.email as customer_email
-    FROM orders o
-    JOIN users u ON o.user_id = u.id
-    WHERE o.tracking_id = ?
-  `).bind(trackingId).first();
-
-  if (!order) {
-    return c.html(renderPage('Tracking Not Found', `
+  // Check if database is available
+  if (!c.env.DB) {
+    return c.html(renderPage('Service Unavailable', `
       <div class="min-h-screen bg-gradient-to-br from-blue-50 to-cyan-50 py-12">
         <div class="container mx-auto px-6 max-w-2xl">
           <div class="bg-white rounded-2xl shadow-xl p-8 text-center">
-            <i class="fas fa-exclamation-circle text-6xl text-red-500 mb-4"></i>
-            <h1 class="text-3xl font-bold text-gray-800 mb-4">Tracking ID Not Found</h1>
-            <p class="text-gray-600 mb-6">We couldn't find any shipment with tracking ID: <strong>${trackingId}</strong></p>
+            <i class="fas fa-exclamation-triangle text-6xl text-yellow-500 mb-4"></i>
+            <h1 class="text-3xl font-bold text-gray-800 mb-4">Service Temporarily Unavailable</h1>
+            <p class="text-gray-600 mb-6">Please try again in a few moments</p>
             <a href="/track-order" class="inline-block bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition">
-              <i class="fas fa-arrow-left mr-2"></i>Try Again
+              <i class="fas fa-redo mr-2"></i>Try Again
             </a>
           </div>
         </div>
@@ -11197,39 +11187,57 @@ app.get('/track-order', async (c) => {
     `));
   }
 
-  // Extract city from shipping address
-  const extractCity = (address: string | null) => {
-    if (!address) return 'Your Location';
-    // Try to extract city/location from address
-    const parts = address.split(',').map(p => p.trim());
-    // Look for common patterns: City, State, PIN
-    for (let i = parts.length - 1; i >= 0; i--) {
-      const part = parts[i];
-      // If it contains numbers (likely PIN code), take the previous part
-      if (/\d{6}/.test(part) && i > 0) {
-        return parts[i - 1];
-      }
+  try {
+    // Fetch order details
+    const order = await c.env.DB.prepare(`
+      SELECT 
+        o.*,
+        u.name as customer_name,
+        u.email as customer_email
+      FROM orders o
+      JOIN users u ON o.user_id = u.id
+      WHERE o.tracking_id = ?
+    `).bind(trackingId).first();
+
+    if (!order) {
+      return c.html(renderPage('Tracking Not Found', `
+        <div class="min-h-screen bg-gradient-to-br from-blue-50 to-cyan-50 py-12">
+          <div class="container mx-auto px-6 max-w-2xl">
+            <div class="bg-white rounded-2xl shadow-xl p-8 text-center">
+              <i class="fas fa-exclamation-circle text-6xl text-red-500 mb-4"></i>
+              <h1 class="text-3xl font-bold text-gray-800 mb-4">Tracking ID Not Found</h1>
+              <p class="text-gray-600 mb-6">We couldn't find any shipment with tracking ID: <strong>${trackingId}</strong></p>
+              <a href="/track-order" class="inline-block bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition">
+                <i class="fas fa-arrow-left mr-2"></i>Try Again
+              </a>
+            </div>
+          </div>
+        </div>
+      `));
     }
-    // If no PIN found, try to find state and return city before it
-    const states = ['Maharashtra', 'Karnataka', 'Tamil Nadu', 'Delhi', 'Gujarat', 'Rajasthan', 'UP', 'Uttar Pradesh', 'MP', 'Madhya Pradesh', 'Kerala', 'Punjab', 'Haryana', 'Bihar', 'West Bengal', 'Andhra Pradesh', 'Telangana', 'Assam', 'Odisha', 'Jharkhand'];
-    for (let i = 0; i < parts.length; i++) {
-      for (const state of states) {
-        if (parts[i].toLowerCase().includes(state.toLowerCase()) && i > 0) {
-          return parts[i - 1];
+
+    // Extract city from shipping address - simplified version
+    const shipping_address = order.shipping_address || '';
+    let destination = 'Your Location';
+    
+    if (shipping_address) {
+      const parts = shipping_address.split(',').map((p: string) => p.trim());
+      // Look for PIN code and take city before it
+      for (let i = parts.length - 1; i >= 0; i--) {
+        if (/\d{6}/.test(parts[i]) && i > 0) {
+          destination = parts[i - 1];
+          break;
         }
       }
+      // If no PIN found, use second-to-last part
+      if (destination === 'Your Location' && parts.length > 1) {
+        destination = parts[parts.length - 2];
+      }
     }
-    // Fallback: return second-to-last part if available
-    return parts.length > 1 ? parts[parts.length - 2] : parts[0];
-  };
 
-  const destination = extractCity(order.shipping_address);
-
-  // Generate tracking timeline
-  const orderDate = new Date(order.created_at);
-  const pickupDate = new Date('2026-01-27T10:00:00'); // Jan 27, 2026
-  const hubDate = new Date('2026-01-28T08:00:00'); // Jan 28, 2026
-  const now = new Date();
+    // Generate tracking timeline
+    const orderDate = new Date(order.created_at as string);
+    const orderDateStr = orderDate.toLocaleDateString('en-IN', { year: 'numeric', month: 'long', day: 'numeric' });
 
   const content = `
     <div class="min-h-screen bg-gradient-to-br from-blue-50 via-cyan-50 to-sky-100 py-12">
@@ -11272,7 +11280,7 @@ app.get('/track-order', async (c) => {
               </div>
               <div>
                 <div class="text-sm text-gray-600 mb-1">Order Date</div>
-                <div class="text-lg font-bold text-gray-800">${orderDate.toLocaleDateString('en-IN', { year: 'numeric', month: 'long', day: 'numeric' })}</div>
+                <div class="text-lg font-bold text-gray-800">${orderDateStr}</div>
               </div>
             </div>
           </div>
@@ -11525,7 +11533,24 @@ app.get('/track-order', async (c) => {
     </style>
   `;
 
-  return c.html(renderPage(`Track Order - ${trackingId}`, content));
+    return c.html(renderPage(`Track Order - ${trackingId}`, content));
+  } catch (error) {
+    console.error('Tracking error:', error);
+    return c.html(renderPage('Error', `
+      <div class="min-h-screen bg-gradient-to-br from-blue-50 to-cyan-50 py-12">
+        <div class="container mx-auto px-6 max-w-2xl">
+          <div class="bg-white rounded-2xl shadow-xl p-8 text-center">
+            <i class="fas fa-exclamation-triangle text-6xl text-red-500 mb-4"></i>
+            <h1 class="text-3xl font-bold text-gray-800 mb-4">An Error Occurred</h1>
+            <p class="text-gray-600 mb-6">We encountered an error while loading your tracking information. Please try again.</p>
+            <a href="/track-order" class="inline-block bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition">
+              <i class="fas fa-redo mr-2"></i>Try Again
+            </a>
+          </div>
+        </div>
+      </div>
+    `));
+  }
 });
 
 export default app
