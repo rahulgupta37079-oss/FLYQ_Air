@@ -11172,7 +11172,20 @@ app.get('/track-order', async (c) => {
   try {
     // Check DB availability
     if (!c.env?.DB) {
-      throw new Error('Database not available');
+      return c.html(renderPage('Service Unavailable', `
+        <div class="min-h-screen bg-gradient-to-br from-blue-50 to-cyan-50 py-12">
+          <div class="container mx-auto px-6 max-w-2xl">
+            <div class="bg-white rounded-2xl shadow-xl p-8 text-center">
+              <i class="fas fa-database text-6xl text-yellow-500 mb-4"></i>
+              <h1 class="text-3xl font-bold text-gray-800 mb-4">Database Connection Issue</h1>
+              <p class="text-gray-600 mb-6">We're having trouble connecting to the database. Please try again in a moment.</p>
+              <a href="/track-order" class="inline-block bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition">
+                <i class="fas fa-redo mr-2"></i>Try Again
+              </a>
+            </div>
+          </div>
+        </div>
+      `));
     }
 
     // Fetch order details
@@ -11226,7 +11239,7 @@ app.get('/track-order', async (c) => {
       }
     }
 
-    // Format dates
+    // Format dates safely
     const orderDate = new Date(String(order.created_at));
     const orderDateStr = orderDate.toLocaleDateString('en-IN', { 
       year: 'numeric', 
@@ -11237,6 +11250,11 @@ app.get('/track-order', async (c) => {
       month: 'short', 
       day: 'numeric' 
     });
+
+    // Safe property access
+    const orderNumber = String(order.order_number || 'N/A');
+    const shippingStatus = String(order.shipping_status || 'pending');
+    const shippingAddress = String(order.shipping_address || '');
 
   const content = `
     <div class="min-h-screen bg-gradient-to-br from-blue-50 via-cyan-50 to-sky-100 py-12">
@@ -11262,8 +11280,8 @@ app.get('/track-order', async (c) => {
               <div class="bg-white/20 backdrop-blur-sm px-6 py-3 rounded-full">
                 <div class="text-sm opacity-90 mb-1">Current Status</div>
                 <div class="text-xl font-bold">
-                  ${order.shipping_status === 'delivered' ? '✅ Delivered' : 
-                    order.shipping_status === 'shipped' ? '🚚 In Transit' : 
+                  ${shippingStatus === 'delivered' ? '✅ Delivered' : 
+                    shippingStatus === 'shipped' ? '🚚 In Transit' : 
                     '📦 Processing'}
                 </div>
               </div>
@@ -11275,7 +11293,7 @@ app.get('/track-order', async (c) => {
             <div class="grid md:grid-cols-2 gap-6">
               <div>
                 <div class="text-sm text-gray-600 mb-1">Order Number</div>
-                <div class="text-lg font-bold text-gray-800">${order.order_number}</div>
+                <div class="text-lg font-bold text-gray-800">${orderNumber}</div>
               </div>
               <div>
                 <div class="text-sm text-gray-600 mb-1">Order Date</div>
@@ -11389,7 +11407,7 @@ app.get('/track-order', async (c) => {
                   <div class="w-12 h-12 bg-purple-500 rounded-full flex items-center justify-center text-white shadow-lg animate-pulse">
                     <i class="fas fa-truck"></i>
                   </div>
-                  ${order.shipping_status !== 'delivered' ? '<div class="w-1 h-full bg-gray-300 mt-2"></div>' : ''}
+                  ${shippingStatus !== 'delivered' ? '<div class="w-1 h-full bg-gray-300 mt-2"></div>' : ''}
                 </div>
                 <div class="flex-1 pb-8">
                   <div class="bg-purple-50 border-l-4 border-purple-500 rounded-r-lg p-4">
@@ -11410,7 +11428,7 @@ app.get('/track-order', async (c) => {
               </div>
 
               <!-- Out for Delivery (Pending) -->
-              ${order.shipping_status === 'delivered' ? `
+              ${shippingStatus === 'delivered' ? `
               <div class="flex gap-4">
                 <div class="flex flex-col items-center">
                   <div class="w-12 h-12 bg-orange-500 rounded-full flex items-center justify-center text-white shadow-lg">
@@ -11447,7 +11465,7 @@ app.get('/track-order', async (c) => {
               `}
 
               <!-- Delivered (Pending) -->
-              ${order.shipping_status === 'delivered' ? `
+              ${shippingStatus === 'delivered' ? `
               <div class="flex gap-4">
                 <div class="flex flex-col items-center">
                   <div class="w-12 h-12 bg-green-600 rounded-full flex items-center justify-center text-white shadow-lg">
@@ -11484,13 +11502,13 @@ app.get('/track-order', async (c) => {
           </div>
 
           <!-- Shipping Address -->
-          ${order.shipping_address ? `
+          ${shippingAddress ? `
           <div class="p-6 bg-gray-50 border-t border-gray-200">
             <h4 class="font-bold text-gray-800 mb-3">
               <i class="fas fa-map-marker-alt text-red-500 mr-2"></i>
               Delivery Address
             </h4>
-            <div class="text-gray-700 leading-relaxed">${order.shipping_address}</div>
+            <div class="text-gray-700 leading-relaxed">${shippingAddress}</div>
           </div>
           ` : ''}
 
@@ -11534,14 +11552,20 @@ app.get('/track-order', async (c) => {
 
     return c.html(renderPage(`Track Order - ${trackingId}`, content));
   } catch (error) {
+    // Log error details for debugging
+    const errorMessage = error instanceof Error ? error.message : String(error);
     console.error('Tracking error:', error);
+    
     return c.html(renderPage('Error', `
       <div class="min-h-screen bg-gradient-to-br from-blue-50 to-cyan-50 py-12">
         <div class="container mx-auto px-6 max-w-2xl">
           <div class="bg-white rounded-2xl shadow-xl p-8 text-center">
             <i class="fas fa-exclamation-triangle text-6xl text-red-500 mb-4"></i>
             <h1 class="text-3xl font-bold text-gray-800 mb-4">An Error Occurred</h1>
-            <p class="text-gray-600 mb-6">We encountered an error while loading your tracking information. Please try again.</p>
+            <p class="text-gray-600 mb-4">We encountered an error while loading your tracking information.</p>
+            <div class="bg-red-50 border border-red-200 rounded-lg p-4 mb-6 text-left">
+              <p class="text-sm text-red-800 font-mono">${errorMessage}</p>
+            </div>
             <a href="/track-order" class="inline-block bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition">
               <i class="fas fa-redo mr-2"></i>Try Again
             </a>
