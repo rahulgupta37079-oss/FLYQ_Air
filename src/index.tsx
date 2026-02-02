@@ -2436,80 +2436,146 @@ app.get('/products/:slug', async (c) => {
                         </div>
                     </div>
 
-                    <!-- Delivery Timeline -->
+                    <!-- Delivery Timeline - Enhanced Visual Design -->
                     <div class="mt-8 border-t pt-8">
-                        <h3 class="font-bold text-xl mb-6 flex items-center">
+                        <h3 class="font-bold text-2xl mb-6 flex items-center">
                             <i class="fas fa-shipping-fast text-sky-500 mr-3"></i>
-                            Expected Delivery Timeline
+                            Delivery Timeline
                         </h3>
                         
-                        <div class="space-y-4">
-                            <!-- Order Confirmation -->
-                            <div class="flex items-start gap-4">
-                                <div class="flex flex-col items-center">
-                                    <div class="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center text-white shadow-lg">
-                                        <i class="fas fa-check text-sm"></i>
+                        <!-- Progress Bar -->
+                        <div class="relative mb-12">
+                            <div class="flex justify-between items-center">
+                                <!-- Step 1 -->
+                                <div class="flex flex-col items-center z-10">
+                                    <div class="w-14 h-14 bg-gradient-to-br from-green-500 to-green-600 rounded-full flex items-center justify-center text-white shadow-2xl mb-3 ring-4 ring-green-100">
+                                        <i class="fas fa-check text-lg"></i>
                                     </div>
-                                    <div class="w-0.5 h-12 bg-green-300 mt-1"></div>
+                                    <span class="text-xs font-semibold text-gray-700 text-center w-20">Order<br/>Placed</span>
                                 </div>
-                                <div class="flex-1">
-                                    <div class="font-semibold text-gray-800">Order Confirmed</div>
-                                    <div class="text-sm text-gray-600">Within 24 hours of payment</div>
-                                    <div class="text-xs text-gray-500 mt-1">Mumbai Processing Center</div>
+                                
+                                <!-- Step 2 -->
+                                <div class="flex flex-col items-center z-10">
+                                    <div class="w-14 h-14 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center text-white shadow-2xl mb-3 ring-4 ring-blue-100">
+                                        <i class="fas fa-box text-lg"></i>
+                                    </div>
+                                    <span class="text-xs font-semibold text-gray-700 text-center w-20">Picked<br/>Up</span>
+                                </div>
+                                
+                                <!-- Step 3 -->
+                                <div class="flex flex-col items-center z-10">
+                                    <div class="w-14 h-14 bg-gradient-to-br from-cyan-500 to-cyan-600 rounded-full flex items-center justify-center text-white shadow-2xl mb-3 ring-4 ring-cyan-100 animate-pulse">
+                                        <i class="fas fa-truck text-lg"></i>
+                                    </div>
+                                    <span class="text-xs font-semibold text-gray-700 text-center w-20">In<br/>Transit</span>
+                                </div>
+                                
+                                <!-- Step 4 -->
+                                <div class="flex flex-col items-center z-10">
+                                    <div class="w-14 h-14 bg-gradient-to-br from-purple-500 to-purple-600 rounded-full flex items-center justify-center text-white shadow-2xl mb-3 ring-4 ring-purple-100">
+                                        <i class="fas fa-home text-lg"></i>
+                                    </div>
+                                    <span class="text-xs font-semibold text-gray-700 text-center w-20">Delivered</span>
+                                </div>
+                            </div>
+                            
+                            <!-- Progress Line -->
+                            <div class="absolute top-7 left-0 right-0 h-1.5 bg-gradient-to-r from-green-300 via-blue-300 via-cyan-300 to-purple-200 -z-0" style="margin-left: 28px; margin-right: 28px;"></div>
+                        </div>
+
+                        <!-- Detailed Timeline Cards -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                            <!-- Card 1 -->
+                            <div class="bg-gradient-to-br from-green-50 to-green-100 rounded-xl p-5 border-l-4 border-green-500 shadow-md hover:shadow-xl transition-shadow">
+                                <div class="flex items-start gap-4">
+                                    <div class="flex-shrink-0">
+                                        <div class="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center text-white shadow-lg">
+                                            <i class="fas fa-check"></i>
+                                        </div>
+                                    </div>
+                                    <div class="flex-1">
+                                        <div class="font-bold text-gray-800 text-lg mb-1">Order Confirmed</div>
+                                        <div class="text-sm text-gray-600 mb-2">Within 24 hours of payment</div>
+                                        <div class="inline-flex items-center gap-1.5 bg-white/70 px-3 py-1 rounded-full text-xs font-medium text-green-700">
+                                            <i class="fas fa-map-marker-alt text-xs"></i>
+                                            Mumbai Processing Center
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 
-                            <!-- Pickup -->
-                            <div class="flex items-start gap-4">
-                                <div class="flex flex-col items-center">
-                                    <div class="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center text-white shadow-lg">
-                                        <i class="fas fa-box text-sm"></i>
+                            <!-- Card 2 -->
+                            <div class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-5 border-l-4 border-blue-500 shadow-md hover:shadow-xl transition-shadow">
+                                <div class="flex items-start gap-4">
+                                    <div class="flex-shrink-0">
+                                        <div class="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center text-white shadow-lg">
+                                            <i class="fas fa-box"></i>
+                                        </div>
                                     </div>
-                                    <div class="w-0.5 h-12 bg-blue-300 mt-1"></div>
-                                </div>
-                                <div class="flex-1">
-                                    <div class="font-semibold text-gray-800">Picked Up</div>
-                                    <div class="text-sm text-gray-600">1-2 days after confirmation</div>
-                                    <div class="text-xs text-gray-500 mt-1">From warehouse - Mumbai</div>
+                                    <div class="flex-1">
+                                        <div class="font-bold text-gray-800 text-lg mb-1">Picked Up</div>
+                                        <div class="text-sm text-gray-600 mb-2">1-2 days after confirmation</div>
+                                        <div class="inline-flex items-center gap-1.5 bg-white/70 px-3 py-1 rounded-full text-xs font-medium text-blue-700">
+                                            <i class="fas fa-warehouse text-xs"></i>
+                                            From Mumbai Warehouse
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 
-                            <!-- In Transit -->
-                            <div class="flex items-start gap-4">
-                                <div class="flex flex-col items-center">
-                                    <div class="w-10 h-10 bg-cyan-500 rounded-full flex items-center justify-center text-white shadow-lg">
-                                        <i class="fas fa-truck text-sm"></i>
+                            <!-- Card 3 -->
+                            <div class="bg-gradient-to-br from-cyan-50 to-cyan-100 rounded-xl p-5 border-l-4 border-cyan-500 shadow-md hover:shadow-xl transition-shadow">
+                                <div class="flex items-start gap-4">
+                                    <div class="flex-shrink-0">
+                                        <div class="w-12 h-12 bg-cyan-500 rounded-full flex items-center justify-center text-white shadow-lg">
+                                            <i class="fas fa-truck"></i>
+                                        </div>
                                     </div>
-                                    <div class="w-0.5 h-12 bg-cyan-300 mt-1"></div>
-                                </div>
-                                <div class="flex-1">
-                                    <div class="font-semibold text-gray-800">In Transit</div>
-                                    <div class="text-sm text-gray-600">2-4 days in transit</div>
-                                    <div class="text-xs text-gray-500 mt-1">Mumbai → Your City</div>
+                                    <div class="flex-1">
+                                        <div class="font-bold text-gray-800 text-lg mb-1">In Transit</div>
+                                        <div class="text-sm text-gray-600 mb-2">2-4 days shipping time</div>
+                                        <div class="inline-flex items-center gap-1.5 bg-white/70 px-3 py-1 rounded-full text-xs font-medium text-cyan-700">
+                                            <i class="fas fa-route text-xs"></i>
+                                            Mumbai → Your City
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 
-                            <!-- Delivered -->
-                            <div class="flex items-start gap-4">
-                                <div class="flex flex-col items-center">
-                                    <div class="w-10 h-10 bg-purple-500 rounded-full flex items-center justify-center text-white shadow-lg">
-                                        <i class="fas fa-home text-sm"></i>
+                            <!-- Card 4 -->
+                            <div class="bg-gradient-to-br from-purple-50 to-purple-100 rounded-xl p-5 border-l-4 border-purple-500 shadow-md hover:shadow-xl transition-shadow">
+                                <div class="flex items-start gap-4">
+                                    <div class="flex-shrink-0">
+                                        <div class="w-12 h-12 bg-purple-500 rounded-full flex items-center justify-center text-white shadow-lg">
+                                            <i class="fas fa-home"></i>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="flex-1">
-                                    <div class="font-semibold text-gray-800">Delivered</div>
-                                    <div class="text-sm text-gray-600">5-7 days total</div>
-                                    <div class="text-xs text-gray-500 mt-1">To your doorstep</div>
+                                    <div class="flex-1">
+                                        <div class="font-bold text-gray-800 text-lg mb-1">Delivered</div>
+                                        <div class="text-sm text-gray-600 mb-2">Total: 5-7 business days</div>
+                                        <div class="inline-flex items-center gap-1.5 bg-white/70 px-3 py-1 rounded-full text-xs font-medium text-purple-700">
+                                            <i class="fas fa-check-circle text-xs"></i>
+                                            To Your Doorstep
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="mt-6 bg-sky-50 rounded-lg p-4">
-                            <div class="flex items-start gap-3">
-                                <i class="fas fa-info-circle text-sky-600 mt-1"></i>
-                                <div class="text-sm text-gray-700">
-                                    <strong>Note:</strong> You'll receive a tracking ID via email once your order is shipped. 
-                                    Track your order in real-time from Mumbai to your location.
+                        <!-- Info Box -->
+                        <div class="bg-gradient-to-r from-sky-50 to-blue-50 rounded-xl p-5 border border-sky-200 shadow-md">
+                            <div class="flex items-start gap-4">
+                                <div class="flex-shrink-0">
+                                    <div class="w-10 h-10 bg-sky-500 rounded-full flex items-center justify-center text-white">
+                                        <i class="fas fa-info"></i>
+                                    </div>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="font-bold text-gray-800 mb-2">Real-Time Tracking Available</div>
+                                    <div class="text-sm text-gray-700 leading-relaxed">
+                                        You'll receive a <strong>tracking ID via email</strong> once your order ships. 
+                                        Track your package in real-time from Mumbai to your doorstep with live updates at every step.
+                                    </div>
                                 </div>
                             </div>
                         </div>
