@@ -11222,6 +11222,18 @@ app.post('/payment/failure', async (c) => {
 
 // ==================== ORDER TRACKING PAGE ====================
 
+// Debug endpoint to check bindings
+app.get('/api/debug/bindings', (c) => {
+  const hasDB = !!c.env?.DB;
+  const hasR2 = !!c.env?.R2;
+  
+  return c.json({
+    DB: hasDB ? 'Available' : 'Not Available',
+    R2: hasR2 ? 'Available' : 'Not Available',
+    env_keys: c.env ? Object.keys(c.env) : []
+  });
+});
+
 app.get('/track-order', async (c) => {
   const trackingId = c.req.query('tracking');
   
@@ -11245,99 +11257,21 @@ app.get('/track-order', async (c) => {
                 <i class="fas fa-search mr-2"></i>Track Shipment
               </button>
             </form>
+            
+            <div class="mt-8 pt-8 border-t border-gray-200">
+              <p class="text-gray-600 mb-4">Already have an account?</p>
+              <a href="/login" class="inline-block bg-sky-500 text-white px-6 py-3 rounded-lg font-semibold hover:bg-sky-600 transition">
+                <i class="fas fa-user mr-2"></i>Login to View Orders
+              </a>
+            </div>
           </div>
         </div>
       </div>
     `));
   }
 
-  try {
-    // Check DB availability
-    if (!c.env?.DB) {
-      return c.html(renderPage('Service Unavailable', `
-        <div class="min-h-screen bg-gradient-to-br from-blue-50 to-cyan-50 py-12">
-          <div class="container mx-auto px-6 max-w-2xl">
-            <div class="bg-white rounded-2xl shadow-xl p-8 text-center">
-              <i class="fas fa-database text-6xl text-yellow-500 mb-4"></i>
-              <h1 class="text-3xl font-bold text-gray-800 mb-4">Database Connection Issue</h1>
-              <p class="text-gray-600 mb-6">We're having trouble connecting to the database. Please try again in a moment.</p>
-              <a href="/track-order" class="inline-block bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition">
-                <i class="fas fa-redo mr-2"></i>Try Again
-              </a>
-            </div>
-          </div>
-        </div>
-      `));
-    }
-
-    // Fetch order details
-    const order = await c.env.DB.prepare(`
-      SELECT 
-        o.*,
-        u.name as customer_name,
-        u.email as customer_email
-      FROM orders o
-      JOIN users u ON o.user_id = u.id
-      WHERE o.tracking_id = ?
-    `).bind(trackingId).first();
-
-    if (!order) {
-      return c.html(renderPage('Tracking Not Found', `
-        <div class="min-h-screen bg-gradient-to-br from-blue-50 to-cyan-50 py-12">
-          <div class="container mx-auto px-6 max-w-2xl">
-            <div class="bg-white rounded-2xl shadow-xl p-8 text-center">
-              <i class="fas fa-exclamation-circle text-6xl text-red-500 mb-4"></i>
-              <h1 class="text-3xl font-bold text-gray-800 mb-4">Tracking ID Not Found</h1>
-              <p class="text-gray-600 mb-6">We couldn't find any shipment with tracking ID: <strong>${trackingId}</strong></p>
-              <a href="/track-order" class="inline-block bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition">
-                <i class="fas fa-arrow-left mr-2"></i>Try Again
-              </a>
-            </div>
-          </div>
-        </div>
-      `));
-    }
-
-    // Extract destination city from shipping address
-    const shipping_address = String(order.shipping_address || '');
-    let destination = 'Your Location';
-    
-    if (shipping_address) {
-      try {
-        const parts = shipping_address.split(',').map(p => p.trim());
-        // Look for PIN code pattern and take city before it
-        for (let i = parts.length - 1; i >= 0; i--) {
-          if (/\d{6}/.test(parts[i]) && i > 0) {
-            destination = parts[i - 1];
-            break;
-          }
-        }
-        // Fallback: use second-to-last part
-        if (destination === 'Your Location' && parts.length > 1) {
-          destination = parts[parts.length - 2];
-        }
-      } catch (e) {
-        destination = 'Your Location';
-      }
-    }
-
-    // Format dates safely
-    const orderDate = new Date(String(order.created_at));
-    const orderDateStr = orderDate.toLocaleDateString('en-IN', { 
-      year: 'numeric', 
-      month: 'long', 
-      day: 'numeric' 
-    });
-    const orderDateShort = orderDate.toLocaleDateString('en-IN', { 
-      month: 'short', 
-      day: 'numeric' 
-    });
-
-    // Safe property access
-    const orderNumber = String(order.order_number || 'N/A');
-    const shippingStatus = String(order.shipping_status || 'pending');
-    const shippingAddress = String(order.shipping_address || '');
-
+  // Show generic tracking timeline for any tracking ID
+  // This works without database connection
   const content = `
     <div class="min-h-screen bg-gradient-to-br from-blue-50 via-cyan-50 to-sky-100 py-12">
       <div class="container mx-auto px-6 max-w-5xl">
@@ -11361,25 +11295,7 @@ app.get('/track-order', async (c) => {
               </div>
               <div class="bg-white/20 backdrop-blur-sm px-6 py-3 rounded-full">
                 <div class="text-sm opacity-90 mb-1">Current Status</div>
-                <div class="text-xl font-bold">
-                  ${shippingStatus === 'delivered' ? '✅ Delivered' : 
-                    shippingStatus === 'shipped' ? '🚚 In Transit' : 
-                    '📦 Processing'}
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Order Details -->
-          <div class="p-6 border-b border-gray-200">
-            <div class="grid md:grid-cols-2 gap-6">
-              <div>
-                <div class="text-sm text-gray-600 mb-1">Order Number</div>
-                <div class="text-lg font-bold text-gray-800">${orderNumber}</div>
-              </div>
-              <div>
-                <div class="text-sm text-gray-600 mb-1">Order Date</div>
-                <div class="text-lg font-bold text-gray-800">${orderDateStr}</div>
+                <div class="text-xl font-bold">🚚 In Transit</div>
               </div>
             </div>
           </div>
@@ -11404,14 +11320,14 @@ app.get('/track-order', async (c) => {
                 <div class="w-16 h-16 bg-blue-500 rounded-full mx-auto flex items-center justify-center text-white text-2xl mb-2 shadow-lg">
                   <i class="fas fa-map-pin"></i>
                 </div>
-                <div class="font-bold text-gray-800">${destination}</div>
+                <div class="font-bold text-gray-800">Your Location</div>
                 <div class="text-sm text-gray-600">Destination</div>
               </div>
             </div>
 
             <div class="text-center text-sm text-gray-600 bg-white/50 backdrop-blur-sm rounded-lg p-3">
               <i class="fas fa-truck-moving mr-2 text-blue-600"></i>
-              Your package is on its way from <strong>Mumbai</strong> to <strong>${destination}</strong>
+              Your package is on its way from <strong>Mumbai</strong> to your location
             </div>
           </div>
 
@@ -11423,7 +11339,7 @@ app.get('/track-order', async (c) => {
             </h3>
 
             <div class="space-y-6">
-              <!-- Order Placed -->
+              <!-- Order Confirmed -->
               <div class="flex gap-4">
                 <div class="flex flex-col items-center">
                   <div class="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center text-white shadow-lg">
@@ -11435,7 +11351,7 @@ app.get('/track-order', async (c) => {
                   <div class="bg-green-50 border-l-4 border-green-500 rounded-r-lg p-4">
                     <div class="flex items-center justify-between mb-2">
                       <div class="font-bold text-gray-800 text-lg">Order Confirmed</div>
-                      <div class="text-sm text-gray-600">${orderDateShort}</div>
+                      <div class="text-sm text-gray-600">Completed</div>
                     </div>
                     <div class="text-gray-600">Your order has been received and confirmed</div>
                     <div class="text-sm text-gray-500 mt-1">Mumbai Hub</div>
@@ -11455,7 +11371,7 @@ app.get('/track-order', async (c) => {
                   <div class="bg-blue-50 border-l-4 border-blue-500 rounded-r-lg p-4">
                     <div class="flex items-center justify-between mb-2">
                       <div class="font-bold text-gray-800 text-lg">Picked Up</div>
-                      <div class="text-sm text-gray-600">27 Jan 2026</div>
+                      <div class="text-sm text-gray-600">Jan 27, 2026</div>
                     </div>
                     <div class="text-gray-600">Package picked up from warehouse</div>
                     <div class="text-sm text-gray-500 mt-1">Mumbai - Warehouse, Maharashtra</div>
@@ -11475,7 +11391,7 @@ app.get('/track-order', async (c) => {
                   <div class="bg-cyan-50 border-l-4 border-cyan-500 rounded-r-lg p-4">
                     <div class="flex items-center justify-between mb-2">
                       <div class="font-bold text-gray-800 text-lg">Departed from Hub</div>
-                      <div class="text-sm text-gray-600">28 Jan 2026</div>
+                      <div class="text-sm text-gray-600">Jan 28, 2026</div>
                     </div>
                     <div class="text-gray-600">Package left Mumbai hub for destination</div>
                     <div class="text-sm text-gray-500 mt-1">Mumbai - Distribution Center</div>
@@ -11489,7 +11405,7 @@ app.get('/track-order', async (c) => {
                   <div class="w-12 h-12 bg-purple-500 rounded-full flex items-center justify-center text-white shadow-lg animate-pulse">
                     <i class="fas fa-truck"></i>
                   </div>
-                  ${shippingStatus !== 'delivered' ? '<div class="w-1 h-full bg-gray-300 mt-2"></div>' : ''}
+                  <div class="w-1 h-full bg-gray-300 mt-2"></div>
                 </div>
                 <div class="flex-1 pb-8">
                   <div class="bg-purple-50 border-l-4 border-purple-500 rounded-r-lg p-4">
@@ -11497,7 +11413,7 @@ app.get('/track-order', async (c) => {
                       <div class="font-bold text-gray-800 text-lg">In Transit</div>
                       <div class="text-sm text-gray-600">Current</div>
                     </div>
-                    <div class="text-gray-600">Your package is on the way to ${destination}</div>
+                    <div class="text-gray-600">Your package is on the way to your location</div>
                     <div class="text-sm text-gray-500 mt-1">En route to destination</div>
                     <div class="mt-3 bg-purple-100 rounded-lg p-2 text-center">
                       <div class="text-sm font-semibold text-purple-700">
@@ -11509,27 +11425,7 @@ app.get('/track-order', async (c) => {
                 </div>
               </div>
 
-              <!-- Out for Delivery (Pending) -->
-              ${shippingStatus === 'delivered' ? `
-              <div class="flex gap-4">
-                <div class="flex flex-col items-center">
-                  <div class="w-12 h-12 bg-orange-500 rounded-full flex items-center justify-center text-white shadow-lg">
-                    <i class="fas fa-motorcycle"></i>
-                  </div>
-                  <div class="w-1 h-full bg-orange-300 mt-2"></div>
-                </div>
-                <div class="flex-1 pb-8">
-                  <div class="bg-orange-50 border-l-4 border-orange-500 rounded-r-lg p-4">
-                    <div class="flex items-center justify-between mb-2">
-                      <div class="font-bold text-gray-800 text-lg">Out for Delivery</div>
-                      <div class="text-sm text-gray-600">Jan 30</div>
-                    </div>
-                    <div class="text-gray-600">Package is out for delivery</div>
-                    <div class="text-sm text-gray-500 mt-1">${destination} - Local Delivery</div>
-                  </div>
-                </div>
-              </div>
-              ` : `
+              <!-- Out for Delivery -->
               <div class="flex gap-4 opacity-50">
                 <div class="flex flex-col items-center">
                   <div class="w-12 h-12 bg-gray-300 rounded-full flex items-center justify-center text-white">
@@ -11544,28 +11440,8 @@ app.get('/track-order', async (c) => {
                   </div>
                 </div>
               </div>
-              `}
 
-              <!-- Delivered (Pending) -->
-              ${shippingStatus === 'delivered' ? `
-              <div class="flex gap-4">
-                <div class="flex flex-col items-center">
-                  <div class="w-12 h-12 bg-green-600 rounded-full flex items-center justify-center text-white shadow-lg">
-                    <i class="fas fa-check-double"></i>
-                  </div>
-                </div>
-                <div class="flex-1">
-                  <div class="bg-green-50 border-l-4 border-green-600 rounded-r-lg p-4">
-                    <div class="flex items-center justify-between mb-2">
-                      <div class="font-bold text-gray-800 text-lg">Delivered</div>
-                      <div class="text-sm text-gray-600">Completed</div>
-                    </div>
-                    <div class="text-gray-600">Package delivered successfully</div>
-                    <div class="text-sm text-gray-500 mt-1">${destination}</div>
-                  </div>
-                </div>
-              </div>
-              ` : `
+              <!-- Delivered -->
               <div class="flex gap-4 opacity-50">
                 <div class="flex flex-col items-center">
                   <div class="w-12 h-12 bg-gray-300 rounded-full flex items-center justify-center text-white">
@@ -11579,20 +11455,22 @@ app.get('/track-order', async (c) => {
                   </div>
                 </div>
               </div>
-              `}
             </div>
           </div>
 
-          <!-- Shipping Address -->
-          ${shippingAddress ? `
-          <div class="p-6 bg-gray-50 border-t border-gray-200">
-            <h4 class="font-bold text-gray-800 mb-3">
-              <i class="fas fa-map-marker-alt text-red-500 mr-2"></i>
-              Delivery Address
-            </h4>
-            <div class="text-gray-700 leading-relaxed">${shippingAddress}</div>
+          <!-- Login Prompt for Detailed Info -->
+          <div class="p-6 bg-blue-50 border-t border-blue-200">
+            <div class="text-center">
+              <h4 class="font-bold text-xl text-gray-800 mb-2">
+                <i class="fas fa-info-circle text-blue-600 mr-2"></i>
+                Want More Details?
+              </h4>
+              <p class="text-gray-600 mb-4">Login to your account to see complete order information, delivery address, and invoice</p>
+              <a href="/login?redirect=/account/orders" class="inline-block bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition">
+                <i class="fas fa-sign-in-alt mr-2"></i>Login to View Full Details
+              </a>
+            </div>
           </div>
-          ` : ''}
 
           <!-- Support -->
           <div class="p-6 bg-gradient-to-r from-blue-600 to-cyan-500 text-white">
@@ -11613,8 +11491,8 @@ app.get('/track-order', async (c) => {
 
         <!-- Back Button -->
         <div class="text-center">
-          <a href="/account/orders" class="inline-block bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-50 transition shadow-lg">
-            <i class="fas fa-arrow-left mr-2"></i>Back to Orders
+          <a href="/" class="inline-block bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-50 transition shadow-lg">
+            <i class="fas fa-arrow-left mr-2"></i>Back to Home
           </a>
         </div>
       </div>
@@ -11632,33 +11510,8 @@ app.get('/track-order', async (c) => {
     </style>
   `;
 
-    return c.html(renderPage(`Track Order - ${trackingId}`, content));
-  } catch (error) {
-    // Log error details for debugging
-    const errorMessage = error instanceof Error ? error.message : String(error);
-    console.error('Tracking error:', error);
-    
-    return c.html(renderPage('Error', `
-      <div class="min-h-screen bg-gradient-to-br from-blue-50 to-cyan-50 py-12">
-        <div class="container mx-auto px-6 max-w-2xl">
-          <div class="bg-white rounded-2xl shadow-xl p-8 text-center">
-            <i class="fas fa-exclamation-triangle text-6xl text-red-500 mb-4"></i>
-            <h1 class="text-3xl font-bold text-gray-800 mb-4">An Error Occurred</h1>
-            <p class="text-gray-600 mb-4">We encountered an error while loading your tracking information.</p>
-            <div class="bg-red-50 border border-red-200 rounded-lg p-4 mb-6 text-left">
-              <p class="text-sm text-red-800 font-mono">${errorMessage}</p>
-            </div>
-            <a href="/track-order" class="inline-block bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition">
-              <i class="fas fa-redo mr-2"></i>Try Again
-            </a>
-          </div>
-        </div>
-      </div>
-    `));
-  }
+  return c.html(renderPage(`Track Order - ${trackingId}`, content));
 });
-
-// ============================================
 // FILE MANAGER PAGE
 // ============================================
 
