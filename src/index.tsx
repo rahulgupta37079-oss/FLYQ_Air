@@ -11355,6 +11355,221 @@ app.get('/track/:id', (c) => {
   return c.html('<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><title>Track Order - ' + safeTrackingId + '</title><script src="https://cdn.tailwindcss.com"></script><link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet"></head><body class="bg-gray-50"><div class="container mx-auto px-6 py-12 max-w-5xl"><div class="bg-white rounded-3xl shadow-2xl overflow-hidden mb-8"><div class="bg-gradient-to-r from-blue-600 to-cyan-500 p-6 text-white"><div class="flex items-center justify-between flex-wrap gap-4"><div><div class="text-sm opacity-90 mb-1">Tracking ID</div><div class="text-2xl font-bold font-mono">' + safeTrackingId + '</div></div><div class="bg-white/20 backdrop-blur-sm px-6 py-3 rounded-full"><div class="text-sm opacity-90 mb-1">Status</div><div class="text-xl font-bold">🚚 In Transit - Delayed</div></div></div></div><div class="p-6 bg-orange-50 border-b-2 border-orange-200"><div class="flex items-start gap-3"><div class="flex-shrink-0"><i class="fas fa-exclamation-triangle text-orange-600 text-2xl"></i></div><div class="flex-1"><h4 class="font-bold text-orange-900 mb-1">Transit Delay Notice</h4><p class="text-orange-800 text-sm mb-2">Your shipment is experiencing a slight delay due to increased demand and logistics congestion.</p><p class="text-orange-700 text-sm"><strong>Original Expected Delivery:</strong> Feb 4-5, 2026<br><strong>Revised Expected Delivery:</strong> <span class="font-bold text-orange-900">' + deliveryDate + '</span> (Delayed by ' + daysDelayed + ' days)</p></div></div></div><div class="p-8 bg-gradient-to-br from-blue-50 to-cyan-50"><div class="flex items-center justify-between mb-6"><div class="text-center flex-1"><div class="w-16 h-16 bg-green-500 rounded-full mx-auto flex items-center justify-center text-white text-2xl mb-2 shadow-lg"><i class="fas fa-map-marker-alt"></i></div><div class="font-bold text-gray-800">Mumbai</div><div class="text-sm text-gray-600">Origin</div></div><div class="flex-1 relative" style="height:4px;background:linear-gradient(to right,#10b981 0%,#3b82f6 50%,#94a3b8 100%);margin:0 20px;border-radius:2px;"><div style="position:absolute;top:50%;left:50%;width:16px;height:16px;background:#f59e0b;border:3px solid white;border-radius:50%;transform:translate(-50%,-50%);animation:pulse 2s infinite;"></div></div><div class="text-center flex-1"><div class="w-16 h-16 bg-blue-500 rounded-full mx-auto flex items-center justify-center text-white text-2xl mb-2 shadow-lg"><i class="fas fa-map-pin"></i></div><div class="font-bold text-gray-800">Your Location</div><div class="text-sm text-gray-600">Destination</div></div></div><div class="text-center text-sm text-gray-600 bg-white/50 backdrop-blur-sm rounded-lg p-3"><i class="fas fa-truck-moving mr-2 text-blue-600"></i>Your package is on its way from <strong>Mumbai</strong> to your location</div></div><div class="p-8"><h3 class="text-2xl font-bold text-gray-800 mb-6"><i class="fas fa-clock text-blue-600 mr-2"></i>Shipment Timeline</h3><div class="space-y-6"><div class="flex gap-4"><div class="flex flex-col items-center"><div class="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center text-white shadow-lg"><i class="fas fa-check"></i></div><div class="w-1 h-full bg-green-300 mt-2"></div></div><div class="flex-1 pb-8"><div class="bg-green-50 border-l-4 border-green-500 rounded-r-lg p-4"><div class="flex items-center justify-between mb-1"><div class="font-bold text-gray-800 text-lg">Order Confirmed</div><div class="text-xs text-gray-500">Jan 27, 2026</div></div><div class="text-gray-600 text-sm">Your order has been received and confirmed</div><div class="text-gray-500 text-xs mt-1">Mumbai Hub</div></div></div></div><div class="flex gap-4"><div class="flex flex-col items-center"><div class="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center text-white shadow-lg"><i class="fas fa-box"></i></div><div class="w-1 h-full bg-blue-300 mt-2"></div></div><div class="flex-1 pb-8"><div class="bg-blue-50 border-l-4 border-blue-500 rounded-r-lg p-4"><div class="flex items-center justify-between mb-1"><div class="font-bold text-gray-800 text-lg">Picked Up</div><div class="text-xs text-gray-500">Jan 28, 2026</div></div><div class="text-gray-600 text-sm">Package picked up from warehouse</div><div class="text-gray-500 text-xs mt-1">Mumbai Warehouse, Maharashtra</div></div></div></div><div class="flex gap-4"><div class="flex flex-col items-center"><div class="w-12 h-12 bg-orange-500 rounded-full flex items-center justify-center text-white shadow-lg animate-pulse"><i class="fas fa-truck"></i></div><div class="w-1 h-full bg-gray-300 mt-2"></div></div><div class="flex-1 pb-8"><div class="bg-orange-50 border-l-4 border-orange-500 rounded-r-lg p-4"><div class="flex items-center justify-between mb-1"><div class="font-bold text-gray-800 text-lg">In Transit - Delayed</div><div class="text-xs text-orange-600 font-semibold">Current</div></div><div class="text-gray-600 text-sm mb-2">Package is on the way with slight delay</div><div class="text-orange-700 text-xs mb-2"><i class="fas fa-info-circle mr-1"></i>Experiencing logistics congestion</div><div class="mt-3 bg-orange-100 rounded-lg p-3"><div class="text-sm font-semibold text-orange-900 mb-2"><i class="fas fa-calendar-alt mr-1"></i>Revised Expected Delivery</div><div class="text-xl font-bold text-orange-700">' + deliveryDateShort + ', 2026</div><div class="text-xs text-orange-600 mt-1">(Delayed by ' + daysDelayed + ' days due to high volume)</div></div></div></div></div><div class="flex gap-4 opacity-50"><div class="flex flex-col items-center"><div class="w-12 h-12 bg-gray-300 rounded-full flex items-center justify-center text-white"><i class="fas fa-check-double"></i></div></div><div class="flex-1"><div class="bg-gray-50 border-l-4 border-gray-300 rounded-r-lg p-4"><div class="font-bold text-gray-600 text-lg mb-1">Delivered</div><div class="text-gray-500 text-sm">Expected: ' + deliveryDateShort + ', 2026</div></div></div></div></div></div><div class="p-6 bg-blue-50 border-t border-blue-200 text-center"><h4 class="font-bold text-xl text-gray-800 mb-2"><i class="fas fa-info-circle text-blue-600 mr-2"></i>Want More Details?</h4><p class="text-gray-600 mb-4">Login to see complete order information and delivery address</p><a href="/login?redirect=/account/orders" class="inline-block bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition"><i class="fas fa-sign-in-alt mr-2"></i>Login for Full Details</a></div><div class="p-6 bg-gradient-to-r from-blue-600 to-cyan-500 text-white text-center"><h4 class="font-bold text-xl mb-2">Need Help?</h4><p class="mb-4 opacity-90">Contact our support team for delivery updates</p><div class="flex justify-center gap-4 flex-wrap"><a href="mailto:support@flyqdrones.com" class="bg-white text-blue-600 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition"><i class="fas fa-envelope mr-2"></i>Email</a><a href="https://wa.me/919137361474" target="_blank" class="bg-green-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-700 transition"><i class="fab fa-whatsapp mr-2"></i>WhatsApp</a></div></div></div><div class="text-center"><a href="/" class="inline-block bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-50 transition shadow-lg"><i class="fas fa-arrow-left mr-2"></i>Back to Home</a></div></div><style>@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(245,158,11,0.7)}50%{box-shadow:0 0 0 10px rgba(245,158,11,0)}}</style></body></html>');
 });
 
+// BULK EMAIL SENDER PAGE
+// ============================================
+
+app.get('/admin/send-delay-emails', async (c) => {
+  const emailSenderHTML = `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Send Delay Emails - FLYQ Drones</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="bg-gradient-to-br from-blue-50 to-cyan-50 min-h-screen py-8">
+    <div class="max-w-4xl mx-auto px-4">
+        <div class="bg-white rounded-lg shadow-lg p-8 mb-6">
+            <h1 class="text-3xl font-bold text-gray-800 mb-2">
+                <i class="fas fa-envelope text-blue-500"></i>
+                Send Delay Notification Emails
+            </h1>
+            <p class="text-gray-600">Send transit delay emails to all 64 customers with tracking IDs</p>
+        </div>
+
+        <div id="statusBox" class="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-lg shadow mb-6">
+            <h3 class="font-bold text-blue-800 mb-2">
+                <i class="fas fa-info-circle"></i> Status
+            </h3>
+            <p class="text-blue-700">Ready to send emails. Add your 64 orders below.</p>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-lg p-8 mb-6">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">
+                <i class="fas fa-list"></i> Orders Data
+            </h2>
+            <p class="text-gray-600 mb-4">
+                Paste your 64 orders in JSON format. Each order should have:
+                <code class="bg-gray-100 px-2 py-1 rounded">order_number</code>,
+                <code class="bg-gray-100 px-2 py-1 rounded">tracking_id</code>,
+                <code class="bg-gray-100 px-2 py-1 rounded">customer_name</code>,
+                <code class="bg-gray-100 px-2 py-1 rounded">customer_email</code>
+            </p>
+            
+            <textarea 
+                id="ordersData" 
+                class="w-full h-64 p-4 border-2 border-gray-300 rounded-lg font-mono text-sm"
+                placeholder='[
+  {
+    "order_number": "FLYQ-1769360779114-CPFTQP",
+    "tracking_id": "TRK1769360779114MZIP0UZ4",
+    "customer_name": "Director NITK",
+    "customer_email": "csd.ra01@nitk.edu.in"
+  }
+]'
+            ></textarea>
+
+            <div class="flex items-center mt-4 text-sm text-gray-600">
+                <i class="fas fa-lightbulb text-yellow-500 mr-2"></i>
+                <span>Tip: Export from admin panel or database, then paste here as JSON array</span>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-lg p-8 mb-6">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">
+                <i class="fas fa-paper-plane"></i> Actions
+            </h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <button 
+                    onclick="testEmails()" 
+                    class="bg-gray-500 hover:bg-gray-600 text-white font-bold py-4 px-6 rounded-lg transition flex items-center justify-center"
+                >
+                    <i class="fas fa-vial mr-2"></i>
+                    Test (Dry Run)
+                </button>
+                
+                <button 
+                    onclick="sendEmails()" 
+                    class="bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white font-bold py-4 px-6 rounded-lg transition flex items-center justify-center"
+                >
+                    <i class="fas fa-rocket mr-2"></i>
+                    Send Real Emails
+                </button>
+            </div>
+
+            <div class="mt-4 p-4 bg-yellow-50 border-l-4 border-yellow-500 rounded">
+                <p class="text-yellow-800 text-sm">
+                    <i class="fas fa-exclamation-triangle mr-2"></i>
+                    <strong>Important:</strong> Test with dry run first! Real emails cannot be recalled once sent.
+                </p>
+            </div>
+        </div>
+
+        <div id="resultsBox" class="bg-white rounded-lg shadow-lg p-8 hidden">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">
+                <i class="fas fa-chart-bar"></i> Results
+            </h2>
+            <div id="resultsContent"></div>
+        </div>
+
+        <div id="loadingOverlay" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+            <div class="bg-white rounded-lg p-8 text-center">
+                <div class="animate-spin rounded-full h-16 w-16 border-b-4 border-blue-500 mx-auto mb-4"></div>
+                <p class="text-xl font-bold text-gray-800">Sending emails...</p>
+                <p class="text-gray-600 mt-2">Please wait, this may take a few seconds</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function updateStatus(message, type = 'info') {
+            const statusBox = document.getElementById('statusBox');
+            const colors = { info: 'blue', success: 'green', error: 'red', warning: 'yellow' };
+            const color = colors[type] || 'blue';
+            statusBox.className = "bg-" + color + "-50 border-l-4 border-" + color + "-500 p-6 rounded-lg shadow mb-6";
+            statusBox.innerHTML = '<h3 class="font-bold text-' + color + '-800 mb-2"><i class="fas fa-' + (type === 'success' ? 'check-circle' : type === 'error' ? 'times-circle' : 'info-circle') + '"></i> ' + (type === 'success' ? 'Success' : type === 'error' ? 'Error' : 'Status') + '</h3><p class="text-' + color + '-700">' + message + '</p>';
+        }
+
+        function showLoading(show) {
+            document.getElementById('loadingOverlay').style.display = show ? 'flex' : 'none';
+        }
+
+        function showResults(data) {
+            const resultsBox = document.getElementById('resultsBox');
+            const resultsContent = document.getElementById('resultsContent');
+            resultsBox.classList.remove('hidden');
+            
+            let html = '<div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">';
+            html += '<div class="bg-blue-50 p-4 rounded-lg"><div class="text-3xl font-bold text-blue-600">' + (data.total_orders || data.orders_count || 0) + '</div><div class="text-gray-600">Total Orders</div></div>';
+            html += '<div class="bg-green-50 p-4 rounded-lg"><div class="text-3xl font-bold text-green-600">' + (data.sent_successfully || 0) + '</div><div class="text-gray-600">Sent Successfully</div></div>';
+            html += '<div class="bg-red-50 p-4 rounded-lg"><div class="text-3xl font-bold text-red-600">' + (data.failed || 0) + '</div><div class="text-gray-600">Failed</div></div>';
+            html += '</div>';
+
+            if (data.preview) {
+                html += '<h3 class="font-bold text-gray-800 mb-2">Preview (First 3 orders):</h3>';
+                html += '<div class="bg-gray-50 p-4 rounded"><pre class="text-sm overflow-auto">' + JSON.stringify(data.preview, null, 2) + '</pre></div>';
+            }
+
+            if (data.results && data.results.length > 0) {
+                html += '<h3 class="font-bold text-gray-800 mb-2 mt-4">Detailed Results:</h3>';
+                html += '<div class="max-h-96 overflow-auto"><table class="w-full text-sm"><thead class="bg-gray-100 sticky top-0"><tr><th class="p-2 text-left">Order</th><th class="p-2 text-left">Email</th><th class="p-2 text-left">Status</th></tr></thead><tbody>';
+                data.results.forEach(function(r) {
+                    html += '<tr class="border-b"><td class="p-2 font-mono text-xs">' + r.order_number + '</td><td class="p-2">' + r.email + '</td><td class="p-2">';
+                    html += r.status === 'sent' ? '<span class="text-green-600"><i class="fas fa-check-circle"></i> Sent</span>' : '<span class="text-red-600"><i class="fas fa-times-circle"></i> Failed</span>';
+                    html += '</td></tr>';
+                });
+                html += '</tbody></table></div>';
+            }
+
+            resultsContent.innerHTML = html;
+            resultsBox.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        async function testEmails() {
+            try {
+                const ordersText = document.getElementById('ordersData').value.trim();
+                if (!ordersText) { updateStatus('Please add orders data first!', 'error'); return; }
+                let orders;
+                try { orders = JSON.parse(ordersText); } catch (e) { updateStatus('Invalid JSON format! Please check your orders data.', 'error'); return; }
+                if (!Array.isArray(orders) || orders.length === 0) { updateStatus('Orders must be a non-empty array!', 'error'); return; }
+                updateStatus('Testing with ' + orders.length + ' orders...', 'info');
+                showLoading(true);
+                const response = await fetch('/api/admin/send-bulk-delay-emails', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ orders: orders, dry_run: true })
+                });
+                const data = await response.json();
+                showLoading(false);
+                if (response.ok) {
+                    updateStatus('Dry run completed! Found ' + (data.orders_count || data.total_orders) + ' orders. Check preview below.', 'success');
+                    showResults(data);
+                } else {
+                    updateStatus('Error: ' + (data.error || data.message), 'error');
+                }
+            } catch (error) {
+                showLoading(false);
+                updateStatus('Error: ' + error.message, 'error');
+            }
+        }
+
+        async function sendEmails() {
+            if (!confirm('⚠️ Are you sure you want to send REAL emails to all customers? This action cannot be undone!')) { return; }
+            try {
+                const ordersText = document.getElementById('ordersData').value.trim();
+                if (!ordersText) { updateStatus('Please add orders data first!', 'error'); return; }
+                let orders;
+                try { orders = JSON.parse(ordersText); } catch (e) { updateStatus('Invalid JSON format! Please check your orders data.', 'error'); return; }
+                if (!Array.isArray(orders) || orders.length === 0) { updateStatus('Orders must be a non-empty array!', 'error'); return; }
+                updateStatus('Sending emails to ' + orders.length + ' customers...', 'info');
+                showLoading(true);
+                const response = await fetch('/api/admin/send-bulk-delay-emails', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ orders: orders, dry_run: false })
+                });
+                const data = await response.json();
+                showLoading(false);
+                if (response.ok) {
+                    updateStatus('✅ Campaign completed! Sent ' + data.sent_successfully + ' emails successfully, ' + data.failed + ' failed.', data.failed > 0 ? 'warning' : 'success');
+                    showResults(data);
+                } else {
+                    updateStatus('Error: ' + (data.error || data.message), 'error');
+                }
+            } catch (error) {
+                showLoading(false);
+                updateStatus('Error: ' + error.message, 'error');
+            }
+        }
+    </script>
+</body>
+</html>`;
+  
+  return c.html(emailSenderHTML);
+});
+
 // FILE MANAGER PAGE
 // ============================================
 
