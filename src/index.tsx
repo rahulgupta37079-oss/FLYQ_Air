@@ -9318,6 +9318,9 @@ app.get('/account', async (c) => {
                     <a href="/account/orders" class="block bg-white border-2 border-gray-200 px-6 py-3 rounded-xl font-semibold hover:border-sky-500 transition">
                         <i class="fas fa-shopping-bag mr-2"></i>Orders
                     </a>
+                    <a href="/account/files" class="block bg-white border-2 border-gray-200 px-6 py-3 rounded-xl font-semibold hover:border-sky-500 transition">
+                        <i class="fas fa-folder mr-2"></i>My Files
+                    </a>
                     <a href="/account/curriculum" class="block bg-white border-2 border-gray-200 px-6 py-3 rounded-xl font-semibold hover:border-sky-500 transition">
                         <i class="fas fa-book mr-2"></i>Curriculum
                     </a>
@@ -11652,6 +11655,445 @@ app.get('/track-order', async (c) => {
         </div>
       </div>
     `));
+  }
+});
+
+// ============================================
+// FILE MANAGER PAGE
+// ============================================
+
+app.get('/account/files', async (c) => {
+  const user = await getCurrentUser(c);
+  
+  if (!user) {
+    return c.redirect('/login?redirect=/account/files');
+  }
+
+  const content = `
+    <div class="pt-32 pb-20">
+        <div class="container mx-auto px-6 max-w-6xl">
+            <div class="mb-8">
+                <h1 class="text-5xl font-black mb-2">My Files</h1>
+                <p class="text-gray-600">Upload and manage your files</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Sidebar -->
+                <div class="space-y-4">
+                    <a href="/account" class="block bg-white border-2 border-gray-200 px-6 py-3 rounded-xl font-semibold hover:border-sky-500 transition">
+                        <i class="fas fa-user mr-2"></i>Dashboard
+                    </a>
+                    <a href="/account/orders" class="block bg-white border-2 border-gray-200 px-6 py-3 rounded-xl font-semibold hover:border-sky-500 transition">
+                        <i class="fas fa-shopping-bag mr-2"></i>Orders
+                    </a>
+                    <a href="/account/files" class="block bg-sky-500 text-white px-6 py-3 rounded-xl font-bold">
+                        <i class="fas fa-folder mr-2"></i>My Files
+                    </a>
+                    <a href="/account/curriculum" class="block bg-white border-2 border-gray-200 px-6 py-3 rounded-xl font-semibold hover:border-sky-500 transition">
+                        <i class="fas fa-book mr-2"></i>Curriculum
+                    </a>
+                    <a href="/account/profile" class="block bg-white border-2 border-gray-200 px-6 py-3 rounded-xl font-semibold hover:border-sky-500 transition">
+                        <i class="fas fa-cog mr-2"></i>Settings
+                    </a>
+                </div>
+
+                <!-- Main Content -->
+                <div class="md:col-span-2">
+                    <!-- Upload Section -->
+                    <div class="bg-white rounded-3xl p-8 shadow-lg mb-8">
+                        <h2 class="text-2xl font-bold mb-6">
+                            <i class="fas fa-upload text-sky-500 mr-2"></i>
+                            Upload File
+                        </h2>
+                        
+                        <div id="uploadArea" class="border-4 border-dashed border-gray-300 rounded-2xl p-12 text-center hover:border-sky-500 transition cursor-pointer">
+                            <i class="fas fa-cloud-upload-alt text-6xl text-gray-400 mb-4"></i>
+                            <p class="text-xl font-bold text-gray-700 mb-2">Click to upload or drag and drop</p>
+                            <p class="text-gray-500 mb-4">Maximum file size: 10MB</p>
+                            <input type="file" id="fileInput" class="hidden" />
+                        </div>
+
+                        <div id="uploadProgress" class="hidden mt-6">
+                            <div class="bg-gray-200 rounded-full h-4 overflow-hidden">
+                                <div id="progressBar" class="bg-sky-500 h-full transition-all duration-300" style="width: 0%"></div>
+                            </div>
+                            <p id="uploadStatus" class="text-center mt-2 text-gray-600"></p>
+                        </div>
+                    </div>
+
+                    <!-- Files List -->
+                    <div class="bg-white rounded-3xl p-8 shadow-lg">
+                        <h2 class="text-2xl font-bold mb-6">
+                            <i class="fas fa-folder-open text-sky-500 mr-2"></i>
+                            Your Files
+                        </h2>
+                        
+                        <div id="filesList">
+                            <div class="text-center py-12">
+                                <i class="fas fa-spinner fa-spin text-4xl text-gray-400 mb-4"></i>
+                                <p class="text-gray-500">Loading files...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const uploadArea = document.getElementById('uploadArea');
+        const fileInput = document.getElementById('fileInput');
+        const uploadProgress = document.getElementById('uploadProgress');
+        const progressBar = document.getElementById('progressBar');
+        const uploadStatus = document.getElementById('uploadStatus');
+
+        // Click to upload
+        uploadArea.addEventListener('click', () => {
+            fileInput.click();
+        });
+
+        // Drag and drop
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.classList.add('border-sky-500');
+        });
+
+        uploadArea.addEventListener('dragleave', () => {
+            uploadArea.classList.remove('border-sky-500');
+        });
+
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.classList.remove('border-sky-500');
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                handleFileUpload(files[0]);
+            }
+        });
+
+        // File input change
+        fileInput.addEventListener('change', (e) => {
+            if (e.target.files.length > 0) {
+                handleFileUpload(e.target.files[0]);
+            }
+        });
+
+        // Handle file upload
+        async function handleFileUpload(file) {
+            // Validate file size
+            const maxSize = 10 * 1024 * 1024; // 10MB
+            if (file.size > maxSize) {
+                alert('File is too large. Maximum size is 10MB.');
+                return;
+            }
+
+            // Show progress
+            uploadProgress.classList.remove('hidden');
+            progressBar.style.width = '0%';
+            uploadStatus.textContent = 'Uploading...';
+
+            // Create form data
+            const formData = new FormData();
+            formData.append('file', file);
+
+            try {
+                // Simulate progress
+                let progress = 0;
+                const progressInterval = setInterval(() => {
+                    progress += 10;
+                    if (progress <= 90) {
+                        progressBar.style.width = progress + '%';
+                    }
+                }, 100);
+
+                // Upload file
+                const response = await fetch('/api/upload', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                clearInterval(progressInterval);
+                progressBar.style.width = '100%';
+
+                if (response.ok) {
+                    const result = await response.json();
+                    uploadStatus.textContent = 'Upload successful!';
+                    uploadStatus.classList.add('text-green-600');
+                    
+                    // Reload files list
+                    setTimeout(() => {
+                        uploadProgress.classList.add('hidden');
+                        uploadStatus.classList.remove('text-green-600');
+                        loadFiles();
+                    }, 2000);
+                } else {
+                    const error = await response.json();
+                    uploadStatus.textContent = 'Upload failed: ' + error.error;
+                    uploadStatus.classList.add('text-red-600');
+                }
+            } catch (error) {
+                uploadStatus.textContent = 'Upload failed: ' + error.message;
+                uploadStatus.classList.add('text-red-600');
+            }
+        }
+
+        // Load files list
+        async function loadFiles() {
+            const filesList = document.getElementById('filesList');
+            
+            try {
+                const response = await fetch('/api/my-files');
+                const data = await response.json();
+
+                if (data.success && data.files.length > 0) {
+                    filesList.innerHTML = \`
+                        <div class="space-y-4">
+                            \${data.files.map(file => \`
+                                <div class="border-2 border-gray-200 rounded-xl p-4 hover:border-sky-500 transition flex items-center justify-between">
+                                    <div class="flex items-center gap-4">
+                                        <i class="fas fa-file text-3xl text-sky-500"></i>
+                                        <div>
+                                            <div class="font-bold">\${file.name}</div>
+                                            <div class="text-sm text-gray-600">
+                                                \${formatFileSize(file.size)} • \${new Date(file.uploaded).toLocaleDateString()}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="flex gap-2">
+                                        <a href="\${file.url}" target="_blank" class="bg-sky-500 text-white px-4 py-2 rounded-lg hover:bg-sky-600 transition">
+                                            <i class="fas fa-eye mr-2"></i>View
+                                        </a>
+                                        <button onclick="deleteFile('\${file.path}')" class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            \`).join('')}
+                        </div>
+                    \`;
+                } else {
+                    filesList.innerHTML = \`
+                        <div class="text-center py-12">
+                            <i class="fas fa-folder-open text-6xl text-gray-300 mb-4"></i>
+                            <p class="text-gray-500">No files uploaded yet</p>
+                        </div>
+                    \`;
+                }
+            } catch (error) {
+                filesList.innerHTML = \`
+                    <div class="text-center py-12">
+                        <i class="fas fa-exclamation-triangle text-6xl text-red-400 mb-4"></i>
+                        <p class="text-red-600">Failed to load files</p>
+                    </div>
+                \`;
+            }
+        }
+
+        // Delete file
+        async function deleteFile(filename) {
+            if (!confirm('Are you sure you want to delete this file?')) {
+                return;
+            }
+
+            try {
+                const response = await fetch(\`/api/files/\${filename}\`, {
+                    method: 'DELETE'
+                });
+
+                if (response.ok) {
+                    loadFiles();
+                } else {
+                    const error = await response.json();
+                    alert('Delete failed: ' + error.error);
+                }
+            } catch (error) {
+                alert('Delete failed: ' + error.message);
+            }
+        }
+
+        // Format file size
+        function formatFileSize(bytes) {
+            if (bytes < 1024) return bytes + ' B';
+            if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+            return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
+        }
+
+        // Load files on page load
+        loadFiles();
+    </script>
+  `;
+
+  return c.html(renderPage('My Files', content));
+});
+
+// ============================================
+// R2 FILE STORAGE APIs
+// ============================================
+
+// Upload file to R2
+app.post('/api/upload', async (c) => {
+  try {
+    // Check authentication
+    const user = await getCurrentUser(c);
+    if (!user) {
+      return c.json({ error: 'Authentication required' }, 401);
+    }
+
+    // Check R2 availability
+    if (!c.env?.R2) {
+      return c.json({ error: 'Storage not available' }, 503);
+    }
+
+    // Get file from request
+    const formData = await c.req.formData();
+    const file = formData.get('file') as File;
+    
+    if (!file) {
+      return c.json({ error: 'No file provided' }, 400);
+    }
+
+    // Validate file size (max 10MB)
+    const maxSize = 10 * 1024 * 1024; // 10MB
+    if (file.size > maxSize) {
+      return c.json({ error: 'File too large. Maximum size is 10MB' }, 400);
+    }
+
+    // Generate unique filename
+    const timestamp = Date.now();
+    const randomString = Math.random().toString(36).substring(7);
+    const extension = file.name.split('.').pop();
+    const filename = `uploads/${user.id}/${timestamp}-${randomString}.${extension}`;
+
+    // Upload to R2
+    const arrayBuffer = await file.arrayBuffer();
+    await c.env.R2.put(filename, arrayBuffer, {
+      httpMetadata: {
+        contentType: file.type
+      }
+    });
+
+    // Generate public URL
+    const publicUrl = `/api/files/${filename}`;
+
+    return c.json({
+      success: true,
+      filename: filename,
+      url: publicUrl,
+      size: file.size,
+      type: file.type
+    });
+
+  } catch (error) {
+    console.error('Upload error:', error);
+    return c.json({ error: 'Upload failed' }, 500);
+  }
+});
+
+// Get file from R2
+app.get('/api/files/*', async (c) => {
+  try {
+    // Get filename from path
+    const path = c.req.path.replace('/api/files/', '');
+    
+    if (!c.env?.R2) {
+      return c.json({ error: 'Storage not available' }, 503);
+    }
+
+    // Get file from R2
+    const object = await c.env.R2.get(path);
+    
+    if (!object) {
+      return c.notFound();
+    }
+
+    // Return file with proper headers
+    const headers = new Headers();
+    object.writeHttpMetadata(headers);
+    headers.set('etag', object.httpEtag);
+    headers.set('cache-control', 'public, max-age=31536000');
+
+    return new Response(object.body, {
+      headers
+    });
+
+  } catch (error) {
+    console.error('File retrieval error:', error);
+    return c.json({ error: 'File not found' }, 404);
+  }
+});
+
+// Delete file from R2 (admin or file owner only)
+app.delete('/api/files/:filename', async (c) => {
+  try {
+    const user = await getCurrentUser(c);
+    if (!user) {
+      return c.json({ error: 'Authentication required' }, 401);
+    }
+
+    const filename = c.req.param('filename');
+    
+    if (!c.env?.R2) {
+      return c.json({ error: 'Storage not available' }, 503);
+    }
+
+    // Check if user owns the file or is admin
+    if (!c.env?.DB) {
+      return c.json({ error: 'Database not available' }, 503);
+    }
+
+    const isAdmin = await c.env.DB.prepare(
+      'SELECT is_admin FROM users WHERE id = ?'
+    ).bind(user.id).first();
+
+    const isOwner = filename.includes(`uploads/${user.id}/`);
+
+    if (!isAdmin?.is_admin && !isOwner) {
+      return c.json({ error: 'Permission denied' }, 403);
+    }
+
+    // Delete from R2
+    await c.env.R2.delete(filename);
+
+    return c.json({ success: true, message: 'File deleted' });
+
+  } catch (error) {
+    console.error('Delete error:', error);
+    return c.json({ error: 'Delete failed' }, 500);
+  }
+});
+
+// List user's files
+app.get('/api/my-files', async (c) => {
+  try {
+    const user = await getCurrentUser(c);
+    if (!user) {
+      return c.json({ error: 'Authentication required' }, 401);
+    }
+
+    if (!c.env?.R2) {
+      return c.json({ error: 'Storage not available' }, 503);
+    }
+
+    // List files in user's directory
+    const prefix = `uploads/${user.id}/`;
+    const listed = await c.env.R2.list({ prefix });
+
+    const files = listed.objects.map(obj => ({
+      name: obj.key.split('/').pop(),
+      path: obj.key,
+      url: `/api/files/${obj.key}`,
+      size: obj.size,
+      uploaded: obj.uploaded
+    }));
+
+    return c.json({
+      success: true,
+      files
+    });
+
+  } catch (error) {
+    console.error('List files error:', error);
+    return c.json({ error: 'Failed to list files' }, 500);
   }
 });
 

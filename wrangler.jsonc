@@ -12,5 +12,11 @@
       "database_name": "webapp-production",
       "database_id": "6d2cdedc-73a0-48e2-b1f5-a952e3ffb8e0"
     }
+  ],
+  "r2_buckets": [
+    {
+      "binding": "R2",
+      "bucket_name": "flyq-storage"
+    }
   ]
 }
