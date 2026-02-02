@@ -14,6 +14,7 @@ import customerPortalRouter from './customer-portal'
 import cancelOrdersRouter from './cancel-orders'
 import testEmailRouter from './test-email'
 import resendEmailsRouter from './resend-emails'
+import bulkDelayEmailsRouter from './bulk-delay-emails'
 import exportRouter from './export-orders'
 import passwordUpdateRouter from './password-update'
 import customerAccountRouter from './customer-account'
@@ -10887,6 +10888,7 @@ app.route('/', customerPortalRouter)
 app.route('/', cancelOrdersRouter)
 app.route('/', testEmailRouter)
 app.route('/', resendEmailsRouter)
+app.route('/', bulkDelayEmailsRouter)
 app.route('/', exportRouter)
 app.route('/api/admin', passwordUpdateRouter)
 
