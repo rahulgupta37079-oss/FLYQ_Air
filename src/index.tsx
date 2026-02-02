@@ -11300,6 +11300,53 @@ app.get('/api/debug/bindings', (c) => {
   });
 });
 
+// ==================== ORDER TRACKING ====================
+app.get('/track-order', (c) => {
+  const trackingId = c.req.query('tracking');
+  
+  // Debug log
+  console.log('Tracking route hit:', { trackingId, hasEnv: !!c.env });
+  
+  if (!trackingId) {
+    const html = renderPage('Track Your Order', `
+      <div class="min-h-screen bg-gradient-to-br from-blue-50 to-cyan-50 py-12">
+        <div class="container mx-auto px-6 max-w-2xl">
+          <div class="bg-white rounded-2xl shadow-xl p-8 text-center">
+            <i class="fas fa-search-location text-6xl text-gray-400 mb-4"></i>
+            <h1 class="text-3xl font-bold text-gray-800 mb-4">Track Your Order</h1>
+            <p class="text-gray-600 mb-6">Enter your tracking ID to see your shipment status</p>
+            <form method="GET" action="/track-order" class="max-w-md mx-auto">
+              <input 
+                type="text" 
+                name="tracking" 
+                placeholder="Enter Tracking ID (e.g., TRK1234567ABC)" 
+                required
+                class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg mb-4 focus:border-blue-500 focus:outline-none"
+              >
+              <button type="submit" class="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition">
+                <i class="fas fa-search mr-2"></i>Track Shipment
+              </button>
+            </form>
+            
+            <div class="mt-8 pt-8 border-t border-gray-200">
+              <p class="text-gray-600 mb-4">Already have an account?</p>
+              <a href="/login" class="inline-block bg-sky-500 text-white px-6 py-3 rounded-lg font-semibold hover:bg-sky-600 transition">
+                <i class="fas fa-user mr-2"></i>Login to View Orders
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    `);
+    return c.html(html);
+  }
+  
+  // Tracking page with ID  
+  const safeTrackingId = String(trackingId || '').replace(/[<>"']/g, '');
+  
+  return c.html('<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><title>Track Order</title><script src="https://cdn.tailwindcss.com"></script><link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet"></head><body class="bg-gray-50"><div class="container mx-auto px-6 py-20 max-w-4xl"><div class="bg-white rounded-3xl shadow-2xl overflow-hidden"><div class="bg-gradient-to-r from-blue-600 to-cyan-500 p-6 text-white text-center"><h1 class="text-3xl font-bold mb-2">Track Your Shipment</h1><div class="text-xl font-mono mt-4">Tracking ID: ' + safeTrackingId + '</div></div><div class="p-8"><div class="text-center mb-8"><div class="text-6xl mb-4">🚚</div><h2 class="text-2xl font-bold text-gray-800 mb-2">In Transit</h2><p class="text-gray-600">Your package is on its way from Mumbai to your location</p></div><div class="bg-blue-50 rounded-xl p-6 mb-6"><h3 class="font-bold text-lg mb-4 text-gray-800">Shipment Timeline</h3><div class="space-y-4"><div class="flex gap-3"><div class="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center text-white flex-shrink-0"><i class="fas fa-check"></i></div><div><div class="font-semibold">Order Confirmed</div><div class="text-sm text-gray-600">Your order has been received</div></div></div><div class="flex gap-3"><div class="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center text-white flex-shrink-0"><i class="fas fa-box"></i></div><div><div class="font-semibold">Picked Up</div><div class="text-sm text-gray-600">Package picked up from Mumbai warehouse</div></div></div><div class="flex gap-3"><div class="w-10 h-10 bg-purple-500 rounded-full flex items-center justify-center text-white flex-shrink-0 animate-pulse"><i class="fas fa-truck"></i></div><div><div class="font-semibold">In Transit</div><div class="text-sm text-gray-600">On the way to your location</div></div></div><div class="flex gap-3 opacity-50"><div class="w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center text-white flex-shrink-0"><i class="fas fa-check-double"></i></div><div><div class="font-semibold">Delivered</div><div class="text-sm text-gray-600">Pending</div></div></div></div></div><div class="text-center mt-8 space-y-3"><a href="/login?redirect=/account/orders" class="inline-block bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition"><i class="fas fa-sign-in-alt mr-2"></i>Login for Full Details</a><br><a href="/" class="inline-block text-blue-600 hover:underline"><i class="fas fa-home mr-2"></i>Back to Home</a></div></div></div></div></body></html>');
+});
+
 // FILE MANAGER PAGE
 // ============================================
 
