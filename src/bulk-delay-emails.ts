@@ -285,7 +285,7 @@ bulkDelayEmailsRouter.post('/api/admin/send-bulk-delay-emails', async (c) => {
         const emailText = generateDelayEmailText(order);
         
         const result = await resend.emails.send({
-          from: 'FLYQ Drones <noreply@flyqdrones.com>',
+          from: 'FLYQ Drones <noreply@flyqdrone.in>',
           to: order.customer_email,
           subject: '📦 Your FLYQ Drone Has Shipped - Track Your Order',
           html: emailHTML,
