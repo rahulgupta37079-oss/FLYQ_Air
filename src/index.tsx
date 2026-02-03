@@ -49,6 +49,16 @@ const products = [
     shortDesc: 'ESP32-S3 camera drone with HD video streaming',
     features: ['ESP32-S3 Dual-Core', 'HD 720p Camera', 'Gesture Control', 'Wi-Fi Streaming', 'Python/Arduino SDK'],
     stock: 30
+  },
+  {
+    id: 3,
+    name: 'FLYQ FPV Pro',
+    slug: 'flyq-fpv-pro',
+    price: 70000,
+    image: '/images/flyq-drone.png',
+    shortDesc: 'Professional FPV racing drone with 4K camera and advanced flight controller',
+    features: ['4K 60fps Camera', 'FPV Goggles Included', 'Advanced Flight Controller', 'Long Range Transmission', '40+ Minutes Flight Time', 'Professional Grade'],
+    stock: 15
   }
 ]
 
