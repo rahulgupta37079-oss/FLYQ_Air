@@ -1,0 +1,42 @@
+[
+  {
+    "email": "bbhiranmayeeandhrauniversity.edu.in",
+    "status": "failed",
+    "error": "{\"statusCode\":422,\"name\":\"validation_error\",\"message\":\"Invalid `to` field. The email address needs to follow the `email@example.com` or `Name <email@example.com>` format.\"}"
+  },
+  {
+    "email": "jsiddhi961@gmail.com",
+    "status": "sent",
+    "email_id": "d5f3afff-c05e-496a-bddd-0390a72e133b"
+  },
+  {
+    "email": "alvinamary4710@gmail.com",
+    "status": "sent",
+    "email_id": "d4da230a-323f-486d-810b-860c72e84543"
+  },
+  {
+    "email": "rtnmali2025@gmail.com",
+    "status": "sent",
+    "email_id": "b03d129f-9218-467e-a15a-a70ff2fe2ca0"
+  },
+  {
+    "email": "badgujar.sudhir1010@gmail.com",
+    "status": "sent",
+    "email_id": "598c5f59-1fdc-4fff-b1ab-02ac326d1715"
+  },
+  {
+    "email": "sanjanapsanjana808@gmail.com",
+    "status": "sent",
+    "email_id": "d3006b6a-c457-4ef5-bb03-82ca33c75db7"
+  },
+  {
+    "email": "sivashankeran@gmail.com",
+    "status": "sent",
+    "email_id": "05e68f8d-3b0e-46e8-af36-bfd3c6af47ba"
+  },
+  {
+    "email": "sunilmardi1000@gmail.com",
+    "status": "sent",
+    "email_id": "e1c9abe5-02cc-405f-a7a1-52c31fcd74da"
+  }
+]
