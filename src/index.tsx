@@ -1591,48 +1591,6 @@ app.get('/', (c) => {
             </div>
         </section>
 
-        <!-- Featured Products -->
-        <section class="py-20">
-            <div class="container mx-auto px-6">
-                <div class="text-center mb-16">
-                    <h2 class="text-5xl font-black mb-4">
-                        Our <span class="gradient-text">Products</span>
-                    </h2>
-                    <p class="text-xl text-gray-600">Choose the perfect drone for your needs</p>
-                </div>
-
-                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
-                    ${products.map(product => `
-                        <div class="product-card bg-white rounded-3xl overflow-hidden shadow-lg">
-                            <div class="p-8 bg-gradient-to-br from-gray-900 to-gray-800">
-                                <img src="${product.image}" alt="${product.name}" class="w-full h-80 object-contain">
-                            </div>
-                            <div class="p-8">
-                                <div class="flex items-start justify-between mb-4">
-                                    <div>
-                                        <h3 class="text-3xl font-black mb-2">${product.name}</h3>
-                                        <p class="text-gray-600">${product.shortDesc}</p>
-                                    </div>
-                                    ${product.stock > 0 
-                                        ? '<span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-bold">In Stock</span>' 
-                                        : '<span class="bg-red-100 text-red-800 px-3 py-1 rounded-full text-sm font-bold">Out of Stock</span>'}
-                                </div>
-                                <div class="border-t pt-6 mt-6">
-                                    <div class="flex items-center justify-between mb-4">
-                                        <span class="text-4xl font-black text-sky-500">₹${product.price.toLocaleString()}</span>
-                                        <span class="text-sm text-gray-500">${product.stock} available</span>
-                                    </div>
-                                    <a href="/products/${product.slug}" class="block w-full text-center btn-primary text-white px-6 py-3 rounded-full font-bold hover:shadow-lg transition">
-                                        View Details
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    `).join('')}
-                </div>
-            </div>
-        </section>
-
         <!-- Features Section -->
         <section class="py-20 bg-white">
             <div class="container mx-auto px-6">
