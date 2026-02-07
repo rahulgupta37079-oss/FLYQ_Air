@@ -1622,17 +1622,9 @@ app.get('/', (c) => {
                                         <span class="text-4xl font-black text-sky-500">₹${product.price.toLocaleString()}</span>
                                         <span class="text-sm text-gray-500">${product.stock} available</span>
                                     </div>
-                                    <div class="flex gap-4">
-                                        <a href="/products/${product.slug}" class="flex-1 text-center border-2 border-sky-500 text-sky-500 px-6 py-3 rounded-full font-bold hover:bg-sky-50 transition">
-                                            View Details
-                                        </a>
-                                        <button onclick="addToCart(${product.id}, '${product.name.replace(/'/g, "\\'")}', ${product.price}, '${product.image}')" 
-                                                class="flex-1 btn-primary text-white px-6 py-3 rounded-full font-bold ${product.stock === 0 ? 'opacity-50 cursor-not-allowed' : ''}"
-                                                ${product.stock === 0 ? 'disabled' : ''}>
-                                            <i class="fas fa-cart-plus mr-2"></i>
-                                            Add to Cart
-                                        </button>
-                                    </div>
+                                    <a href="/products/${product.slug}" class="block w-full text-center btn-primary text-white px-6 py-3 rounded-full font-bold hover:shadow-lg transition">
+                                        View Details
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -2232,25 +2224,6 @@ app.get('/', (c) => {
             </div>
         </section>
     </div>
-
-    <script>
-        function addToCart(id, name, price, image) {
-            let cart = JSON.parse(localStorage.getItem('flyq_cart') || '[]');
-            
-            const existing = cart.find(item => item.id === id);
-            if (existing) {
-                existing.quantity += 1;
-            } else {
-                cart.push({ id, name, price, image, quantity: 1 });
-            }
-            
-            localStorage.setItem('flyq_cart', JSON.stringify(cart));
-            updateCartCount();
-            
-            // Show notification
-            alert(name + ' added to cart!');
-        }
-    </script>
   `;
 
   return c.html(renderPage('Home', content));
