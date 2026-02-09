@@ -35,8 +35,8 @@ const products = [
     name: 'FLYQ Air',
     slug: 'flyq-air',
     price: 9999,
-    image: '/images/flyq-drone.png',
-    shortDesc: 'ESP32-S3 powered programmable drone with Wi-Fi control',
+    image: 'https://www.genspark.ai/api/files/s/tZctsyn8',
+    shortDesc: 'ESP32-S3 powered programmable drone with Wi-Fi control and open-source SDK',
     features: ['ESP32-S3 Dual-Core', 'Wi-Fi Control', 'Open Source', '24-pin GPIO', 'Python/Arduino SDK'],
     stock: 50
   },
@@ -45,8 +45,8 @@ const products = [
     name: 'FLYQ Vision',
     slug: 'flyq-vision',
     price: 19999,
-    image: '/images/flyq-drone.png',
-    shortDesc: 'ESP32-S3 camera drone with HD video streaming',
+    image: 'https://www.genspark.ai/api/files/s/xi6wE2FE',
+    shortDesc: 'Advanced AI-powered camera drone with gesture control and computer vision',
     features: ['ESP32-S3 Dual-Core', 'HD 720p Camera', 'Gesture Control', 'Wi-Fi Streaming', 'Python/Arduino SDK'],
     stock: 30
   }
