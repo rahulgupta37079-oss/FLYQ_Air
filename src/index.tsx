@@ -2241,11 +2241,64 @@ app.get('/products', async (c) => {
                 <p class="text-xl text-gray-600">Premium programmable drones for every need</p>
             </div>
 
-            <div class="text-center py-20">
-                <p class="text-2xl text-gray-600">Products coming soon...</p>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+                ${products.map(product => `
+                    <div class="product-card bg-white rounded-3xl overflow-hidden shadow-lg">
+                        <div class="p-8 bg-gradient-to-br from-gray-900 to-gray-800">
+                            <img src="${product.image}" alt="${product.name}" class="w-full h-80 object-contain">
+                        </div>
+                        <div class="p-8">
+                            <div class="flex items-start justify-between mb-4">
+                                <div>
+                                    <h3 class="text-3xl font-black mb-2">${product.name}</h3>
+                                    <p class="text-gray-600">${product.shortDesc}</p>
+                                </div>
+                                ${product.stock > 0 
+                                    ? '<span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-bold">In Stock</span>' 
+                                    : '<span class="bg-red-100 text-red-800 px-3 py-1 rounded-full text-sm font-bold">Out of Stock</span>'}
+                            </div>
+                            <div class="border-t pt-6 mt-6">
+                                <div class="flex items-center justify-between mb-4">
+                                    <span class="text-4xl font-black text-sky-500">₹${product.price.toLocaleString()}</span>
+                                    <span class="text-sm text-gray-500">${product.stock} available</span>
+                                </div>
+                                <div class="flex gap-4">
+                                    <a href="/products/${product.slug}" class="flex-1 text-center border-2 border-sky-500 text-sky-500 px-6 py-3 rounded-full font-bold hover:bg-sky-50 transition">
+                                        View Details
+                                    </a>
+                                    <button onclick="addToCart(${product.id}, '${product.name.replace(/'/g, "\\'")}', ${product.price}, '${product.image}')" 
+                                            class="flex-1 btn-primary text-white px-6 py-3 rounded-full font-bold ${product.stock === 0 ? 'opacity-50 cursor-not-allowed' : ''}"
+                                            ${product.stock === 0 ? 'disabled' : ''}>
+                                        <i class="fas fa-cart-plus mr-2"></i>
+                                        Add to Cart
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `).join('')}
             </div>
         </div>
     </div>
+
+    <script>
+        function addToCart(id, name, price, image) {
+            let cart = JSON.parse(localStorage.getItem('flyq_cart') || '[]');
+            
+            const existing = cart.find(item => item.id === id);
+            if (existing) {
+                existing.quantity += 1;
+            } else {
+                cart.push({ id, name, price, image, quantity: 1 });
+            }
+            
+            localStorage.setItem('flyq_cart', JSON.stringify(cart));
+            updateCartCount();
+            
+            // Show notification
+            alert(name + ' added to cart!');
+        }
+    </script>
   `;
 
   return c.html(renderPage('Products', content));
