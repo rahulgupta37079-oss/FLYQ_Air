@@ -1535,8 +1535,22 @@ app.get('/', (c) => {
   const content = `
     <div class="pt-20">
         <!-- Hero Section -->
-        <section class="bg-gradient-to-br from-gray-900 via-blue-900 to-gray-900 text-white py-20">
-            <div class="container mx-auto px-6">
+        <section class="relative bg-gradient-to-br from-gray-900 via-blue-900 to-gray-900 text-white py-20 overflow-hidden">
+            <!-- Background Video -->
+            <video 
+                autoplay 
+                loop 
+                muted 
+                playsinline
+                class="absolute top-0 left-0 w-full h-full object-cover opacity-40 z-0"
+                style="filter: brightness(0.6) contrast(1.2);">
+                <source src="https://www.genspark.ai/api/files/s/ci95Ct8e" type="video/mp4">
+            </video>
+            
+            <!-- Overlay gradient -->
+            <div class="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-gray-900/80 via-blue-900/70 to-gray-900/80 z-0"></div>
+            
+            <div class="container mx-auto px-6 relative z-10">
                 <div class="grid lg:grid-cols-2 gap-12 items-center">
                     <div>
                         <h1 class="text-6xl md:text-7xl font-black mb-6">
@@ -1571,21 +1585,12 @@ app.get('/', (c) => {
                             </div>
                         </div>
                     </div>
-                    <div class="float-animation relative video-container">
-                        <video 
-                            autoplay 
-                            loop 
-                            muted 
-                            playsinline
-                            class="w-full h-auto drop-shadow-2xl rounded-2xl video-masked"
-                            style="mix-blend-mode: screen; filter: contrast(1.2) saturate(1.3) brightness(1.1);">
-                            <source src="/videos/flyq-hero.mp4" type="video/mp4">
-                            <img src="/images/flyq-drone.png" 
-                                 alt="FLYQ Air Drone" 
-                                 class="w-full h-auto drop-shadow-2xl">
-                        </video>
-                        <!-- Glow effect behind video -->
-                        <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 80%; height: 80%; background: radial-gradient(circle, rgba(14, 165, 233, 0.3) 0%, transparent 70%); z-index: -1; filter: blur(40px);"></div>
+                    <div class="float-animation relative">
+                        <img src="https://www.genspark.ai/api/files/s/tZctsyn8" 
+                             alt="FLYQ Air Drone" 
+                             class="w-full h-auto drop-shadow-2xl relative z-10">
+                        <!-- Glow effect behind image -->
+                        <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 80%; height: 80%; background: radial-gradient(circle, rgba(14, 165, 233, 0.3) 0%, transparent 70%); z-index: 0; filter: blur(40px);"></div>
                     </div>
                 </div>
             </div>
