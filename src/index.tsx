@@ -35,11 +35,11 @@ const products = [
     name: 'FLYQ Air',
     slug: 'flyq-air',
     price: 9999,
-    image: 'https://www.genspark.ai/api/files/s/xn7tfAlb',
+    image: '/images/products/assembled-drone.jpg',
     galleryImages: [
-      'https://www.genspark.ai/api/files/s/xn7tfAlb',
-      'https://www.genspark.ai/api/files/s/9h0FCrXY',
-      'https://www.genspark.ai/api/files/s/kION8Bev'
+      '/images/products/assembled-drone.jpg',
+      '/images/products/parts-layout.jpg',
+      '/images/products/hero-view.jpg'
     ],
     shortDesc: 'ESP32-S3 powered programmable drone with Wi-Fi control and open-source SDK',
     features: ['ESP32-S3 Dual-Core', 'Wi-Fi Control', 'Open Source', '24-pin GPIO', 'Python/Arduino SDK'],
@@ -50,11 +50,11 @@ const products = [
     name: 'FLYQ Vision',
     slug: 'flyq-vision',
     price: 19999,
-    image: 'https://www.genspark.ai/api/files/s/xn7tfAlb',
+    image: '/images/products/assembled-drone.jpg',
     galleryImages: [
-      'https://www.genspark.ai/api/files/s/xn7tfAlb',
-      'https://www.genspark.ai/api/files/s/9h0FCrXY',
-      'https://www.genspark.ai/api/files/s/kION8Bev'
+      '/images/products/assembled-drone.jpg',
+      '/images/products/parts-layout.jpg',
+      '/images/products/hero-view.jpg'
     ],
     shortDesc: 'Advanced AI-powered camera drone with gesture control and computer vision',
     features: ['ESP32-S3 Dual-Core', 'HD 720p Camera', 'Gesture Control', 'Wi-Fi Streaming', 'Python/Arduino SDK'],
@@ -1605,7 +1605,7 @@ app.get('/', (c) => {
         <section class="py-32 relative overflow-hidden">
             <!-- Full-width product image as background -->
             <div class="absolute inset-0 z-0">
-                <img src="https://www.genspark.ai/api/files/s/xn7tfAlb" class="w-full h-full object-cover" style="filter: brightness(0.15) blur(8px);" />
+                <img src="/images/products/assembled-drone.jpg" class="w-full h-full object-cover" style="filter: brightness(0.15) blur(8px);" />
             </div>
             <div class="absolute inset-0 bg-gradient-to-br from-gray-900/95 via-blue-900/90 to-black/95 z-0"></div>
             
@@ -1620,8 +1620,8 @@ app.get('/', (c) => {
                 <div class="grid md:grid-cols-2 gap-12 max-w-7xl mx-auto">
                     ${products.map((product, index) => {
                         const bgImages = [
-                            'https://www.genspark.ai/api/files/s/9h0FCrXY',
-                            'https://www.genspark.ai/api/files/s/kION8Bev'
+                            '/images/products/parts-layout.jpg',
+                            '/images/products/hero-view.jpg'
                         ];
                         return `
                         <div class="product-card backdrop-blur-xl bg-white/10 rounded-3xl overflow-hidden shadow-2xl border-2 border-white/20 hover:border-sky-400 transition-all duration-500 hover:scale-105 group">
