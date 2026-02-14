@@ -1,0 +1,42 @@
+[
+  {
+    "email": "bbhiranmayeeandhrauniversity.edu.in",
+    "status": "failed",
+    "error": "{\"statusCode\":422,\"name\":\"validation_error\",\"message\":\"Invalid `to` field. The email address needs to follow the `email@example.com` or `Name <email@example.com>` format.\"}"
+  },
+  {
+    "email": "jsiddhi961@gmail.com",
+    "status": "failed",
+    "error": "{\"statusCode\":403,\"message\":\"The flyqdrones.com domain is not verified. Please, add and verify your domain on https://resend.com/domains\",\"name\":\"validation_error\"}"
+  },
+  {
+    "email": "alvinamary4710@gmail.com",
+    "status": "failed",
+    "error": "{\"statusCode\":429,\"name\":\"rate_limit_exceeded\",\"message\":\"Too many requests. You can only make 2 requests per second. See rate limit response headers for more information. Or contact support to increase rate limit.\"}"
+  },
+  {
+    "email": "rtnmali2025@gmail.com",
+    "status": "failed",
+    "error": "{\"statusCode\":429,\"name\":\"rate_limit_exceeded\",\"message\":\"Too many requests. You can only make 2 requests per second. See rate limit response headers for more information. Or contact support to increase rate limit.\"}"
+  },
+  {
+    "email": "badgujar.sudhir1010@gmail.com",
+    "status": "failed",
+    "error": "{\"statusCode\":403,\"message\":\"The flyqdrones.com domain is not verified. Please, add and verify your domain on https://resend.com/domains\",\"name\":\"validation_error\"}"
+  },
+  {
+    "email": "sanjanapsanjana808@gmail.com",
+    "status": "failed",
+    "error": "{\"statusCode\":403,\"message\":\"The flyqdrones.com domain is not verified. Please, add and verify your domain on https://resend.com/domains\",\"name\":\"validation_error\"}"
+  },
+  {
+    "email": "sivashankeran@gmail.com",
+    "status": "failed",
+    "error": "{\"statusCode\":403,\"message\":\"The flyqdrones.com domain is not verified. Please, add and verify your domain on https://resend.com/domains\",\"name\":\"validation_error\"}"
+  },
+  {
+    "email": "sunilmardi1000@gmail.com",
+    "status": "failed",
+    "error": "{\"statusCode\":403,\"message\":\"The flyqdrones.com domain is not verified. Please, add and verify your domain on https://resend.com/domains\",\"name\":\"validation_error\"}"
+  }
+]

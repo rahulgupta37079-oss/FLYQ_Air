@@ -1534,148 +1534,163 @@ const renderPage = (title: string, content: string, includeCart: boolean = true)
 app.get('/', (c) => {
   const content = `
     <div class="pt-20">
-        <!-- Hero Section -->
-        <section class="relative bg-gradient-to-br from-gray-900 via-blue-900 to-gray-900 text-white py-20 overflow-hidden">
-            <!-- Background Video -->
+        <!-- Hero Section with Full-Screen Video Background -->
+        <section class="relative bg-black text-white overflow-hidden min-h-screen flex items-center">
+            <!-- Full-Screen Background Video -->
             <video 
                 autoplay 
                 loop 
                 muted 
                 playsinline
-                class="absolute top-0 left-0 w-full h-full object-cover opacity-40 z-0"
-                style="filter: brightness(0.6) contrast(1.2);">
-                <source src="https://www.genspark.ai/api/files/s/ci95Ct8e" type="video/mp4">
+                class="absolute top-0 left-0 w-full h-full object-cover z-0"
+                style="filter: brightness(0.4) contrast(1.2);">
+                <source src="/videos/drone-hero.mp4" type="video/mp4">
             </video>
             
-            <!-- Overlay gradient -->
-            <div class="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-gray-900/80 via-blue-900/70 to-gray-900/80 z-0"></div>
+            <!-- Cinematic overlay gradient -->
+            <div class="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-black/50 via-transparent to-black/80 z-0"></div>
             
             <div class="container mx-auto px-6 relative z-10">
-                <div class="grid lg:grid-cols-2 gap-12 items-center">
-                    <div>
-                        <h1 class="text-6xl md:text-7xl font-black mb-6">
-                            Build. Code. <span class="gradient-text">Fly.</span>
+                <div class="max-w-5xl mx-auto text-center">
+                    <div class="mb-12 animate-fade-in">
+                        <h1 class="text-8xl md:text-9xl font-black mb-8 leading-tight drop-shadow-2xl">
+                            Build. Code. <span class="bg-gradient-to-r from-sky-400 via-blue-500 to-cyan-400 bg-clip-text text-transparent animate-pulse">Fly.</span>
                         </h1>
-                        <p class="text-2xl text-gray-300 mb-8">
-                            Premium programmable drones powered by ESP32-S3. 
+                        <p class="text-3xl md:text-4xl text-gray-100 mb-12 font-light leading-relaxed drop-shadow-lg">
+                            Premium programmable drones powered by ESP32-S3.<br/>
                             Perfect for makers, developers, and educators.
                         </p>
-                        <div class="flex flex-wrap gap-4">
-                            <a href="/products" class="btn-primary text-white px-8 py-4 rounded-full font-bold text-lg inline-flex items-center">
-                                <i class="fas fa-shopping-cart mr-2"></i>
-                                Shop Now
-                            </a>
-                            <a href="/products" class="border-2 border-sky-500 text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-sky-500 transition inline-flex items-center">
-                                <i class="fas fa-info-circle mr-2"></i>
-                                Learn More
-                            </a>
-                        </div>
-                        <div class="mt-12 grid grid-cols-3 gap-6">
-                            <div class="text-center">
-                                <div class="text-4xl font-black text-sky-400 mb-2">100%</div>
-                                <div class="text-sm text-gray-400">Open Source</div>
-                            </div>
-                            <div class="text-center border-l border-r border-gray-700">
-                                <div class="text-4xl font-black text-sky-400 mb-2">Wi-Fi</div>
-                                <div class="text-sm text-gray-400">Control</div>
-                            </div>
-                            <div class="text-center">
-                                <div class="text-4xl font-black text-sky-400 mb-2">45g</div>
-                                <div class="text-sm text-gray-400">Weight</div>
-                            </div>
-                        </div>
                     </div>
-                    <div class="float-animation relative">
-                        <img src="https://www.genspark.ai/api/files/s/tZctsyn8" 
-                             alt="FLYQ Air Drone" 
-                             class="w-full h-auto drop-shadow-2xl relative z-10">
-                        <!-- Glow effect behind image -->
-                        <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 80%; height: 80%; background: radial-gradient(circle, rgba(14, 165, 233, 0.3) 0%, transparent 70%); z-index: 0; filter: blur(40px);"></div>
+                    
+                    <div class="flex flex-wrap gap-6 justify-center mb-20">
+                        <a href="/products" class="bg-gradient-to-r from-sky-500 to-blue-600 text-white px-12 py-6 rounded-full font-bold text-2xl inline-flex items-center shadow-2xl hover:shadow-sky-500/50 hover:scale-110 transition-all duration-300">
+                            <i class="fas fa-shopping-cart mr-4"></i>
+                            Shop Now
+                        </a>
+                        <a href="/products" class="border-4 border-white/80 backdrop-blur-md bg-white/10 text-white px-12 py-6 rounded-full font-bold text-2xl hover:bg-white hover:text-gray-900 transition-all duration-300 inline-flex items-center">
+                            <i class="fas fa-info-circle mr-4"></i>
+                            Learn More
+                        </a>
+                    </div>
+                    
+                    <div class="grid grid-cols-3 gap-12 max-w-3xl mx-auto backdrop-blur-md bg-white/5 rounded-3xl p-10 border border-white/20">
+                        <div class="text-center">
+                            <div class="text-6xl font-black text-sky-400 mb-3 drop-shadow-lg">100%</div>
+                            <div class="text-lg text-gray-200 font-medium">Open Source</div>
+                        </div>
+                        <div class="text-center border-l border-r border-white/30">
+                            <div class="text-6xl font-black text-sky-400 mb-3 drop-shadow-lg">Wi-Fi</div>
+                            <div class="text-lg text-gray-200 font-medium">Control</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-6xl font-black text-sky-400 mb-3 drop-shadow-lg">45g</div>
+                            <div class="text-lg text-gray-200 font-medium">Weight</div>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Featured Products -->
-        <section class="py-20">
-            <div class="container mx-auto px-6">
-                <div class="text-center mb-16">
-                    <h2 class="text-5xl font-black mb-4">
-                        Our <span class="gradient-text">Products</span>
+        <!-- Featured Products with Dramatic Image Background -->
+        <section class="py-32 relative overflow-hidden">
+            <!-- Full-width product image as background -->
+            <div class="absolute inset-0 z-0">
+                <img src="https://www.genspark.ai/api/files/s/tZctsyn8" class="w-full h-full object-cover" style="filter: brightness(0.15) blur(8px);" />
+            </div>
+            <div class="absolute inset-0 bg-gradient-to-br from-gray-900/95 via-blue-900/90 to-black/95 z-0"></div>
+            
+            <div class="container mx-auto px-6 relative z-10">
+                <div class="text-center mb-20">
+                    <h2 class="text-7xl font-black mb-6 text-white drop-shadow-2xl">
+                        Our <span class="bg-gradient-to-r from-sky-400 to-cyan-400 bg-clip-text text-transparent">Products</span>
                     </h2>
-                    <p class="text-xl text-gray-600">Choose the perfect drone for your needs</p>
+                    <p class="text-3xl text-gray-200 font-light">Choose the perfect drone for your needs</p>
                 </div>
 
-                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
-                    ${products.map(product => `
-                        <div class="product-card bg-white rounded-3xl overflow-hidden shadow-lg">
-                            <div class="p-8 bg-gradient-to-br from-gray-900 to-gray-800">
-                                <img src="${product.image}" alt="${product.name}" class="w-full h-80 object-contain">
+                <div class="grid md:grid-cols-2 gap-12 max-w-7xl mx-auto">
+                    ${products.map((product, index) => {
+                        const bgImages = [
+                            'https://www.genspark.ai/api/files/s/tZctsyn8',
+                            'https://www.genspark.ai/api/files/s/xi6wE2FE'
+                        ];
+                        return `
+                        <div class="product-card backdrop-blur-xl bg-white/10 rounded-3xl overflow-hidden shadow-2xl border-2 border-white/20 hover:border-sky-400 transition-all duration-500 hover:scale-105 group">
+                            <!-- Full product image as dramatic background -->
+                            <div class="relative p-16 overflow-hidden" style="min-height: 500px;">
+                                <div class="absolute inset-0 bg-center bg-cover opacity-10 group-hover:opacity-20 transition-all duration-500" style="background-image: url('${bgImages[index]}'); filter: blur(0px);"></div>
+                                <div class="absolute inset-0 bg-gradient-to-b from-transparent via-black/30 to-black/80"></div>
+                                <img src="${product.image}" alt="${product.name}" class="relative z-10 w-full h-96 object-contain drop-shadow-2xl group-hover:scale-110 transition-transform duration-700">
                             </div>
-                            <div class="p-8">
-                                <div class="flex items-start justify-between mb-4">
+                            <div class="p-10 bg-gradient-to-b from-transparent to-black/40">
+                                <div class="flex items-start justify-between mb-6">
                                     <div>
-                                        <h3 class="text-3xl font-black mb-2">${product.name}</h3>
-                                        <p class="text-gray-600">${product.shortDesc}</p>
+                                        <h3 class="text-5xl font-black mb-4 text-white drop-shadow-lg">${product.name}</h3>
+                                        <p class="text-gray-200 text-xl font-light">${product.shortDesc}</p>
                                     </div>
                                     ${product.stock > 0 
-                                        ? '<span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-bold">In Stock</span>' 
-                                        : '<span class="bg-red-100 text-red-800 px-3 py-1 rounded-full text-sm font-bold">Out of Stock</span>'}
+                                        ? '<span class="bg-green-500 text-white px-5 py-3 rounded-full text-base font-bold shadow-lg">In Stock</span>' 
+                                        : '<span class="bg-red-500 text-white px-5 py-3 rounded-full text-base font-bold shadow-lg">Out of Stock</span>'}
                                 </div>
-                                <div class="border-t pt-6 mt-6">
-                                    <div class="flex items-center justify-between mb-4">
-                                        <span class="text-4xl font-black text-sky-500">₹${product.price.toLocaleString()}</span>
-                                        <span class="text-sm text-gray-500">${product.stock} available</span>
+                                <div class="border-t-2 border-white/30 pt-8 mt-6">
+                                    <div class="flex items-center justify-between mb-8">
+                                        <span class="text-6xl font-black bg-gradient-to-r from-sky-400 to-cyan-400 bg-clip-text text-transparent drop-shadow-lg">₹${product.price.toLocaleString()}</span>
+                                        <span class="text-lg text-gray-200 font-bold">${product.stock} available</span>
                                     </div>
-                                    <a href="/products/${product.slug}" class="block w-full text-center btn-primary text-white px-6 py-3 rounded-full font-bold hover:shadow-lg transition">
+                                    <a href="/products/${product.slug}" class="block w-full text-center bg-gradient-to-r from-sky-500 to-blue-600 text-white px-10 py-5 rounded-full font-bold text-xl hover:shadow-2xl hover:shadow-sky-500/50 transition-all duration-300 hover:scale-105">
+                                        <i class="fas fa-arrow-right mr-3"></i>
                                         View Details
                                     </a>
                                 </div>
                             </div>
                         </div>
-                    `).join('')}
+                    `}).join('')}
                 </div>
             </div>
         </section>
 
-        <!-- Features Section -->
-        <section class="py-20 bg-white">
-            <div class="container mx-auto px-6">
-                <div class="text-center mb-16">
-                    <h2 class="text-5xl font-black mb-4">
-                        Why <span class="gradient-text">FLYQ?</span>
+        <!-- Features Section with Cinematic Image Background -->
+        <section class="relative py-40 text-white overflow-hidden">
+            <!-- High-quality background image -->
+            <div class="absolute inset-0 bg-cover bg-center bg-fixed z-0" style="background-image: url('https://www.genspark.ai/api/files/s/581vIxn3'); filter: brightness(0.25) contrast(1.2) saturate(1.1);"></div>
+            <div class="absolute inset-0 bg-gradient-to-br from-black/85 via-blue-900/75 to-black/90 z-0"></div>
+            
+            <div class="container mx-auto px-6 relative z-10">
+                <div class="text-center mb-24">
+                    <h2 class="text-7xl md:text-8xl font-black mb-8 drop-shadow-2xl">
+                        Why <span class="bg-gradient-to-r from-sky-400 to-cyan-400 bg-clip-text text-transparent">FLYQ?</span>
                     </h2>
+                    <p class="text-2xl text-gray-200 font-light max-w-3xl mx-auto">Cutting-edge technology meets educational excellence</p>
                 </div>
 
-                <div class="grid md:grid-cols-3 gap-8">
-                    <div class="text-center p-8">
-                        <div class="w-20 h-20 bg-gradient-to-br from-sky-500 to-blue-600 rounded-full flex items-center justify-center mx-auto mb-6">
-                            <i class="fas fa-microchip text-white text-3xl"></i>
+                <div class="grid md:grid-cols-3 gap-12 max-w-7xl mx-auto">
+                    <div class="text-center p-12 backdrop-blur-xl bg-white/10 rounded-3xl border-2 border-white/30 hover:bg-white/20 hover:border-sky-400 transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-sky-500/30">
+                        <div class="w-32 h-32 bg-gradient-to-br from-sky-400 via-blue-500 to-cyan-500 rounded-full flex items-center justify-center mx-auto mb-10 shadow-2xl animate-pulse-slow">
+                            <i class="fas fa-microchip text-white text-5xl"></i>
                         </div>
-                        <h3 class="text-2xl font-bold mb-3">Powerful Hardware</h3>
-                        <p class="text-gray-600">ESP32-S3 dual-core processor with Wi-Fi and Bluetooth connectivity</p>
+                        <h3 class="text-4xl font-black mb-6 text-white">Powerful Hardware</h3>
+                        <p class="text-gray-100 text-xl leading-relaxed">ESP32-S3 dual-core processor with Wi-Fi and Bluetooth connectivity</p>
                     </div>
 
-                    <div class="text-center p-8">
-                        <div class="w-20 h-20 bg-gradient-to-br from-sky-500 to-blue-600 rounded-full flex items-center justify-center mx-auto mb-6">
-                            <i class="fas fa-code text-white text-3xl"></i>
+                    <div class="text-center p-12 backdrop-blur-xl bg-white/10 rounded-3xl border-2 border-white/30 hover:bg-white/20 hover:border-sky-400 transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-sky-500/30">
+                        <div class="w-32 h-32 bg-gradient-to-br from-sky-400 via-blue-500 to-cyan-500 rounded-full flex items-center justify-center mx-auto mb-10 shadow-2xl animate-pulse-slow">
+                            <i class="fas fa-code text-white text-5xl"></i>
                         </div>
-                        <h3 class="text-2xl font-bold mb-3">Easy Programming</h3>
-                        <p class="text-gray-600">Program with ESP-IDF, Arduino, or Python - your choice</p>
+                        <h3 class="text-4xl font-black mb-6 text-white">Easy Programming</h3>
+                        <p class="text-gray-100 text-xl leading-relaxed">Program with ESP-IDF, Arduino, or Python - your choice</p>
                     </div>
 
-                    <div class="text-center p-8">
-                        <div class="w-20 h-20 bg-gradient-to-br from-sky-500 to-blue-600 rounded-full flex items-center justify-center mx-auto mb-6">
-                            <i class="fas fa-graduation-cap text-white text-3xl"></i>
+                    <div class="text-center p-12 backdrop-blur-xl bg-white/10 rounded-3xl border-2 border-white/30 hover:bg-white/20 hover:border-sky-400 transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-sky-500/30">
+                        <div class="w-32 h-32 bg-gradient-to-br from-sky-400 via-blue-500 to-cyan-500 rounded-full flex items-center justify-center mx-auto mb-10 shadow-2xl animate-pulse-slow">
+                            <i class="fas fa-graduation-cap text-white text-5xl"></i>
                         </div>
-                        <h3 class="text-2xl font-bold mb-3">Learning Resources</h3>
-                        <p class="text-gray-600">Comprehensive curriculum and documentation for all skill levels</p>
+                        <h3 class="text-4xl font-black mb-6 text-white">Learning Resources</h3>
+                        <p class="text-gray-100 text-xl leading-relaxed">Comprehensive curriculum and documentation for all skill levels</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Gallery Section -->
+        <!-- Gallery Section with Multiple Images -->
         <section class="py-20 bg-midnight">
             <div class="container mx-auto px-6">
                 <div class="text-center mb-16">
