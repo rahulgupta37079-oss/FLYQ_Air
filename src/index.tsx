@@ -45,7 +45,7 @@ const products = [
     name: 'FLYQ Vision',
     slug: 'flyq-vision',
     price: 19999,
-    image: 'https://www.genspark.ai/api/files/s/tZctsyn8',
+    image: 'https://www.genspark.ai/api/files/s/xi6wE2FE',
     shortDesc: 'Advanced AI-powered camera drone with gesture control and computer vision',
     features: ['ESP32-S3 Dual-Core', 'HD 720p Camera', 'Gesture Control', 'Wi-Fi Streaming', 'Python/Arduino SDK'],
     stock: 30
