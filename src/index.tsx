@@ -35,8 +35,11 @@ const products = [
     name: 'FLYQ Air',
     slug: 'flyq-air',
     price: 9999,
-    image: '/images/products/assembled-drone.jpg',
+    image: '/images/products/drone-black-1.jpg',
     galleryImages: [
+      '/images/products/drone-black-1.jpg',
+      '/images/products/drone-black-2.jpg',
+      '/images/products/drone-multi-view.jpg',
       '/images/products/assembled-drone.jpg',
       '/images/products/parts-layout.jpg',
       '/images/products/hero-view.jpg'
@@ -50,8 +53,11 @@ const products = [
     name: 'FLYQ Vision',
     slug: 'flyq-vision',
     price: 19999,
-    image: '/images/products/assembled-drone.jpg',
+    image: '/images/products/drone-black-2.jpg',
     galleryImages: [
+      '/images/products/drone-black-2.jpg',
+      '/images/products/drone-black-1.jpg',
+      '/images/products/drone-multi-view.jpg',
       '/images/products/assembled-drone.jpg',
       '/images/products/parts-layout.jpg',
       '/images/products/hero-view.jpg'
@@ -1605,7 +1611,7 @@ app.get('/', (c) => {
         <section class="py-32 relative overflow-hidden">
             <!-- Full-width product image as background -->
             <div class="absolute inset-0 z-0">
-                <img src="/images/products/assembled-drone.jpg" class="w-full h-full object-cover" style="filter: brightness(0.15) blur(8px);" />
+                <img src="/images/products/drone-black-1.jpg" class="w-full h-full object-cover" style="filter: brightness(0.15) blur(8px);" />
             </div>
             <div class="absolute inset-0 bg-gradient-to-br from-gray-900/95 via-blue-900/90 to-black/95 z-0"></div>
             
@@ -1620,8 +1626,8 @@ app.get('/', (c) => {
                 <div class="grid md:grid-cols-2 gap-12 max-w-7xl mx-auto">
                     ${products.map((product, index) => {
                         const bgImages = [
-                            '/images/products/parts-layout.jpg',
-                            '/images/products/hero-view.jpg'
+                            '/images/products/drone-multi-view.jpg',
+                            '/images/products/drone-black-2.jpg'
                         ];
                         return `
                         <div class="product-card backdrop-blur-xl bg-white/10 rounded-3xl overflow-hidden shadow-2xl border-2 border-white/20 hover:border-sky-400 transition-all duration-500 hover:scale-105 group">
