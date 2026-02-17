@@ -1179,9 +1179,9 @@ const renderPage = (title: string, content: string, includeCart: boolean = true)
 // Homepage
 app.get('/', (c) => {
   const content = `
-    <div class="pt-20">
-        <!-- Hero Section with Full-Screen Video Background -->
-        <section class="relative bg-black text-white overflow-hidden min-h-screen flex items-center">
+    <div class="pt-20 bg-black">
+        <!-- Hero Section with Full-Screen Video Background - BLACK, BLUE, WHITE THEME -->
+        <section class="relative bg-black text-white overflow-hidden min-h-screen flex items-center border-b-4 border-blue-500">
             <!-- Full-Screen Background Video -->
             <video 
                 autoplay 
@@ -1189,104 +1189,179 @@ app.get('/', (c) => {
                 muted 
                 playsinline
                 class="absolute top-0 left-0 w-full h-full object-cover z-0"
-                style="filter: brightness(0.4) contrast(1.2);">
+                style="filter: brightness(0.3) contrast(1.3) saturate(0.8);">
                 <source src="/videos/drone-hero.mp4" type="video/mp4">
             </video>
             
-            <!-- Cinematic overlay gradient -->
-            <div class="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-black/50 via-transparent to-black/80 z-0"></div>
+            <!-- Black to Blue Gradient Overlay -->
+            <div class="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-black/80 via-blue-900/60 to-black/90 z-0"></div>
+            
+            <!-- Animated Blue Particles Background -->
+            <div class="absolute inset-0 z-0 opacity-20">
+                <div class="absolute w-96 h-96 bg-blue-500 rounded-full blur-3xl top-20 -left-48 animate-pulse"></div>
+                <div class="absolute w-96 h-96 bg-cyan-400 rounded-full blur-3xl bottom-20 -right-48 animate-pulse" style="animation-delay: 1s;"></div>
+            </div>
             
             <div class="container mx-auto px-6 relative z-10">
-                <div class="max-w-5xl mx-auto text-center">
-                    <div class="mb-12 animate-fade-in">
-                        <h1 class="text-8xl md:text-9xl font-black mb-8 leading-tight drop-shadow-2xl text-white">
-                            Build. Code. <span class="bg-gradient-to-r from-sky-400 via-blue-500 to-cyan-400 bg-clip-text text-transparent animate-pulse">Fly.</span>
+                <div class="max-w-6xl mx-auto text-center">
+                    <!-- Main Heading with Blue Accent -->
+                    <div class="mb-16 animate-fade-in">
+                        <h1 class="text-8xl md:text-9xl font-black mb-8 leading-tight text-white" style="text-shadow: 0 0 40px rgba(59, 130, 246, 0.5), 0 0 80px rgba(59, 130, 246, 0.3);">
+                            Build. Code. <span class="inline-block bg-gradient-to-r from-blue-400 via-blue-500 to-cyan-400 bg-clip-text text-transparent animate-pulse">Fly.</span>
                         </h1>
-                        <p class="text-3xl md:text-4xl text-gray-100 mb-12 font-light leading-relaxed drop-shadow-lg">
-                            Premium programmable drones powered by ESP32-S3.<br/>
+                        <div class="w-32 h-2 bg-gradient-to-r from-transparent via-blue-500 to-transparent mx-auto mb-8"></div>
+                        <p class="text-3xl md:text-4xl text-white mb-12 font-light leading-relaxed">
+                            Premium programmable drones powered by <span class="text-blue-400 font-semibold">ESP32-S3</span>.<br/>
                             Perfect for makers, developers, and educators.
                         </p>
                     </div>
                     
+                    <!-- CTA Buttons with Blue Theme -->
                     <div class="flex flex-wrap gap-6 justify-center mb-20">
-                        <a href="/products" class="bg-gradient-to-r from-sky-500 to-blue-600 text-white px-12 py-6 rounded-full font-bold text-2xl inline-flex items-center shadow-2xl hover:shadow-sky-500/50 hover:scale-110 transition-all duration-300">
-                            <i class="fas fa-shopping-cart mr-4"></i>
+                        <a href="/products" class="group relative bg-gradient-to-r from-blue-600 to-blue-500 text-white px-14 py-7 rounded-2xl font-bold text-2xl inline-flex items-center shadow-2xl hover:shadow-blue-500/60 hover:scale-110 transition-all duration-300 border-2 border-blue-400/50">
+                            <i class="fas fa-shopping-cart mr-4 group-hover:rotate-12 transition-transform duration-300"></i>
                             Shop Now
+                            <div class="absolute inset-0 rounded-2xl bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                         </a>
-                        <a href="/products" class="border-4 border-white/80 backdrop-blur-md bg-white/10 text-white px-12 py-6 rounded-full font-bold text-2xl hover:bg-white hover:text-gray-900 transition-all duration-300 inline-flex items-center">
-                            <i class="fas fa-info-circle mr-4"></i>
+                        <a href="/products" class="group relative border-4 border-blue-400 bg-black/50 backdrop-blur-md text-white px-14 py-7 rounded-2xl font-bold text-2xl hover:bg-blue-500 hover:border-blue-300 transition-all duration-300 inline-flex items-center shadow-2xl hover:scale-110">
+                            <i class="fas fa-info-circle mr-4 group-hover:rotate-12 transition-transform duration-300"></i>
                             Learn More
                         </a>
                     </div>
                     
-                    <div class="grid grid-cols-3 gap-12 max-w-3xl mx-auto backdrop-blur-md bg-white/5 rounded-3xl p-10 border border-white/20">
-                        <div class="text-center">
-                            <div class="text-6xl font-black text-sky-400 mb-3 drop-shadow-lg">100%</div>
-                            <div class="text-lg text-gray-200 font-medium">Open Source</div>
+                    <!-- Stats Grid with Blue Accents -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+                        <div class="group relative backdrop-blur-xl bg-black/60 border-2 border-blue-500/50 rounded-2xl p-8 hover:bg-blue-900/30 hover:border-blue-400 transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-blue-500/30">
+                            <div class="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                            <div class="relative z-10">
+                                <div class="text-7xl font-black bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent mb-3">100%</div>
+                                <div class="text-xl text-white font-semibold tracking-wide">Open Source</div>
+                            </div>
                         </div>
-                        <div class="text-center border-l border-r border-white/30">
-                            <div class="text-6xl font-black text-sky-400 mb-3 drop-shadow-lg">Wi-Fi</div>
-                            <div class="text-lg text-gray-200 font-medium">Control</div>
+                        <div class="group relative backdrop-blur-xl bg-black/60 border-2 border-blue-500/50 rounded-2xl p-8 hover:bg-blue-900/30 hover:border-blue-400 transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-blue-500/30">
+                            <div class="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                            <div class="relative z-10">
+                                <div class="text-7xl font-black bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent mb-3"><i class="fas fa-wifi"></i></div>
+                                <div class="text-xl text-white font-semibold tracking-wide">Wi-Fi Control</div>
+                            </div>
                         </div>
-                        <div class="text-center">
-                            <div class="text-6xl font-black text-sky-400 mb-3 drop-shadow-lg">45g</div>
-                            <div class="text-lg text-gray-200 font-medium">Weight</div>
+                        <div class="group relative backdrop-blur-xl bg-black/60 border-2 border-blue-500/50 rounded-2xl p-8 hover:bg-blue-900/30 hover:border-blue-400 transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-blue-500/30">
+                            <div class="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                            <div class="relative z-10">
+                                <div class="text-7xl font-black bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent mb-3">45g</div>
+                                <div class="text-xl text-white font-semibold tracking-wide">Lightweight</div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Featured Products with Dramatic Image Background -->
-        <section class="py-32 relative overflow-hidden">
-            <!-- Full-width product image as background -->
-            <div class="absolute inset-0 z-0">
-                <img src="/images/products/drone-black-1.jpg" class="w-full h-full object-cover" style="filter: brightness(0.15) blur(8px);" />
+        <!-- Featured Products Section - BLACK, BLUE, WHITE THEME -->
+        <section class="py-32 bg-black relative overflow-hidden border-b-4 border-blue-500">
+            <!-- Animated Background Pattern -->
+            <div class="absolute inset-0 z-0 opacity-5">
+                <div class="absolute top-0 left-0 w-full h-full" style="background-image: repeating-linear-gradient(45deg, transparent, transparent 35px, rgba(59, 130, 246, 0.5) 35px, rgba(59, 130, 246, 0.5) 70px);"></div>
             </div>
-            <div class="absolute inset-0 bg-gradient-to-br from-gray-900/95 via-blue-900/90 to-black/95 z-0"></div>
+            
+            <!-- Blue Glow Effects -->
+            <div class="absolute w-96 h-96 bg-blue-600 rounded-full blur-3xl top-0 left-1/4 opacity-20 animate-pulse"></div>
+            <div class="absolute w-96 h-96 bg-cyan-500 rounded-full blur-3xl bottom-0 right-1/4 opacity-20 animate-pulse" style="animation-delay: 1.5s;"></div>
             
             <div class="container mx-auto px-6 relative z-10">
-                <div class="text-center mb-20">
-                    <h2 class="text-7xl font-black mb-6 text-white drop-shadow-2xl">
-                        Our <span class="bg-gradient-to-r from-sky-400 to-cyan-400 bg-clip-text text-transparent">Products</span>
+                <!-- Section Header -->
+                <div class="text-center mb-24">
+                    <div class="inline-block mb-8">
+                        <div class="flex items-center gap-4">
+                            <div class="w-16 h-1 bg-gradient-to-r from-transparent to-blue-500"></div>
+                            <i class="fas fa-drone text-blue-400 text-5xl"></i>
+                            <div class="w-16 h-1 bg-gradient-to-l from-transparent to-blue-500"></div>
+                        </div>
+                    </div>
+                    <h2 class="text-7xl md:text-8xl font-black mb-8 text-white" style="text-shadow: 0 0 40px rgba(59, 130, 246, 0.5);">
+                        Our <span class="bg-gradient-to-r from-blue-400 via-blue-500 to-cyan-400 bg-clip-text text-transparent">Products</span>
                     </h2>
-                    <p class="text-3xl text-gray-200 font-light">Choose the perfect drone for your needs</p>
+                    <div class="w-32 h-2 bg-gradient-to-r from-transparent via-blue-500 to-transparent mx-auto mb-8"></div>
+                    <p class="text-3xl text-blue-100 font-light max-w-3xl mx-auto">Choose the perfect programmable drone for your journey</p>
                 </div>
 
-                <div class="grid md:grid-cols-2 gap-12 max-w-7xl mx-auto">
+                <!-- Products Grid -->
+                <div class="grid md:grid-cols-2 gap-16 max-w-7xl mx-auto">
                     ${products.map((product, index) => {
                         const bgImages = [
                             '/images/products/drone-multi-view.jpg',
                             '/images/products/drone-black-2.jpg'
                         ];
                         return `
-                        <div class="product-card backdrop-blur-xl bg-white/10 rounded-3xl overflow-hidden shadow-2xl border-2 border-white/20 hover:border-sky-400 transition-all duration-500 hover:scale-105 group">
-                            <!-- Full product image as dramatic background -->
-                            <div class="relative p-16 overflow-hidden" style="min-height: 500px;">
-                                <div class="absolute inset-0 bg-center bg-cover opacity-10 group-hover:opacity-20 transition-all duration-500" style="background-image: url('${bgImages[index]}'); filter: blur(0px);"></div>
-                                <div class="absolute inset-0 bg-gradient-to-b from-transparent via-black/30 to-black/80"></div>
-                                <img src="${product.image}" alt="${product.name}" class="relative z-10 w-full h-96 object-contain drop-shadow-2xl group-hover:scale-110 transition-transform duration-700">
+                        <div class="group relative backdrop-blur-xl bg-gradient-to-br from-blue-950/50 to-black/80 rounded-3xl overflow-hidden shadow-2xl border-2 border-blue-500/30 hover:border-blue-400 transition-all duration-500 hover:scale-[1.02] hover:shadow-blue-500/50">
+                            <!-- Animated Glow on Hover -->
+                            <div class="absolute inset-0 bg-gradient-to-br from-blue-600/0 via-blue-500/0 to-cyan-400/0 group-hover:from-blue-600/10 group-hover:via-blue-500/5 group-hover:to-cyan-400/10 transition-all duration-500 rounded-3xl"></div>
+                            
+                            <!-- Product Image Section -->
+                            <div class="relative p-12 bg-gradient-to-br from-black/60 to-blue-950/40" style="min-height: 450px;">
+                                <!-- Background Pattern -->
+                                <div class="absolute inset-0 opacity-5" style="background-image: url('${bgImages[index]}'); background-size: cover; background-position: center; filter: blur(2px);"></div>
+                                
+                                <!-- Main Product Image -->
+                                <img src="${product.image}" alt="${product.name}" class="relative z-10 w-full h-80 object-contain drop-shadow-2xl group-hover:scale-110 group-hover:rotate-3 transition-all duration-700" style="filter: drop-shadow(0 0 30px rgba(59, 130, 246, 0.5));">
+                                
+                                <!-- Blue Accent Lines -->
+                                <div class="absolute top-8 left-8 w-20 h-1 bg-gradient-to-r from-blue-500 to-transparent"></div>
+                                <div class="absolute bottom-8 right-8 w-20 h-1 bg-gradient-to-l from-blue-500 to-transparent"></div>
                             </div>
-                            <div class="p-10 bg-gradient-to-b from-transparent to-black/40">
+                            
+                            <!-- Product Details -->
+                            <div class="relative p-10 bg-gradient-to-br from-black/80 to-blue-950/60 border-t-2 border-blue-500/30">
+                                <!-- Product Name & Badge -->
                                 <div class="flex items-start justify-between mb-6">
-                                    <div>
-                                        <h3 class="text-5xl font-black mb-4 text-white drop-shadow-lg">${product.name}</h3>
-                                        <p class="text-gray-200 text-xl font-light">${product.shortDesc}</p>
+                                    <div class="flex-1">
+                                        <h3 class="text-5xl font-black mb-4 text-white" style="text-shadow: 0 0 20px rgba(59, 130, 246, 0.3);">${product.name}</h3>
+                                        <p class="text-blue-100 text-xl font-light leading-relaxed">${product.shortDesc}</p>
                                     </div>
                                     ${product.stock > 0 
-                                        ? '<span class="bg-green-500 text-white px-5 py-3 rounded-full text-base font-bold shadow-lg">In Stock</span>' 
-                                        : '<span class="bg-red-500 text-white px-5 py-3 rounded-full text-base font-bold shadow-lg">Out of Stock</span>'}
+                                        ? '<span class="flex-shrink-0 ml-4 bg-gradient-to-r from-green-500 to-emerald-500 text-white px-6 py-3 rounded-xl text-base font-bold shadow-lg shadow-green-500/30 border border-green-400/50"><i class="fas fa-check-circle mr-2"></i>In Stock</span>' 
+                                        : '<span class="flex-shrink-0 ml-4 bg-gradient-to-r from-red-500 to-rose-500 text-white px-6 py-3 rounded-xl text-base font-bold shadow-lg shadow-red-500/30 border border-red-400/50"><i class="fas fa-times-circle mr-2"></i>Out of Stock</span>'}
                                 </div>
-                                <div class="border-t-2 border-white/30 pt-8 mt-6">
-                                    <div class="flex items-center justify-between mb-8">
-                                        <span class="text-6xl font-black bg-gradient-to-r from-sky-400 to-cyan-400 bg-clip-text text-transparent drop-shadow-lg">₹${product.price.toLocaleString()}</span>
-                                        <span class="text-lg text-gray-200 font-bold">${product.stock} available</span>
+                                
+                                <!-- Divider with Blue Accent -->
+                                <div class="relative my-8">
+                                    <div class="absolute inset-0 flex items-center">
+                                        <div class="w-full border-t-2 border-blue-500/30"></div>
                                     </div>
-                                    <a href="/products/${product.slug}" class="block w-full text-center bg-gradient-to-r from-sky-500 to-blue-600 text-white px-10 py-5 rounded-full font-bold text-xl hover:shadow-2xl hover:shadow-sky-500/50 transition-all duration-300 hover:scale-105">
-                                        <i class="fas fa-arrow-right mr-3"></i>
-                                        View Details
-                                    </a>
+                                    <div class="relative flex justify-center">
+                                        <span class="bg-gradient-to-r from-black to-blue-950 px-4">
+                                            <i class="fas fa-star text-blue-400 text-xl"></i>
+                                        </span>
+                                    </div>
                                 </div>
+                                
+                                <!-- Price & Stock Info -->
+                                <div class="flex items-center justify-between mb-8">
+                                    <div>
+                                        <div class="text-sm text-blue-300 mb-2 font-semibold tracking-wider uppercase">Price</div>
+                                        <span class="text-6xl font-black bg-gradient-to-r from-blue-400 via-blue-500 to-cyan-400 bg-clip-text text-transparent" style="text-shadow: 0 0 20px rgba(59, 130, 246, 0.3);">₹${product.price.toLocaleString()}</span>
+                                    </div>
+                                    <div class="text-right">
+                                        <div class="text-sm text-blue-300 mb-2 font-semibold tracking-wider uppercase">Available</div>
+                                        <div class="flex items-center gap-2 text-white text-2xl font-bold">
+                                            <i class="fas fa-box text-blue-400"></i>
+                                            ${product.stock} units
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- CTA Button -->
+                                <a href="/products/${product.slug}" class="group/btn relative block w-full text-center bg-gradient-to-r from-blue-600 via-blue-500 to-cyan-500 text-white px-12 py-6 rounded-2xl font-bold text-2xl shadow-2xl shadow-blue-500/50 hover:shadow-blue-400/70 transition-all duration-300 hover:scale-105 border-2 border-blue-400/50 overflow-hidden">
+                                    <!-- Button Glow Effect -->
+                                    <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-200%] group-hover/btn:translate-x-[200%] transition-transform duration-1000"></div>
+                                    
+                                    <!-- Button Content -->
+                                    <span class="relative flex items-center justify-center gap-4">
+                                        <i class="fas fa-arrow-right group-hover/btn:translate-x-2 transition-transform duration-300"></i>
+                                        View Details
+                                        <i class="fas fa-chevron-right text-sm group-hover/btn:translate-x-1 transition-transform duration-300"></i>
+                                    </span>
+                                </a>
                             </div>
                         </div>
                     `}).join('')}
