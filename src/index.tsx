@@ -133,6 +133,66 @@ const renderPage = (title: string, content: string, includeCart: boolean = true)
                 50% { transform: translateY(-20px); }
             }
             
+            /* GREEN THEME ANIMATIONS */
+            @keyframes animate-float {
+                0%, 100% { 
+                    transform: translateY(0px) rotate(0deg); 
+                }
+                50% { 
+                    transform: translateY(-30px) rotate(5deg); 
+                }
+            }
+            
+            .animate-float {
+                animation: animate-float 6s ease-in-out infinite;
+            }
+            
+            @keyframes animate-float-slow {
+                0%, 100% { transform: translateY(0px); }
+                50% { transform: translateY(-15px); }
+            }
+            
+            .animate-float-slow {
+                animation: animate-float-slow 8s ease-in-out infinite;
+            }
+            
+            @keyframes ping-slow {
+                0% {
+                    transform: scale(1);
+                    opacity: 0.8;
+                }
+                50% {
+                    transform: scale(1.1);
+                    opacity: 0.4;
+                }
+                100% {
+                    transform: scale(1);
+                    opacity: 0.8;
+                }
+            }
+            
+            .animate-ping-slow {
+                animation: ping-slow 3s cubic-bezier(0, 0, 0.2, 1) infinite;
+            }
+            
+            @keyframes scroll-indicator {
+                0% { transform: translateY(0); opacity: 1; }
+                100% { transform: translateY(8px); opacity: 0; }
+            }
+            
+            .animate-scroll {
+                animation: scroll-indicator 1.5s ease-in-out infinite;
+            }
+            
+            @keyframes fade-in {
+                from { opacity: 0; transform: translateY(20px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+            
+            .animate-fade-in {
+                animation: fade-in 1s ease-out;
+            }
+            
             .cart-badge {
                 position: absolute;
                 top: -8px;
@@ -1180,8 +1240,8 @@ const renderPage = (title: string, content: string, includeCart: boolean = true)
 app.get('/', (c) => {
   const content = `
     <div class="pt-20 bg-black">
-        <!-- Hero Section with Full-Screen Video Background - BLACK, BLUE, WHITE THEME -->
-        <section class="relative bg-black text-white overflow-hidden min-h-screen flex items-center border-b-4 border-blue-500">
+        <!-- Hero Section - BLACK with GREEN ACCENTS (Reference Design) -->
+        <section class="relative bg-black text-white overflow-hidden min-h-screen flex items-center">
             <!-- Full-Screen Background Video -->
             <video 
                 autoplay 
@@ -1189,73 +1249,163 @@ app.get('/', (c) => {
                 muted 
                 playsinline
                 class="absolute top-0 left-0 w-full h-full object-cover z-0"
-                style="filter: brightness(0.3) contrast(1.3) saturate(0.8);">
+                style="filter: brightness(0.25) contrast(1.4) saturate(0.7);">
                 <source src="/videos/drone-hero.mp4" type="video/mp4">
             </video>
             
-            <!-- Black to Blue Gradient Overlay -->
-            <div class="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-black/80 via-blue-900/60 to-black/90 z-0"></div>
+            <!-- Dark Gradient Overlay -->
+            <div class="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-black/95 via-black/80 to-black/95 z-0"></div>
             
-            <!-- Animated Blue Particles Background -->
+            <!-- Animated Green Glow Particles -->
             <div class="absolute inset-0 z-0 opacity-20">
-                <div class="absolute w-96 h-96 bg-blue-500 rounded-full blur-3xl top-20 -left-48 animate-pulse"></div>
-                <div class="absolute w-96 h-96 bg-cyan-400 rounded-full blur-3xl bottom-20 -right-48 animate-pulse" style="animation-delay: 1s;"></div>
+                <div class="absolute w-96 h-96 bg-green-500 rounded-full blur-3xl top-20 right-1/4 animate-pulse" style="animation-duration: 3s;"></div>
+                <div class="absolute w-80 h-80 bg-emerald-400 rounded-full blur-3xl bottom-40 left-1/3 animate-pulse" style="animation-duration: 4s; animation-delay: 1s;"></div>
             </div>
             
-            <div class="container mx-auto px-6 relative z-10">
-                <div class="max-w-6xl mx-auto text-center">
-                    <!-- Main Heading with Blue Accent -->
-                    <div class="mb-16 animate-fade-in">
-                        <h1 class="text-8xl md:text-9xl font-black mb-8 leading-tight text-white" style="text-shadow: 0 0 40px rgba(59, 130, 246, 0.5), 0 0 80px rgba(59, 130, 246, 0.3);">
-                            Build. Code. <span class="inline-block bg-gradient-to-r from-blue-400 via-blue-500 to-cyan-400 bg-clip-text text-transparent animate-pulse">Fly.</span>
+            <div class="container mx-auto px-6 lg:px-12 relative z-10">
+                <div class="grid lg:grid-cols-2 gap-16 items-center">
+                    <!-- Left: Text Content -->
+                    <div class="text-left animate-fade-in">
+                        <!-- Brand Name -->
+                        <div class="mb-8">
+                            <h2 class="text-6xl md:text-7xl font-black tracking-wider text-white mb-4" style="letter-spacing: 0.15em;">FLYQ</h2>
+                            <div class="w-24 h-1 bg-gradient-to-r from-green-500 to-emerald-400"></div>
+                        </div>
+                        
+                        <!-- Tagline -->
+                        <h1 class="text-5xl md:text-6xl font-bold mb-6 leading-tight">
+                            <div class="text-white mb-2">Smart.</div>
+                            <div class="text-white mb-2">Stable.</div>
+                            <div class="text-green-400">Ready to Fly.</div>
                         </h1>
-                        <div class="w-32 h-2 bg-gradient-to-r from-transparent via-blue-500 to-transparent mx-auto mb-8"></div>
-                        <p class="text-3xl md:text-4xl text-white mb-12 font-light leading-relaxed">
-                            Premium programmable drones powered by <span class="text-blue-400 font-semibold">ESP32-S3</span>.<br/>
-                            Perfect for makers, developers, and educators.
+                        
+                        <!-- Subtitle -->
+                        <p class="text-xl text-gray-300 mb-10 leading-relaxed max-w-xl">
+                            Precision control. Smooth flight. Compact design.
                         </p>
+                        
+                        <!-- CTA Buttons -->
+                        <div class="flex flex-wrap gap-4">
+                            <a href="/products" class="group relative bg-gradient-to-r from-green-500 to-emerald-500 text-black px-10 py-4 rounded-lg font-bold text-lg inline-flex items-center shadow-2xl hover:shadow-green-500/60 hover:scale-105 transition-all duration-300">
+                                <span class="relative z-10">Buy Now</span>
+                                <div class="absolute inset-0 rounded-lg bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                            </a>
+                            <a href="/products" class="group relative border-2 border-white/50 bg-black/50 backdrop-blur-md text-white px-10 py-4 rounded-lg font-bold text-lg hover:bg-white/10 hover:border-white transition-all duration-300 inline-flex items-center">
+                                Watch Demo
+                            </a>
+                        </div>
                     </div>
                     
-                    <!-- CTA Buttons with Blue Theme -->
-                    <div class="flex flex-wrap gap-6 justify-center mb-20">
-                        <a href="/products" class="group relative bg-gradient-to-r from-blue-600 to-blue-500 text-white px-14 py-7 rounded-2xl font-bold text-2xl inline-flex items-center shadow-2xl hover:shadow-blue-500/60 hover:scale-110 transition-all duration-300 border-2 border-blue-400/50">
-                            <i class="fas fa-shopping-cart mr-4 group-hover:rotate-12 transition-transform duration-300"></i>
-                            Shop Now
-                            <div class="absolute inset-0 rounded-2xl bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                        </a>
-                        <a href="/products" class="group relative border-4 border-blue-400 bg-black/50 backdrop-blur-md text-white px-14 py-7 rounded-2xl font-bold text-2xl hover:bg-blue-500 hover:border-blue-300 transition-all duration-300 inline-flex items-center shadow-2xl hover:scale-110">
-                            <i class="fas fa-info-circle mr-4 group-hover:rotate-12 transition-transform duration-300"></i>
-                            Learn More
-                        </a>
-                    </div>
-                    
-                    <!-- Stats Grid with Blue Accents -->
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-                        <div class="group relative backdrop-blur-xl bg-black/60 border-2 border-blue-500/50 rounded-2xl p-8 hover:bg-blue-900/30 hover:border-blue-400 transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-blue-500/30">
-                            <div class="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                            <div class="relative z-10">
-                                <div class="text-7xl font-black bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent mb-3">100%</div>
-                                <div class="text-xl text-white font-semibold tracking-wide">Open Source</div>
+                    <!-- Right: 3D Floating Drone Image -->
+                    <div class="relative hidden lg:block">
+                        <div class="relative w-full h-[600px] flex items-center justify-center">
+                            <!-- Floating Animation Container -->
+                            <div class="absolute inset-0 flex items-center justify-center animate-float">
+                                <img src="/images/products/drone-black-1.jpg" alt="FLYQ Drone" class="w-full max-w-md object-contain drop-shadow-2xl" style="filter: drop-shadow(0 0 60px rgba(34, 197, 94, 0.4));">
                             </div>
-                        </div>
-                        <div class="group relative backdrop-blur-xl bg-black/60 border-2 border-blue-500/50 rounded-2xl p-8 hover:bg-blue-900/30 hover:border-blue-400 transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-blue-500/30">
-                            <div class="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                            <div class="relative z-10">
-                                <div class="text-7xl font-black bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent mb-3"><i class="fas fa-wifi"></i></div>
-                                <div class="text-xl text-white font-semibold tracking-wide">Wi-Fi Control</div>
-                            </div>
-                        </div>
-                        <div class="group relative backdrop-blur-xl bg-black/60 border-2 border-blue-500/50 rounded-2xl p-8 hover:bg-blue-900/30 hover:border-blue-400 transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-blue-500/30">
-                            <div class="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                            <div class="relative z-10">
-                                <div class="text-7xl font-black bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent mb-3">45g</div>
-                                <div class="text-xl text-white font-semibold tracking-wide">Lightweight</div>
+                            
+                            <!-- Glowing Ring Effect -->
+                            <div class="absolute inset-0 flex items-center justify-center">
+                                <div class="w-96 h-96 rounded-full border-2 border-green-500/30 animate-ping-slow"></div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            
+            <!-- Scroll Indicator -->
+            <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 z-20 animate-bounce">
+                <div class="w-6 h-10 border-2 border-white/50 rounded-full flex items-start justify-center p-2">
+                    <div class="w-1 h-3 bg-white/70 rounded-full animate-scroll"></div>
+                </div>
+            </div>
         </section>
+
+        <!-- Features Showcase Section - BLACK WITH GREEN HIGHLIGHTS -->
+        <section class="relative bg-black py-32 overflow-hidden border-t border-gray-800">
+            <!-- Background Pattern -->
+            <div class="absolute inset-0 opacity-5">
+                <div class="absolute inset-0" style="background-image: radial-gradient(circle, rgba(34, 197, 94, 0.3) 1px, transparent 1px); background-size: 40px 40px;"></div>
+            </div>
+            
+            <div class="container mx-auto px-6 lg:px-12 relative z-10">
+                <!-- Section Header -->
+                <div class="text-center mb-20">
+                    <h2 class="text-5xl md:text-6xl font-black mb-6 text-white">
+                        Engineered for <span class="text-green-400">Effortless Flight.</span>
+                    </h2>
+                    <div class="w-24 h-1 bg-gradient-to-r from-transparent via-green-500 to-transparent mx-auto mb-6"></div>
+                    <p class="text-xl text-gray-400 max-w-2xl mx-auto">Advanced quad stability system</p>
+                </div>
+                
+                <!-- Drone Image with Spotlight -->
+                <div class="relative max-w-5xl mx-auto mb-20">
+                    <div class="relative">
+                        <!-- Spotlight Effect -->
+                        <div class="absolute inset-0 bg-gradient-to-b from-transparent via-green-500/10 to-transparent blur-3xl"></div>
+                        
+                        <!-- Main Drone Image -->
+                        <img src="/images/products/assembled-drone.jpg" alt="FLYQ Engineering" class="w-full object-contain animate-float-slow" style="filter: drop-shadow(0 20px 60px rgba(34, 197, 94, 0.3));">
+                    </div>
+                </div>
+                
+                <!-- Feature Grid with Icons -->
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
+                    <!-- Feature 1: 4 Rotor Stability -->
+                    <div class="group relative bg-gradient-to-br from-gray-900 to-black border border-gray-800 hover:border-green-500/50 rounded-2xl p-8 transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-green-500/20">
+                        <div class="absolute inset-0 bg-gradient-to-br from-green-500/0 to-green-500/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                        <div class="relative z-10">
+                            <!-- Icon -->
+                            <div class="w-16 h-16 bg-gradient-to-br from-green-500 to-emerald-500 rounded-xl flex items-center justify-center mb-6 group-hover:rotate-12 transition-transform duration-500">
+                                <i class="fas fa-fan text-black text-2xl"></i>
+                            </div>
+                            <!-- Title -->
+                            <h3 class="text-xl font-bold text-white mb-3">4 Rotor<br/>Stability</h3>
+                            <!-- Description -->
+                            <p class="text-gray-400 text-sm leading-relaxed">Advanced quad<br/>stability system</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Feature 2: Long-Range Control -->
+                    <div class="group relative bg-gradient-to-br from-gray-900 to-black border border-gray-800 hover:border-green-500/50 rounded-2xl p-8 transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-green-500/20">
+                        <div class="absolute inset-0 bg-gradient-to-br from-green-500/0 to-green-500/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                        <div class="relative z-10">
+                            <div class="w-16 h-16 bg-gradient-to-br from-green-500 to-emerald-500 rounded-xl flex items-center justify-center mb-6 group-hover:rotate-12 transition-transform duration-500">
+                                <i class="fas fa-wifi text-black text-2xl"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-white mb-3">Long-Range<br/>Control</h3>
+                            <p class="text-gray-400 text-sm leading-relaxed">Responsive wireless<br/>connection</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Feature 3: High Efficiency Battery -->
+                    <div class="group relative bg-gradient-to-br from-gray-900 to-black border border-gray-800 hover:border-green-500/50 rounded-2xl p-8 transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-green-500/20">
+                        <div class="absolute inset-0 bg-gradient-to-br from-green-500/0 to-green-500/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                        <div class="relative z-10">
+                            <div class="w-16 h-16 bg-gradient-to-br from-green-500 to-emerald-500 rounded-xl flex items-center justify-center mb-6 group-hover:rotate-12 transition-transform duration-500">
+                                <i class="fas fa-battery-full text-black text-2xl"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-white mb-3">High Efficiency<br/>Battery</h3>
+                            <p class="text-gray-400 text-sm leading-relaxed">Long-lasting<br/>flight time</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Feature 4: Beginner Friendly -->
+                    <div class="group relative bg-gradient-to-br from-gray-900 to-black border border-gray-800 hover:border-green-500/50 rounded-2xl p-8 transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-green-500/20">
+                        <div class="absolute inset-0 bg-gradient-to-br from-green-500/0 to-green-500/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                        <div class="relative z-10">
+                            <div class="w-16 h-16 bg-gradient-to-br from-green-500 to-emerald-500 rounded-xl flex items-center justify-center mb-6 group-hover:rotate-12 transition-transform duration-500">
+                                <i class="fas fa-user-check text-black text-2xl"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-white mb-3">Beginner<br/>Friendly</h3>
+                            <p class="text-gray-400 text-sm leading-relaxed">Easy control,<br/>smooth landing</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        
 
         <!-- Featured Products Section - BLACK, BLUE, WHITE THEME -->
         <section class="py-32 bg-black relative overflow-hidden border-b-4 border-blue-500">
