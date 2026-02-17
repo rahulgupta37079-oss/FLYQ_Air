@@ -1180,13 +1180,21 @@ const renderPage = (title: string, content: string, includeCart: boolean = true)
 app.get('/', (c) => {
   const content = `
     <div class="pt-20">
-        <!-- Hero Section without Video -->
-        <section class="relative bg-gradient-to-br from-gray-900 via-blue-900 to-black text-white overflow-hidden py-32">
-            <div class="container mx-auto px-6 relative z-10">
-                <div class="max-w-5xl mx-auto text-center">
+        <!-- Hero Section with Full-Screen Video Background -->
+        <section class="relative min-h-screen flex items-center justify-center overflow-hidden">
+            <!-- Full-Screen Background Video -->
+            <video autoplay loop muted playsinline class="absolute inset-0 w-full h-full object-cover z-0">
+                <source src="/videos/drone-hero.mp4" type="video/mp4">
+            </video>
+            
+            <!-- Dark overlay gradient -->
+            <div class="absolute inset-0 bg-gradient-to-br from-black/80 via-blue-900/70 to-black/80 z-10"></div>
+            
+            <div class="container mx-auto px-6 relative z-20 text-center">
+                <div class="max-w-5xl mx-auto">
                     <div class="mb-12 animate-fade-in">
-                        <h1 class="text-8xl md:text-9xl font-black mb-8 leading-tight drop-shadow-2xl">
-                            Build. Code. <span class="bg-gradient-to-r from-sky-400 via-blue-500 to-cyan-400 bg-clip-text text-transparent">Fly.</span>
+                        <h1 class="text-8xl md:text-9xl font-black mb-8 leading-tight drop-shadow-2xl text-white">
+                            Build. Code. <span class="bg-gradient-to-r from-sky-400 via-blue-500 to-cyan-400 bg-clip-text text-transparent animate-pulse">Fly.</span>
                         </h1>
                         <p class="text-3xl md:text-4xl text-gray-100 mb-12 font-light leading-relaxed drop-shadow-lg">
                             Premium programmable drones powered by ESP32-S3.<br/>
