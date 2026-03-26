@@ -53,9 +53,9 @@ const products = [
     name: 'FLYQ Vision',
     slug: 'flyq-vision',
     price: 19999,
-    image: '/images/products/drone-black-2.jpg',
+    image: 'https://www.genspark.ai/api/files/s/zIzs5T6G',
     galleryImages: [
-      '/images/products/drone-black-2.jpg',
+      'https://www.genspark.ai/api/files/s/zIzs5T6G',
       'https://www.genspark.ai/api/files/s/ytW7gCVk',
       '/images/products/drone-multi-view.jpg',
       'https://www.genspark.ai/api/files/s/zIzs5T6G',
@@ -1462,8 +1462,8 @@ app.get('/', (c) => {
                 <div class="grid md:grid-cols-2 gap-8 md:gap-16 max-w-7xl mx-auto">
                     ${products.map((product, index) => {
                         const bgImages = [
-                            '/images/products/drone-multi-view.jpg',
-                            '/images/products/drone-black-2.jpg'
+                            'https://www.genspark.ai/api/files/s/ytW7gCVk',
+                            'https://www.genspark.ai/api/files/s/zIzs5T6G'
                         ];
                         return `
                         <div class="group relative backdrop-blur-xl bg-gradient-to-br from-blue-950/50 to-black/80 rounded-3xl overflow-hidden shadow-2xl border-2 border-blue-500/30 hover:border-blue-400 transition-all duration-500 hover:scale-[1.02] hover:shadow-blue-500/50">
@@ -1563,7 +1563,7 @@ app.get('/', (c) => {
                             <div class="text-white/60 text-xs md:text-sm font-semibold tracking-widest uppercase mb-2">For Learners</div>
                             <h3 class="text-2xl md:text-3xl lg:text-4xl font-black text-white mb-3 md:mb-4">Student Edition</h3>
                             <div class="flex items-baseline gap-2 mb-4 md:mb-6">
-                                <span class="text-4xl md:text-5xl lg:text-6xl font-black text-white">₹4,999</span>
+                                <span class="text-4xl md:text-5xl lg:text-6xl font-black text-white">₹9,999</span>
                                 <span class="text-white/60 text-sm md:text-base lg:text-lg">per unit</span>
                             </div>
                         </div>
@@ -1605,7 +1605,7 @@ app.get('/', (c) => {
                             <div class="text-cyan-400 text-xs md:text-sm font-semibold tracking-widest uppercase mb-2">For Developers</div>
                             <h3 class="text-2xl md:text-3xl lg:text-4xl font-black text-white mb-3 md:mb-4">Developer Pro</h3>
                             <div class="flex items-baseline gap-2 mb-4 md:mb-6">
-                                <span class="text-4xl md:text-5xl lg:text-6xl font-black bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">₹6,999</span>
+                                <span class="text-4xl md:text-5xl lg:text-6xl font-black bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">₹19,999</span>
                                 <span class="text-white/60 text-sm md:text-base lg:text-lg">per unit</span>
                             </div>
                         </div>
