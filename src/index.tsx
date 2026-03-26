@@ -1257,59 +1257,59 @@ app.get('/', (c) => {
             <div class="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-black/90 via-black/70 to-black/95 z-0"></div>
             
             <!-- Top: Floating UI Elements -->
-            <div class="relative z-20 container mx-auto px-6 pt-32">
-                <div class="flex justify-between items-start">
+            <div class="relative z-20 container mx-auto px-4 md:px-6 pt-24 md:pt-32">
+                <div class="flex flex-col sm:flex-row justify-between items-start gap-3">
                     <!-- Live Feed Badge -->
-                    <div class="backdrop-blur-md bg-white/5 border border-white/20 rounded-2xl px-6 py-3 flex items-center gap-3">
+                    <div class="backdrop-blur-md bg-white/5 border border-white/20 rounded-xl px-3 py-2 md:px-6 md:py-3 flex items-center gap-2 md:gap-3">
                         <div class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-                        <span class="text-white/90 text-sm font-medium tracking-wider uppercase">LIVE FEED</span>
-                        <span class="text-white/50 text-sm">|</span>
-                        <span class="text-green-400 text-sm font-semibold tracking-wider uppercase">SYSTEM NORMAL</span>
+                        <span class="text-white/90 text-xs md:text-sm font-medium tracking-wider uppercase">LIVE FEED</span>
+                        <span class="text-white/50 text-xs md:text-sm hidden sm:inline">|</span>
+                        <span class="text-green-400 text-xs md:text-sm font-semibold tracking-wider uppercase">SYSTEM NORMAL</span>
                     </div>
                     
                     <!-- Pilot Badge -->
-                    <div class="backdrop-blur-md bg-white/5 border border-white/20 rounded-2xl px-6 py-3 flex items-center gap-3">
-                        <div class="w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center">
+                    <div class="backdrop-blur-md bg-white/5 border border-white/20 rounded-xl px-3 py-2 md:px-6 md:py-3 flex items-center gap-2 md:gap-3">
+                        <div class="w-6 h-6 md:w-8 md:h-8 rounded-full bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center">
                             <i class="fas fa-user text-white text-xs"></i>
                         </div>
                         <div class="text-left">
                             <div class="text-white/50 text-xs uppercase tracking-wider">Pilot</div>
-                            <div class="text-white text-sm font-semibold">Developer</div>
+                            <div class="text-white text-xs md:text-sm font-semibold">Developer</div>
                         </div>
                     </div>
                 </div>
             </div>
             
             <!-- Center: Large Brand Title -->
-            <div class="relative z-20 container mx-auto px-6 text-center">
-                <div class="inline-block mb-8">
-                    <h1 class="text-9xl md:text-[12rem] font-black tracking-tight mb-6" 
+            <div class="relative z-20 container mx-auto px-4 md:px-6 text-center">
+                <div class="inline-block mb-6 md:mb-8">
+                    <h1 class="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-black tracking-tight mb-4 md:mb-6" 
                         style="background: linear-gradient(135deg, #ffffff 0%, #94a3b8 40%, #3b82f6 60%, #60a5fa 80%, #ffffff 100%); 
                                -webkit-background-clip: text; 
                                -webkit-text-fill-color: transparent; 
                                background-clip: text;
-                               text-shadow: 0 0 80px rgba(59, 130, 246, 0.5);">
+                               text-shadow: 0 0 40px rgba(59, 130, 246, 0.5);">
                         FLYQ
                     </h1>
                 </div>
             </div>
             
             <!-- Bottom: Subtitle and CTAs -->
-            <div class="relative z-20 container mx-auto px-6 pb-20">
+            <div class="relative z-20 container mx-auto px-4 md:px-6 pb-12 md:pb-20">
                 <div class="text-center max-w-3xl mx-auto">
-                    <p class="text-2xl md:text-3xl text-white/80 mb-2 font-light tracking-wide">
+                    <p class="text-sm sm:text-base md:text-lg lg:text-xl text-white/80 mb-2 font-light tracking-wide">
                         Indigenous Programmable Drone | ESP32-S3 Powered | Developer-Ready Platform
                     </p>
-                    <p class="text-lg text-white/50 mb-10 font-light">
+                    <p class="text-xs sm:text-sm md:text-base text-white/50 mb-6 md:mb-10 font-light">
                         System Online • Ready for Development
                     </p>
                     
                     <!-- CTA Buttons -->
-                    <div class="flex flex-wrap gap-4 justify-center">
-                        <a href="/products" class="group relative backdrop-blur-md bg-white text-black px-10 py-4 rounded-full font-bold text-lg inline-flex items-center hover:bg-blue-500 hover:text-white transition-all duration-300 border-2 border-white/30">
+                    <div class="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center">
+                        <a href="/products" class="group relative backdrop-blur-md bg-white text-black px-6 py-3 md:px-10 md:py-4 rounded-full font-bold text-sm md:text-lg inline-flex items-center justify-center hover:bg-blue-500 hover:text-white transition-all duration-300 border-2 border-white/30">
                             <span class="relative z-10">Explore Models</span>
                         </a>
-                        <a href="#specs" class="group relative backdrop-blur-md bg-white/5 border-2 border-white/30 text-white px-10 py-4 rounded-full font-bold text-lg hover:bg-white/10 transition-all duration-300 inline-flex items-center">
+                        <a href="#specs" class="group relative backdrop-blur-md bg-white/5 border-2 border-white/30 text-white px-6 py-3 md:px-10 md:py-4 rounded-full font-bold text-sm md:text-lg hover:bg-white/10 transition-all duration-300 inline-flex items-center justify-center">
                             View Specifications
                         </a>
                     </div>
@@ -1318,82 +1318,82 @@ app.get('/', (c) => {
         </section>
 
         <!-- Key Features - Military Style with Large Typography -->
-        <section id="specs" class="relative bg-black py-32 overflow-hidden border-t border-gray-800">
-            <div class="container mx-auto px-6 relative z-10">
+        <section id="specs" class="relative bg-black py-16 md:py-32 overflow-hidden border-t border-gray-800">
+            <div class="container mx-auto px-4 md:px-6 relative z-10">
                 <!-- Section Header -->
-                <div class="text-center mb-32">
-                    <h2 class="text-6xl md:text-7xl font-black mb-6 text-white">
+                <div class="text-center mb-16 md:mb-32">
+                    <h2 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black mb-4 md:mb-6 text-white">
                         Engineering<br/><span class="bg-gradient-to-r from-white via-blue-200 to-cyan-400 bg-clip-text text-transparent">Mastery</span>
                     </h2>
-                    <p class="text-2xl text-white/60 font-light">Forged from precision. Powered by intelligence.</p>
+                    <p class="text-base sm:text-lg md:text-xl lg:text-2xl text-white/60 font-light px-4">Forged from precision. Powered by intelligence.</p>
                 </div>
 
                 <!-- Feature Highlights Grid -->
-                <div class="grid md:grid-cols-2 gap-24 max-w-7xl mx-auto">
+                <div class="grid md:grid-cols-2 gap-12 md:gap-24 max-w-7xl mx-auto">
                     <!-- Feature 1: ESP32-S3 -->
                     <div class="group text-center md:text-left">
-                        <div class="inline-block backdrop-blur-md bg-white/5 border border-white/20 rounded-2xl px-6 py-3 mb-8">
-                            <span class="text-white/70 text-sm font-semibold tracking-widest uppercase">Processor</span>
+                        <div class="inline-block backdrop-blur-md bg-white/5 border border-white/20 rounded-xl px-4 py-2 md:px-6 md:py-3 mb-4 md:mb-8">
+                            <span class="text-white/70 text-xs md:text-sm font-semibold tracking-widest uppercase">Processor</span>
                         </div>
-                        <h3 class="text-7xl md:text-8xl font-black mb-8 leading-none" 
+                        <h3 class="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black mb-4 md:mb-8 leading-none" 
                             style="background: linear-gradient(135deg, #ffffff 0%, #94a3b8 50%, #3b82f6 100%); 
                                    -webkit-background-clip: text; 
                                    -webkit-text-fill-color: transparent;">
                             ESP32
                         </h3>
-                        <p class="text-2xl text-white/80 mb-4 font-light">Dual-Core 240MHz. Wi-Fi & Bluetooth.</p>
-                        <p class="text-white/60 text-lg leading-relaxed">
+                        <p class="text-lg sm:text-xl md:text-2xl text-white/80 mb-3 md:mb-4 font-light">Dual-Core 240MHz. Wi-Fi & Bluetooth.</p>
+                        <p class="text-white/60 text-sm md:text-base lg:text-lg leading-relaxed">
                             Advanced microcontroller with real-time processing capability and wireless connectivity for autonomous flight control.
                         </p>
                     </div>
 
                     <!-- Feature 2: Flight Control -->
                     <div class="group text-center md:text-right">
-                        <div class="inline-block backdrop-blur-md bg-white/5 border border-white/20 rounded-2xl px-6 py-3 mb-8">
-                            <span class="text-white/70 text-sm font-semibold tracking-widest uppercase">Stability</span>
+                        <div class="inline-block backdrop-blur-md bg-white/5 border border-white/20 rounded-xl px-4 py-2 md:px-6 md:py-3 mb-4 md:mb-8">
+                            <span class="text-white/70 text-xs md:text-sm font-semibold tracking-widest uppercase">Stability</span>
                         </div>
-                        <h3 class="text-7xl md:text-8xl font-black mb-8 leading-none" 
+                        <h3 class="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black mb-4 md:mb-8 leading-none" 
                             style="background: linear-gradient(135deg, #ffffff 0%, #94a3b8 50%, #3b82f6 100%); 
                                    -webkit-background-clip: text; 
                                    -webkit-text-fill-color: transparent;">
                             PRECISION
                         </h3>
-                        <p class="text-2xl text-white/80 mb-4 font-light">6-axis gyro. Sub-millisecond response.</p>
-                        <p class="text-white/60 text-lg leading-relaxed">
+                        <p class="text-lg sm:text-xl md:text-2xl text-white/80 mb-3 md:mb-4 font-light">6-axis gyro. Sub-millisecond response.</p>
+                        <p class="text-white/60 text-sm md:text-base lg:text-lg leading-relaxed">
                             Advanced stabilization algorithms ensure smooth flight and precise control in all conditions.
                         </p>
                     </div>
 
                     <!-- Feature 3: Lightweight -->
                     <div class="group text-center md:text-left">
-                        <div class="inline-block backdrop-blur-md bg-white/5 border border-white/20 rounded-2xl px-6 py-3 mb-8">
-                            <span class="text-white/70 text-sm font-semibold tracking-widest uppercase">Weight</span>
+                        <div class="inline-block backdrop-blur-md bg-white/5 border border-white/20 rounded-xl px-4 py-2 md:px-6 md:py-3 mb-4 md:mb-8">
+                            <span class="text-white/70 text-xs md:text-sm font-semibold tracking-widest uppercase">Weight</span>
                         </div>
-                        <h3 class="text-7xl md:text-8xl font-black mb-8 leading-none" 
+                        <h3 class="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black mb-4 md:mb-8 leading-none" 
                             style="background: linear-gradient(135deg, #ffffff 0%, #94a3b8 50%, #3b82f6 100%); 
                                    -webkit-background-clip: text; 
                                    -webkit-text-fill-color: transparent;">
                             45G
                         </h3>
-                        <p class="text-2xl text-white/80 mb-4 font-light">Ultra-lightweight design. Maximum agility.</p>
-                        <p class="text-white/60 text-lg leading-relaxed">
+                        <p class="text-lg sm:text-xl md:text-2xl text-white/80 mb-3 md:mb-4 font-light">Ultra-lightweight design. Maximum agility.</p>
+                        <p class="text-white/60 text-sm md:text-base lg:text-lg leading-relaxed">
                             Compact PCB frame construction delivers exceptional power-to-weight ratio for extended flight time.
                         </p>
                     </div>
 
                     <!-- Feature 4: Open Source -->
                     <div class="group text-center md:text-right">
-                        <div class="inline-block backdrop-blur-md bg-white/5 border border-white/20 rounded-2xl px-6 py-3 mb-8">
-                            <span class="text-white/70 text-sm font-semibold tracking-widest uppercase">Development</span>
+                        <div class="inline-block backdrop-blur-md bg-white/5 border border-white/20 rounded-xl px-4 py-2 md:px-6 md:py-3 mb-4 md:mb-8">
+                            <span class="text-white/70 text-xs md:text-sm font-semibold tracking-widest uppercase">Development</span>
                         </div>
-                        <h3 class="text-7xl md:text-8xl font-black mb-8 leading-none" 
+                        <h3 class="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black mb-4 md:mb-8 leading-none" 
                             style="background: linear-gradient(135deg, #ffffff 0%, #94a3b8 50%, #3b82f6 100%); 
                                    -webkit-background-clip: text; 
                                    -webkit-text-fill-color: transparent;">
                             100%
                         </h3>
-                        <p class="text-2xl text-white/80 mb-4 font-light">Fully open-source. Unlimited potential.</p>
-                        <p class="text-white/60 text-lg leading-relaxed">
+                        <p class="text-lg sm:text-xl md:text-2xl text-white/80 mb-3 md:mb-4 font-light">Fully open-source. Unlimited potential.</p>
+                        <p class="text-white/60 text-sm md:text-base lg:text-lg leading-relaxed">
                             Complete hardware schematics and firmware source code available for customization and research.
                         </p>
                     </div>
@@ -1402,16 +1402,16 @@ app.get('/', (c) => {
         </section>
 
         <!-- Technical Specifications Grid -->
-        <section class="relative bg-black py-32 overflow-hidden border-y border-gray-800">
-            <div class="container mx-auto px-6 relative z-10">
-                <div class="text-center mb-20">
-                    <h2 class="text-5xl md:text-6xl font-black mb-6 text-white">
+        <section class="relative bg-black py-16 md:py-32 overflow-hidden border-y border-gray-800">
+            <div class="container mx-auto px-4 md:px-6 relative z-10">
+                <div class="text-center mb-12 md:mb-20">
+                    <h2 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black mb-4 md:mb-6 text-white">
                         Technical <span class="text-blue-400">Specifications</span>
                     </h2>
                     <div class="w-24 h-1 bg-gradient-to-r from-transparent via-blue-500 to-transparent mx-auto"></div>
                 </div>
 
-                <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8 max-w-6xl mx-auto">
                     ${[
                         { label: 'PROCESSOR', value: 'ESP32-S3', unit: 'Dual Core 240MHz' },
                         { label: 'WEIGHT', value: '45', unit: 'grams' },
@@ -1420,10 +1420,10 @@ app.get('/', (c) => {
                         { label: 'BATTERY', value: '650', unit: 'mAh LiPo' },
                         { label: 'CONTROL RANGE', value: '100', unit: 'meters' }
                     ].map(spec => `
-                        <div class="group backdrop-blur-md bg-white/5 border border-white/20 hover:border-blue-500/50 rounded-2xl p-8 text-center transition-all duration-300 hover:scale-105">
-                            <div class="text-sm text-white/50 mb-4 font-semibold tracking-widest uppercase">${spec.label}</div>
-                            <div class="text-6xl font-black text-white mb-2">${spec.value}</div>
-                            <div class="text-lg text-blue-400 font-light">${spec.unit}</div>
+                        <div class="group backdrop-blur-md bg-white/5 border border-white/20 hover:border-blue-500/50 rounded-xl md:rounded-2xl p-4 md:p-8 text-center transition-all duration-300 hover:scale-105">
+                            <div class="text-xs md:text-sm text-white/50 mb-2 md:mb-4 font-semibold tracking-widest uppercase">${spec.label}</div>
+                            <div class="text-4xl md:text-5xl lg:text-6xl font-black text-white mb-1 md:mb-2">${spec.value}</div>
+                            <div class="text-sm md:text-base lg:text-lg text-blue-400 font-light">${spec.unit}</div>
                         </div>
                     `).join('')}
                 </div>
@@ -1431,7 +1431,7 @@ app.get('/', (c) => {
         </section>
 
         <!-- Featured Products Section -->
-        <section class="py-32 bg-black relative overflow-hidden border-b-4 border-blue-500">
+        <section class="py-16 md:py-32 bg-black relative overflow-hidden border-b-4 border-blue-500">
             <!-- Animated Background Pattern -->
             <div class="absolute inset-0 z-0 opacity-5">
                 <div class="absolute top-0 left-0 w-full h-full" style="background-image: repeating-linear-gradient(45deg, transparent, transparent 35px, rgba(59, 130, 246, 0.5) 35px, rgba(59, 130, 246, 0.5) 70px);"></div>
@@ -1441,25 +1441,25 @@ app.get('/', (c) => {
             <div class="absolute w-96 h-96 bg-blue-600 rounded-full blur-3xl top-0 left-1/4 opacity-20 animate-pulse"></div>
             <div class="absolute w-96 h-96 bg-cyan-500 rounded-full blur-3xl bottom-0 right-1/4 opacity-20 animate-pulse" style="animation-delay: 1.5s;"></div>
             
-            <div class="container mx-auto px-6 relative z-10">
+            <div class="container mx-auto px-4 md:px-6 relative z-10">
                 <!-- Section Header -->
-                <div class="text-center mb-24">
-                    <div class="inline-block mb-8">
-                        <div class="flex items-center gap-4">
-                            <div class="w-16 h-1 bg-gradient-to-r from-transparent to-blue-500"></div>
-                            <i class="fas fa-drone text-blue-400 text-5xl"></i>
-                            <div class="w-16 h-1 bg-gradient-to-l from-transparent to-blue-500"></div>
+                <div class="text-center mb-12 md:mb-24">
+                    <div class="inline-block mb-6 md:mb-8">
+                        <div class="flex items-center gap-3 md:gap-4">
+                            <div class="w-8 md:w-16 h-1 bg-gradient-to-r from-transparent to-blue-500"></div>
+                            <i class="fas fa-drone text-blue-400 text-3xl md:text-5xl"></i>
+                            <div class="w-8 md:w-16 h-1 bg-gradient-to-l from-transparent to-blue-500"></div>
                         </div>
                     </div>
-                    <h2 class="text-7xl md:text-8xl font-black mb-8 text-white" style="text-shadow: 0 0 40px rgba(59, 130, 246, 0.5);">
+                    <h2 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black mb-4 md:mb-8 text-white" style="text-shadow: 0 0 40px rgba(59, 130, 246, 0.5);">
                         Our <span class="bg-gradient-to-r from-blue-400 via-blue-500 to-cyan-400 bg-clip-text text-transparent">Products</span>
                     </h2>
-                    <div class="w-32 h-2 bg-gradient-to-r from-transparent via-blue-500 to-transparent mx-auto mb-8"></div>
-                    <p class="text-3xl text-blue-100 font-light max-w-3xl mx-auto">Choose the perfect programmable drone for your journey</p>
+                    <div class="w-24 md:w-32 h-1 md:h-2 bg-gradient-to-r from-transparent via-blue-500 to-transparent mx-auto mb-4 md:mb-8"></div>
+                    <p class="text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl text-blue-100 font-light max-w-3xl mx-auto px-4">Choose the perfect programmable drone for your journey</p>
                 </div>
 
                 <!-- Products Grid -->
-                <div class="grid md:grid-cols-2 gap-16 max-w-7xl mx-auto">
+                <div class="grid md:grid-cols-2 gap-8 md:gap-16 max-w-7xl mx-auto">
                     ${products.map((product, index) => {
                         const bgImages = [
                             '/images/products/drone-multi-view.jpg',
@@ -1543,134 +1543,134 @@ app.get('/', (c) => {
         </section>
 
         <!-- Pricing Section - Military Style -->
-        <section class="relative bg-black py-32 overflow-hidden border-y border-gray-800">
-            <div class="container mx-auto px-6 relative z-10">
+        <section class="relative bg-black py-16 md:py-32 overflow-hidden border-y border-gray-800">
+            <div class="container mx-auto px-4 md:px-6 relative z-10">
                 <!-- Section Header -->
-                <div class="text-center mb-24">
-                    <h2 class="text-6xl md:text-7xl font-black mb-8 text-white">
+                <div class="text-center mb-12 md:mb-24">
+                    <h2 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black mb-4 md:mb-8 text-white">
                         Ready to <span class="bg-gradient-to-r from-white via-blue-200 to-cyan-400 bg-clip-text text-transparent">Deploy</span>
                     </h2>
-                    <p class="text-2xl text-white/60 font-light max-w-3xl mx-auto">
+                    <p class="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl text-white/60 font-light max-w-3xl mx-auto px-4">
                         FLYQ is available for immediate delivery. Choose your configuration.
                     </p>
                 </div>
 
                 <!-- Pricing Tiers -->
-                <div class="grid md:grid-cols-3 gap-8 max-w-7xl mx-auto">
+                <div class="grid md:grid-cols-3 gap-6 md:gap-8 max-w-7xl mx-auto">
                     <!-- Student Edition -->
-                    <div class="group backdrop-blur-md bg-white/5 border-2 border-white/20 hover:border-blue-500/50 rounded-3xl overflow-hidden transition-all duration-500 hover:scale-105">
-                        <div class="p-8 border-b-4 border-blue-500">
-                            <div class="text-white/60 text-sm font-semibold tracking-widest uppercase mb-2">For Learners</div>
-                            <h3 class="text-4xl font-black text-white mb-4">Student Edition</h3>
-                            <div class="flex items-baseline gap-2 mb-6">
-                                <span class="text-6xl font-black text-white">₹4,999</span>
-                                <span class="text-white/60 text-lg">per unit</span>
+                    <div class="group backdrop-blur-md bg-white/5 border-2 border-white/20 hover:border-blue-500/50 rounded-2xl md:rounded-3xl overflow-hidden transition-all duration-500 hover:scale-105">
+                        <div class="p-4 md:p-8 border-b-2 md:border-b-4 border-blue-500">
+                            <div class="text-white/60 text-xs md:text-sm font-semibold tracking-widest uppercase mb-2">For Learners</div>
+                            <h3 class="text-2xl md:text-3xl lg:text-4xl font-black text-white mb-3 md:mb-4">Student Edition</h3>
+                            <div class="flex items-baseline gap-2 mb-4 md:mb-6">
+                                <span class="text-4xl md:text-5xl lg:text-6xl font-black text-white">₹4,999</span>
+                                <span class="text-white/60 text-sm md:text-base lg:text-lg">per unit</span>
                             </div>
                         </div>
-                        <div class="p-8">
-                            <ul class="space-y-4 mb-8">
-                                <li class="flex items-start gap-3 text-white/80">
-                                    <i class="fas fa-check-circle text-blue-400 text-xl mt-1"></i>
+                        <div class="p-4 md:p-8">
+                            <ul class="space-y-3 md:space-y-4 mb-6 md:mb-8">
+                                <li class="flex items-start gap-2 md:gap-3 text-white/80 text-sm md:text-base">
+                                    <i class="fas fa-check-circle text-blue-400 text-base md:text-xl mt-0.5 md:mt-1"></i>
                                     <span>FLYQ Air drone kit</span>
                                 </li>
-                                <li class="flex items-start gap-3 text-white/80">
-                                    <i class="fas fa-check-circle text-blue-400 text-xl mt-1"></i>
+                                <li class="flex items-start gap-2 md:gap-3 text-white/80 text-sm md:text-base">
+                                    <i class="fas fa-check-circle text-blue-400 text-base md:text-xl mt-0.5 md:mt-1"></i>
                                     <span>8-week beginner curriculum</span>
                                 </li>
-                                <li class="flex items-start gap-3 text-white/80">
-                                    <i class="fas fa-check-circle text-blue-400 text-xl mt-1"></i>
+                                <li class="flex items-start gap-2 md:gap-3 text-white/80 text-sm md:text-base">
+                                    <i class="fas fa-check-circle text-blue-400 text-base md:text-xl mt-0.5 md:mt-1"></i>
                                     <span>Online documentation access</span>
                                 </li>
-                                <li class="flex items-start gap-3 text-white/80">
-                                    <i class="fas fa-check-circle text-blue-400 text-xl mt-1"></i>
+                                <li class="flex items-start gap-2 md:gap-3 text-white/80 text-sm md:text-base">
+                                    <i class="fas fa-check-circle text-blue-400 text-base md:text-xl mt-0.5 md:mt-1"></i>
                                     <span>Community support forum</span>
                                 </li>
-                                <li class="flex items-start gap-3 text-white/80">
-                                    <i class="fas fa-check-circle text-blue-400 text-xl mt-1"></i>
+                                <li class="flex items-start gap-2 md:gap-3 text-white/80 text-sm md:text-base">
+                                    <i class="fas fa-check-circle text-blue-400 text-base md:text-xl mt-0.5 md:mt-1"></i>
                                     <span>6-month hardware warranty</span>
                                 </li>
                             </ul>
-                            <a href="/products" class="block w-full text-center bg-gradient-to-r from-blue-600 to-cyan-500 text-white px-8 py-4 rounded-full font-bold text-lg hover:shadow-2xl hover:shadow-blue-500/50 transition-all duration-300">
+                            <a href="/products" class="block w-full text-center bg-gradient-to-r from-blue-600 to-cyan-500 text-white px-6 py-3 md:px-8 md:py-4 rounded-full font-bold text-sm md:text-base lg:text-lg hover:shadow-2xl hover:shadow-blue-500/50 transition-all duration-300">
                                 Order Now
                             </a>
                         </div>
                     </div>
 
                     <!-- Developer Pro -->
-                    <div class="group backdrop-blur-md bg-gradient-to-br from-blue-950/50 to-black/80 border-4 border-blue-500 rounded-3xl overflow-hidden transition-all duration-500 hover:scale-110 relative shadow-2xl shadow-blue-500/50">
-                        <div class="absolute top-6 right-6 bg-gradient-to-r from-blue-500 to-cyan-500 text-white px-4 py-2 rounded-full text-xs font-bold uppercase">
+                    <div class="group backdrop-blur-md bg-gradient-to-br from-blue-950/50 to-black/80 border-2 md:border-4 border-blue-500 rounded-2xl md:rounded-3xl overflow-hidden transition-all duration-500 hover:scale-105 md:hover:scale-110 relative shadow-2xl shadow-blue-500/50">
+                        <div class="absolute top-4 right-4 md:top-6 md:right-6 bg-gradient-to-r from-blue-500 to-cyan-500 text-white px-3 py-1.5 md:px-4 md:py-2 rounded-full text-xs font-bold uppercase">
                             Most Popular
                         </div>
-                        <div class="p-8 border-b-4 border-cyan-400">
-                            <div class="text-cyan-400 text-sm font-semibold tracking-widest uppercase mb-2">For Developers</div>
-                            <h3 class="text-4xl font-black text-white mb-4">Developer Pro</h3>
-                            <div class="flex items-baseline gap-2 mb-6">
-                                <span class="text-6xl font-black bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">₹6,999</span>
-                                <span class="text-white/60 text-lg">per unit</span>
+                        <div class="p-4 md:p-8 border-b-2 md:border-b-4 border-cyan-400">
+                            <div class="text-cyan-400 text-xs md:text-sm font-semibold tracking-widest uppercase mb-2">For Developers</div>
+                            <h3 class="text-2xl md:text-3xl lg:text-4xl font-black text-white mb-3 md:mb-4">Developer Pro</h3>
+                            <div class="flex items-baseline gap-2 mb-4 md:mb-6">
+                                <span class="text-4xl md:text-5xl lg:text-6xl font-black bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">₹6,999</span>
+                                <span class="text-white/60 text-sm md:text-base lg:text-lg">per unit</span>
                             </div>
                         </div>
-                        <div class="p-8">
-                            <ul class="space-y-4 mb-8">
-                                <li class="flex items-start gap-3 text-white">
-                                    <i class="fas fa-check-circle text-cyan-400 text-xl mt-1"></i>
+                        <div class="p-4 md:p-8">
+                            <ul class="space-y-3 md:space-y-4 mb-6 md:mb-8">
+                                <li class="flex items-start gap-2 md:gap-3 text-white text-sm md:text-base">
+                                    <i class="fas fa-check-circle text-cyan-400 text-base md:text-xl mt-0.5 md:mt-1"></i>
                                     <span>Everything in Student Edition</span>
                                 </li>
-                                <li class="flex items-start gap-3 text-white">
-                                    <i class="fas fa-check-circle text-cyan-400 text-xl mt-1"></i>
+                                <li class="flex items-start gap-2 md:gap-3 text-white text-sm md:text-base">
+                                    <i class="fas fa-check-circle text-cyan-400 text-base md:text-xl mt-0.5 md:mt-1"></i>
                                     <span>Advanced development tools</span>
                                 </li>
-                                <li class="flex items-start gap-3 text-white">
-                                    <i class="fas fa-check-circle text-cyan-400 text-xl mt-1"></i>
+                                <li class="flex items-start gap-2 md:gap-3 text-white text-sm md:text-base">
+                                    <i class="fas fa-check-circle text-cyan-400 text-base md:text-xl mt-0.5 md:mt-1"></i>
                                     <span>Priority technical support</span>
                                 </li>
-                                <li class="flex items-start gap-3 text-white">
-                                    <i class="fas fa-check-circle text-cyan-400 text-xl mt-1"></i>
+                                <li class="flex items-start gap-2 md:gap-3 text-white text-sm md:text-base">
+                                    <i class="fas fa-check-circle text-cyan-400 text-base md:text-xl mt-0.5 md:mt-1"></i>
                                     <span>Custom firmware examples</span>
                                 </li>
-                                <li class="flex items-start gap-3 text-white">
-                                    <i class="fas fa-check-circle text-cyan-400 text-xl mt-1"></i>
+                                <li class="flex items-start gap-2 md:gap-3 text-white text-sm md:text-base">
+                                    <i class="fas fa-check-circle text-cyan-400 text-base md:text-xl mt-0.5 md:mt-1"></i>
                                     <span>1-year hardware warranty</span>
                                 </li>
                             </ul>
-                            <a href="/products" class="block w-full text-center bg-gradient-to-r from-cyan-500 to-blue-500 text-black px-8 py-4 rounded-full font-bold text-lg hover:shadow-2xl hover:shadow-cyan-500/50 transition-all duration-300">
+                            <a href="/products" class="block w-full text-center bg-gradient-to-r from-cyan-500 to-blue-500 text-black px-6 py-3 md:px-8 md:py-4 rounded-full font-bold text-sm md:text-base lg:text-lg hover:shadow-2xl hover:shadow-cyan-500/50 transition-all duration-300">
                                 Order Now
                             </a>
                         </div>
                     </div>
 
                     <!-- Enterprise -->
-                    <div class="group backdrop-blur-md bg-white/5 border-2 border-white/20 hover:border-blue-500/50 rounded-3xl overflow-hidden transition-all duration-500 hover:scale-105">
-                        <div class="p-8 border-b-4 border-blue-500">
-                            <div class="text-white/60 text-sm font-semibold tracking-widest uppercase mb-2">For Institutions</div>
-                            <h3 class="text-4xl font-black text-white mb-4">Enterprise</h3>
-                            <div class="flex items-baseline gap-2 mb-6">
-                                <span class="text-6xl font-black text-white">Custom</span>
+                    <div class="group backdrop-blur-md bg-white/5 border-2 border-white/20 hover:border-blue-500/50 rounded-2xl md:rounded-3xl overflow-hidden transition-all duration-500 hover:scale-105">
+                        <div class="p-4 md:p-8 border-b-2 md:border-b-4 border-blue-500">
+                            <div class="text-white/60 text-xs md:text-sm font-semibold tracking-widest uppercase mb-2">For Institutions</div>
+                            <h3 class="text-2xl md:text-3xl lg:text-4xl font-black text-white mb-3 md:mb-4">Enterprise</h3>
+                            <div class="flex items-baseline gap-2 mb-4 md:mb-6">
+                                <span class="text-4xl md:text-5xl lg:text-6xl font-black text-white">Custom</span>
                             </div>
                         </div>
-                        <div class="p-8">
-                            <ul class="space-y-4 mb-8">
-                                <li class="flex items-start gap-3 text-white/80">
-                                    <i class="fas fa-check-circle text-blue-400 text-xl mt-1"></i>
+                        <div class="p-4 md:p-8">
+                            <ul class="space-y-3 md:space-y-4 mb-6 md:mb-8">
+                                <li class="flex items-start gap-2 md:gap-3 text-white/80 text-sm md:text-base">
+                                    <i class="fas fa-check-circle text-blue-400 text-base md:text-xl mt-0.5 md:mt-1"></i>
                                     <span>Everything in Developer Pro</span>
                                 </li>
-                                <li class="flex items-start gap-3 text-white/80">
-                                    <i class="fas fa-check-circle text-blue-400 text-xl mt-1"></i>
+                                <li class="flex items-start gap-2 md:gap-3 text-white/80 text-sm md:text-base">
+                                    <i class="fas fa-check-circle text-blue-400 text-base md:text-xl mt-0.5 md:mt-1"></i>
                                     <span>Bulk pricing (10+ units)</span>
                                 </li>
-                                <li class="flex items-start gap-3 text-white/80">
-                                    <i class="fas fa-check-circle text-blue-400 text-xl mt-1"></i>
+                                <li class="flex items-start gap-2 md:gap-3 text-white/80 text-sm md:text-base">
+                                    <i class="fas fa-check-circle text-blue-400 text-base md:text-xl mt-0.5 md:mt-1"></i>
                                     <span>Custom workshop curriculum</span>
                                 </li>
-                                <li class="flex items-start gap-3 text-white/80">
-                                    <i class="fas fa-check-circle text-blue-400 text-xl mt-1"></i>
+                                <li class="flex items-start gap-2 md:gap-3 text-white/80 text-sm md:text-base">
+                                    <i class="fas fa-check-circle text-blue-400 text-base md:text-xl mt-0.5 md:mt-1"></i>
                                     <span>On-site training available</span>
                                 </li>
-                                <li class="flex items-start gap-3 text-white/80">
-                                    <i class="fas fa-check-circle text-blue-400 text-xl mt-1"></i>
+                                <li class="flex items-start gap-2 md:gap-3 text-white/80 text-sm md:text-base">
+                                    <i class="fas fa-check-circle text-blue-400 text-base md:text-xl mt-0.5 md:mt-1"></i>
                                     <span>Dedicated account manager</span>
                                 </li>
                             </ul>
-                            <a href="/contact" class="block w-full text-center bg-white text-black px-8 py-4 rounded-full font-bold text-lg hover:shadow-2xl hover:shadow-white/30 transition-all duration-300">
+                            <a href="/contact" class="block w-full text-center bg-white text-black px-6 py-3 md:px-8 md:py-4 rounded-full font-bold text-sm md:text-base lg:text-lg hover:shadow-2xl hover:shadow-white/30 transition-all duration-300">
                                 Contact Sales
                             </a>
                         </div>
@@ -1678,8 +1678,8 @@ app.get('/', (c) => {
                 </div>
 
                 <!-- Additional Info -->
-                <div class="text-center mt-16 text-white/60">
-                    <p class="text-sm">Pricing subject to availability. All prices in INR. Shipping additional.</p>
+                <div class="text-center mt-8 md:mt-16 text-white/60 px-4">
+                    <p class="text-xs md:text-sm">Pricing subject to availability. All prices in INR. Shipping additional.</p>
                     <p class="text-xs mt-2">100% Open Source Hardware & Software • Made in India</p>
                 </div>
             </div>
