@@ -35,12 +35,12 @@ const products = [
     name: 'FLYQ Air',
     slug: 'flyq-air',
     price: 9999,
-    image: '/images/products/drone-black-1.jpg',
+    image: 'https://www.genspark.ai/api/files/s/ytW7gCVk',
     galleryImages: [
-      '/images/products/drone-black-1.jpg',
+      'https://www.genspark.ai/api/files/s/ytW7gCVk',
       '/images/products/drone-black-2.jpg',
       '/images/products/drone-multi-view.jpg',
-      '/images/products/assembled-drone.jpg',
+      'https://www.genspark.ai/api/files/s/zIzs5T6G',
       '/images/products/parts-layout.jpg',
       '/images/products/hero-view.jpg'
     ],
@@ -56,9 +56,9 @@ const products = [
     image: '/images/products/drone-black-2.jpg',
     galleryImages: [
       '/images/products/drone-black-2.jpg',
-      '/images/products/drone-black-1.jpg',
+      'https://www.genspark.ai/api/files/s/ytW7gCVk',
       '/images/products/drone-multi-view.jpg',
-      '/images/products/assembled-drone.jpg',
+      'https://www.genspark.ai/api/files/s/zIzs5T6G',
       '/images/products/parts-layout.jpg',
       '/images/products/hero-view.jpg'
     ],
@@ -1249,12 +1249,12 @@ app.get('/', (c) => {
                 muted 
                 playsinline
                 class="absolute top-0 left-0 w-full h-full object-cover z-0"
-                style="filter: brightness(0.15) contrast(1.2) saturate(0.6);">
+                style="filter: brightness(0.4) contrast(1.2) saturate(0.8);">
                 <source src="/videos/drone-hero.mp4" type="video/mp4">
             </video>
             
             <!-- Dark Gradient Overlay -->
-            <div class="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-black/90 via-black/70 to-black/95 z-0"></div>
+            <div class="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-black/60 via-black/40 to-black/70 z-0"></div>
             
             <!-- Top: Floating UI Elements -->
             <div class="relative z-20 container mx-auto px-4 md:px-6 pt-24 md:pt-32">
