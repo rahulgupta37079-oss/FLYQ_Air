@@ -12186,405 +12186,129 @@ app.get('/summer-camp', (c) => {
             </div>
         </section>
 
-        <!-- Premium Video Gallery Section -->
-        <section class="py-16 md:py-24 bg-gradient-to-br from-black via-blue-950/20 to-black relative overflow-hidden">
-            <!-- Animated Background -->
-            <div class="absolute inset-0 opacity-20">
-                <div class="absolute inset-0" style="background-image: radial-gradient(circle at 20% 50%, rgba(59, 130, 246, 0.3) 0%, transparent 50%), radial-gradient(circle at 80% 80%, rgba(6, 182, 212, 0.3) 0%, transparent 50%);"></div>
-            </div>
-            
-            <div class="container mx-auto px-4 md:px-6 relative z-10">
-                <div class="max-w-7xl mx-auto">
-                    <!-- Section Header -->
-                    <div class="text-center mb-12 md:mb-16 animate-fadeInUp">
-                        <div class="inline-block mb-4">
-                            <span class="bg-gradient-to-r from-blue-500 to-cyan-400 text-white px-6 py-2 rounded-full text-sm font-bold uppercase tracking-wider">
-                                <i class="fas fa-video mr-2"></i>Video Gallery
-                            </span>
-                        </div>
-                        <h2 class="text-4xl md:text-5xl lg:text-6xl font-black mb-6">
-                            Watch Our <span class="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent animate-gradient">Drones in Action</span>
+        <!-- Videos Section -->
+        <section class="py-16 md:py-24 bg-black">
+            <div class="container mx-auto px-4 md:px-6">
+                <div class="max-w-6xl mx-auto">
+                    <div class="text-center mb-12 md:mb-16">
+                        <h2 class="text-3xl md:text-4xl lg:text-5xl font-black mb-6">
+                            Watch Our <span class="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">Drones in Action</span>
                         </h2>
-                        <p class="text-lg md:text-xl text-gray-400 max-w-3xl mx-auto">
-                            Real footage from our drone camps - See what your child will experience!
-                        </p>
+                        <p class="text-lg md:text-xl text-gray-400">See what students will learn and experience at the camp</p>
                     </div>
                     
-                    <!-- Premium Video Grid -->
-                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 mb-12">
-                        <!-- Video 1 -->
-                        <div class="group relative bg-gradient-to-br from-blue-500/10 to-cyan-400/10 backdrop-blur-lg rounded-2xl overflow-hidden border-2 border-blue-400/30 hover:border-blue-400 transition-all duration-500 hover:scale-[1.03] hover:shadow-2xl hover:shadow-blue-500/30">
-                            <div class="aspect-video bg-gray-900 relative overflow-hidden">
+                    <div class="grid sm:grid-cols-2 gap-6 md:gap-8">
+                        <!-- Video 1 - FLYQ Drone Demo -->
+                        <div class="bg-gradient-to-br from-blue-500/10 to-cyan-400/10 backdrop-blur-lg rounded-3xl overflow-hidden border-2 border-blue-400/30 shadow-2xl hover:border-blue-400/60 transition-all duration-300 hover:scale-105">
+                            <div class="aspect-video bg-gray-900 relative group">
                                 <video 
-                                    class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                                    class="w-full h-full object-cover"
                                     controls
+                                    poster="https://www.genspark.ai/api/files/s/ytW7gCVk"
                                     preload="metadata">
-                                    <source src="/videos/camp-video-1.mp4" type="video/mp4">
+                                    <source src="/videos/flyq-demo.mp4" type="video/mp4">
+                                    Your browser does not support the video tag.
                                 </video>
-                                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                                    <i class="fas fa-play-circle text-white text-6xl animate-pulse"></i>
+                                <div class="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-all duration-300 flex items-center justify-center pointer-events-none">
+                                    <div class="text-white text-center">
+                                        <i class="fas fa-play-circle text-5xl md:text-6xl mb-3 opacity-80 group-hover:opacity-100 transition-opacity"></i>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="p-4">
-                                <h3 class="text-lg font-bold text-white group-hover:text-blue-400 transition-colors">
-                                    <i class="fas fa-drone mr-2"></i>Drone Flight Demo
+                            <div class="p-6">
+                                <h3 class="text-xl md:text-2xl font-bold text-white mb-3">
+                                    <i class="fas fa-drone text-blue-400 mr-2"></i>
+                                    FLYQ Drone Flight Demo
                                 </h3>
+                                <p class="text-gray-400">Watch our professional drones in action - The same drones students will learn to fly!</p>
                             </div>
                         </div>
-
-                        <!-- Video 2 -->
-                        <div class="group relative bg-gradient-to-br from-cyan-500/10 to-blue-400/10 backdrop-blur-lg rounded-2xl overflow-hidden border-2 border-cyan-400/30 hover:border-cyan-400 transition-all duration-500 hover:scale-[1.03] hover:shadow-2xl hover:shadow-cyan-500/30">
-                            <div class="aspect-video bg-gray-900 relative overflow-hidden">
+                        
+                        <!-- Video 2 - Workshop Highlights -->
+                        <div class="bg-gradient-to-br from-cyan-500/10 to-blue-400/10 backdrop-blur-lg rounded-3xl overflow-hidden border-2 border-cyan-400/30 shadow-2xl hover:border-cyan-400/60 transition-all duration-300 hover:scale-105">
+                            <div class="aspect-video bg-gray-900 relative group">
                                 <video 
-                                    class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                                    class="w-full h-full object-cover"
                                     controls
+                                    poster="https://www.genspark.ai/api/files/s/zIzs5T6G"
                                     preload="metadata">
-                                    <source src="/videos/camp-video-2.mp4" type="video/mp4">
+                                    <source src="/videos/workshop-highlights.mp4" type="video/mp4">
+                                    Your browser does not support the video tag.
                                 </video>
-                                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                                    <i class="fas fa-play-circle text-white text-6xl animate-pulse"></i>
+                                <div class="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-all duration-300 flex items-center justify-center pointer-events-none">
+                                    <div class="text-white text-center">
+                                        <i class="fas fa-play-circle text-5xl md:text-6xl mb-3 opacity-80 group-hover:opacity-100 transition-opacity"></i>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="p-4">
-                                <h3 class="text-lg font-bold text-white group-hover:text-cyan-400 transition-colors">
-                                    <i class="fas fa-graduation-cap mr-2"></i>Hands-On Training
+                            <div class="p-6">
+                                <h3 class="text-xl md:text-2xl font-bold text-white mb-3">
+                                    <i class="fas fa-graduation-cap text-cyan-400 mr-2"></i>
+                                    Previous Workshop Highlights
                                 </h3>
+                                <p class="text-gray-400">See students learning, building, and flying drones in our past camps!</p>
                             </div>
                         </div>
-
-                        <!-- Video 3 -->
-                        <div class="group relative bg-gradient-to-br from-green-500/10 to-emerald-400/10 backdrop-blur-lg rounded-2xl overflow-hidden border-2 border-green-400/30 hover:border-green-400 transition-all duration-500 hover:scale-[1.03] hover:shadow-2xl hover:shadow-green-500/30">
-                            <div class="aspect-video bg-gray-900 relative overflow-hidden">
+                        
+                        <!-- Video 3 - Student Testimonials -->
+                        <div class="bg-gradient-to-br from-green-500/10 to-emerald-400/10 backdrop-blur-lg rounded-3xl overflow-hidden border-2 border-green-400/30 shadow-2xl hover:border-green-400/60 transition-all duration-300 hover:scale-105">
+                            <div class="aspect-video bg-gray-900 relative group">
                                 <video 
-                                    class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                                    class="w-full h-full object-cover"
                                     controls
+                                    poster="https://www.genspark.ai/api/files/s/ytW7gCVk"
                                     preload="metadata">
-                                    <source src="/videos/camp-video-3.mp4" type="video/mp4">
+                                    <source src="/videos/student-testimonials.mp4" type="video/mp4">
+                                    Your browser does not support the video tag.
                                 </video>
-                                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                                    <i class="fas fa-play-circle text-white text-6xl animate-pulse"></i>
+                                <div class="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-all duration-300 flex items-center justify-center pointer-events-none">
+                                    <div class="text-white text-center">
+                                        <i class="fas fa-play-circle text-5xl md:text-6xl mb-3 opacity-80 group-hover:opacity-100 transition-opacity"></i>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="p-4">
-                                <h3 class="text-lg font-bold text-white group-hover:text-green-400 transition-colors">
-                                    <i class="fas fa-users mr-2"></i>Student Experience
+                            <div class="p-6">
+                                <h3 class="text-xl md:text-2xl font-bold text-white mb-3">
+                                    <i class="fas fa-star text-yellow-400 mr-2"></i>
+                                    Student Success Stories
                                 </h3>
+                                <p class="text-gray-400">Hear from students who attended our previous drone camps and workshops</p>
                             </div>
                         </div>
-
-                        <!-- Video 4 -->
-                        <div class="group relative bg-gradient-to-br from-purple-500/10 to-pink-400/10 backdrop-blur-lg rounded-2xl overflow-hidden border-2 border-purple-400/30 hover:border-purple-400 transition-all duration-500 hover:scale-[1.03] hover:shadow-2xl hover:shadow-purple-500/30">
-                            <div class="aspect-video bg-gray-900 relative overflow-hidden">
+                        
+                        <!-- Video 4 - Army & ISRO Demonstrations -->
+                        <div class="bg-gradient-to-br from-purple-500/10 to-pink-400/10 backdrop-blur-lg rounded-3xl overflow-hidden border-2 border-purple-400/30 shadow-2xl hover:border-purple-400/60 transition-all duration-300 hover:scale-105">
+                            <div class="aspect-video bg-gray-900 relative group">
                                 <video 
-                                    class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                                    class="w-full h-full object-cover"
                                     controls
+                                    poster="https://www.genspark.ai/api/files/s/zIzs5T6G"
                                     preload="metadata">
-                                    <source src="/videos/camp-video-4.mp4" type="video/mp4">
+                                    <source src="/videos/army-isro-demo.mp4" type="video/mp4">
+                                    Your browser does not support the video tag.
                                 </video>
-                                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                                    <i class="fas fa-play-circle text-white text-6xl animate-pulse"></i>
+                                <div class="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-all duration-300 flex items-center justify-center pointer-events-none">
+                                    <div class="text-white text-center">
+                                        <i class="fas fa-play-circle text-5xl md:text-6xl mb-3 opacity-80 group-hover:opacity-100 transition-opacity"></i>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="p-4">
-                                <h3 class="text-lg font-bold text-white group-hover:text-purple-400 transition-colors">
-                                    <i class="fas fa-rocket mr-2"></i>Flight Practice
+                            <div class="p-6">
+                                <h3 class="text-xl md:text-2xl font-bold text-white mb-3">
+                                    <i class="fas fa-medal text-purple-400 mr-2"></i>
+                                    Army & ISRO Demonstrations
                                 </h3>
-                            </div>
-                        </div>
-
-                        <!-- Video 5 -->
-                        <div class="group relative bg-gradient-to-br from-yellow-500/10 to-orange-400/10 backdrop-blur-lg rounded-2xl overflow-hidden border-2 border-yellow-400/30 hover:border-yellow-400 transition-all duration-500 hover:scale-[1.03] hover:shadow-2xl hover:shadow-yellow-500/30">
-                            <div class="aspect-video bg-gray-900 relative overflow-hidden">
-                                <video 
-                                    class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                                    controls
-                                    preload="metadata">
-                                    <source src="/videos/camp-video-5.mp4" type="video/mp4">
-                                </video>
-                                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                                    <i class="fas fa-play-circle text-white text-6xl animate-pulse"></i>
-                                </div>
-                            </div>
-                            <div class="p-4">
-                                <h3 class="text-lg font-bold text-white group-hover:text-yellow-400 transition-colors">
-                                    <i class="fas fa-certificate mr-2"></i>Camp Highlights
-                                </h3>
-                            </div>
-                        </div>
-
-                        <!-- Video 6 -->
-                        <div class="group relative bg-gradient-to-br from-red-500/10 to-pink-400/10 backdrop-blur-lg rounded-2xl overflow-hidden border-2 border-red-400/30 hover:border-red-400 transition-all duration-500 hover:scale-[1.03] hover:shadow-2xl hover:shadow-red-500/30">
-                            <div class="aspect-video bg-gray-900 relative overflow-hidden">
-                                <video 
-                                    class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                                    controls
-                                    preload="metadata">
-                                    <source src="/videos/camp-video-6.mp4" type="video/mp4">
-                                </video>
-                                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                                    <i class="fas fa-play-circle text-white text-6xl animate-pulse"></i>
-                                </div>
-                            </div>
-                            <div class="p-4">
-                                <h3 class="text-lg font-bold text-white group-hover:text-red-400 transition-colors">
-                                    <i class="fas fa-award mr-2"></i>Expert Guidance
-                                </h3>
-                            </div>
-                        </div>
-
-                        <!-- Video 7 -->
-                        <div class="group relative bg-gradient-to-br from-indigo-500/10 to-purple-400/10 backdrop-blur-lg rounded-2xl overflow-hidden border-2 border-indigo-400/30 hover:border-indigo-400 transition-all duration-500 hover:scale-[1.03] hover:shadow-2xl hover:shadow-indigo-500/30">
-                            <div class="aspect-video bg-gray-900 relative overflow-hidden">
-                                <video 
-                                    class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                                    controls
-                                    preload="metadata">
-                                    <source src="/videos/camp-video-7.mp4" type="video/mp4">
-                                </video>
-                                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                                    <i class="fas fa-play-circle text-white text-6xl animate-pulse"></i>
-                                </div>
-                            </div>
-                            <div class="p-4">
-                                <h3 class="text-lg font-bold text-white group-hover:text-indigo-400 transition-colors">
-                                    <i class="fas fa-cog mr-2"></i>Technical Training
-                                </h3>
-                            </div>
-                        </div>
-
-                        <!-- Video 8 -->
-                        <div class="group relative bg-gradient-to-br from-teal-500/10 to-cyan-400/10 backdrop-blur-lg rounded-2xl overflow-hidden border-2 border-teal-400/30 hover:border-teal-400 transition-all duration-500 hover:scale-[1.03] hover:shadow-2xl hover:shadow-teal-500/30">
-                            <div class="aspect-video bg-gray-900 relative overflow-hidden">
-                                <video 
-                                    class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                                    controls
-                                    preload="metadata">
-                                    <source src="/videos/camp-video-8.mp4" type="video/mp4">
-                                </video>
-                                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                                    <i class="fas fa-play-circle text-white text-6xl animate-pulse"></i>
-                                </div>
-                            </div>
-                            <div class="p-4">
-                                <h3 class="text-lg font-bold text-white group-hover:text-teal-400 transition-colors">
-                                    <i class="fas fa-camera mr-2"></i>Aerial Photography
-                                </h3>
-                            </div>
-                        </div>
-
-                        <!-- Video 9 -->
-                        <div class="group relative bg-gradient-to-br from-rose-500/10 to-red-400/10 backdrop-blur-lg rounded-2xl overflow-hidden border-2 border-rose-400/30 hover:border-rose-400 transition-all duration-500 hover:scale-[1.03] hover:shadow-2xl hover:shadow-rose-500/30">
-                            <div class="aspect-video bg-gray-900 relative overflow-hidden">
-                                <video 
-                                    class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                                    controls
-                                    preload="metadata">
-                                    <source src="/videos/camp-video-9.mp4" type="video/mp4">
-                                </video>
-                                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                                    <i class="fas fa-play-circle text-white text-6xl animate-pulse"></i>
-                                </div>
-                            </div>
-                            <div class="p-4">
-                                <h3 class="text-lg font-bold text-white group-hover:text-rose-400 transition-colors">
-                                    <i class="fas fa-trophy mr-2"></i>Success Stories
-                                </h3>
-                            </div>
-                        </div>
-
-                        <!-- Video 10 -->
-                        <div class="group relative bg-gradient-to-br from-violet-500/10 to-purple-400/10 backdrop-blur-lg rounded-2xl overflow-hidden border-2 border-violet-400/30 hover:border-violet-400 transition-all duration-500 hover:scale-[1.03] hover:shadow-2xl hover:shadow-violet-500/30 lg:col-span-1">
-                            <div class="aspect-video bg-gray-900 relative overflow-hidden">
-                                <video 
-                                    class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                                    controls
-                                    preload="metadata">
-                                    <source src="/videos/camp-video-10.mp4" type="video/mp4">
-                                </video>
-                                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                                    <i class="fas fa-play-circle text-white text-6xl animate-pulse"></i>
-                                </div>
-                            </div>
-                            <div class="p-4">
-                                <h3 class="text-lg font-bold text-white group-hover:text-violet-400 transition-colors">
-                                    <i class="fas fa-shield-alt mr-2"></i>Safety Training
-                                </h3>
-                            </div>
-                        </div>
-
-                        <!-- Video 11 -->
-                        <div class="group relative bg-gradient-to-br from-amber-500/10 to-yellow-400/10 backdrop-blur-lg rounded-2xl overflow-hidden border-2 border-amber-400/30 hover:border-amber-400 transition-all duration-500 hover:scale-[1.03] hover:shadow-2xl hover:shadow-amber-500/30 lg:col-span-2">
-                            <div class="aspect-video bg-gray-900 relative overflow-hidden">
-                                <video 
-                                    class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                                    controls
-                                    preload="metadata">
-                                    <source src="/videos/camp-video-11.mp4" type="video/mp4">
-                                </video>
-                                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                                    <i class="fas fa-play-circle text-white text-6xl animate-pulse"></i>
-                                </div>
-                            </div>
-                            <div class="p-4">
-                                <h3 class="text-lg font-bold text-white group-hover:text-amber-400 transition-colors">
-                                    <i class="fas fa-star mr-2"></i>Complete Camp Overview
-                                </h3>
+                                <p class="text-gray-400">Our professional demonstrations to Indian Army and NCR ISRO</p>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Premium Benefits Section -->
-        <section class="py-16 md:py-24 bg-gradient-to-br from-blue-950 via-black to-cyan-950 relative overflow-hidden">
-            <!-- Animated Gradient Background -->
-            <div class="absolute inset-0 opacity-30">
-                <div class="absolute inset-0 bg-gradient-to-r from-blue-500/20 via-cyan-500/20 to-blue-500/20 animate-gradient"></div>
-            </div>
-            
-            <div class="container mx-auto px-4 md:px-6 relative z-10">
-                <div class="max-w-6xl mx-auto">
-                    <!-- Section Header with Premium Badge -->
-                    <div class="text-center mb-12 md:mb-16">
-                        <div class="inline-flex items-center gap-3 mb-6">
-                            <div class="h-px w-12 bg-gradient-to-r from-transparent to-blue-400"></div>
-                            <span class="bg-gradient-to-r from-blue-500 to-cyan-400 text-white px-6 py-2 rounded-full text-sm font-bold uppercase tracking-wider shadow-lg">
-                                <i class="fas fa-gift mr-2"></i>Registration Benefits
-                            </span>
-                            <div class="h-px w-12 bg-gradient-to-r from-blue-400 to-transparent"></div>
-                        </div>
-                        
-                        <h2 class="text-4xl md:text-5xl lg:text-6xl font-black mb-6">
-                            What's Included in Your<br/>
-                            <span class="bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-400 bg-clip-text text-transparent">₹2,500 Registration Fee</span>
-                        </h2>
-                        
-                        <p class="text-xl md:text-2xl text-gray-300 mb-4">
-                            Secure Your Spot Today & Get These Exclusive Benefits
+                    
+                    <!-- Note about videos -->
+                    <div class="mt-10 text-center">
+                        <p class="text-gray-500 text-sm">
+                            <i class="fas fa-info-circle mr-2"></i>
+                            Note: Upload your actual camp videos to the <code class="bg-gray-800 px-2 py-1 rounded text-cyan-400">/public/videos/</code> directory with the filenames shown above.
                         </p>
-                        
-                        <div class="inline-block bg-yellow-500/20 border-2 border-yellow-400/50 rounded-2xl px-6 py-3 backdrop-blur-lg">
-                            <p class="text-lg md:text-xl text-yellow-300 font-semibold">
-                                <i class="fas fa-info-circle mr-2"></i>
-                                Registration Fee Only - Additional Course Materials May Apply
-                            </p>
-                        </div>
-                    </div>
-
-                    <!-- Premium Benefits Grid -->
-                    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 mb-12">
-                        <!-- Benefit 1 -->
-                        <div class="group bg-gradient-to-br from-blue-500/20 to-blue-600/10 backdrop-blur-lg p-6 md:p-8 rounded-3xl border-2 border-blue-400/30 hover:border-blue-400 transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-blue-500/30">
-                            <div class="bg-blue-500 w-16 h-16 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300 shadow-lg">
-                                <i class="fas fa-graduation-cap text-white text-3xl"></i>
-                            </div>
-                            <h3 class="text-xl md:text-2xl font-bold text-white mb-3">3-Day Workshop Access</h3>
-                            <p class="text-gray-300 leading-relaxed">
-                                Complete access to all 3 days of hands-on drone training, expert sessions, and flight practice
-                            </p>
-                        </div>
-
-                        <!-- Benefit 2 -->
-                        <div class="group bg-gradient-to-br from-cyan-500/20 to-cyan-600/10 backdrop-blur-lg p-6 md:p-8 rounded-3xl border-2 border-cyan-400/30 hover:border-cyan-400 transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-cyan-500/30">
-                            <div class="bg-cyan-500 w-16 h-16 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300 shadow-lg">
-                                <i class="fas fa-drone text-white text-3xl"></i>
-                            </div>
-                            <h3 class="text-xl md:text-2xl font-bold text-white mb-3">Live Drone Flying</h3>
-                            <p class="text-gray-300 leading-relaxed">
-                                Real drone flight experience with professional FLYQ drones used by Army & ISRO
-                            </p>
-                        </div>
-
-                        <!-- Benefit 3 -->
-                        <div class="group bg-gradient-to-br from-green-500/20 to-green-600/10 backdrop-blur-lg p-6 md:p-8 rounded-3xl border-2 border-green-400/30 hover:border-green-400 transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-green-500/30">
-                            <div class="bg-green-500 w-16 h-16 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300 shadow-lg">
-                                <i class="fas fa-certificate text-white text-3xl"></i>
-                            </div>
-                            <h3 class="text-xl md:text-2xl font-bold text-white mb-3">Certificate of Completion</h3>
-                            <p class="text-gray-300 leading-relaxed">
-                                Official FLYQ Drones certificate recognized for skill development and future opportunities
-                            </p>
-                        </div>
-
-                        <!-- Benefit 4 -->
-                        <div class="group bg-gradient-to-br from-purple-500/20 to-purple-600/10 backdrop-blur-lg p-6 md:p-8 rounded-3xl border-2 border-purple-400/30 hover:border-purple-400 transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-purple-500/30">
-                            <div class="bg-purple-500 w-16 h-16 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300 shadow-lg">
-                                <i class="fas fa-user-tie text-white text-3xl"></i>
-                            </div>
-                            <h3 class="text-xl md:text-2xl font-bold text-white mb-3">Expert Instructors</h3>
-                            <p class="text-gray-300 leading-relaxed">
-                                Learn from certified drone pilots with Army demonstration and ISRO showcase experience
-                            </p>
-                        </div>
-
-                        <!-- Benefit 5 -->
-                        <div class="group bg-gradient-to-br from-yellow-500/20 to-yellow-600/10 backdrop-blur-lg p-6 md:p-8 rounded-3xl border-2 border-yellow-400/30 hover:border-yellow-400 transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-yellow-500/30">
-                            <div class="bg-yellow-500 w-16 h-16 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300 shadow-lg">
-                                <i class="fas fa-shield-alt text-white text-3xl"></i>
-                            </div>
-                            <h3 class="text-xl md:text-2xl font-bold text-white mb-3">Safety Training & Gear</h3>
-                            <p class="text-gray-300 leading-relaxed">
-                                Comprehensive safety protocols, protective equipment, and supervised flight training
-                            </p>
-                        </div>
-
-                        <!-- Benefit 6 -->
-                        <div class="group bg-gradient-to-br from-red-500/20 to-red-600/10 backdrop-blur-lg p-6 md:p-8 rounded-3xl border-2 border-red-400/30 hover:border-red-400 transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-red-500/30">
-                            <div class="bg-red-500 w-16 h-16 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300 shadow-lg">
-                                <i class="fas fa-users text-white text-3xl"></i>
-                            </div>
-                            <h3 class="text-xl md:text-2xl font-bold text-white mb-3">Lifetime Community</h3>
-                            <p class="text-gray-300 leading-relaxed">
-                                Join our exclusive alumni network for future workshops, events, and industry updates
-                            </p>
-                        </div>
-
-                        <!-- Benefit 7 -->
-                        <div class="group bg-gradient-to-br from-pink-500/20 to-pink-600/10 backdrop-blur-lg p-6 md:p-8 rounded-3xl border-2 border-pink-400/30 hover:border-pink-400 transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-pink-500/30">
-                            <div class="bg-pink-500 w-16 h-16 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300 shadow-lg">
-                                <i class="fas fa-book text-white text-3xl"></i>
-                            </div>
-                            <h3 class="text-xl md:text-2xl font-bold text-white mb-3">Training Materials</h3>
-                            <p class="text-gray-300 leading-relaxed">
-                                Digital learning resources, drone operation guides, and safety manuals to keep forever
-                            </p>
-                        </div>
-
-                        <!-- Benefit 8 -->
-                        <div class="group bg-gradient-to-br from-indigo-500/20 to-indigo-600/10 backdrop-blur-lg p-6 md:p-8 rounded-3xl border-2 border-indigo-400/30 hover:border-indigo-400 transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-indigo-500/30">
-                            <div class="bg-indigo-500 w-16 h-16 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300 shadow-lg">
-                                <i class="fas fa-trophy text-white text-3xl"></i>
-                            </div>
-                            <h3 class="text-xl md:text-2xl font-bold text-white mb-3">Competition Prep</h3>
-                            <p class="text-gray-300 leading-relaxed">
-                                Preparation for national drone competitions and career guidance in aviation technology
-                            </p>
-                        </div>
-
-                        <!-- Benefit 9 -->
-                        <div class="group bg-gradient-to-br from-teal-500/20 to-teal-600/10 backdrop-blur-lg p-6 md:p-8 rounded-3xl border-2 border-teal-400/30 hover:border-teal-400 transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-teal-500/30">
-                            <div class="bg-teal-500 w-16 h-16 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300 shadow-lg">
-                                <i class="fas fa-headset text-white text-3xl"></i>
-                            </div>
-                            <h3 class="text-xl md:text-2xl font-bold text-white mb-3">Post-Camp Support</h3>
-                            <p class="text-gray-300 leading-relaxed">
-                                30-day WhatsApp support group for questions, troubleshooting, and continued learning
-                            </p>
-                        </div>
-                    </div>
-
-                    <!-- Call to Action -->
-                    <div class="bg-gradient-to-r from-blue-500 to-cyan-400 rounded-3xl p-8 md:p-12 text-center shadow-2xl hover:shadow-blue-500/50 transition-all duration-300">
-                        <h3 class="text-3xl md:text-4xl font-black text-white mb-4">
-                            <i class="fas fa-rocket mr-3"></i>Limited Seats Available!
-                        </h3>
-                        <p class="text-lg md:text-xl text-white/90 mb-6 max-w-3xl mx-auto">
-                            Only 30 students per batch to ensure personalized attention and maximum flying time
-                        </p>
-                        <a href="#register" class="inline-block bg-white text-blue-600 px-10 py-5 rounded-full text-xl font-bold hover:scale-105 transition-all duration-300 shadow-2xl hover:shadow-white/50">
-                            Register Now for ₹2,500 <i class="fas fa-arrow-right ml-2"></i>
-                        </a>
                     </div>
                 </div>
             </div>
