@@ -739,6 +739,7 @@ const renderPage = (title: string, content: string, includeCart: boolean = true)
                     <div class="hidden md:flex items-center space-x-8">
                         <a href="/" class="text-gray-700 hover:text-sky-500 font-semibold">Home</a>
                         <a href="/products" class="text-gray-700 hover:text-sky-500 font-semibold">Products</a>
+                        <a href="/summer-camp" class="text-gray-700 hover:text-sky-500 font-semibold">Summer Camp</a>
                         <a href="/docs" class="text-gray-700 hover:text-sky-500 font-semibold">Docs</a>
                         <a href="/blog" class="text-gray-700 hover:text-sky-500 font-semibold">Blog</a>
                         <a href="/about" class="text-gray-700 hover:text-sky-500 font-semibold">About</a>
@@ -789,6 +790,7 @@ const renderPage = (title: string, content: string, includeCart: boolean = true)
                 <div id="mobile-menu" class="hidden md:hidden mt-4 pb-4 space-y-4">
                     <a href="/" class="block text-gray-700 hover:text-sky-500 font-semibold">Home</a>
                     <a href="/products" class="block text-gray-700 hover:text-sky-500 font-semibold">Products</a>
+                    <a href="/summer-camp" class="block text-gray-700 hover:text-sky-500 font-semibold">Summer Camp</a>
                     <a href="/docs" class="block text-gray-700 hover:text-sky-500 font-semibold">Docs</a>
                     <a href="/about" class="block text-gray-700 hover:text-sky-500 font-semibold">About</a>
                     <a href="/contact" class="block text-gray-700 hover:text-sky-500 font-semibold">Contact</a>
@@ -12040,6 +12042,484 @@ app.get('/api/my-files', async (c) => {
     console.error('List files error:', error);
     return c.json({ error: 'Failed to list files' }, 500);
   }
+});
+
+// Summer Drone Camp Page
+app.get('/summer-camp', (c) => {
+  const content = `
+    <div class="pt-20 bg-black">
+        <!-- Hero Section -->
+        <section class="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-black via-gray-900 to-blue-950">
+            <!-- Background Pattern -->
+            <div class="absolute inset-0 opacity-10">
+                <div class="absolute inset-0" style="background-image: repeating-linear-gradient(45deg, transparent, transparent 35px, rgba(56, 189, 248, 0.1) 35px, rgba(56, 189, 248, 0.1) 70px);"></div>
+            </div>
+            
+            <!-- Hero Content -->
+            <div class="container mx-auto px-4 md:px-6 py-20 md:py-32 relative z-10">
+                <div class="text-center max-w-6xl mx-auto">
+                    <!-- Badge -->
+                    <div class="inline-block mb-6 md:mb-8">
+                        <span class="bg-gradient-to-r from-blue-500 to-cyan-400 text-white px-6 py-3 rounded-full text-sm md:text-base font-bold uppercase tracking-wider shadow-lg">
+                            <i class="fas fa-calendar-alt mr-2"></i>Summer 2026 - Registration Open
+                        </span>
+                    </div>
+                    
+                    <!-- Main Headline -->
+                    <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black mb-6 md:mb-8 leading-tight">
+                        India's Most Exciting<br/>
+                        <span class="bg-gradient-to-r from-blue-400 via-blue-500 to-cyan-400 bg-clip-text text-transparent">
+                            Drone Summer Camp
+                        </span><br/>
+                        for Young Innovators
+                    </h1>
+                    
+                    <!-- Subheading -->
+                    <p class="text-xl md:text-2xl lg:text-3xl text-gray-300 mb-8 md:mb-12 max-w-4xl mx-auto leading-relaxed">
+                        Learn, Build & Fly Professional Drones with <span class="text-blue-400 font-bold">FLYQ Drones</span>
+                    </p>
+                    
+                    <p class="text-lg md:text-xl text-gray-400 mb-12 md:mb-16 max-w-3xl mx-auto">
+                        <i class="fas fa-star text-yellow-400 mr-2"></i>
+                        Trusted by Army Demonstrations & NCR ISRO Showcases
+                    </p>
+                    
+                    <!-- CTA Buttons -->
+                    <div class="flex flex-col sm:flex-row gap-4 md:gap-6 justify-center items-center mb-12 md:mb-16">
+                        <a href="#register" class="w-full sm:w-auto bg-gradient-to-r from-blue-500 to-cyan-400 text-white px-8 md:px-12 py-4 md:py-5 rounded-full text-lg md:text-xl font-bold hover:scale-105 transition-all duration-300 shadow-2xl hover:shadow-blue-500/50">
+                            <i class="fas fa-rocket mr-2"></i>Register Now
+                        </a>
+                        <a href="#details" class="w-full sm:w-auto bg-white/10 backdrop-blur-lg text-white px-8 md:px-12 py-4 md:py-5 rounded-full text-lg md:text-xl font-bold hover:bg-white/20 transition-all duration-300 border-2 border-white/30">
+                            <i class="fas fa-info-circle mr-2"></i>View Details
+                        </a>
+                        <a href="tel:+919137361474" class="w-full sm:w-auto bg-green-500 text-white px-8 md:px-12 py-4 md:py-5 rounded-full text-lg md:text-xl font-bold hover:scale-105 transition-all duration-300 shadow-2xl hover:shadow-green-500/50">
+                            <i class="fas fa-phone mr-2"></i>Call Us Today
+                        </a>
+                    </div>
+                    
+                    <!-- Hero Banner Content -->
+                    <div class="bg-gradient-to-br from-blue-500/20 to-cyan-400/20 backdrop-blur-lg rounded-3xl p-6 md:p-10 border-2 border-blue-400/30 shadow-2xl max-w-4xl mx-auto">
+                        <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-6 md:mb-8">
+                            <i class="fas fa-graduation-cap mr-3"></i>3-Day Hands-On Drone Workshop
+                        </h2>
+                        <p class="text-lg md:text-xl text-blue-100 mb-6 md:mb-8 font-semibold">For Students Age 8+</p>
+                        
+                        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 text-left">
+                            <div class="bg-white/10 backdrop-blur-sm p-4 md:p-5 rounded-xl border border-white/20">
+                                <i class="fas fa-drone text-blue-400 text-2xl md:text-3xl mb-3"></i>
+                                <p class="text-base md:text-lg text-white font-semibold">Live Drone Flying Experience</p>
+                            </div>
+                            <div class="bg-white/10 backdrop-blur-sm p-4 md:p-5 rounded-xl border border-white/20">
+                                <i class="fas fa-cogs text-cyan-400 text-2xl md:text-3xl mb-3"></i>
+                                <p class="text-base md:text-lg text-white font-semibold">Drone Technology Basics</p>
+                            </div>
+                            <div class="bg-white/10 backdrop-blur-sm p-4 md:p-5 rounded-xl border border-white/20">
+                                <i class="fas fa-shield-alt text-green-400 text-2xl md:text-3xl mb-3"></i>
+                                <p class="text-base md:text-lg text-white font-semibold">Safety & Flight Training</p>
+                            </div>
+                            <div class="bg-white/10 backdrop-blur-sm p-4 md:p-5 rounded-xl border border-white/20">
+                                <i class="fas fa-certificate text-yellow-400 text-2xl md:text-3xl mb-3"></i>
+                                <p class="text-base md:text-lg text-white font-semibold">Certificate of Completion</p>
+                            </div>
+                            <div class="bg-white/10 backdrop-blur-sm p-4 md:p-5 rounded-xl border border-white/20">
+                                <i class="fas fa-industry text-purple-400 text-2xl md:text-3xl mb-3"></i>
+                                <p class="text-base md:text-lg text-white font-semibold">Real Industry Exposure</p>
+                            </div>
+                            <div class="bg-white/10 backdrop-blur-sm p-4 md:p-5 rounded-xl border border-white/20">
+                                <i class="fas fa-tag text-red-400 text-2xl md:text-3xl mb-3"></i>
+                                <p class="text-base md:text-lg text-white font-semibold">Starting at ₹2,500 Only</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Floating Icons -->
+            <div class="absolute top-20 left-10 animate-float opacity-20">
+                <i class="fas fa-drone text-blue-400 text-5xl"></i>
+            </div>
+            <div class="absolute bottom-20 right-10 animate-float-slow opacity-20">
+                <i class="fas fa-helicopter text-cyan-400 text-6xl"></i>
+            </div>
+        </section>
+
+        <!-- About FLYQ Drones Section -->
+        <section class="py-16 md:py-24 bg-gradient-to-br from-gray-900 to-black">
+            <div class="container mx-auto px-4 md:px-6">
+                <div class="max-w-5xl mx-auto">
+                    <div class="text-center mb-12 md:mb-16">
+                        <h2 class="text-3xl md:text-4xl lg:text-5xl font-black mb-6">
+                            About <span class="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">FLYQ Drones</span>
+                        </h2>
+                    </div>
+                    
+                    <div class="bg-gradient-to-br from-blue-500/10 to-cyan-400/10 backdrop-blur-lg rounded-3xl p-6 md:p-10 border-2 border-blue-400/20 shadow-2xl">
+                        <p class="text-base md:text-lg lg:text-xl text-gray-300 leading-relaxed mb-6">
+                            <span class="text-blue-400 font-bold text-xl md:text-2xl">FLYQ Drones</span> is an advanced drone technology company focused on innovation, drone education, and practical flight training. Our team has successfully showcased drone demonstrations to <span class="text-cyan-400 font-bold">NCR ISRO</span> and supplied drone solutions for <span class="text-green-400 font-bold">Army-related applications</span>.
+                        </p>
+                        <p class="text-base md:text-lg lg:text-xl text-gray-300 leading-relaxed">
+                            We are now launching a special <span class="text-yellow-400 font-bold">Summer Drone Camp</span> designed for young students who want to explore the future of aviation, robotics, and drone technology.
+                        </p>
+                        
+                        <div class="grid sm:grid-cols-2 gap-6 mt-8 md:mt-10">
+                            <div class="bg-white/5 p-5 md:p-6 rounded-2xl border border-blue-400/30">
+                                <i class="fas fa-medal text-yellow-400 text-3xl md:text-4xl mb-4"></i>
+                                <h3 class="text-lg md:text-xl font-bold text-white mb-2">Trusted by Army</h3>
+                                <p class="text-sm md:text-base text-gray-400">Supplied drone solutions for military demonstrations</p>
+                            </div>
+                            <div class="bg-white/5 p-5 md:p-6 rounded-2xl border border-cyan-400/30">
+                                <i class="fas fa-satellite text-cyan-400 text-3xl md:text-4xl mb-4"></i>
+                                <h3 class="text-lg md:text-xl font-bold text-white mb-2">ISRO Showcases</h3>
+                                <p class="text-sm md:text-base text-gray-400">Demonstrated at NCR ISRO technology events</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Workshop Overview Section -->
+        <section id="details" class="py-16 md:py-24 bg-black">
+            <div class="container mx-auto px-4 md:px-6">
+                <div class="text-center mb-12 md:mb-16">
+                    <h2 class="text-3xl md:text-4xl lg:text-5xl font-black mb-4">
+                        <span class="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">Workshop Overview</span>
+                    </h2>
+                    <p class="text-xl md:text-2xl text-gray-400">3-Day Drone Summer Camp</p>
+                </div>
+                
+                <div class="max-w-6xl mx-auto space-y-6 md:space-y-8">
+                    <!-- Day 1 -->
+                    <div class="bg-gradient-to-br from-blue-500/20 to-blue-600/20 backdrop-blur-lg rounded-3xl p-6 md:p-10 border-2 border-blue-400/30 hover:border-blue-400/60 transition-all duration-300 hover:scale-[1.02]">
+                        <div class="flex items-start gap-4 md:gap-6">
+                            <div class="bg-blue-500 text-white w-12 h-12 md:w-16 md:h-16 rounded-2xl flex items-center justify-center text-xl md:text-2xl font-black flex-shrink-0">
+                                1
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-2xl md:text-3xl font-bold text-white mb-4">Day 1 – Introduction to Drone Technology</h3>
+                                <ul class="space-y-3 text-base md:text-lg text-gray-300">
+                                    <li><i class="fas fa-check-circle text-green-400 mr-3"></i>Understanding drone components</li>
+                                    <li><i class="fas fa-check-circle text-green-400 mr-3"></i>Types of drones and their applications</li>
+                                    <li><i class="fas fa-check-circle text-green-400 mr-3"></i>Drone safety & regulations</li>
+                                    <li><i class="fas fa-check-circle text-green-400 mr-3"></i>Live demonstration by experts</li>
+                                    <li><i class="fas fa-check-circle text-green-400 mr-3"></i>Basic flight controls training</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Day 2 -->
+                    <div class="bg-gradient-to-br from-cyan-500/20 to-cyan-600/20 backdrop-blur-lg rounded-3xl p-6 md:p-10 border-2 border-cyan-400/30 hover:border-cyan-400/60 transition-all duration-300 hover:scale-[1.02]">
+                        <div class="flex items-start gap-4 md:gap-6">
+                            <div class="bg-cyan-500 text-white w-12 h-12 md:w-16 md:h-16 rounded-2xl flex items-center justify-center text-xl md:text-2xl font-black flex-shrink-0">
+                                2
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-2xl md:text-3xl font-bold text-white mb-4">Day 2 – Hands-On Flying Experience</h3>
+                                <ul class="space-y-3 text-base md:text-lg text-gray-300">
+                                    <li><i class="fas fa-check-circle text-green-400 mr-3"></i>Practical drone handling</li>
+                                    <li><i class="fas fa-check-circle text-green-400 mr-3"></i>Flight balancing techniques</li>
+                                    <li><i class="fas fa-check-circle text-green-400 mr-3"></i>Indoor & outdoor flight practice</li>
+                                    <li><i class="fas fa-check-circle text-green-400 mr-3"></i>Team flying challenges</li>
+                                    <li><i class="fas fa-check-circle text-green-400 mr-3"></i>Camera drone basics</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Day 3 -->
+                    <div class="bg-gradient-to-br from-purple-500/20 to-purple-600/20 backdrop-blur-lg rounded-3xl p-6 md:p-10 border-2 border-purple-400/30 hover:border-purple-400/60 transition-all duration-300 hover:scale-[1.02]">
+                        <div class="flex items-start gap-4 md:gap-6">
+                            <div class="bg-purple-500 text-white w-12 h-12 md:w-16 md:h-16 rounded-2xl flex items-center justify-center text-xl md:text-2xl font-black flex-shrink-0">
+                                3
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-2xl md:text-3xl font-bold text-white mb-4">Day 3 – Advanced Learning & Certification</h3>
+                                <ul class="space-y-3 text-base md:text-lg text-gray-300">
+                                    <li><i class="fas fa-check-circle text-green-400 mr-3"></i>Advanced drone maneuvers</li>
+                                    <li><i class="fas fa-check-circle text-green-400 mr-3"></i>Drone mapping & surveillance overview</li>
+                                    <li><i class="fas fa-check-circle text-green-400 mr-3"></i>Career opportunities in drone industry</li>
+                                    <li><i class="fas fa-check-circle text-green-400 mr-3"></i>Final flying assessment</li>
+                                    <li><i class="fas fa-check-circle text-green-400 mr-3"></i>Certificate distribution ceremony</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- What Students Will Learn -->
+        <section class="py-16 md:py-24 bg-gradient-to-br from-gray-900 to-black">
+            <div class="container mx-auto px-4 md:px-6">
+                <div class="text-center mb-12 md:mb-16">
+                    <h2 class="text-3xl md:text-4xl lg:text-5xl font-black mb-4">
+                        What Students Will <span class="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">Learn</span>
+                    </h2>
+                </div>
+                
+                <div class="max-w-6xl mx-auto grid sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+                    <div class="bg-gradient-to-br from-blue-500/10 to-blue-600/10 p-6 md:p-8 rounded-2xl border border-blue-400/20 hover:border-blue-400/50 transition-all duration-300 hover:scale-105 text-center">
+                        <i class="fas fa-book text-blue-400 text-4xl md:text-5xl mb-4"></i>
+                        <h3 class="text-lg md:text-xl font-bold text-white mb-2">Drone Fundamentals</h3>
+                    </div>
+                    <div class="bg-gradient-to-br from-green-500/10 to-green-600/10 p-6 md:p-8 rounded-2xl border border-green-400/20 hover:border-green-400/50 transition-all duration-300 hover:scale-105 text-center">
+                        <i class="fas fa-shield-alt text-green-400 text-4xl md:text-5xl mb-4"></i>
+                        <h3 class="text-lg md:text-xl font-bold text-white mb-2">Flight Safety</h3>
+                    </div>
+                    <div class="bg-gradient-to-br from-cyan-500/10 to-cyan-600/10 p-6 md:p-8 rounded-2xl border border-cyan-400/20 hover:border-cyan-400/50 transition-all duration-300 hover:scale-105 text-center">
+                        <i class="fas fa-drone text-cyan-400 text-4xl md:text-5xl mb-4"></i>
+                        <h3 class="text-lg md:text-xl font-bold text-white mb-2">Real Drone Operation</h3>
+                    </div>
+                    <div class="bg-gradient-to-br from-purple-500/10 to-purple-600/10 p-6 md:p-8 rounded-2xl border border-purple-400/20 hover:border-purple-400/50 transition-all duration-300 hover:scale-105 text-center">
+                        <i class="fas fa-camera text-purple-400 text-4xl md:text-5xl mb-4"></i>
+                        <h3 class="text-lg md:text-xl font-bold text-white mb-2">Aerial Photography</h3>
+                    </div>
+                    <div class="bg-gradient-to-br from-yellow-500/10 to-yellow-600/10 p-6 md:p-8 rounded-2xl border border-yellow-400/20 hover:border-yellow-400/50 transition-all duration-300 hover:scale-105 text-center">
+                        <i class="fas fa-map-marked-alt text-yellow-400 text-4xl md:text-5xl mb-4"></i>
+                        <h3 class="text-lg md:text-xl font-bold text-white mb-2">Navigation Skills</h3>
+                    </div>
+                    <div class="bg-gradient-to-br from-red-500/10 to-red-600/10 p-6 md:p-8 rounded-2xl border border-red-400/20 hover:border-red-400/50 transition-all duration-300 hover:scale-105 text-center">
+                        <i class="fas fa-users text-red-400 text-4xl md:text-5xl mb-4"></i>
+                        <h3 class="text-lg md:text-xl font-bold text-white mb-2">Team Coordination</h3>
+                    </div>
+                    <div class="bg-gradient-to-br from-pink-500/10 to-pink-600/10 p-6 md:p-8 rounded-2xl border border-pink-400/20 hover:border-pink-400/50 transition-all duration-300 hover:scale-105 text-center">
+                        <i class="fas fa-microchip text-pink-400 text-4xl md:text-5xl mb-4"></i>
+                        <h3 class="text-lg md:text-xl font-bold text-white mb-2">Technology Concepts</h3>
+                    </div>
+                    <div class="bg-gradient-to-br from-indigo-500/10 to-indigo-600/10 p-6 md:p-8 rounded-2xl border border-indigo-400/20 hover:border-indigo-400/50 transition-all duration-300 hover:scale-105 text-center">
+                        <i class="fas fa-lightbulb text-indigo-400 text-4xl md:text-5xl mb-4"></i>
+                        <h3 class="text-lg md:text-xl font-bold text-white mb-2">Innovation</h3>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Who Can Join Section -->
+        <section class="py-16 md:py-24 bg-black">
+            <div class="container mx-auto px-4 md:px-6">
+                <div class="max-w-5xl mx-auto">
+                    <div class="text-center mb-12 md:mb-16">
+                        <h2 class="text-3xl md:text-4xl lg:text-5xl font-black mb-4">
+                            Who Can <span class="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">Join?</span>
+                        </h2>
+                    </div>
+                    
+                    <div class="bg-gradient-to-br from-blue-500/20 to-cyan-400/20 backdrop-blur-lg rounded-3xl p-6 md:p-10 border-2 border-blue-400/30 shadow-2xl">
+                        <div class="text-center mb-8 md:mb-10">
+                            <div class="inline-block bg-gradient-to-r from-blue-500 to-cyan-400 text-white px-6 md:px-10 py-3 md:py-4 rounded-full text-xl md:text-2xl font-black mb-6">
+                                <i class="fas fa-users mr-3"></i>Age Group: Students 8+
+                            </div>
+                        </div>
+                        
+                        <h3 class="text-2xl md:text-3xl font-bold text-white mb-6 text-center">Perfect For:</h3>
+                        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 mb-8 md:mb-10">
+                            <div class="bg-white/10 p-5 md:p-6 rounded-2xl border border-white/20 text-center">
+                                <i class="fas fa-graduation-cap text-blue-400 text-3xl md:text-4xl mb-3"></i>
+                                <p class="text-base md:text-lg text-white font-semibold">School Students</p>
+                            </div>
+                            <div class="bg-white/10 p-5 md:p-6 rounded-2xl border border-white/20 text-center">
+                                <i class="fas fa-laptop-code text-cyan-400 text-3xl md:text-4xl mb-3"></i>
+                                <p class="text-base md:text-lg text-white font-semibold">Tech Enthusiasts</p>
+                            </div>
+                            <div class="bg-white/10 p-5 md:p-6 rounded-2xl border border-white/20 text-center">
+                                <i class="fas fa-robot text-green-400 text-3xl md:text-4xl mb-3"></i>
+                                <p class="text-base md:text-lg text-white font-semibold">Robotics Learners</p>
+                            </div>
+                            <div class="bg-white/10 p-5 md:p-6 rounded-2xl border border-white/20 text-center">
+                                <i class="fas fa-atom text-purple-400 text-3xl md:text-4xl mb-3"></i>
+                                <p class="text-base md:text-lg text-white font-semibold">STEM Students</p>
+                            </div>
+                            <div class="bg-white/10 p-5 md:p-6 rounded-2xl border border-white/20 text-center">
+                                <i class="fas fa-rocket text-yellow-400 text-3xl md:text-4xl mb-3"></i>
+                                <p class="text-base md:text-lg text-white font-semibold">Beginners</p>
+                            </div>
+                            <div class="bg-white/10 p-5 md:p-6 rounded-2xl border border-white/20 text-center">
+                                <i class="fas fa-star text-pink-400 text-3xl md:text-4xl mb-3"></i>
+                                <p class="text-base md:text-lg text-white font-semibold">Drone Interested</p>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-green-500/20 border-2 border-green-400/50 rounded-2xl p-5 md:p-6 text-center">
+                            <p class="text-xl md:text-2xl text-white font-bold">
+                                <i class="fas fa-check-circle text-green-400 mr-2"></i>
+                                No Prior Experience Required
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Registration Details Section -->
+        <section id="register" class="py-16 md:py-24 bg-gradient-to-br from-gray-900 to-black">
+            <div class="container mx-auto px-4 md:px-6">
+                <div class="max-w-5xl mx-auto">
+                    <div class="text-center mb-12 md:mb-16">
+                        <h2 class="text-3xl md:text-4xl lg:text-5xl font-black mb-4">
+                            <span class="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">Registration Details</span>
+                        </h2>
+                    </div>
+                    
+                    <!-- Pricing Card -->
+                    <div class="bg-gradient-to-br from-blue-500/20 to-cyan-400/20 backdrop-blur-lg rounded-3xl p-6 md:p-10 border-2 border-blue-400/30 shadow-2xl mb-8 md:mb-12">
+                        <div class="text-center mb-8 md:mb-10">
+                            <h3 class="text-2xl md:text-3xl font-bold text-white mb-4">Registration Fee</h3>
+                            <div class="text-5xl md:text-6xl lg:text-7xl font-black text-white mb-2">
+                                ₹2,500<span class="text-2xl md:text-3xl text-gray-400">/-</span>
+                            </div>
+                            <p class="text-lg md:text-xl text-gray-300">Complete 3-Day Workshop</p>
+                        </div>
+                        
+                        <h3 class="text-2xl md:text-3xl font-bold text-white mb-6 text-center">
+                            <i class="fas fa-gift text-yellow-400 mr-2"></i>Includes:
+                        </h3>
+                        <div class="grid sm:grid-cols-2 gap-4 md:gap-5">
+                            <div class="bg-white/10 p-4 md:p-5 rounded-xl border border-white/20">
+                                <i class="fas fa-calendar-check text-blue-400 text-2xl md:text-3xl mb-3"></i>
+                                <p class="text-base md:text-lg text-white font-semibold">3 Days Complete Workshop</p>
+                            </div>
+                            <div class="bg-white/10 p-4 md:p-5 rounded-xl border border-white/20">
+                                <i class="fas fa-drone text-cyan-400 text-2xl md:text-3xl mb-3"></i>
+                                <p class="text-base md:text-lg text-white font-semibold">Live Drone Flying</p>
+                            </div>
+                            <div class="bg-white/10 p-4 md:p-5 rounded-xl border border-white/20">
+                                <i class="fas fa-user-tie text-green-400 text-2xl md:text-3xl mb-3"></i>
+                                <p class="text-base md:text-lg text-white font-semibold">Expert Guidance</p>
+                            </div>
+                            <div class="bg-white/10 p-4 md:p-5 rounded-xl border border-white/20">
+                                <i class="fas fa-book-open text-purple-400 text-2xl md:text-3xl mb-3"></i>
+                                <p class="text-base md:text-lg text-white font-semibold">Training Materials</p>
+                            </div>
+                            <div class="bg-white/10 p-4 md:p-5 rounded-xl border border-white/20">
+                                <i class="fas fa-certificate text-yellow-400 text-2xl md:text-3xl mb-3"></i>
+                                <p class="text-base md:text-lg text-white font-semibold">Completion Certificate</p>
+                            </div>
+                            <div class="bg-white/10 p-4 md:p-5 rounded-xl border border-white/20">
+                                <i class="fas fa-hands-helping text-pink-400 text-2xl md:text-3xl mb-3"></i>
+                                <p class="text-base md:text-lg text-white font-semibold">Practical Sessions</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Locations -->
+                    <div class="bg-gradient-to-br from-purple-500/20 to-pink-500/20 backdrop-blur-lg rounded-3xl p-6 md:p-10 border-2 border-purple-400/30 shadow-2xl mb-8 md:mb-12">
+                        <h3 class="text-2xl md:text-3xl font-bold text-white mb-6 text-center">
+                            <i class="fas fa-map-marker-alt text-red-400 mr-2"></i>Locations Covered
+                        </h3>
+                        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+                            <div class="bg-white/10 p-4 rounded-xl border border-white/20 text-center">
+                                <i class="fas fa-building text-blue-400 text-2xl md:text-3xl mb-2"></i>
+                                <p class="text-base md:text-lg text-white font-semibold">Mumbai</p>
+                            </div>
+                            <div class="bg-white/10 p-4 rounded-xl border border-white/20 text-center">
+                                <i class="fas fa-city text-cyan-400 text-2xl md:text-3xl mb-2"></i>
+                                <p class="text-base md:text-lg text-white font-semibold">Navi Mumbai</p>
+                            </div>
+                            <div class="bg-white/10 p-4 rounded-xl border border-white/20 text-center">
+                                <i class="fas fa-tree text-green-400 text-2xl md:text-3xl mb-2"></i>
+                                <p class="text-base md:text-lg text-white font-semibold">Bangalore</p>
+                            </div>
+                            <div class="bg-white/10 p-4 rounded-xl border border-white/20 text-center">
+                                <i class="fas fa-landmark text-yellow-400 text-2xl md:text-3xl mb-2"></i>
+                                <p class="text-base md:text-lg text-white font-semibold">Gujarat</p>
+                            </div>
+                            <div class="bg-white/10 p-4 rounded-xl border border-white/20 text-center">
+                                <i class="fas fa-monument text-red-400 text-2xl md:text-3xl mb-2"></i>
+                                <p class="text-base md:text-lg text-white font-semibold">Delhi</p>
+                            </div>
+                            <div class="bg-white/10 p-4 rounded-xl border border-white/20 text-center">
+                                <i class="fas fa-mosque text-purple-400 text-2xl md:text-3xl mb-2"></i>
+                                <p class="text-base md:text-lg text-white font-semibold">Hyderabad</p>
+                            </div>
+                            <div class="bg-white/10 p-4 rounded-xl border border-white/20 text-center">
+                                <i class="fas fa-water text-blue-400 text-2xl md:text-3xl mb-2"></i>
+                                <p class="text-base md:text-lg text-white font-semibold">Chennai</p>
+                            </div>
+                            <div class="bg-white/10 p-4 rounded-xl border border-white/20 text-center">
+                                <i class="fas fa-plus text-pink-400 text-2xl md:text-3xl mb-2"></i>
+                                <p class="text-base md:text-lg text-white font-semibold">More Cities</p>
+                            </div>
+                        </div>
+                        <p class="text-center text-yellow-300 mt-6 md:mt-8 text-base md:text-lg font-semibold">
+                            <i class="fas fa-exclamation-triangle mr-2"></i>Limited seats available for every batch
+                        </p>
+                    </div>
+                    
+                    <!-- Upcoming Batch -->
+                    <div class="bg-gradient-to-br from-green-500/20 to-emerald-500/20 backdrop-blur-lg rounded-3xl p-6 md:p-8 border-2 border-green-400/30 shadow-2xl text-center">
+                        <h3 class="text-2xl md:text-3xl font-bold text-white mb-4">
+                            <i class="fas fa-calendar-alt text-green-400 mr-2"></i>Upcoming Batch
+                        </h3>
+                        <p class="text-lg md:text-xl text-gray-300 mb-2">Admissions Open Now</p>
+                        <p class="text-base md:text-lg text-gray-400 mb-6">The upcoming batch starts next month</p>
+                        <div class="bg-red-500/20 border-2 border-red-400/50 rounded-2xl p-4 md:p-5 inline-block">
+                            <p class="text-lg md:text-xl text-white font-bold">
+                                <i class="fas fa-fire text-red-400 mr-2"></i>
+                                Reserve your seat before registrations close!
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section class="py-16 md:py-24 bg-black">
+            <div class="container mx-auto px-4 md:px-6">
+                <div class="max-w-5xl mx-auto">
+                    <div class="text-center mb-12 md:mb-16">
+                        <h2 class="text-3xl md:text-4xl lg:text-5xl font-black mb-4">
+                            <span class="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">Register Today</span>
+                        </h2>
+                        <p class="text-lg md:text-xl text-gray-400">Contact us to secure your seat</p>
+                    </div>
+                    
+                    <div class="bg-gradient-to-br from-blue-500/20 to-cyan-400/20 backdrop-blur-lg rounded-3xl p-6 md:p-10 border-2 border-blue-400/30 shadow-2xl">
+                        <div class="grid sm:grid-cols-2 gap-6 md:gap-8 mb-8 md:mb-10">
+                            <div class="bg-white/10 p-6 md:p-8 rounded-2xl border border-white/20 text-center">
+                                <i class="fas fa-globe text-blue-400 text-4xl md:text-5xl mb-4"></i>
+                                <h3 class="text-lg md:text-xl font-bold text-white mb-3">Website</h3>
+                                <a href="https://flyqdrone.in" class="text-blue-300 hover:text-blue-400 text-base md:text-lg font-semibold transition-colors">
+                                    flyqdrone.in
+                                </a>
+                            </div>
+                            <div class="bg-white/10 p-6 md:p-8 rounded-2xl border border-white/20 text-center">
+                                <i class="fas fa-envelope text-cyan-400 text-4xl md:text-5xl mb-4"></i>
+                                <h3 class="text-lg md:text-xl font-bold text-white mb-3">Email</h3>
+                                <a href="mailto:info@flyqdrone.in" class="text-cyan-300 hover:text-cyan-400 text-base md:text-lg font-semibold transition-colors">
+                                    info@flyqdrone.in
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-white/10 p-6 md:p-8 rounded-2xl border border-white/20 text-center">
+                            <i class="fas fa-phone-alt text-green-400 text-4xl md:text-5xl mb-4"></i>
+                            <h3 class="text-lg md:text-xl font-bold text-white mb-4">Contact Numbers</h3>
+                            <div class="space-y-3">
+                                <a href="tel:+919137361474" class="block text-green-300 hover:text-green-400 text-xl md:text-2xl font-bold transition-colors">
+                                    <i class="fas fa-mobile-alt mr-2"></i>+91 9137361474
+                                </a>
+                                <a href="tel:+919521118291" class="block text-green-300 hover:text-green-400 text-xl md:text-2xl font-bold transition-colors">
+                                    <i class="fas fa-mobile-alt mr-2"></i>+91 9521118291
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <div class="text-center mt-8 md:mt-10">
+                            <a href="https://wa.me/919137361474?text=Hi%2C%20I%20want%20to%20register%20for%20the%20Summer%20Drone%20Camp" target="_blank" class="inline-block bg-green-500 hover:bg-green-600 text-white px-8 md:px-12 py-4 md:py-5 rounded-full text-lg md:text-xl font-bold transition-all duration-300 hover:scale-105 shadow-2xl">
+                                <i class="fab fa-whatsapp mr-2 text-2xl"></i>
+                                Register via WhatsApp
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+  `;
+  
+  return c.html(renderPage('Summer Drone Camp 2026', content));
 });
 
 // Privacy Policy Page
