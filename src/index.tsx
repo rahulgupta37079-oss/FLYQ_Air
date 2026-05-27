@@ -12048,10 +12048,218 @@ app.get('/api/my-files', async (c) => {
   }
 });
 
-// Summer Drone Camp Page
+// Summer Drone Camp Page - COMPLETE PREMIUM REDESIGN
 app.get('/summer-camp', (c) => {
   const content = `
-    <div class="pt-20 bg-black">
+    <style>
+        /* Premium Custom Animations */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+        }
+        
+        @keyframes float-slow {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+        }
+        
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes slideInLeft {
+            from { opacity: 0; transform: translateX(-50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        
+        @keyframes slideInRight {
+            from { opacity: 0; transform: translateX(50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        
+        @keyframes scaleIn {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 20px rgba(59, 130, 246, 0.5); }
+            50% { box-shadow: 0 0 40px rgba(59, 130, 246, 0.8), 0 0 60px rgba(6, 182, 212, 0.6); }
+        }
+        
+        @keyframes gradient-shift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        
+        @keyframes particle-float {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); opacity: 0.3; }
+            25% { transform: translate(10px, -10px) rotate(90deg); opacity: 0.6; }
+            50% { transform: translate(-5px, -20px) rotate(180deg); opacity: 0.3; }
+            75% { transform: translate(-10px, -10px) rotate(270deg); opacity: 0.6; }
+        }
+        
+        @keyframes shimmer {
+            0% { background-position: -1000px 0; }
+            100% { background-position: 1000px 0; }
+        }
+        
+        @keyframes bounce-gentle {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        /* Animation Classes */
+        .animate-float { animation: float 6s ease-in-out infinite; }
+        .animate-float-slow { animation: float-slow 8s ease-in-out infinite; }
+        .animate-fadeInUp { animation: fadeInUp 0.8s ease-out; }
+        .animate-fadeInDown { animation: fadeInDown 0.8s ease-out; }
+        .animate-slideInLeft { animation: slideInLeft 0.8s ease-out; }
+        .animate-slideInRight { animation: slideInRight 0.8s ease-out; }
+        .animate-scaleIn { animation: scaleIn 0.6s ease-out; }
+        .animate-pulse-glow { animation: pulse-glow 2s ease-in-out infinite; }
+        .animate-gradient { 
+            background-size: 200% 200%; 
+            animation: gradient-shift 4s ease infinite; 
+        }
+        .animate-particle { animation: particle-float 8s ease-in-out infinite; }
+        .animate-bounce-gentle { animation: bounce-gentle 2s ease-in-out infinite; }
+        
+        /* Glass Morphism */
+        .glass {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .glass-strong {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        /* Gradient Text */
+        .gradient-text {
+            background: linear-gradient(135deg, #3B82F6, #06B6D4, #8B5CF6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        /* Card Hover Effects */
+        .card-hover {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-8px) scale(1.02);
+        }
+        
+        /* Shimmer Effect */
+        .shimmer {
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            background-size: 200% 100%;
+            animation: shimmer 2s infinite;
+        }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 10px; }
+        ::-webkit-scrollbar-track { background: #1a1a1a; }
+        ::-webkit-scrollbar-thumb { 
+            background: linear-gradient(180deg, #3B82F6, #06B6D4); 
+            border-radius: 5px; 
+        }
+        ::-webkit-scrollbar-thumb:hover { background: linear-gradient(180deg, #2563EB, #0891B2); }
+        
+        /* Video Container */
+        .video-container {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .video-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(180deg, transparent, rgba(0,0,0,0.7));
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        .video-container:hover::before {
+            opacity: 1;
+        }
+        
+        /* Flip Card */
+        .flip-card {
+            perspective: 1000px;
+        }
+        
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+        
+        .flip-card:hover .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+        
+        .flip-card-front, .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 1rem;
+        }
+        
+        .flip-card-back {
+            transform: rotateY(180deg);
+        }
+        
+        /* Particle System */
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(59, 130, 246, 0.5);
+            border-radius: 50%;
+        }
+        
+        /* Sticky CTA */
+        .sticky-cta {
+            position: fixed;
+            bottom: -100px;
+            left: 0;
+            right: 0;
+            background: linear-gradient(90deg, #3B82F6, #06B6D4);
+            padding: 1rem;
+            box-shadow: 0 -5px 20px rgba(0,0,0,0.3);
+            z-index: 1000;
+            transition: bottom 0.3s ease-in-out;
+        }
+        
+        .sticky-cta.show {
+            bottom: 0;
+        }
+    </style>
+    
+    <div class="pt-20 bg-black overflow-hidden">
         <!-- Hero Section -->
         <section class="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-black via-gray-900 to-blue-950">
             <!-- Background Pattern -->
@@ -12219,7 +12427,7 @@ app.get('/summer-camp', (c) => {
                                     class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                                     controls
                                     preload="metadata">
-                                    <source src="/videos/camp-video-1.mp4" type="video/mp4">
+                                    <source src="/videos/camp-demo-1.mp4" type="video/mp4">
                                 </video>
                                 <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                                     <i class="fas fa-play-circle text-white text-6xl animate-pulse"></i>
@@ -12239,7 +12447,7 @@ app.get('/summer-camp', (c) => {
                                     class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                                     controls
                                     preload="metadata">
-                                    <source src="/videos/camp-video-2.mp4" type="video/mp4">
+                                    <source src="/videos/camp-demo-2.mp4" type="video/mp4">
                                 </video>
                                 <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                                     <i class="fas fa-play-circle text-white text-6xl animate-pulse"></i>
@@ -12259,7 +12467,7 @@ app.get('/summer-camp', (c) => {
                                     class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                                     controls
                                     preload="metadata">
-                                    <source src="/videos/camp-video-3.mp4" type="video/mp4">
+                                    <source src="/videos/camp-demo-3.mp4" type="video/mp4">
                                 </video>
                                 <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                                     <i class="fas fa-play-circle text-white text-6xl animate-pulse"></i>
@@ -12279,7 +12487,7 @@ app.get('/summer-camp', (c) => {
                                     class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                                     controls
                                     preload="metadata">
-                                    <source src="/videos/camp-video-4.mp4" type="video/mp4">
+                                    <source src="/videos/camp-demo-4.mp4" type="video/mp4">
                                 </video>
                                 <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                                     <i class="fas fa-play-circle text-white text-6xl animate-pulse"></i>
@@ -12299,7 +12507,7 @@ app.get('/summer-camp', (c) => {
                                     class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                                     controls
                                     preload="metadata">
-                                    <source src="/videos/camp-video-5.mp4" type="video/mp4">
+                                    <source src="/videos/camp-demo-1.mp4" type="video/mp4">
                                 </video>
                                 <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                                     <i class="fas fa-play-circle text-white text-6xl animate-pulse"></i>
@@ -12319,7 +12527,7 @@ app.get('/summer-camp', (c) => {
                                     class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                                     controls
                                     preload="metadata">
-                                    <source src="/videos/camp-video-6.mp4" type="video/mp4">
+                                    <source src="/videos/camp-demo-2.mp4" type="video/mp4">
                                 </video>
                                 <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                                     <i class="fas fa-play-circle text-white text-6xl animate-pulse"></i>
@@ -12339,7 +12547,7 @@ app.get('/summer-camp', (c) => {
                                     class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                                     controls
                                     preload="metadata">
-                                    <source src="/videos/camp-video-7.mp4" type="video/mp4">
+                                    <source src="/videos/camp-demo-3.mp4" type="video/mp4">
                                 </video>
                                 <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                                     <i class="fas fa-play-circle text-white text-6xl animate-pulse"></i>
@@ -12359,7 +12567,7 @@ app.get('/summer-camp', (c) => {
                                     class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                                     controls
                                     preload="metadata">
-                                    <source src="/videos/camp-video-8.mp4" type="video/mp4">
+                                    <source src="/videos/camp-demo-4.mp4" type="video/mp4">
                                 </video>
                                 <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                                     <i class="fas fa-play-circle text-white text-6xl animate-pulse"></i>
@@ -12379,7 +12587,7 @@ app.get('/summer-camp', (c) => {
                                     class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                                     controls
                                     preload="metadata">
-                                    <source src="/videos/camp-video-9.mp4" type="video/mp4">
+                                    <source src="/videos/camp-demo-1.mp4" type="video/mp4">
                                 </video>
                                 <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                                     <i class="fas fa-play-circle text-white text-6xl animate-pulse"></i>
@@ -12399,7 +12607,7 @@ app.get('/summer-camp', (c) => {
                                     class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                                     controls
                                     preload="metadata">
-                                    <source src="/videos/camp-video-10.mp4" type="video/mp4">
+                                    <source src="/videos/camp-demo-2.mp4" type="video/mp4">
                                 </video>
                                 <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                                     <i class="fas fa-play-circle text-white text-6xl animate-pulse"></i>
@@ -12419,7 +12627,7 @@ app.get('/summer-camp', (c) => {
                                     class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                                     controls
                                     preload="metadata">
-                                    <source src="/videos/camp-video-11.mp4" type="video/mp4">
+                                    <source src="/videos/camp-demo-3.mp4" type="video/mp4">
                                 </video>
                                 <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                                     <i class="fas fa-play-circle text-white text-6xl animate-pulse"></i>
