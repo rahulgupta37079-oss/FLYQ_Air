@@ -22,6 +22,7 @@ import customerOrdersRouter from './customer-orders'
 import customerProfileRouter from './customer-profile'
 import customerCurriculumRouter from './customer-curriculum'
 import invoiceRouter from './invoice-generator'
+import summerCampRouter from './summer-camp-api'
 
 const app = new Hono()
 
@@ -10908,6 +10909,9 @@ app.route('/admin/orders', ordersRouter)
 // app.route('/admin/shipping', analyticsShippingRouter)
 // app.route('/admin', adminBulkImportUI)
 
+// Summer Camp API
+app.route('/api/summer-camp', summerCampRouter)
+
 // Customer Account System
 app.route('/', customerAccountRouter)
 app.route('/', customerOrdersRouter)
@@ -12464,6 +12468,279 @@ app.get('/summer-camp', (c) => {
             </div>
         </section>
 
+        <!-- Registration Form Section -->
+        <section id="register" class="py-16 md:py-24 relative overflow-hidden">
+            <!-- Background with Drone Images -->
+            <div class="absolute inset-0 z-0">
+                <div class="absolute inset-0 bg-gradient-to-br from-black via-gray-900 to-blue-950 opacity-95"></div>
+                <div class="absolute top-0 left-0 w-full h-full opacity-5" style="background-image: url('https://www.genspark.ai/api/files/s/ytW7gCVk'); background-size: cover; background-position: center; background-repeat: no-repeat;"></div>
+                <div class="absolute bottom-0 right-0 w-1/2 h-1/2 opacity-5" style="background-image: url('https://www.genspark.ai/api/files/s/zIzs5T6G'); background-size: cover; background-position: center; background-repeat: no-repeat;"></div>
+            </div>
+            
+            <div class="container mx-auto px-4 md:px-6 relative z-10">
+                <div class="max-w-4xl mx-auto">
+                    <!-- Form Header -->
+                    <div class="text-center mb-10 md:mb-14">
+                        <div class="inline-block bg-gradient-to-r from-blue-500 to-cyan-400 text-white px-6 py-3 rounded-full text-sm md:text-base font-bold uppercase tracking-wider shadow-lg mb-6">
+                            <i class="fas fa-edit mr-2"></i>Register Now
+                        </div>
+                        <h2 class="text-3xl md:text-4xl lg:text-5xl font-black mb-4">
+                            <span class="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">Secure Your Seat</span>
+                        </h2>
+                        <p class="text-lg md:text-xl text-gray-300">Fill out the form below to register for the Summer Drone Camp 2026</p>
+                    </div>
+                    
+                    <!-- Registration Form -->
+                    <div class="bg-gradient-to-br from-gray-900/90 to-gray-800/90 backdrop-blur-xl rounded-3xl shadow-2xl border-2 border-blue-400/30 p-6 md:p-10">
+                        <form id="summer-camp-registration-form" class="space-y-6">
+                            <!-- Student Information -->
+                            <div class="border-b border-gray-700 pb-6">
+                                <h3 class="text-xl md:text-2xl font-bold text-white mb-6 flex items-center">
+                                    <i class="fas fa-user-graduate text-blue-400 mr-3"></i>
+                                    Student Information
+                                </h3>
+                                
+                                <div class="grid sm:grid-cols-2 gap-5">
+                                    <div>
+                                        <label class="block text-gray-300 font-semibold mb-2">Student Name *</label>
+                                        <input type="text" name="student_name" required 
+                                            class="w-full px-4 py-3 bg-gray-800/50 border-2 border-gray-700 rounded-xl text-white placeholder-gray-500 focus:border-blue-400 focus:ring-2 focus:ring-blue-400/50 focus:outline-none transition-all"
+                                            placeholder="Enter student's full name">
+                                    </div>
+                                    
+                                    <div>
+                                        <label class="block text-gray-300 font-semibold mb-2">Age *</label>
+                                        <input type="number" name="age" required min="8" max="18"
+                                            class="w-full px-4 py-3 bg-gray-800/50 border-2 border-gray-700 rounded-xl text-white placeholder-gray-500 focus:border-blue-400 focus:ring-2 focus:ring-blue-400/50 focus:outline-none transition-all"
+                                            placeholder="Age (8-18)">
+                                    </div>
+                                    
+                                    <div>
+                                        <label class="block text-gray-300 font-semibold mb-2">Email *</label>
+                                        <input type="email" name="email" required
+                                            class="w-full px-4 py-3 bg-gray-800/50 border-2 border-gray-700 rounded-xl text-white placeholder-gray-500 focus:border-blue-400 focus:ring-2 focus:ring-blue-400/50 focus:outline-none transition-all"
+                                            placeholder="student@example.com">
+                                    </div>
+                                    
+                                    <div>
+                                        <label class="block text-gray-300 font-semibold mb-2">Phone *</label>
+                                        <input type="tel" name="phone" required pattern="[0-9]{10}"
+                                            class="w-full px-4 py-3 bg-gray-800/50 border-2 border-gray-700 rounded-xl text-white placeholder-gray-500 focus:border-blue-400 focus:ring-2 focus:ring-blue-400/50 focus:outline-none transition-all"
+                                            placeholder="10-digit mobile number">
+                                    </div>
+                                    
+                                    <div class="sm:col-span-2">
+                                        <label class="block text-gray-300 font-semibold mb-2">School Name</label>
+                                        <input type="text" name="school_name"
+                                            class="w-full px-4 py-3 bg-gray-800/50 border-2 border-gray-700 rounded-xl text-white placeholder-gray-500 focus:border-blue-400 focus:ring-2 focus:ring-blue-400/50 focus:outline-none transition-all"
+                                            placeholder="Enter school name (optional)">
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Parent/Guardian Information -->
+                            <div class="border-b border-gray-700 pb-6">
+                                <h3 class="text-xl md:text-2xl font-bold text-white mb-6 flex items-center">
+                                    <i class="fas fa-users text-green-400 mr-3"></i>
+                                    Parent/Guardian Information
+                                </h3>
+                                
+                                <div class="grid sm:grid-cols-2 gap-5">
+                                    <div>
+                                        <label class="block text-gray-300 font-semibold mb-2">Parent Name *</label>
+                                        <input type="text" name="parent_name" required
+                                            class="w-full px-4 py-3 bg-gray-800/50 border-2 border-gray-700 rounded-xl text-white placeholder-gray-500 focus:border-blue-400 focus:ring-2 focus:ring-blue-400/50 focus:outline-none transition-all"
+                                            placeholder="Enter parent/guardian name">
+                                    </div>
+                                    
+                                    <div>
+                                        <label class="block text-gray-300 font-semibold mb-2">Parent Phone *</label>
+                                        <input type="tel" name="parent_phone" required pattern="[0-9]{10}"
+                                            class="w-full px-4 py-3 bg-gray-800/50 border-2 border-gray-700 rounded-xl text-white placeholder-gray-500 focus:border-blue-400 focus:ring-2 focus:ring-blue-400/50 focus:outline-none transition-all"
+                                            placeholder="10-digit mobile number">
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Location & Preferences -->
+                            <div class="border-b border-gray-700 pb-6">
+                                <h3 class="text-xl md:text-2xl font-bold text-white mb-6 flex items-center">
+                                    <i class="fas fa-map-marker-alt text-red-400 mr-3"></i>
+                                    Location & Preferences
+                                </h3>
+                                
+                                <div class="grid sm:grid-cols-2 gap-5">
+                                    <div>
+                                        <label class="block text-gray-300 font-semibold mb-2">City *</label>
+                                        <select name="city" required
+                                            class="w-full px-4 py-3 bg-gray-800/50 border-2 border-gray-700 rounded-xl text-white focus:border-blue-400 focus:ring-2 focus:ring-blue-400/50 focus:outline-none transition-all">
+                                            <option value="">Select City</option>
+                                            <option value="Mumbai">Mumbai</option>
+                                            <option value="Navi Mumbai">Navi Mumbai</option>
+                                            <option value="Bangalore">Bangalore</option>
+                                            <option value="Gujarat">Gujarat</option>
+                                            <option value="Delhi">Delhi</option>
+                                            <option value="Hyderabad">Hyderabad</option>
+                                            <option value="Chennai">Chennai</option>
+                                            <option value="Other">Other</option>
+                                        </select>
+                                    </div>
+                                    
+                                    <div>
+                                        <label class="block text-gray-300 font-semibold mb-2">Batch Preference</label>
+                                        <select name="batch_preference"
+                                            class="w-full px-4 py-3 bg-gray-800/50 border-2 border-gray-700 rounded-xl text-white focus:border-blue-400 focus:ring-2 focus:ring-blue-400/50 focus:outline-none transition-all">
+                                            <option value="Any">Any Batch</option>
+                                            <option value="Batch 1 - June">Batch 1 - June 2026</option>
+                                            <option value="Batch 2 - July">Batch 2 - July 2026</option>
+                                            <option value="Batch 3 - August">Batch 3 - August 2026</option>
+                                        </select>
+                                    </div>
+                                    
+                                    <div class="sm:col-span-2">
+                                        <label class="block text-gray-300 font-semibold mb-2">Previous Drone Experience</label>
+                                        <select name="previous_experience"
+                                            class="w-full px-4 py-3 bg-gray-800/50 border-2 border-gray-700 rounded-xl text-white focus:border-blue-400 focus:ring-2 focus:ring-blue-400/50 focus:outline-none transition-all">
+                                            <option value="none">No Experience</option>
+                                            <option value="basic">Basic (Toy Drones)</option>
+                                            <option value="intermediate">Intermediate</option>
+                                            <option value="advanced">Advanced</option>
+                                        </select>
+                                    </div>
+                                    
+                                    <div class="sm:col-span-2">
+                                        <label class="block text-gray-300 font-semibold mb-2">Special Requirements / Dietary Restrictions</label>
+                                        <textarea name="special_requirements" rows="3"
+                                            class="w-full px-4 py-3 bg-gray-800/50 border-2 border-gray-700 rounded-xl text-white placeholder-gray-500 focus:border-blue-400 focus:ring-2 focus:ring-blue-400/50 focus:outline-none transition-all resize-none"
+                                            placeholder="Any allergies, medical conditions, or special requirements (optional)"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Submit Button -->
+                            <div class="pt-4">
+                                <button type="submit" id="submit-registration"
+                                    class="w-full bg-gradient-to-r from-blue-500 to-cyan-400 text-white px-8 py-5 rounded-xl text-lg md:text-xl font-bold hover:scale-105 transition-all duration-300 shadow-2xl hover:shadow-blue-500/50 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100">
+                                    <i class="fas fa-paper-plane mr-2"></i>
+                                    <span id="submit-text">Submit Registration</span>
+                                </button>
+                                
+                                <!-- Success/Error Messages -->
+                                <div id="form-message" class="mt-5 hidden"></div>
+                            </div>
+                            
+                            <!-- Privacy Notice -->
+                            <div class="pt-4 border-t border-gray-700">
+                                <p class="text-sm text-gray-400 text-center">
+                                    <i class="fas fa-lock mr-1"></i>
+                                    Your information is secure and will only be used for camp registration purposes.
+                                    By submitting this form, you agree to our <a href="/privacy" class="text-blue-400 hover:underline">Privacy Policy</a>.
+                                </p>
+                            </div>
+                        </form>
+                    </div>
+                    
+                    <!-- Registration Benefits Reminder -->
+                    <div class="grid sm:grid-cols-3 gap-4 md:gap-6 mt-10">
+                        <div class="bg-gradient-to-br from-blue-500/20 to-blue-600/20 backdrop-blur-lg p-5 md:p-6 rounded-2xl border border-blue-400/30 text-center">
+                            <i class="fas fa-clock text-blue-400 text-3xl md:text-4xl mb-3"></i>
+                            <h4 class="text-base md:text-lg font-bold text-white mb-2">Quick Confirmation</h4>
+                            <p class="text-sm md:text-base text-gray-300">Get instant registration confirmation</p>
+                        </div>
+                        <div class="bg-gradient-to-br from-green-500/20 to-green-600/20 backdrop-blur-lg p-5 md:p-6 rounded-2xl border border-green-400/30 text-center">
+                            <i class="fas fa-headset text-green-400 text-3xl md:text-4xl mb-3"></i>
+                            <h4 class="text-base md:text-lg font-bold text-white mb-2">Dedicated Support</h4>
+                            <p class="text-sm md:text-base text-gray-300">We'll contact you within 24 hours</p>
+                        </div>
+                        <div class="bg-gradient-to-br from-purple-500/20 to-purple-600/20 backdrop-blur-lg p-5 md:p-6 rounded-2xl border border-purple-400/30 text-center">
+                            <i class="fas fa-gift text-purple-400 text-3xl md:text-4xl mb-3"></i>
+                            <h4 class="text-base md:text-lg font-bold text-white mb-2">Early Bird Bonus</h4>
+                            <p class="text-sm md:text-base text-gray-300">Register early for special perks</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Form Submission Script -->
+        <script>
+            document.getElementById('summer-camp-registration-form').addEventListener('submit', async function(e) {
+                e.preventDefault();
+                
+                const submitButton = document.getElementById('submit-registration');
+                const submitText = document.getElementById('submit-text');
+                const messageDiv = document.getElementById('form-message');
+                
+                // Disable submit button
+                submitButton.disabled = true;
+                submitText.textContent = 'Submitting...';
+                
+                // Get form data
+                const formData = new FormData(this);
+                const data = Object.fromEntries(formData);
+                
+                try {
+                    const response = await fetch('/api/summer-camp/register', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(data)
+                    });
+                    
+                    const result = await response.json();
+                    
+                    if (response.ok && result.success) {
+                        // Success message
+                        messageDiv.innerHTML = \`
+                            <div class="bg-green-500/20 border-2 border-green-400 rounded-xl p-5 text-center">
+                                <i class="fas fa-check-circle text-green-400 text-4xl mb-3"></i>
+                                <h4 class="text-xl font-bold text-white mb-2">Registration Successful!</h4>
+                                <p class="text-gray-300 mb-4">\${result.message}</p>
+                                <p class="text-sm text-gray-400">Registration ID: #\${result.registration_id}</p>
+                                <p class="text-sm text-gray-400 mt-2">Check your email for confirmation details.</p>
+                            </div>
+                        \`;
+                        messageDiv.classList.remove('hidden');
+                        
+                        // Reset form
+                        this.reset();
+                        
+                        // Scroll to message
+                        messageDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        
+                        // Reset button after delay
+                        setTimeout(() => {
+                            submitButton.disabled = false;
+                            submitText.textContent = 'Submit Registration';
+                        }, 3000);
+                        
+                    } else {
+                        throw new Error(result.error || 'Registration failed');
+                    }
+                    
+                } catch (error) {
+                    // Error message
+                    messageDiv.innerHTML = \`
+                        <div class="bg-red-500/20 border-2 border-red-400 rounded-xl p-5 text-center">
+                            <i class="fas fa-exclamation-triangle text-red-400 text-4xl mb-3"></i>
+                            <h4 class="text-xl font-bold text-white mb-2">Registration Failed</h4>
+                            <p class="text-gray-300">\${error.message}</p>
+                            <p class="text-sm text-gray-400 mt-2">Please try again or contact us directly.</p>
+                        </div>
+                    \`;
+                    messageDiv.classList.remove('hidden');
+                    
+                    // Re-enable button
+                    submitButton.disabled = false;
+                    submitText.textContent = 'Submit Registration';
+                    
+                    // Scroll to message
+                    messageDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+            });
+        </script>
+
         <!-- Contact Section -->
         <section class="py-16 md:py-24 bg-black">
             <div class="container mx-auto px-4 md:px-6">
@@ -12727,6 +13004,371 @@ app.get('/privacy', (c) => {
   `;
 
   return c.html(renderPage('Privacy Policy', content));
+});
+
+// Summer Camp Admin - View Registrations
+app.get('/admin/summer-camp-registrations', async (c) => {
+  // Simple auth check - you should implement proper admin authentication
+  const isAdmin = true; // TODO: Implement proper admin check
+  
+  if (!isAdmin) {
+    return c.redirect('/login');
+  }
+  
+  const content = `
+    <div class="pt-32 pb-20 bg-gray-50 min-h-screen">
+        <div class="container mx-auto px-4 md:px-6">
+            <div class="max-w-7xl mx-auto">
+                <div class="flex items-center justify-between mb-8">
+                    <div>
+                        <h1 class="text-3xl md:text-4xl font-black mb-2">Summer Camp <span class="gradient-text">Registrations</span></h1>
+                        <p class="text-gray-600">View and manage all summer camp registrations</p>
+                    </div>
+                    <button onclick="loadStats()" class="bg-gradient-to-r from-blue-500 to-cyan-400 text-white px-6 py-3 rounded-xl font-bold hover:scale-105 transition-all">
+                        <i class="fas fa-sync-alt mr-2"></i>Refresh
+                    </button>
+                </div>
+                
+                <!-- Stats Cards -->
+                <div id="stats-cards" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                    <div class="bg-white rounded-2xl shadow-lg p-6 border-2 border-blue-100">
+                        <div class="flex items-center justify-between mb-4">
+                            <i class="fas fa-users text-blue-500 text-3xl"></i>
+                            <span class="bg-blue-100 text-blue-600 px-3 py-1 rounded-full text-sm font-bold">Total</span>
+                        </div>
+                        <h3 class="text-3xl font-black text-gray-800 mb-1" id="total-count">0</h3>
+                        <p class="text-gray-600 text-sm">Total Registrations</p>
+                    </div>
+                    
+                    <div class="bg-white rounded-2xl shadow-lg p-6 border-2 border-yellow-100">
+                        <div class="flex items-center justify-between mb-4">
+                            <i class="fas fa-clock text-yellow-500 text-3xl"></i>
+                            <span class="bg-yellow-100 text-yellow-600 px-3 py-1 rounded-full text-sm font-bold">Pending</span>
+                        </div>
+                        <h3 class="text-3xl font-black text-gray-800 mb-1" id="pending-count">0</h3>
+                        <p class="text-gray-600 text-sm">Pending Review</p>
+                    </div>
+                    
+                    <div class="bg-white rounded-2xl shadow-lg p-6 border-2 border-green-100">
+                        <div class="flex items-center justify-between mb-4">
+                            <i class="fas fa-check-circle text-green-500 text-3xl"></i>
+                            <span class="bg-green-100 text-green-600 px-3 py-1 rounded-full text-sm font-bold">Confirmed</span>
+                        </div>
+                        <h3 class="text-3xl font-black text-gray-800 mb-1" id="confirmed-count">0</h3>
+                        <p class="text-gray-600 text-sm">Confirmed</p>
+                    </div>
+                    
+                    <div class="bg-white rounded-2xl shadow-lg p-6 border-2 border-red-100">
+                        <div class="flex items-center justify-between mb-4">
+                            <i class="fas fa-times-circle text-red-500 text-3xl"></i>
+                            <span class="bg-red-100 text-red-600 px-3 py-1 rounded-full text-sm font-bold">Cancelled</span>
+                        </div>
+                        <h3 class="text-3xl font-black text-gray-800 mb-1" id="cancelled-count">0</h3>
+                        <p class="text-gray-600 text-sm">Cancelled</p>
+                    </div>
+                </div>
+                
+                <!-- Filters -->
+                <div class="bg-white rounded-2xl shadow-lg p-6 mb-8">
+                    <h3 class="text-xl font-bold mb-4">Filters</h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                        <div>
+                            <label class="block text-gray-700 font-semibold mb-2">Status</label>
+                            <select id="filter-status" onchange="loadRegistrations()" class="w-full px-4 py-2 border-2 border-gray-300 rounded-xl focus:border-blue-500 focus:outline-none">
+                                <option value="">All Status</option>
+                                <option value="pending">Pending</option>
+                                <option value="confirmed">Confirmed</option>
+                                <option value="cancelled">Cancelled</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-gray-700 font-semibold mb-2">City</label>
+                            <select id="filter-city" onchange="loadRegistrations()" class="w-full px-4 py-2 border-2 border-gray-300 rounded-xl focus:border-blue-500 focus:outline-none">
+                                <option value="">All Cities</option>
+                                <option value="Mumbai">Mumbai</option>
+                                <option value="Navi Mumbai">Navi Mumbai</option>
+                                <option value="Bangalore">Bangalore</option>
+                                <option value="Gujarat">Gujarat</option>
+                                <option value="Delhi">Delhi</option>
+                                <option value="Hyderabad">Hyderabad</option>
+                                <option value="Chennai">Chennai</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-gray-700 font-semibold mb-2">Search</label>
+                            <input type="text" id="search-input" placeholder="Search by name or email..." 
+                                class="w-full px-4 py-2 border-2 border-gray-300 rounded-xl focus:border-blue-500 focus:outline-none">
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Registrations Table -->
+                <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
+                    <div class="overflow-x-auto">
+                        <table class="w-full">
+                            <thead class="bg-gradient-to-r from-blue-500 to-cyan-400 text-white">
+                                <tr>
+                                    <th class="px-6 py-4 text-left font-bold">ID</th>
+                                    <th class="px-6 py-4 text-left font-bold">Student Name</th>
+                                    <th class="px-6 py-4 text-left font-bold">Age</th>
+                                    <th class="px-6 py-4 text-left font-bold">Email</th>
+                                    <th class="px-6 py-4 text-left font-bold">Phone</th>
+                                    <th class="px-6 py-4 text-left font-bold">City</th>
+                                    <th class="px-6 py-4 text-left font-bold">Status</th>
+                                    <th class="px-6 py-4 text-left font-bold">Date</th>
+                                    <th class="px-6 py-4 text-left font-bold">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="registrations-table-body" class="divide-y divide-gray-200">
+                                <tr>
+                                    <td colspan="9" class="px-6 py-12 text-center text-gray-500">
+                                        <i class="fas fa-spinner fa-spin text-3xl mb-3"></i>
+                                        <p>Loading registrations...</p>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <!-- Pagination -->
+                    <div id="pagination" class="border-t border-gray-200 px-6 py-4 flex items-center justify-between">
+                        <div class="text-gray-600">
+                            Showing <span id="showing-count">0</span> of <span id="total-registrations">0</span> registrations
+                        </div>
+                        <div class="flex gap-2">
+                            <button onclick="previousPage()" id="prev-btn" disabled 
+                                class="px-4 py-2 bg-gray-200 text-gray-600 rounded-lg font-semibold disabled:opacity-50 hover:bg-gray-300 transition-colors">
+                                Previous
+                            </button>
+                            <button onclick="nextPage()" id="next-btn" disabled
+                                class="px-4 py-2 bg-blue-500 text-white rounded-lg font-semibold disabled:opacity-50 hover:bg-blue-600 transition-colors">
+                                Next
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        let currentPage = 0;
+        const pageSize = 20;
+        let totalRecords = 0;
+        
+        // Load statistics
+        async function loadStats() {
+            try {
+                const response = await fetch('/api/summer-camp/stats', {
+                    headers: {
+                        'Authorization': 'Bearer admin-secret-key-2026'
+                    }
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    document.getElementById('total-count').textContent = data.stats.total;
+                    
+                    const statusCounts = {pending: 0, confirmed: 0, cancelled: 0};
+                    data.stats.by_status.forEach(item => {
+                        statusCounts[item.status] = item.count;
+                    });
+                    
+                    document.getElementById('pending-count').textContent = statusCounts.pending;
+                    document.getElementById('confirmed-count').textContent = statusCounts.confirmed;
+                    document.getElementById('cancelled-count').textContent = statusCounts.cancelled;
+                }
+            } catch (error) {
+                console.error('Error loading stats:', error);
+            }
+        }
+        
+        // Load registrations
+        async function loadRegistrations() {
+            const status = document.getElementById('filter-status').value;
+            const city = document.getElementById('filter-city').value;
+            
+            const params = new URLSearchParams({
+                limit: pageSize,
+                offset: currentPage * pageSize
+            });
+            
+            if (status) params.append('status', status);
+            if (city) params.append('city', city);
+            
+            try {
+                const response = await fetch('/api/summer-camp/registrations?' + params, {
+                    headers: {
+                        'Authorization': 'Bearer admin-secret-key-2026'
+                    }
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    totalRecords = data.total;
+                    renderTable(data.registrations);
+                    updatePagination();
+                }
+            } catch (error) {
+                console.error('Error loading registrations:', error);
+                document.getElementById('registrations-table-body').innerHTML = \`
+                    <tr>
+                        <td colspan="9" class="px-6 py-12 text-center text-red-500">
+                            <i class="fas fa-exclamation-triangle text-3xl mb-3"></i>
+                            <p>Error loading registrations</p>
+                        </td>
+                    </tr>
+                \`;
+            }
+        }
+        
+        // Render table
+        function renderTable(registrations) {
+            const tbody = document.getElementById('registrations-table-body');
+            
+            if (!registrations || registrations.length === 0) {
+                tbody.innerHTML = \`
+                    <tr>
+                        <td colspan="9" class="px-6 py-12 text-center text-gray-500">
+                            <i class="fas fa-inbox text-3xl mb-3"></i>
+                            <p>No registrations found</p>
+                        </td>
+                    </tr>
+                \`;
+                return;
+            }
+            
+            tbody.innerHTML = registrations.map(reg => \`
+                <tr class="hover:bg-gray-50 transition-colors">
+                    <td class="px-6 py-4 font-mono text-sm">#\${reg.id}</td>
+                    <td class="px-6 py-4">
+                        <div class="font-semibold text-gray-800">\${reg.student_name}</div>
+                        <div class="text-sm text-gray-500">Parent: \${reg.parent_name}</div>
+                    </td>
+                    <td class="px-6 py-4 text-gray-600">\${reg.age}</td>
+                    <td class="px-6 py-4">
+                        <div class="text-sm text-gray-600">\${reg.email}</div>
+                    </td>
+                    <td class="px-6 py-4">
+                        <div class="text-sm text-gray-600">\${reg.phone}</div>
+                        <div class="text-xs text-gray-500">\${reg.parent_phone}</div>
+                    </td>
+                    <td class="px-6 py-4">
+                        <span class="bg-blue-100 text-blue-600 px-3 py-1 rounded-full text-xs font-bold">\${reg.city}</span>
+                    </td>
+                    <td class="px-6 py-4">
+                        \${getStatusBadge(reg.status)}
+                    </td>
+                    <td class="px-6 py-4 text-sm text-gray-600">
+                        \${new Date(reg.created_at).toLocaleDateString()}
+                    </td>
+                    <td class="px-6 py-4">
+                        <button onclick="viewDetails(\${reg.id})" class="text-blue-500 hover:text-blue-700 mr-2" title="View Details">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                        <button onclick="updateStatus(\${reg.id}, 'confirmed')" class="text-green-500 hover:text-green-700 mr-2" title="Confirm">
+                            <i class="fas fa-check"></i>
+                        </button>
+                        <button onclick="updateStatus(\${reg.id}, 'cancelled')" class="text-red-500 hover:text-red-700" title="Cancel">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </td>
+                </tr>
+            \`).join('');
+        }
+        
+        function getStatusBadge(status) {
+            const badges = {
+                'pending': '<span class="bg-yellow-100 text-yellow-600 px-3 py-1 rounded-full text-xs font-bold">Pending</span>',
+                'confirmed': '<span class="bg-green-100 text-green-600 px-3 py-1 rounded-full text-xs font-bold">Confirmed</span>',
+                'cancelled': '<span class="bg-red-100 text-red-600 px-3 py-1 rounded-full text-xs font-bold">Cancelled</span>'
+            };
+            return badges[status] || status;
+        }
+        
+        function updatePagination() {
+            const start = currentPage * pageSize + 1;
+            const end = Math.min((currentPage + 1) * pageSize, totalRecords);
+            
+            document.getElementById('showing-count').textContent = totalRecords > 0 ? \`\${start}-\${end}\` : '0';
+            document.getElementById('total-registrations').textContent = totalRecords;
+            
+            document.getElementById('prev-btn').disabled = currentPage === 0;
+            document.getElementById('next-btn').disabled = end >= totalRecords;
+        }
+        
+        function previousPage() {
+            if (currentPage > 0) {
+                currentPage--;
+                loadRegistrations();
+            }
+        }
+        
+        function nextPage() {
+            if ((currentPage + 1) * pageSize < totalRecords) {
+                currentPage++;
+                loadRegistrations();
+            }
+        }
+        
+        async function updateStatus(id, status) {
+            if (!confirm(\`Are you sure you want to mark this registration as \${status}?\`)) return;
+            
+            try {
+                const response = await fetch(\`/api/summer-camp/registration/\${id}/status\`, {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': 'Bearer admin-secret-key-2026',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ status })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    alert('Status updated successfully!');
+                    loadStats();
+                    loadRegistrations();
+                } else {
+                    alert('Failed to update status');
+                }
+            } catch (error) {
+                console.error('Error updating status:', error);
+                alert('Error updating status');
+            }
+        }
+        
+        function viewDetails(id) {
+            // TODO: Implement details modal
+            alert(\`View details for registration #\${id}\`);
+        }
+        
+        // Search functionality
+        let searchTimeout;
+        document.getElementById('search-input').addEventListener('input', function(e) {
+            clearTimeout(searchTimeout);
+            searchTimeout = setTimeout(() => {
+                currentPage = 0;
+                loadRegistrations();
+            }, 500);
+        });
+        
+        // Initial load
+        loadStats();
+        loadRegistrations();
+        
+        // Auto-refresh every 30 seconds
+        setInterval(() => {
+            loadStats();
+            loadRegistrations();
+        }, 30000);
+    </script>
+  `;
+  
+  return c.html(renderPage('Summer Camp Registrations - Admin', content, false));
 });
 
 export default app
