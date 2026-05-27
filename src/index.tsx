@@ -12639,6 +12639,55 @@ app.get('/summer-camp', (c) => {
                                 </h3>
                             </div>
                         </div>
+
+                        <!-- YouTube Video 1 - FLYQ Professional Demo -->
+                        <div class="group relative bg-gradient-to-br from-red-500/10 to-rose-400/10 backdrop-blur-lg rounded-2xl overflow-hidden border-2 border-red-400/30 hover:border-red-400 transition-all duration-500 hover:scale-[1.03] hover:shadow-2xl hover:shadow-red-500/30">
+                            <div class="aspect-video bg-gray-900 relative overflow-hidden">
+                                <iframe 
+                                    class="w-full h-full"
+                                    src="https://www.youtube.com/embed/3Q8UWRen77I?rel=0&modestbranding=1"
+                                    title="FLYQ Drone Professional Demo"
+                                    frameborder="0"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                    allowfullscreen>
+                                </iframe>
+                            </div>
+                            <div class="p-4 bg-gradient-to-r from-red-500/20 to-rose-500/20">
+                                <h3 class="text-lg font-bold text-white group-hover:text-red-400 transition-colors">
+                                    <i class="fab fa-youtube mr-2"></i>Professional Showcase
+                                </h3>
+                                <p class="text-sm text-gray-400 mt-1">FLYQ official demonstration</p>
+                            </div>
+                        </div>
+
+                        <!-- YouTube Video 2 - Drone Training -->
+                        <div class="group relative bg-gradient-to-br from-orange-500/10 to-yellow-400/10 backdrop-blur-lg rounded-2xl overflow-hidden border-2 border-orange-400/30 hover:border-orange-400 transition-all duration-500 hover:scale-[1.03] hover:shadow-2xl hover:shadow-orange-500/30">
+                            <div class="aspect-video bg-gray-900 relative overflow-hidden">
+                                <iframe 
+                                    class="w-full h-full"
+                                    src="https://www.youtube.com/embed/l4ecluV8FBE?rel=0&modestbranding=1"
+                                    title="FLYQ Drone Training Session"
+                                    frameborder="0"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                    allowfullscreen>
+                                </iframe>
+                            </div>
+                            <div class="p-4 bg-gradient-to-r from-orange-500/20 to-yellow-500/20">
+                                <h3 class="text-lg font-bold text-white group-hover:text-orange-400 transition-colors">
+                                    <i class="fab fa-youtube mr-2"></i>Training Highlights
+                                </h3>
+                                <p class="text-sm text-gray-400 mt-1">Watch our expert training</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- YouTube Channel CTA -->
+                    <div class="mt-10 text-center">
+                        <a href="https://www.youtube.com/@FLYQDrones" target="_blank" class="inline-flex items-center gap-3 bg-gradient-to-r from-red-500 to-rose-500 text-white px-8 py-4 rounded-full text-lg font-bold hover:scale-105 transition-all duration-300 shadow-2xl hover:shadow-red-500/50">
+                            <i class="fab fa-youtube text-2xl"></i>
+                            <span>Watch More on YouTube</span>
+                            <i class="fas fa-external-link-alt"></i>
+                        </a>
                     </div>
                 </div>
             </div>
