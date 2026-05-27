@@ -12065,7 +12065,7 @@ app.get('/summer-camp', (c) => {
                     <!-- Badge -->
                     <div class="inline-block mb-6 md:mb-8">
                         <span class="bg-gradient-to-r from-blue-500 to-cyan-400 text-white px-6 py-3 rounded-full text-sm md:text-base font-bold uppercase tracking-wider shadow-lg">
-                            <i class="fas fa-calendar-alt mr-2"></i>Summer 2026 - Registration Open
+                            <i class="fas fa-calendar-alt mr-2"></i>Summer 2026 - Offline In-Person Camp
                         </span>
                     </div>
                     
@@ -12106,7 +12106,11 @@ app.get('/summer-camp', (c) => {
                         <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-6 md:mb-8">
                             <i class="fas fa-graduation-cap mr-3"></i>3-Day Hands-On Drone Workshop
                         </h2>
-                        <p class="text-lg md:text-xl text-blue-100 mb-6 md:mb-8 font-semibold">For Students Age 8+</p>
+                        <p class="text-lg md:text-xl text-blue-100 mb-4 font-semibold">For Students Age 8 and Above (No Upper Limit)</p>
+                        <p class="text-base md:text-lg text-cyan-200 mb-6 md:mb-8">
+                            <i class="fas fa-map-marker-alt mr-2"></i>
+                            <span class="font-bold">Offline / In-Person Workshop</span> - Physical Hands-on Training at Your City
+                        </p>
                         
                         <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 text-left">
                             <div class="bg-white/10 backdrop-blur-sm p-4 md:p-5 rounded-xl border border-white/20">
@@ -12177,6 +12181,134 @@ app.get('/summer-camp', (c) => {
                                 <p class="text-sm md:text-base text-gray-400">Demonstrated at NCR ISRO technology events</p>
                             </div>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Videos Section -->
+        <section class="py-16 md:py-24 bg-black">
+            <div class="container mx-auto px-4 md:px-6">
+                <div class="max-w-6xl mx-auto">
+                    <div class="text-center mb-12 md:mb-16">
+                        <h2 class="text-3xl md:text-4xl lg:text-5xl font-black mb-6">
+                            Watch Our <span class="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">Drones in Action</span>
+                        </h2>
+                        <p class="text-lg md:text-xl text-gray-400">See what students will learn and experience at the camp</p>
+                    </div>
+                    
+                    <div class="grid sm:grid-cols-2 gap-6 md:gap-8">
+                        <!-- Video 1 - FLYQ Drone Demo -->
+                        <div class="bg-gradient-to-br from-blue-500/10 to-cyan-400/10 backdrop-blur-lg rounded-3xl overflow-hidden border-2 border-blue-400/30 shadow-2xl hover:border-blue-400/60 transition-all duration-300 hover:scale-105">
+                            <div class="aspect-video bg-gray-900 relative group">
+                                <video 
+                                    class="w-full h-full object-cover"
+                                    controls
+                                    poster="https://www.genspark.ai/api/files/s/ytW7gCVk"
+                                    preload="metadata">
+                                    <source src="/videos/flyq-demo.mp4" type="video/mp4">
+                                    Your browser does not support the video tag.
+                                </video>
+                                <div class="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-all duration-300 flex items-center justify-center pointer-events-none">
+                                    <div class="text-white text-center">
+                                        <i class="fas fa-play-circle text-5xl md:text-6xl mb-3 opacity-80 group-hover:opacity-100 transition-opacity"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="p-6">
+                                <h3 class="text-xl md:text-2xl font-bold text-white mb-3">
+                                    <i class="fas fa-drone text-blue-400 mr-2"></i>
+                                    FLYQ Drone Flight Demo
+                                </h3>
+                                <p class="text-gray-400">Watch our professional drones in action - The same drones students will learn to fly!</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Video 2 - Workshop Highlights -->
+                        <div class="bg-gradient-to-br from-cyan-500/10 to-blue-400/10 backdrop-blur-lg rounded-3xl overflow-hidden border-2 border-cyan-400/30 shadow-2xl hover:border-cyan-400/60 transition-all duration-300 hover:scale-105">
+                            <div class="aspect-video bg-gray-900 relative group">
+                                <video 
+                                    class="w-full h-full object-cover"
+                                    controls
+                                    poster="https://www.genspark.ai/api/files/s/zIzs5T6G"
+                                    preload="metadata">
+                                    <source src="/videos/workshop-highlights.mp4" type="video/mp4">
+                                    Your browser does not support the video tag.
+                                </video>
+                                <div class="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-all duration-300 flex items-center justify-center pointer-events-none">
+                                    <div class="text-white text-center">
+                                        <i class="fas fa-play-circle text-5xl md:text-6xl mb-3 opacity-80 group-hover:opacity-100 transition-opacity"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="p-6">
+                                <h3 class="text-xl md:text-2xl font-bold text-white mb-3">
+                                    <i class="fas fa-graduation-cap text-cyan-400 mr-2"></i>
+                                    Previous Workshop Highlights
+                                </h3>
+                                <p class="text-gray-400">See students learning, building, and flying drones in our past camps!</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Video 3 - Student Testimonials -->
+                        <div class="bg-gradient-to-br from-green-500/10 to-emerald-400/10 backdrop-blur-lg rounded-3xl overflow-hidden border-2 border-green-400/30 shadow-2xl hover:border-green-400/60 transition-all duration-300 hover:scale-105">
+                            <div class="aspect-video bg-gray-900 relative group">
+                                <video 
+                                    class="w-full h-full object-cover"
+                                    controls
+                                    poster="https://www.genspark.ai/api/files/s/ytW7gCVk"
+                                    preload="metadata">
+                                    <source src="/videos/student-testimonials.mp4" type="video/mp4">
+                                    Your browser does not support the video tag.
+                                </video>
+                                <div class="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-all duration-300 flex items-center justify-center pointer-events-none">
+                                    <div class="text-white text-center">
+                                        <i class="fas fa-play-circle text-5xl md:text-6xl mb-3 opacity-80 group-hover:opacity-100 transition-opacity"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="p-6">
+                                <h3 class="text-xl md:text-2xl font-bold text-white mb-3">
+                                    <i class="fas fa-star text-yellow-400 mr-2"></i>
+                                    Student Success Stories
+                                </h3>
+                                <p class="text-gray-400">Hear from students who attended our previous drone camps and workshops</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Video 4 - Army & ISRO Demonstrations -->
+                        <div class="bg-gradient-to-br from-purple-500/10 to-pink-400/10 backdrop-blur-lg rounded-3xl overflow-hidden border-2 border-purple-400/30 shadow-2xl hover:border-purple-400/60 transition-all duration-300 hover:scale-105">
+                            <div class="aspect-video bg-gray-900 relative group">
+                                <video 
+                                    class="w-full h-full object-cover"
+                                    controls
+                                    poster="https://www.genspark.ai/api/files/s/zIzs5T6G"
+                                    preload="metadata">
+                                    <source src="/videos/army-isro-demo.mp4" type="video/mp4">
+                                    Your browser does not support the video tag.
+                                </video>
+                                <div class="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-all duration-300 flex items-center justify-center pointer-events-none">
+                                    <div class="text-white text-center">
+                                        <i class="fas fa-play-circle text-5xl md:text-6xl mb-3 opacity-80 group-hover:opacity-100 transition-opacity"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="p-6">
+                                <h3 class="text-xl md:text-2xl font-bold text-white mb-3">
+                                    <i class="fas fa-medal text-purple-400 mr-2"></i>
+                                    Army & ISRO Demonstrations
+                                </h3>
+                                <p class="text-gray-400">Our professional demonstrations to Indian Army and NCR ISRO</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Note about videos -->
+                    <div class="mt-10 text-center">
+                        <p class="text-gray-500 text-sm">
+                            <i class="fas fa-info-circle mr-2"></i>
+                            Note: Upload your actual camp videos to the <code class="bg-gray-800 px-2 py-1 rounded text-cyan-400">/public/videos/</code> directory with the filenames shown above.
+                        </p>
                     </div>
                 </div>
             </div>
@@ -12311,9 +12443,13 @@ app.get('/summer-camp', (c) => {
                     
                     <div class="bg-gradient-to-br from-blue-500/20 to-cyan-400/20 backdrop-blur-lg rounded-3xl p-6 md:p-10 border-2 border-blue-400/30 shadow-2xl">
                         <div class="text-center mb-8 md:mb-10">
-                            <div class="inline-block bg-gradient-to-r from-blue-500 to-cyan-400 text-white px-6 md:px-10 py-3 md:py-4 rounded-full text-xl md:text-2xl font-black mb-6">
-                                <i class="fas fa-users mr-3"></i>Age Group: Students 8+
+                            <div class="inline-block bg-gradient-to-r from-blue-500 to-cyan-400 text-white px-6 md:px-10 py-3 md:py-4 rounded-full text-xl md:text-2xl font-black mb-4">
+                                <i class="fas fa-users mr-3"></i>Age: 8 Years and Above
                             </div>
+                            <p class="text-lg md:text-xl text-blue-100 font-semibold">
+                                <i class="fas fa-map-marker-alt text-cyan-400 mr-2"></i>
+                                Offline In-Person Training at Your City
+                            </p>
                         </div>
                         
                         <h3 class="text-2xl md:text-3xl font-bold text-white mb-6 text-center">Perfect For:</h3>
@@ -12509,10 +12645,10 @@ app.get('/summer-camp', (c) => {
                                     </div>
                                     
                                     <div>
-                                        <label class="block text-gray-300 font-semibold mb-2">Age *</label>
-                                        <input type="number" name="age" required min="8" max="18"
+                                        <label class="block text-gray-300 font-semibold mb-2">Age * (8 and above)</label>
+                                        <input type="number" name="age" required min="8"
                                             class="w-full px-4 py-3 bg-gray-800/50 border-2 border-gray-700 rounded-xl text-white placeholder-gray-500 focus:border-blue-400 focus:ring-2 focus:ring-blue-400/50 focus:outline-none transition-all"
-                                            placeholder="Age (8-18)">
+                                            placeholder="Age (minimum 8)">
                                     </div>
                                     
                                     <div>

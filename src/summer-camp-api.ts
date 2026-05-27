@@ -24,8 +24,8 @@ summerCampRouter.post('/register', async (c) => {
     
     // Validate age
     const age = parseInt(data.age)
-    if (isNaN(age) || age < 8 || age > 18) {
-      return c.json({ error: 'Age must be between 8 and 18' }, 400)
+    if (isNaN(age) || age < 8) {
+      return c.json({ error: 'Age must be 8 or above' }, 400)
     }
     
     // Validate email
