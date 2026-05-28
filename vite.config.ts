@@ -7,7 +7,7 @@ export default defineConfig({
   plugins: [
     build({
       outputDir: 'dist',
-      minify: false,  // Disable minification for faster builds
+      minify: false,
       external: [],
       emptyOutDir: false
     }),
@@ -17,13 +17,18 @@ export default defineConfig({
     })
   ],
   build: {
-    sourcemap: false,  // Disable source maps
+    sourcemap: false,
+    minify: false,
+    target: 'esnext',
     rollupOptions: {
       external: [],
       output: {
-        manualChunks: undefined  // Disable code splitting for simpler build
+        manualChunks: undefined
       }
     }
+  },
+  esbuild: {
+    logOverride: { 'this-is-undefined-in-esm': 'silent' }
   },
   publicDir: 'public'
 })
