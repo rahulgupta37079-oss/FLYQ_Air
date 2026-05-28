@@ -12048,11 +12048,11 @@ app.get('/api/my-files', async (c) => {
   }
 });
 
-// Summer Drone Camp Page - Modular Version
-import { getSummerCampPage } from './summer-camp/index'
+// Summer Drone Camp Page - PREMIUM REBUILD 2026
+import { getSummerCampPage } from './summer-camp/premium-index'
 
 app.get('/summer-camp', (c) => {
-  return c.html(renderPage('Summer Drone Camp 2026 | FLYQ Drones', getSummerCampPage()));
+  return c.html(renderPage('FLYQ Drones Summer Camp 2026 - Learn. Fly. Innovate.', getSummerCampPage()));
 });
 
 app.get('/admin/summer-camp-registrations', async (c) => {
