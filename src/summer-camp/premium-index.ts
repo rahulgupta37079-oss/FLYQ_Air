@@ -3,10 +3,10 @@
 
 import { premiumStyles } from './premium-styles'
 import { referenceMatchedHero } from './reference-matched-hero'
-import { referenceMatched3DayCards } from './reference-matched-3day-cards'
-import { premiumVideos } from './premium-videos'
-import { referenceMatchedGallery, referenceMatchedCitiesMap } from './reference-matched-gallery-cities'
 import { premiumWhyFlyq } from './premium-why-flyq'
+import { referenceMatched3DayCards } from './reference-matched-3day-cards'
+import { realDroneFlyingExperience } from './real-drone-flying-experience'
+import { referenceMatchedGallery, referenceMatchedCitiesMap } from './reference-matched-gallery-cities'
 import { referenceMatchedTestimonials, referenceMatchedRegistration } from './reference-matched-testimonials-registration'
 
 export function getSummerCampPage() {
@@ -15,9 +15,9 @@ export function getSummerCampPage() {
     
     <div class="bg-[#0a0e27]">
         ${referenceMatchedHero}
-        ${referenceMatched3DayCards}
         ${premiumWhyFlyq}
-        ${premiumVideos}
+        ${referenceMatched3DayCards}
+        ${realDroneFlyingExperience}
         ${referenceMatchedGallery}
         ${referenceMatchedCitiesMap}
         ${referenceMatchedTestimonials}
