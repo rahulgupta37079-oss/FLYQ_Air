@@ -7,7 +7,7 @@ export default defineConfig({
   plugins: [
     build({
       outputDir: 'dist',
-      minify: true,
+      minify: false,  // Disable minification for faster builds
       external: [],
       emptyOutDir: false
     }),
@@ -17,8 +17,12 @@ export default defineConfig({
     })
   ],
   build: {
+    sourcemap: false,  // Disable source maps
     rollupOptions: {
-      external: []
+      external: [],
+      output: {
+        manualChunks: undefined  // Disable code splitting for simpler build
+      }
     }
   },
   publicDir: 'public'
