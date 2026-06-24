@@ -39,16 +39,22 @@ export async function POST(req: NextRequest) {
 
   const supabase = createServiceClient()
   let orderId = `ord_${Date.now()}`
+  const orderNumber = `FLYQ-${Date.now().toString(36).toUpperCase()}`
   if (supabase) {
     const { data, error } = await supabase.from('orders').insert({
-      customer_name: body.name, email: body.email, phone: body.phone,
-      address: body.address, city: body.city, state: body.state, pincode: body.pincode,
-      subtotal, shipping, gst, total, payment_method: method, status: 'pending',
+      order_number: orderNumber,
+      status: 'pending',
+      subtotal_inr: subtotal, tax_inr: gst, shipping_inr: shipping, total_inr: total,
+      payment_method: method, gstin: body.gstin || null,
+      shipping_address: {
+        name: body.name, email: body.email, phone: body.phone,
+        line1: body.address, city: body.city, state: body.state, pincode: body.pincode,
+      },
     }).select('id').single()
     if (error) console.error('[orders] insert', error.message)
     if (data?.id) {
       orderId = String(data.id)
-      await supabase.from('order_items').insert(lines.map(l => ({ order_id: data.id, product_slug: l.slug, name: l.name, price: l.price, quantity: l.qty })))
+      await supabase.from('order_items').insert(lines.map(l => ({ order_id: data.id, name: l.name, qty: l.qty, unit_price_inr: l.price })))
     }
   } else {
     console.log('[orders] (no DB)', { orderId, total, lines })

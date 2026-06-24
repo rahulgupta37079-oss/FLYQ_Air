@@ -53,10 +53,17 @@ export function adminRateLimited(key: string): boolean {
 export function resetAdminAttempts(key: string) { attempts.delete(key) }
 
 // ---- Audit log ----
-export async function audit(actorId: string | null, action: string, meta?: Record<string, unknown>, ip?: string) {
+export async function audit(
+  actorId: string | null,
+  action: string,
+  target?: string | Record<string, unknown>,
+  ip?: string,
+) {
   const supabase = createServiceClient()
-  if (!supabase) { console.log('[audit]', action, meta); return }
+  const targetStr = typeof target === 'string' ? target : target ? JSON.stringify(target) : null
+  if (!supabase) { console.log('[audit]', action, targetStr); return }
   try {
-    await supabase.from('admin_audit').insert({ actor_id: actorId, action, meta: meta || {}, ip: ip || null })
+    // matches schema: admin_audit(actor, action, target, ip, user_agent)
+    await supabase.from('admin_audit').insert({ actor: actorId === 'demo' ? null : actorId, action, target: targetStr, ip: ip || null })
   } catch (e) { console.error('[audit] failed', e) }
 }

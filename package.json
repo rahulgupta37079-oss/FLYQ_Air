@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "setup-admin": "dotenv -e .env.local -- tsx scripts/setup-admin.ts",
+    "backup": "dotenv -e .env.local -- tsx scripts/backup.ts"
   },
   "dependencies": {
     "next": "14.2.5",
@@ -39,6 +41,8 @@
     "autoprefixer": "^10.4.19",
     "tailwindcss-animate": "^1.0.7",
     "eslint": "^8.57.0",
-    "eslint-config-next": "14.2.5"
+    "eslint-config-next": "14.2.5",
+    "tsx": "^4.16.0",
+    "dotenv-cli": "^7.4.2"
   }
 }
