@@ -1,0 +1,43 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root { color-scheme: dark; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: #0A0A0B;
+  color: #F5F5F7;
+  font-family: 'Inter', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection { background: #00E5FF; color: #0A0A0B; }
+
+@layer components {
+  .glass {
+    background: rgba(17,24,39,0.55);
+    backdrop-filter: blur(14px);
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+  .grad-cyber {
+    background: linear-gradient(90deg, #00E5FF, #39FF14);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .btn-cyber {
+    background: linear-gradient(90deg, #00E5FF, #39FF14);
+    color: #0A0A0B;
+    box-shadow: 0 8px 30px -6px rgba(0,229,255,0.5);
+  }
+  .card-hover { transition: transform .5s cubic-bezier(.2,.8,.2,1), box-shadow .5s, border-color .5s; }
+  .card-hover:hover { transform: translateY(-8px); box-shadow: 0 30px 60px -20px rgba(0,229,255,0.3); border-color: rgba(0,229,255,0.45); }
+  .grid-bg { background-image: radial-gradient(rgba(0,229,255,0.10) 1px, transparent 1px); background-size: 34px 34px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
