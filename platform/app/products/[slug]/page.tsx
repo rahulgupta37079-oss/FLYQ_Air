@@ -43,11 +43,11 @@ export default function ProductDetail({ params }: { params: { slug: string } }) 
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={productImage(p.slug)} alt={p.name} className="w-full h-full object-cover" />
             </div>
-            <div className="grid grid-cols-4 gap-3 mt-3">
-              {[0, 1, 2, 3].map(i => (
+            <div className="grid grid-cols-3 gap-3 mt-3">
+              {[productImage(p.slug), `/images/products/${p.slug}-2.jpg`, `/images/products/${p.slug}-3.jpg`].map((src, i) => (
                 <div key={i} className="glass rounded-xl aspect-square overflow-hidden opacity-70 hover:opacity-100 transition">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={productImage(p.slug)} alt={`${p.name} view ${i + 1}`} className="w-full h-full object-cover" />
+                  <img src={src} alt={`${p.name} view ${i + 1}`} className="w-full h-full object-cover" />
                 </div>
               ))}
             </div>
