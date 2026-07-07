@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Send Delay Emails - FLYQ Drones</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="bg-gradient-to-br from-blue-50 to-cyan-50 min-h-screen py-8">
+    <div class="max-w-4xl mx-auto px-4">
+        <!-- Header -->
+        <div class="bg-white rounded-lg shadow-lg p-8 mb-6">
+            <h1 class="text-3xl font-bold text-gray-800 mb-2">
+                <i class="fas fa-envelope text-blue-500"></i>
+                Send Delay Notification Emails
+            </h1>
+            <p class="text-gray-600">Send transit delay emails to all 64 customers with tracking IDs</p>
+        </div>
+
+        <!-- Status Box -->
+        <div id="statusBox" class="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-lg shadow mb-6">
+            <h3 class="font-bold text-blue-800 mb-2">
+                <i class="fas fa-info-circle"></i> Status
+            </h3>
+            <p class="text-blue-700">Ready to send emails. Add your 64 orders below.</p>
+        </div>
+
+        <!-- Orders Input -->
+        <div class="bg-white rounded-lg shadow-lg p-8 mb-6">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">
+                <i class="fas fa-list"></i> Orders Data
+            </h2>
+            <p class="text-gray-600 mb-4">
+                Paste your 64 orders in JSON format. Each order should have:
+                <code class="bg-gray-100 px-2 py-1 rounded">order_number</code>,
+                <code class="bg-gray-100 px-2 py-1 rounded">tracking_id</code>,
+                <code class="bg-gray-100 px-2 py-1 rounded">customer_name</code>,
+                <code class="bg-gray-100 px-2 py-1 rounded">customer_email</code>
+            </p>
+            
+            <textarea 
+                id="ordersData" 
+                class="w-full h-64 p-4 border-2 border-gray-300 rounded-lg font-mono text-sm"
+                placeholder='[
+  {
+    "order_number": "FLYQ-1769360779114-CPFTQP",
+    "tracking_id": "TRK1769360779114MZIP0UZ4",
+    "customer_name": "Director NITK",
+    "customer_email": "csd.ra01@nitk.edu.in"
+  },
+  {
+    "order_number": "FLYQ-1234567890123-ABCDEF",
+    "tracking_id": "TRK1234567890123ABCD1234",
+    "customer_name": "John Doe",
+    "customer_email": "john@example.com"
+  }
+]'
+            ></textarea>
+
+            <div class="flex items-center mt-4 text-sm text-gray-600">
+                <i class="fas fa-lightbulb text-yellow-500 mr-2"></i>
+                <span>Tip: Export from admin panel or database, then paste here as JSON array</span>
+            </div>
+        </div>
+
+        <!-- Actions -->
+        <div class="bg-white rounded-lg shadow-lg p-8 mb-6">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">
+                <i class="fas fa-paper-plane"></i> Actions
+            </h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <button 
+                    onclick="testEmails()" 
+                    class="bg-gray-500 hover:bg-gray-600 text-white font-bold py-4 px-6 rounded-lg transition flex items-center justify-center"
+                >
+                    <i class="fas fa-vial mr-2"></i>
+                    Test (Dry Run)
+                </button>
+                
+                <button 
+                    onclick="sendEmails()" 
+                    class="bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white font-bold py-4 px-6 rounded-lg transition flex items-center justify-center"
+                >
+                    <i class="fas fa-rocket mr-2"></i>
+                    Send Real Emails
+                </button>
+            </div>
+
+            <div class="mt-4 p-4 bg-yellow-50 border-l-4 border-yellow-500 rounded">
+                <p class="text-yellow-800 text-sm">
+                    <i class="fas fa-exclamation-triangle mr-2"></i>
+                    <strong>Important:</strong> Test with dry run first! Real emails cannot be recalled once sent.
+                </p>
+            </div>
+        </div>
+
+        <!-- Results -->
+        <div id="resultsBox" class="bg-white rounded-lg shadow-lg p-8 hidden">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">
+                <i class="fas fa-chart-bar"></i> Results
+            </h2>
+            <div id="resultsContent"></div>
+        </div>
+
+        <!-- Loading Overlay -->
+        <div id="loadingOverlay" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+            <div class="bg-white rounded-lg p-8 text-center">
+                <div class="animate-spin rounded-full h-16 w-16 border-b-4 border-blue-500 mx-auto mb-4"></div>
+                <p class="text-xl font-bold text-gray-800">Sending emails...</p>
+                <p class="text-gray-600 mt-2">Please wait, this may take a few seconds</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function updateStatus(message, type = 'info') {
+            const statusBox = document.getElementById('statusBox');
+            const colors = {
+                info: 'blue',
+                success: 'green',
+                error: 'red',
+                warning: 'yellow'
+            };
+            const color = colors[type] || 'blue';
+            
+            statusBox.className = `bg-${color}-50 border-l-4 border-${color}-500 p-6 rounded-lg shadow mb-6`;
+            statusBox.innerHTML = `
+                <h3 class="font-bold text-${color}-800 mb-2">
+                    <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'times-circle' : 'info-circle'}"></i>
+                    ${type === 'success' ? 'Success' : type === 'error' ? 'Error' : 'Status'}
+                </h3>
+                <p class="text-${color}-700">${message}</p>
+            `;
+        }
+
+        function showLoading(show) {
+            const overlay = document.getElementById('loadingOverlay');
+            overlay.style.display = show ? 'flex' : 'none';
+        }
+
+        function showResults(data) {
+            const resultsBox = document.getElementById('resultsBox');
+            const resultsContent = document.getElementById('resultsContent');
+            
+            resultsBox.classList.remove('hidden');
+            
+            let html = `
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                    <div class="bg-blue-50 p-4 rounded-lg">
+                        <div class="text-3xl font-bold text-blue-600">${data.total_orders || 0}</div>
+                        <div class="text-gray-600">Total Orders</div>
+                    </div>
+                    <div class="bg-green-50 p-4 rounded-lg">
+                        <div class="text-3xl font-bold text-green-600">${data.sent_successfully || 0}</div>
+                        <div class="text-gray-600">Sent Successfully</div>
+                    </div>
+                    <div class="bg-red-50 p-4 rounded-lg">
+                        <div class="text-3xl font-bold text-red-600">${data.failed || 0}</div>
+                        <div class="text-gray-600">Failed</div>
+                    </div>
+                </div>
+            `;
+
+            if (data.preview) {
+                html += `
+                    <h3 class="font-bold text-gray-800 mb-2">Preview (First 3 orders):</h3>
+                    <div class="bg-gray-50 p-4 rounded">
+                        <pre class="text-sm overflow-auto">${JSON.stringify(data.preview, null, 2)}</pre>
+                    </div>
+                `;
+            }
+
+            if (data.results && data.results.length > 0) {
+                html += `
+                    <h3 class="font-bold text-gray-800 mb-2 mt-4">Detailed Results:</h3>
+                    <div class="max-h-96 overflow-auto">
+                        <table class="w-full text-sm">
+                            <thead class="bg-gray-100 sticky top-0">
+                                <tr>
+                                    <th class="p-2 text-left">Order</th>
+                                    <th class="p-2 text-left">Email</th>
+                                    <th class="p-2 text-left">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${data.results.map(r => `
+                                    <tr class="border-b">
+                                        <td class="p-2 font-mono text-xs">${r.order_number}</td>
+                                        <td class="p-2">${r.email}</td>
+                                        <td class="p-2">
+                                            ${r.status === 'sent' ? 
+                                                '<span class="text-green-600"><i class="fas fa-check-circle"></i> Sent</span>' : 
+                                                '<span class="text-red-600"><i class="fas fa-times-circle"></i> Failed</span>'}
+                                        </td>
+                                    </tr>
+                                `).join('')}
+                            </tbody>
+                        </table>
+                    </div>
+                `;
+            }
+
+            resultsContent.innerHTML = html;
+            
+            // Scroll to results
+            resultsBox.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        async function testEmails() {
+            try {
+                const ordersText = document.getElementById('ordersData').value.trim();
+                
+                if (!ordersText) {
+                    updateStatus('Please add orders data first!', 'error');
+                    return;
+                }
+
+                let orders;
+                try {
+                    orders = JSON.parse(ordersText);
+                } catch (e) {
+                    updateStatus('Invalid JSON format! Please check your orders data.', 'error');
+                    return;
+                }
+
+                if (!Array.isArray(orders) || orders.length === 0) {
+                    updateStatus('Orders must be a non-empty array!', 'error');
+                    return;
+                }
+
+                updateStatus(`Testing with ${orders.length} orders...`, 'info');
+                showLoading(true);
+
+                const response = await fetch('/api/admin/send-bulk-delay-emails', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        orders: orders,
+                        dry_run: true
+                    })
+                });
+
+                const data = await response.json();
+                showLoading(false);
+
+                if (response.ok) {
+                    updateStatus(`Dry run completed! Found ${data.orders_count} orders. Check preview below.`, 'success');
+                    showResults(data);
+                } else {
+                    updateStatus(`Error: ${data.error || data.message}`, 'error');
+                }
+
+            } catch (error) {
+                showLoading(false);
+                updateStatus(`Error: ${error.message}`, 'error');
+            }
+        }
+
+        async function sendEmails() {
+            if (!confirm('⚠️ Are you sure you want to send REAL emails to all customers? This action cannot be undone!')) {
+                return;
+            }
+
+            try {
+                const ordersText = document.getElementById('ordersData').value.trim();
+                
+                if (!ordersText) {
+                    updateStatus('Please add orders data first!', 'error');
+                    return;
+                }
+
+                let orders;
+                try {
+                    orders = JSON.parse(ordersText);
+                } catch (e) {
+                    updateStatus('Invalid JSON format! Please check your orders data.', 'error');
+                    return;
+                }
+
+                if (!Array.isArray(orders) || orders.length === 0) {
+                    updateStatus('Orders must be a non-empty array!', 'error');
+                    return;
+                }
+
+                updateStatus(`Sending emails to ${orders.length} customers...`, 'info');
+                showLoading(true);
+
+                const response = await fetch('/api/admin/send-bulk-delay-emails', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        orders: orders,
+                        dry_run: false
+                    })
+                });
+
+                const data = await response.json();
+                showLoading(false);
+
+                if (response.ok) {
+                    updateStatus(
+                        `✅ Campaign completed! Sent ${data.sent_successfully} emails successfully, ${data.failed} failed.`, 
+                        data.failed > 0 ? 'warning' : 'success'
+                    );
+                    showResults(data);
+                } else {
+                    updateStatus(`Error: ${data.error || data.message}`, 'error');
+                }
+
+            } catch (error) {
+                showLoading(false);
+                updateStatus(`Error: ${error.message}`, 'error');
+            }
+        }
+
+        // Load sample data on page load
+        window.addEventListener('DOMContentLoaded', () => {
+            const sampleData = [
+                {
+                    "order_number": "FLYQ-1769360779114-CPFTQP",
+                    "tracking_id": "TRK1769360779114MZIP0UZ4",
+                    "customer_name": "Director NITK",
+                    "customer_email": "csd.ra01@nitk.edu.in"
+                }
+                // Add your other 63 orders here
+            ];
+            
+            // Don't auto-fill to avoid accidental sends
+            // document.getElementById('ordersData').value = JSON.stringify(sampleData, null, 2);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,16 @@
+
+<p>The sky is no longer the limit - it''s your playground. Welcome to the FLYQ community! 🚁✈️</p>
+
+<p><strong>Happy Flying!</strong><br>— The FLYQ Team</p>',
+  'https://cdn1.genspark.ai/user-upload-image/rmbg_generated/0_435c9a66-800a-4537-80f8-cd513ea4bf15',
+  1,
+  'Getting Started',
+  '["beginners", "tutorial", "setup", "first flight", "safety", "ESP32-S3"]',
+  'published',
+  8,
+  datetime('now'),
+  datetime('now')
+);
+
+-- Update category post count
+UPDATE blog_categories SET post_count = post_count + 1 WHERE name = 'Getting Started';

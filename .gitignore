@@ -1,35 +1,39 @@
 # Dependencies
 node_modules/
+**/node_modules/
 
-# Runtime data
-pids
-*.pid
-*.seed
-*.pid.lock
+# Next.js / build output
+.next/
+**/.next/
+out/
+dist/
+build/
 
-# Compiled binary addons
-build
-dist
-
-# dotenv environment variables file
+# Env
 .env
+.env.local
+.env*.local
+**/.env
+**/.env.local
 .dev.vars
 
-# PM2
-.pm2/
-pids/
-logs/
+# Logs
 *.log
+npm-debug.log*
 
-# Wrangler
+# OS / editor
+.DS_Store
+.vercel
+
+# Cloudflare
 .wrangler/
 
-# Backup files
-*.backup
-*.bak
+# Large core dumps / backups
+core
 *.tar.gz
 *.zip
-core
+backups/
 
-# Design references (internal use only)
-design-references/
+# Next generated
+next-env.d.ts
+**/next-env.d.ts

@@ -1,0 +1,100 @@
+  'Quick Fixes for Common Hardware Issues',
+  'quick-hardware-fixes',
+  'Troubleshoot and repair common hardware problems in the field.',
+  '<h2>Motor Not Spinning</h2><p>Check connections, test with multimeter, replace if burnt.</p><h2>Propeller Damage</h2><p>Minor cracks: superglue. Major: replace immediately. Keep spares.</p><h2>Battery Issues</h2><p>Won''t charge: check contacts. Swollen: dispose safely. Low capacity: replace.</p><h2>Frame Cracks</h2><p>Temporary: epoxy/tape. Permanent: carbon fiber patch or new frame.</p><h2>Field Repair Kit</h2><p>Spare props, motors, tools, tape, zip ties, multimeter, soldering iron.</p>',
+  'https://cdn1.genspark.ai/user-upload-image/rmbg_generated/0_435c9a66-800a-4537-80f8-cd513ea4bf15',
+  1, 'Tips & Tricks', '["repair", "hardware", "fixes", "maintenance"]', 'published', 6,
+  datetime('now', '-21 days'), datetime('now', '-21 days')
+),
+(
+  'Wi-Fi Range Enhancement Methods',
+  'wifi-range-enhancement',
+  'Boost your FLYQ drone communication range for longer flights.',
+  '<h2>Antenna Upgrades</h2><p>Replace stock antenna with high-gain directional antenna.</p><h2>RF Shielding</h2><p>Add RF shielding to reduce interference from other electronics.</p><h2>Software Optimization</h2><p>Adjust TX power settings, optimize packet size, reduce data rate.</p><h2>Environmental Factors</h2><p>Avoid 2.4GHz congestion, line of sight, avoid metal obstacles.</p><h2>Results</h2><p>Extend range from 50m to 150m+ with proper modifications.</p>',
+  'https://cdn1.genspark.ai/user-upload-image/rmbg_generated/0_435c9a66-800a-4537-80f8-cd513ea4bf15',
+  1, 'Tips & Tricks', '["Wi-Fi", "range", "antenna", "optimization"]', 'published', 5,
+  datetime('now', '-19 days'), datetime('now', '-19 days')
+),
+(
+  'Winter Flying: Cold Weather Best Practices',
+  'winter-flying-tips',
+  'Special considerations for flying your FLYQ drone in cold weather.',
+  '<h2>Battery Management</h2><p>Warm battery before flight, reduce flight time by 30%, monitor voltage closely.</p><h2>Cold Start Procedure</h2><p>Indoor warmup, extended motor test, verify all systems before takeoff.</p><h2>Flight Considerations</h2><p>Reduced performance, faster discharge, more frequent landings.</p><h2>Equipment Protection</h2><p>Remove snow/ice, dry thoroughly after flight, store at room temperature.</p><h2>Temperature Limits</h2><p>Minimum: -10°C. Below this: risk of component damage.</p>',
+  'https://cdn1.genspark.ai/user-upload-image/rmbg_generated/0_435c9a66-800a-4537-80f8-cd513ea4bf15',
+  1, 'Tips & Tricks', '["winter", "cold weather", "temperature", "battery"]', 'published', 6,
+  datetime('now', '-17 days'), datetime('now', '-17 days')
+);
+
+-- NEWS CATEGORY (5 posts)
+
+INSERT INTO blog_posts (title, slug, excerpt, content, featured_image, author_id, category, tags, status, reading_time, published_at, created_at) VALUES 
+(
+  'FLYQ Firmware 2.0 Released: Major Update',
+  'firmware-2-0-released',
+  'New firmware brings improved stability, new flight modes, and enhanced performance.',
+  '<h2>What''s New</h2><p>Firmware 2.0 is our biggest update yet with major improvements across the board.</p><h2>Key Features</h2><ul><li><strong>Enhanced Stabilization:</strong> New PID algorithm for 40% smoother flight</li><li><strong>Sport Mode:</strong> Increased speed and agility for experienced pilots</li><li><strong>Smart RTH:</strong> Automatic return home on low battery or signal loss</li><li><strong>Improved Wi-Fi:</strong> 30% longer range and more stable connection</li></ul><h2>Performance Improvements</h2><p>Battery efficiency improved by 15%, faster sensor processing, reduced latency.</p><h2>How to Update</h2><p>Connect via USB, open FLYQ Updater tool, follow instructions. Backup settings first!</p><h2>Feedback</h2><p>Community response overwhelmingly positive. Join forum to discuss features.</p>',
+  'https://cdn1.genspark.ai/user-upload-image/rmbg_generated/0_435c9a66-800a-4537-80f8-cd513ea4bf15',
+  1, 'News', '["firmware", "update", "release", "features"]', 'published', 5,
+  datetime('now', '-15 days'), datetime('now', '-15 days')
+),
+(
+  'FLYQ Community Reaches 10,000 Pilots',
+  'community-10k-milestone',
+  'Celebrating our growing community of drone enthusiasts worldwide.',
+  '<h2>Milestone Achievement</h2><p>We''re thrilled to announce 10,000 registered FLYQ pilots globally!</p><h2>Community Highlights</h2><ul><li>5,000+ forum discussions</li><li>1,200+ project showcases</li><li>850+ code contributions</li><li>42 countries represented</li></ul><h2>Top Contributors</h2><p>Special recognition to community members sharing tutorials, troubleshooting, and inspiring projects.</p><h2>Community Events</h2><p>Virtual drone racing championship, code competition, photography contest coming soon.</p><h2>Thank You</h2><p>Your passion drives innovation. Together we''re building something amazing!</p>',
+  'https://cdn1.genspark.ai/user-upload-image/rmbg_generated/0_435c9a66-800a-4537-80f8-cd513ea4bf15',
+  1, 'News', '["community", "milestone", "celebration", "users"]', 'published', 4,
+  datetime('now', '-13 days'), datetime('now', '-13 days')
+),
+(
+  'New Expansion Packs: Camera and Sensors',
+  'new-expansion-packs',
+  'Introducing official expansion kits for FLYQ Air: Camera Module and Sensor Pack.',
+  '<h2>Camera Expansion Kit</h2><p>Transform FLYQ Air into Vision-capable drone. Includes OV2640 camera, mount, cables. Full HD 720p video streaming.</p><h2>Sensor Expansion Pack</h2><p>Add ultrasonic distance sensor, GPS module, digital compass. Enable advanced autonomous features.</p><h2>Pricing</h2><p>Camera Kit: ₹2,499. Sensor Pack: ₹1,999. Bundle: ₹3,999 (save ₹500).</p><h2>Availability</h2><p>Pre-orders open now, shipping starts next month. Limited first batch.</p><h2>Compatibility</h2><p>Works with all FLYQ Air units. Firmware 2.0+ required.</p>',
+  'https://cdn1.genspark.ai/user-upload-image/rmbg_generated/0_435c9a66-800a-4537-80f8-cd513ea4bf15',
+  1, 'News', '["expansion", "accessories", "camera", "sensors"]', 'published', 5,
+  datetime('now', '-11 days'), datetime('now', '-11 days')
+),
+(
+  'FLYQ Education Program Launches',
+  'education-program-launch',
+  'New curriculum and resources for schools teaching drone programming.',
+  '<h2>Program Overview</h2><p>Free educational resources for teachers incorporating FLYQ into STEM curriculum.</p><h2>What''s Included</h2><ul><li>12-week lesson plans</li><li>Video tutorials for teachers</li><li>Student workbooks</li><li>Assessment tools</li><li>Classroom management software</li></ul><h2>School Pricing</h2><p>Special bulk discount: 10+ units at 25% off. Grants available for eligible schools.</p><h2>Success Stories</h2><p>Pilot program in 20 schools showed 85% student engagement increase.</p><h2>Apply Now</h2><p>Schools can register at education.flyq.com for free resources.</p>',
+  'https://cdn1.genspark.ai/user-upload-image/rmbg_generated/0_435c9a66-800a-4537-80f8-cd513ea4bf15',
+  1, 'News', '["education", "schools", "STEM", "curriculum"]', 'published', 6,
+  datetime('now', '-9 days'), datetime('now', '-9 days')
+),
+(
+  'First FLYQ Racing Championship Announced',
+  'racing-championship-announced',
+  'Join the inaugural FLYQ Racing Championship with prizes worth ₹50,000.',
+  '<h2>Competition Details</h2><p>FPV racing competition for FLYQ pilots across 3 categories: Beginner, Intermediate, Expert.</p><h2>Prize Pool</h2><ul><li>1st Place: ₹25,000 + Trophy</li><li>2nd Place: ₹15,000</li><li>3rd Place: ₹10,000</li><li>Top 10: FLYQ merchandise</li></ul><h2>Rules</h2><p>Stock FLYQ Air or Vision, manual mode only, timed qualification rounds, elimination brackets.</p><h2>Registration</h2><p>Opens next week at racing.flyq.com. Limited to 100 participants per category.</p><h2>Schedule</h2><p>Qualifiers: March 1-15. Finals: March 30 live-streamed event.</p>',
+  'https://cdn1.genspark.ai/user-upload-image/rmbg_generated/0_435c9a66-800a-4537-80f8-cd513ea4bf15',
+  1, 'News', '["racing", "competition", "championship", "prizes"]', 'published', 5,
+  datetime('now', '-7 days'), datetime('now', '-7 days')
+);
+
+-- Verify counts
+-- SELECT category, COUNT(*) as count FROM blog_posts GROUP BY category;
+-- Insert Getting Started blog post
+INSERT INTO blog_posts (
+  title,
+  slug,
+  excerpt,
+  content,
+  featured_image,
+  author_id,
+  category,
+  tags,
+  status,
+  reading_time,
+  published_at,
+  created_at
+) VALUES (
+  'Getting Started with FLYQ: Your First Programmable Drone',
+  'getting-started-with-flyq',
+  'Complete beginner guide to flying your FLYQ drone safely. Learn about preflight checks, LED indicators, mobile app setup, and your first flight step-by-step.',
+  '<h2>Introduction</h2>
+<p>Welcome to the exciting world of programmable drones! Whether you''re a beginner learning robotics or an experienced developer exploring IoT applications, FLYQ makes drone programming accessible and fun. This comprehensive guide will walk you through everything you need to know to get your FLYQ drone flying safely and confidently.</p>
+
+<h2>Preflight Check</h2>

@@ -1,0 +1,100 @@
+-- Seed 50 Blog Posts for FLYQ Website
+-- Distribution: Getting Started (10), Tutorials (15), Projects (12), Tips & Tricks (8), News (5)
+
+-- Clear existing test data (keep the Getting Started post from earlier)
+-- DELETE FROM blog_posts WHERE id > 1;
+
+-- GETTING STARTED CATEGORY (9 new posts + 1 existing = 10 total)
+
+INSERT INTO blog_posts (title, slug, excerpt, content, featured_image, author_id, category, tags, status, reading_time, published_at, created_at) VALUES 
+(
+  'Understanding Your FLYQ Drone Components',
+  'understanding-flyq-drone-components',
+  'Detailed guide to every component in your FLYQ drone kit and how they work together.',
+  '<h2>The Flight Controller</h2><p>The ESP32-S3 dual-core processor runs at 240MHz handling all flight calculations. With 320KB SRAM and 4MB Flash, it manages sensor fusion, motor control, and wireless communication.</p><h2>Motor System</h2><p>Four 716 brushed motors provide thrust, each capable of 38,000 RPM. ESCs precisely control rotation speed for stable flight.</p><h2>Sensor Suite</h2><p>MPU6050 6-axis IMU provides accelerometer and gyroscope data essential for flight stabilization.</p><h2>Power System</h2><p>600mAh 3.7V LiPo battery delivers 8-10 minutes of flight time with built-in protection circuitry.</p>',
+  'https://cdn1.genspark.ai/user-upload-image/rmbg_generated/0_435c9a66-800a-4537-80f8-cd513ea4bf15',
+  1, 'Getting Started', '["components", "hardware", "ESP32-S3", "beginners"]', 'published', 6,
+  datetime('now', '-50 days'), datetime('now', '-50 days')
+),
+(
+  'FLYQ Safety Guidelines: Essential Rules',
+  'flyq-safety-guidelines',
+  'Comprehensive safety guidelines for safe drone operation indoors and outdoors.',
+  '<h2>Pre-Flight Safety</h2><p>Always inspect propellers, motors, battery, and frame before flight. Check weather conditions and ensure adequate space.</p><h2>Flying Environment</h2><p>Indoor: minimum 3m x 3m x 2.5m. Outdoor: calm weather, away from people, within visual line of sight.</p><h2>Battery Safety</h2><p>Never leave charging unattended. Store at 50-60% charge. Dispose of damaged batteries properly.</p><h2>Emergency Procedures</h2><p>Know how to handle lost control, low battery warnings, and motor failures.</p>',
+  'https://cdn1.genspark.ai/user-upload-image/rmbg_generated/0_435c9a66-800a-4537-80f8-cd513ea4bf15',
+  1, 'Getting Started', '["safety", "guidelines", "best practices"]', 'published', 5,
+  datetime('now', '-48 days'), datetime('now', '-48 days')
+),
+(
+  'Setting Up Your Development Environment',
+  'setting-up-development-environment',
+  'Install Arduino IDE, Python, and FLYQ SDK for programming your drone.',
+  '<h2>Arduino IDE Setup</h2><p>Download Arduino IDE 2.0+, install ESP32 board support, select ESP32-S3 Dev Module, and install required libraries: MPU6050, ESP32Servo, AsyncTCP.</p><h2>Python Environment</h2><p>Install Python 3.8+, create virtual environment, install FLYQ Python SDK and dependencies.</p><h2>Testing</h2><p>Upload blink test to Arduino, run Python connection test to verify setup.</p>',
+  'https://cdn1.genspark.ai/user-upload-image/rmbg_generated/0_435c9a66-800a-4537-80f8-cd513ea4bf15',
+  1, 'Getting Started', '["programming", "Arduino", "Python", "setup"]', 'published', 8,
+  datetime('now', '-45 days'), datetime('now', '-45 days')
+),
+(
+  'Your First Manual Flight: Basic Controls',
+  'first-manual-flight-controls',
+  'Master throttle, yaw, pitch, and roll for stable hovering and controlled flight.',
+  '<h2>The Four Controls</h2><p>Throttle controls altitude, yaw rotates the drone, pitch moves forward/backward, roll moves left/right.</p><h2>First Flight Steps</h2><p>Takeoff to 1-1.5m, practice hovering for 30 seconds, make small corrections, land gently.</p><h2>Common Mistakes</h2><p>Avoid over-correcting, panic throttle cuts, flying too high initially, and ignoring battery level.</p><h2>Practice Progression</h2><p>Week 1: Hovering. Week 2: Basic movements. Week 3: Combined maneuvers and patterns.</p>',
+  'https://cdn1.genspark.ai/user-upload-image/rmbg_generated/0_435c9a66-800a-4537-80f8-cd513ea4bf15',
+  1, 'Getting Started', '["manual flight", "controls", "hovering", "flying skills"]', 'published', 9,
+  datetime('now', '-42 days'), datetime('now', '-42 days')
+),
+(
+  'Charging and Battery Care Guide',
+  'charging-battery-care',
+  'Essential guide to LiPo battery charging, maintenance, and safety practices.',
+  '<h2>Charging Procedure</h2><p>Use only provided USB-C cable with 5V/2A adapter. Red LED = charging, Green LED = full. Takes 45-60 minutes from empty.</p><h2>Storage Best Practices</h2><p>Short-term: 50-80% charge. Long-term: 50-60% charge at room temperature.</p><h2>Warning Signs</h2><p>Replace battery if swollen, reduced flight time (<5 min), excessive heat, or physical damage.</p><h2>Battery Life</h2><p>Expected 300-500 charge cycles. Never discharge below 3.0V. Land at 20-30% remaining.</p>',
+  'https://cdn1.genspark.ai/user-upload-image/rmbg_generated/0_435c9a66-800a-4537-80f8-cd513ea4bf15',
+  1, 'Getting Started', '["battery", "charging", "LiPo", "safety"]', 'published', 6,
+  datetime('now', '-40 days'), datetime('now', '-40 days')
+),
+(
+  'Calibrating Sensors for Optimal Performance',
+  'calibrating-sensors',
+  'Complete calibration guide for accelerometer, gyroscope, and ESCs.',
+  '<h2>When to Calibrate</h2><p>First setup, after firmware update, after crashes, when drone drifts, monthly maintenance.</p><h2>IMU Calibration</h2><p>Place on level surface, keep perfectly still for 30 seconds. Use app or Arduino code.</p><h2>ESC Calibration</h2><p>Remove propellers, follow app instructions for 15-second calibration sequence.</p><h2>Verification</h2><p>Check sensor readings, perform hover test to ensure minimal drift.</p>',
+  'https://cdn1.genspark.ai/user-upload-image/rmbg_generated/0_435c9a66-800a-4537-80f8-cd513ea4bf15',
+  1, 'Getting Started', '["calibration", "sensors", "IMU", "setup"]', 'published', 7,
+  datetime('now', '-38 days'), datetime('now', '-38 days')
+),
+(
+  'Troubleshooting Common Issues',
+  'troubleshooting-common-issues',
+  'Solutions to frequent problems: connection issues, motor problems, and flight instability.',
+  '<h2>Connection Problems</h2><p>Can''t find Wi-Fi hotspot? Check LED indicators, verify drone is powered on, forget and reconnect network.</p><h2>Motor Issues</h2><p>Motors won''t spin? Check ESC connections, verify battery charge, recalibrate ESCs, inspect for physical damage.</p><h2>Flight Instability</h2><p>Drone drifts or flips? Recalibrate IMU, check propeller installation, verify motor directions, balance propellers.</p><h2>App Issues</h2><p>App crashes or disconnects? Update to latest version, clear cache, check device compatibility.</p>',
+  'https://cdn1.genspark.ai/user-upload-image/rmbg_generated/0_435c9a66-800a-4537-80f8-cd513ea4bf15',
+  1, 'Getting Started', '["troubleshooting", "problems", "support", "fixes"]', 'published', 6,
+  datetime('now', '-36 days'), datetime('now', '-36 days')
+),
+(
+  'Understanding Flight Modes Explained',
+  'understanding-flight-modes',
+  'Learn about different flight modes: Manual, Stabilize, Altitude Hold, and Position Hold.',
+  '<h2>Manual Mode</h2><p>Full control with no stabilization. For experienced pilots only. Requires constant input for stable flight.</p><h2>Stabilize Mode</h2><p>Self-leveling when sticks centered. Best for beginners. Drone automatically returns to level flight.</p><h2>Altitude Hold</h2><p>Maintains current altitude automatically. Barometer keeps height constant. Easier hovering and photography.</p><h2>Position Hold (Vision only)</h2><p>GPS-based position lock. Drone stays in place without input. Ideal for hands-free hovering.</p><h2>Choosing Right Mode</h2><p>Beginners start with Stabilize, progress to Altitude Hold, advanced pilots use Manual for tricks.</p>',
+  'https://cdn1.genspark.ai/user-upload-image/rmbg_generated/0_435c9a66-800a-4537-80f8-cd513ea4bf15',
+  1, 'Getting Started', '["flight modes", "stabilization", "beginners", "controls"]', 'published', 7,
+  datetime('now', '-34 days'), datetime('now', '-34 days')
+),
+(
+  'Reading and Understanding Telemetry Data',
+  'reading-telemetry-data',
+  'Understand telemetry displays: battery voltage, signal strength, altitude, and sensor readings.',
+  '<h2>Battery Telemetry</h2><p>Voltage range 3.0V-4.2V. 3.7V = 50%. Below 3.5V = land soon. Real-time voltage and percentage display.</p><h2>Signal Strength</h2><p>RSSI (Received Signal Strength Indicator) shows Wi-Fi quality. -50dBm = excellent, -70dBm = good, -80dBm = poor.</p><h2>Flight Data</h2><p>Altitude (barometer), vertical speed, attitude (roll/pitch/yaw angles), accelerations.</p><h2>Using Telemetry</h2><p>Monitor during flight, identify issues early, log data for analysis, optimize flight parameters.</p>',
+  'https://cdn1.genspark.ai/user-upload-image/rmbg_generated/0_435c9a66-800a-4537-80f8-cd513ea4bf15',
+  1, 'Getting Started', '["telemetry", "data", "monitoring", "sensors"]', 'published', 6,
+  datetime('now', '-32 days'), datetime('now', '-32 days')
+),
+(
+  'Firmware Updates and Version Management',
+  'firmware-updates',
+  'How to update FLYQ firmware safely and manage different firmware versions.',
+  '<h2>Why Update Firmware</h2><p>Bug fixes, new features, performance improvements, security patches, compatibility updates.</p><h2>Update Process</h2><p>Connect via USB-C, open FLYQ updater tool, check current version, download latest firmware, flash and verify.</p><h2>Backup Before Update</h2><p>Save current settings, export calibration data, backup custom code, document current configuration.</p><h2>Troubleshooting Updates</h2><p>Update fails? Try different USB cable, hold BOOT button, use recovery mode, contact support if needed.</p><h2>Version History</h2><p>Track firmware versions, read changelog, understand new features, rollback if necessary.</p>',
+  'https://cdn1.genspark.ai/user-upload-image/rmbg_generated/0_435c9a66-800a-4537-80f8-cd513ea4bf15',
+  1, 'Getting Started', '["firmware", "updates", "version", "maintenance"]', 'published', 7,
+  datetime('now', '-30 days'), datetime('now', '-30 days')
+);
+
