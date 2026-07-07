@@ -52,15 +52,8 @@ export default function Home() {
           </div>
           <div className="relative grid place-items-center">
             <div className="absolute inset-0 bg-cyber/10 blur-3xl rounded-full" />
-            <video
-              className="relative w-full max-w-lg rounded-3xl shadow-2xl"
-              autoPlay muted loop playsInline
-              poster="/images/real/flyq-drone-hero.jpg"
-            >
-              <source src="/videos/flyq-hero.mp4" type="video/mp4" />
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/images/real/flyq-drone-hero.jpg" alt="FLYQ Air drone" className="relative w-full max-w-md rounded-3xl animate-float" />
-            </video>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/images/products/flyq-hero-drone.png" alt="FLYQ Air programmable drone" className="relative w-full max-w-lg rounded-3xl animate-float" />
           </div>
         </Section>
       </header>
