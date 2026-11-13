@@ -1,7 +1,7 @@
 import original from './worker.js';
 import { applySEO, seoResource } from './flyq-seo.mjs';
 import { applyLogo, logoResource } from './flyq-logo.mjs';
-import { applyWebinarNav, mainSiteTestimonialsSection } from './flyq-webinar-page.mjs';
+import { applyWebinarNav, partnerLogosAndSoldOutSection, mainSiteTestimonialsSection } from './flyq-webinar-page.mjs';
 
 const COOKIE = 'flyq_workshops';
 const WEBINAR_STATES = ['pending', 'utr_submitted', 'paid', 'attended', 'certified', 'cancelled'];
@@ -674,7 +674,7 @@ export default {
       } else {
         html = applyWebinarNav(html, path);
         if ((path === '/summer-camp' || path === '/workshops') && !html.includes('id="student-reviews"') && html.includes('</main>')) {
-          html = html.replace('</main>', mainSiteTestimonialsSection() + '</main>');
+          html = html.replace('</main>', partnerLogosAndSoldOutSection() + mainSiteTestimonialsSection() + '</main>');
         }
       }
       const h = new Headers(response.headers);

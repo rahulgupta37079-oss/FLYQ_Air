@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { pages, schemaFor, headFor, sitemapXML } from './flyq-seo.mjs';
-import { applyWebinarNav, webinarHomepageBanner, mainSiteTestimonialsSection, webinarContent, webinarScript } from './flyq-webinar-page.mjs';
+import { applyWebinarNav, webinarHomepageBanner, partnerLogosAndSoldOutSection, mainSiteTestimonialsSection, webinarContent, webinarScript } from './flyq-webinar-page.mjs';
 import { webinarImageResource } from './flyq-webinar-assets.mjs';
 
 // 1. Verify SEO metadata for /webinar
@@ -54,16 +54,30 @@ assert.ok(content.includes('id="wb-step2-container"'));
 
 const mainTesti = mainSiteTestimonialsSection();
 assert.ok(mainTesti.includes('id="student-reviews"'));
-assert.ok(mainTesti.includes('Aarav Kulkarni') && mainTesti.includes('Devansh Patel'));
+assert.ok(mainTesti.includes('Siddharth Deshmukh') && mainTesti.includes('Meera Krishnan') && mainTesti.includes('Vikramaditya Singhania') && mainTesti.includes('Tanvi Joshi') && mainTesti.includes('Karthik Reddy'), 'Main website must use 5 distinct student names');
+assert.ok(!mainTesti.includes('Aarav Kulkarni'), 'Main website testimonials must be distinct from /webinar testimonials');
+assert.ok(mainTesti.includes('/flyq-design/webinar/main-student-1.jpg') && mainTesti.includes('/flyq-design/webinar/main-student-5.jpg'));
+
+const partnersHtml = partnerLogosAndSoldOutSection();
+assert.ok(partnersHtml.includes('id="drone-supply-partners"'));
+assert.ok(partnersHtml.includes('1,500+ FLYQ Drone Units Sold Out'));
+assert.ok(partnersHtml.includes('fqSlideLeftToRight'), 'Must include Left-to-Right marquee transition');
+assert.ok(partnersHtml.includes('NRSC · ISRO') && partnersHtml.includes('Garuda Aerospace') && partnersHtml.includes('IdeaForge') && partnersHtml.includes('BotLab Dynamics') && partnersHtml.includes('Atal Tinkering Labs'));
+
 assert.ok(webinarScript.includes('runFiveSecondLaunch'));
 
-// 6. Verify all 7 bundled image assets serve valid JPEG bytes
+// 6. Verify all 12 bundled image assets (5 webinar students + 5 main website students + 2 hardware photos) serve valid JPEG bytes
 for (const p of [
   '/flyq-design/webinar/student-1.jpg',
   '/flyq-design/webinar/student-2.jpg',
   '/flyq-design/webinar/student-3.jpg',
   '/flyq-design/webinar/student-4.jpg',
   '/flyq-design/webinar/student-5.jpg',
+  '/flyq-design/webinar/main-student-1.jpg',
+  '/flyq-design/webinar/main-student-2.jpg',
+  '/flyq-design/webinar/main-student-3.jpg',
+  '/flyq-design/webinar/main-student-4.jpg',
+  '/flyq-design/webinar/main-student-5.jpg',
   '/flyq-design/webinar/components.jpg',
   '/flyq-design/webinar/assembled-drone.jpg'
 ]) {

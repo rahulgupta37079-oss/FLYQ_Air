@@ -1,0 +1,50 @@
+{
+  "id": "917548c2-be26-4fc6-b401-a8cabd3d3aa1",
+  "number": 26,
+  "metadata": {
+    "created_on": "2026-11-13T11:04:34.116454Z",
+    "source": "api",
+    "author_id": "5cca3b6ab7a45417ac53c963404276d6",
+    "author_email": "rahulgupta37079@gmail.com",
+    "has_preview": true
+  },
+  "annotations": {
+    "workers/message": "FLYQ ₹99 Live Drone Webinar + SEO + Logo + Admin Desk release",
+    "workers/tag": "flyq-webinar-2026-11-13-v1",
+    "workers/triggered_by": "version_upload"
+  },
+  "resources": {
+    "script": {
+      "etag": "6ad88f763bbcaee4632cfe79d8c3d9fa1af9539969a4616d49d051ed2af61053",
+      "handlers": [
+        "fetch"
+      ],
+      "last_deployed_from": "api"
+    },
+    "script_runtime": {
+      "assets": {
+        "serve_directly": false,
+        "raw_run_worker_first": true,
+        "base_path": "/"
+      },
+      "compatibility_date": "2025-12-07",
+      "usage_model": "standard"
+    },
+    "bindings": [
+      {
+        "name": "ASSETS",
+        "type": "assets"
+      },
+      {
+        "name": "LEGACY_ORIGIN",
+        "text": "https://flyq-air.pages.dev",
+        "type": "plain_text"
+      },
+      {
+        "name": "PLATFORM_ORIGIN",
+        "text": "https://flyq-platform.rahulgupta37079.workers.dev",
+        "type": "plain_text"
+      }
+    ]
+  }
+}

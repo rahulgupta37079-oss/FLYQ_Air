@@ -1,8 +1,8 @@
 {
   "worker": "flyq-storefront",
   "oldVersion": "fa38cd9e-5498-477d-99a0-220e35cd2d04",
-  "previousVersion": "46329e1d-919c-4643-ad7a-ce73f8e5cec3",
-  "newVersion": "917548c2-be26-4fc6-b401-a8cabd3d3aa1",
-  "backupDir": "C:\\Users\\PROFESSORHULK\\.gemini\\antigravity\\scratch\\flyq-webinar-release\\private-backups\\flyq-storefront\\2026-11-13T11-04-31-381Z",
-  "deployedAt": "2026-11-13T11:04:35.434Z"
+  "previousVersion": "917548c2-be26-4fc6-b401-a8cabd3d3aa1",
+  "newVersion": "a2fd2dd3-6ad2-47fd-a784-d619e4150fde",
+  "backupDir": "C:\\Users\\PROFESSORHULK\\.gemini\\antigravity\\scratch\\flyq-webinar-release\\private-backups\\flyq-storefront\\2026-11-13T11-24-22-118Z",
+  "deployedAt": "2026-11-13T11:24:26.459Z"
 }

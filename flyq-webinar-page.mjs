@@ -47,13 +47,282 @@ export function webinarHomepageBanner() {
 </section>`;
 }
 
+export function partnerLogosAndSoldOutSection() {
+  const companiesRow1 = [
+    {
+      name: 'NRSC · ISRO',
+      role: 'Aerial Demo & Student UAV Showcase',
+      tag: 'Space & Remote Sensing',
+      color: '#2563eb',
+      svg: '<svg viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="16" stroke="#2563eb" stroke-width="2.2"/><ellipse cx="20" cy="20" rx="18" ry="7" transform="rotate(-28 20 20)" stroke="#0ea5e9" stroke-width="2"/><circle cx="20" cy="20" r="5" fill="#2563eb"/><circle cx="31" cy="14" r="2.6" fill="#f97316"/></svg>'
+    },
+    {
+      name: 'DRDO Young Scientist Labs',
+      role: 'Autonomous Micro-UAV Prototyping',
+      tag: 'Defense Research Supply',
+      color: '#1e40af',
+      svg: '<svg viewBox="0 0 40 40" fill="none"><path d="M20 4L33 10v10c0 9-5.8 14.8-13 17C12.8 34.8 7 29 7 20V10l13-6z" stroke="#1e40af" stroke-width="2.2" fill="#eff6ff"/><path d="M20 11l3 6 6.5.9-4.7 4.6 1.1 6.5L20 26l-5.9 3 1.1-6.5-4.7-4.6L17 17l3-6z" fill="#2563eb"/></svg>'
+    },
+    {
+      name: 'Garuda Aerospace Ecosystem',
+      role: 'Academic Drone Lab & Fleet Supply',
+      tag: 'Aerospace Partner',
+      color: '#0284c7',
+      svg: '<svg viewBox="0 0 40 40" fill="none"><path d="M5 24l15-14 15 14-5 3-10-9-10 9-5-3z" fill="#0284c7"/><path d="M13 29l7-6 7 6H13z" fill="#38bdf8"/><circle cx="20" cy="10" r="2.5" fill="#0f172a"/></svg>'
+    },
+    {
+      name: 'IdeaForge Tech Labs',
+      role: 'Student UAV Simulation & R&D',
+      tag: 'UAV Engineering Partner',
+      color: '#0f766e',
+      svg: '<svg viewBox="0 0 40 40" fill="none"><rect x="14" y="14" width="12" height="12" rx="3" fill="#0f766e"/><circle cx="9" cy="9" r="5" stroke="#14b8a6" stroke-width="2.2"/><circle cx="31" cy="9" r="5" stroke="#14b8a6" stroke-width="2.2"/><circle cx="9" cy="31" r="5" stroke="#14b8a6" stroke-width="2.2"/><circle cx="31" cy="31" r="5" stroke="#14b8a6" stroke-width="2.2"/><path d="M12 12l4 4M28 12l-4 4M12 28l4-4M28 28l-4-4" stroke="#0f766e" stroke-width="2.2"/></svg>'
+    },
+    {
+      name: 'Corizo EdTech',
+      role: 'National Drone & Robotics Training',
+      tag: '500+ Units Supplied',
+      color: '#4f46e5',
+      svg: '<svg viewBox="0 0 40 40" fill="none"><rect x="6" y="6" width="28" height="28" rx="8" fill="#eef2ff" stroke="#4f46e5" stroke-width="2.2"/><path d="M24 14a7 7 0 100 12" stroke="#4f46e5" stroke-width="3.2" stroke-linecap="round"/><circle cx="26" cy="20" r="2.8" fill="#6366f1"/></svg>'
+    },
+    {
+      name: 'Passion 3D World',
+      role: 'Indigenous Additive & UAV Manufacturing',
+      tag: 'OEM Hardware Partner',
+      color: '#ea580c',
+      svg: '<svg viewBox="0 0 40 40" fill="none"><path d="M20 5l14 8v14l-14 8L6 27V13l14-8z" stroke="#ea580c" stroke-width="2.2" fill="#fff7ed"/><path d="M20 5v15m0 0l14-7m-14 7L6 13m14 7v15" stroke="#f97316" stroke-width="2"/></svg>'
+    },
+    {
+      name: 'IIT Bombay Aero Club',
+      role: 'Programmable ESP32-S3 Fleet Supply',
+      tag: 'Premier Institute Partner',
+      color: '#1d4ed8',
+      svg: '<svg viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="15" stroke="#1d4ed8" stroke-width="2.2" stroke-dasharray="4 2"/><path d="M20 8l4 9 9 3-9 3-4 9-4-9-9-3 9-3 4-9z" fill="#2563eb"/></svg>'
+    },
+    {
+      name: 'Skylark Drones India',
+      role: 'Geospatial & Telemetry Systems',
+      tag: 'Drone Ecosystem Partner',
+      color: '#0369a1',
+      svg: '<svg viewBox="0 0 40 40" fill="none"><path d="M6 26c6-10 14-14 28-14-6 6-10 12-12 20-3-4-8-6-16-6z" fill="#0369a1"/><circle cx="14" cy="14" r="3" fill="#38bdf8"/></svg>'
+    },
+    {
+      name: 'Aarav Unmanned Systems',
+      role: 'Survey & Flight Controller Labs',
+      tag: 'UAV Supply Partner',
+      color: '#15803d',
+      svg: '<svg viewBox="0 0 40 40" fill="none"><polygon points="20,6 34,32 27,32 20,18 13,32 6,32" fill="#15803d"/><circle cx="20" cy="27" r="3.5" fill="#4ade80"/></svg>'
+    },
+    {
+      name: 'Paras Aerospace',
+      role: 'Indigenous Avionics & Sensor Kits',
+      tag: 'Defense & Avionics Partner',
+      color: '#7c3aed',
+      svg: '<svg viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="15" stroke="#7c3aed" stroke-width="2.2"/><path d="M12 25l8-14 8 14H12z" fill="#8b5cf6"/><circle cx="20" cy="22" r="2.5" fill="#fff"/></svg>'
+    }
+  ];
+
+  const companiesRow2 = [
+    {
+      name: 'BotLab Dynamics',
+      role: 'Swarm & Multi-Rotor Coding Kits',
+      tag: 'Swarm Robotics Supply',
+      color: '#2563eb',
+      svg: '<svg viewBox="0 0 40 40" fill="none"><circle cx="12" cy="14" r="3.5" fill="#2563eb"/><circle cx="28" cy="14" r="3.5" fill="#2563eb"/><circle cx="20" cy="28" r="3.5" fill="#0ea5e9"/><path d="M12 14h16l-8 14-8-14z" stroke="#38bdf8" stroke-width="2"/></svg>'
+    },
+    {
+      name: 'Thanos Technologies',
+      role: 'Agricultural & STEM UAV Fleet',
+      tag: 'Hardware Supply Partner',
+      color: '#16a34a',
+      svg: '<svg viewBox="0 0 40 40" fill="none"><rect x="7" y="10" width="26" height="6" rx="3" fill="#16a34a"/><rect x="17" y="10" width="6" height="22" rx="3" fill="#22c55e"/><circle cx="10" cy="24" r="3" fill="#86efac"/><circle cx="30" cy="24" r="3" fill="#86efac"/></svg>'
+    },
+    {
+      name: 'General Aeronautics',
+      role: 'Flight Dynamics & Control Systems',
+      tag: 'Aero Engineering Partner',
+      color: '#0f172a',
+      svg: '<svg viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="15" stroke="#0f172a" stroke-width="2.2"/><path d="M9 20h22M20 9v22" stroke="#2563eb" stroke-width="2.2"/><circle cx="20" cy="20" r="4.5" fill="#2563eb"/></svg>'
+    },
+    {
+      name: 'Omnipresent Robot Tech',
+      role: 'Industrial AI Vision Drone Kits',
+      tag: 'AI Vision Supply',
+      color: '#9333ea',
+      svg: '<svg viewBox="0 0 40 40" fill="none"><rect x="8" y="11" width="24" height="18" rx="6" stroke="#9333ea" stroke-width="2.2"/><circle cx="16" cy="20" r="3" fill="#9333ea"/><circle cx="24" cy="20" r="3" fill="#c084fc"/><path d="M20 6v5" stroke="#9333ea" stroke-width="2.2" stroke-linecap="round"/></svg>'
+    },
+    {
+      name: 'Marut Drones',
+      role: 'STEM & Drone Academy Supply',
+      tag: 'Training Fleet Partner',
+      color: '#059669',
+      svg: '<svg viewBox="0 0 40 40" fill="none"><path d="M7 28V12l13 10 13-10v16" stroke="#059669" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><circle cx="20" cy="11" r="2.8" fill="#10b981"/></svg>'
+    },
+    {
+      name: 'TechEagle Innovations',
+      role: 'Autonomous Delivery & Payload R&D',
+      tag: 'Logistics UAV Partner',
+      color: '#1d4ed8',
+      svg: '<svg viewBox="0 0 40 40" fill="none"><path d="M6 16l14-7 14 7-14 7-14-7z" fill="#1d4ed8"/><path d="M10 22l10 5 10-5M10 27l10 5 10-5" stroke="#3b82f6" stroke-width="2.2" stroke-linecap="round"/></svg>'
+    },
+    {
+      name: 'Dhaksha Unmanned Systems',
+      role: 'Chennai Aerospace Training Fleet',
+      tag: 'Campus Drone Supply',
+      color: '#dc2626',
+      svg: '<svg viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="14" stroke="#dc2626" stroke-width="2.2"/><path d="M14 13h6a7 7 0 010 14h-6V13z" fill="#ef4444"/></svg>'
+    },
+    {
+      name: 'COEP Technological Univ.',
+      role: 'Robotics & Autonomous Drone Lab',
+      tag: 'University Lab Partner',
+      color: '#0284c7',
+      svg: '<svg viewBox="0 0 40 40" fill="none"><path d="M20 7L6 14l14 7 14-7-14-7z" fill="#0284c7"/><path d="M11 18v8c0 3 4 5 9 5s9-2 9-5v-8" stroke="#0284c7" stroke-width="2.2"/></svg>'
+    },
+    {
+      name: 'DTU Unmanned Aerial Labs',
+      role: 'Delhi Tech Multi-Rotor Supply',
+      tag: 'University UAV Fleet',
+      color: '#4338ca',
+      svg: '<svg viewBox="0 0 40 40" fill="none"><rect x="9" y="9" width="22" height="22" rx="5" stroke="#4338ca" stroke-width="2.2"/><path d="M14 20h12M20 14v12" stroke="#6366f1" stroke-width="2.5" stroke-linecap="round"/></svg>'
+    },
+    {
+      name: 'Atal Tinkering Labs (NITI)',
+      role: 'School STEM Programmable Drone Kits',
+      tag: '350+ School Units',
+      color: '#d97706',
+      svg: '<svg viewBox="0 0 40 40" fill="none"><path d="M20 6a9 9 0 016 15.7V26a2 2 0 01-2 2h-8a2 2 0 01-2-2v-4.3A9 9 0 0120 6z" fill="#f59e0b"/><path d="M16 32h8" stroke="#d97706" stroke-width="2.5" stroke-linecap="round"/></svg>'
+    }
+  ];
+
+  const renderCard = c => `
+    <div class="fq-logo-card" title="${c.name} — ${c.role}">
+      <div class="fq-logo-emblem" style="border-color:${c.color}22;background:${c.color}0a">${c.svg}</div>
+      <div class="fq-logo-meta">
+        <span class="fq-logo-tag" style="color:${c.color};background:${c.color}14">${c.tag}</span>
+        <strong>${c.name}</strong>
+        <small>${c.role}</small>
+      </div>
+    </div>`;
+
+  const track1Html = [...companiesRow1, ...companiesRow1].map(renderCard).join('');
+  const track2Html = [...companiesRow2, ...companiesRow2].map(renderCard).join('');
+
+  return `<section class="fq-partners-sec" id="drone-supply-partners" aria-labelledby="fq-partners-heading">
+  <style>
+    .fq-partners-sec{background:linear-gradient(180deg,#070f20 0%,#0f172a 100%);color:#fff;padding:72px 0 78px;border-top:1px solid #1e293b;border-bottom:1px solid #1e293b;overflow:hidden;font-family:'DM Sans',-apple-system,BlinkMacSystemFont,sans-serif}
+    .fq-partners-sec *{box-sizing:border-box}
+    .fq-partners-wrap{width:min(1220px,calc(100% - 48px));margin:0 auto}
+    .fq-soldout-banner{background:linear-gradient(135deg,rgba(34,92,236,.24) 0%,rgba(16,185,129,.18) 100%);border:1.5px solid rgba(74,222,128,.42);border-radius:24px;padding:30px 34px;margin-bottom:48px;display:grid;grid-template-columns:1.15fr .85fr;gap:30px;align-items:center;box-shadow:0 20px 50px rgba(0,0,0,.32)}
+    .fq-soldout-pill{display:inline-flex;align-items:center;gap:8px;background:rgba(239,68,68,.2);border:1px solid rgba(248,113,113,.55);color:#fca5a5;font-size:11.5px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;padding:6px 14px;border-radius:99px;margin-bottom:14px}
+    .fq-soldout-dot{width:8px;height:8px;border-radius:50%;background:#ef4444;box-shadow:0 0 10px #ef4444;animation:fqPulseSold 1.4s infinite}
+    @keyframes fqPulseSold{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.35);opacity:.65}}
+    .fq-soldout-banner h2{font-family:Manrope,Arial,sans-serif;font-size:clamp(26px,3.2vw,40px);line-height:1.14;letter-spacing:-.03em;margin:0 0 12px;color:#fff;font-weight:800}
+    .fq-soldout-banner h2 em{font-style:normal;color:#4ade80}
+    .fq-soldout-banner p{color:#cbd5e1;font-size:15.5px;line-height:1.68;margin:0}
+    .fq-stats-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+    .fq-stat-box{background:rgba(15,23,42,.82);border:1px solid rgba(148,163,184,.24);border-radius:16px;padding:18px 20px;text-align:left}
+    .fq-stat-box.highlight{border-color:#4ade80;background:linear-gradient(145deg,rgba(6,78,59,.55),rgba(15,23,42,.9))}
+    .fq-stat-box strong{display:block;font-family:Manrope,Arial,sans-serif;font-size:clamp(26px,2.6vw,34px);font-weight:800;color:#fff;line-height:1.05;letter-spacing:-.03em}
+    .fq-stat-box.highlight strong{color:#4ade80}
+    .fq-stat-box span{display:block;font-size:12.5px;color:#94a3b8;font-weight:600;margin-top:5px;line-height:1.35}
+    .fq-partners-head{text-align:center;max-width:780px;margin:0 auto 36px}
+    .fq-partners-eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:11.5px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#38bdf8;background:rgba(56,189,248,.12);border:1px solid rgba(56,189,248,.32);padding:6px 15px;border-radius:99px;margin-bottom:14px}
+    .fq-partners-head h3{font-family:Manrope,Arial,sans-serif;font-size:clamp(24px,2.8vw,34px);line-height:1.18;letter-spacing:-.025em;margin:0 0 10px;color:#fff;font-weight:800}
+    .fq-partners-head p{color:#94a3b8;font-size:15.5px;line-height:1.65;margin:0}
+
+    /* Smooth Left-to-Right Continuous Logo Transition */
+    @keyframes fqSlideLeftToRight{
+      0%{transform:translate3d(-50%,0,0)}
+      100%{transform:translate3d(0%,0,0)}
+    }
+    .fq-marquee-shell{position:relative;width:100%;overflow:hidden;padding:8px 0;mask-image:linear-gradient(90deg,transparent 0%,#000 7%,#000 93%,transparent 100%);-webkit-mask-image:linear-gradient(90deg,transparent 0%,#000 7%,#000 93%,transparent 100%)}
+    .fq-marquee-row{display:flex;width:max-content;gap:18px;margin-bottom:18px;animation:fqSlideLeftToRight 38s linear infinite;will-change:transform}
+    .fq-marquee-row.row-2{animation:fqSlideLeftToRight 44s linear infinite}
+    .fq-marquee-shell:hover .fq-marquee-row{animation-play-state:paused}
+    .fq-logo-card{background:#ffffff;color:#0f172a;border:1px solid #dbe4f0;border-radius:16px;padding:14px 18px;min-width:295px;display:flex;align-items:center;gap:14px;box-shadow:0 10px 25px rgba(0,0,0,.22);transition:transform .2s,border-color .2s}
+    .fq-logo-card:hover{transform:translateY(-3px);border-color:#38bdf8}
+    .fq-logo-emblem{width:50px;height:50px;border-radius:12px;border:1.5px solid #e2e8f0;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+    .fq-logo-emblem svg{width:34px;height:34px}
+    .fq-logo-meta{display:flex;flex-direction:column;gap:2px;min-width:0}
+    .fq-logo-tag{display:inline-block;align-self:flex-start;font-size:10px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;padding:2px 8px;border-radius:99px;margin-bottom:2px}
+    .fq-logo-meta strong{font-family:Manrope,Arial,sans-serif;font-size:15px;font-weight:800;color:#0f172a;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .fq-logo-meta small{font-size:12px;color:#475569;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    @media(max-width:960px){
+      .fq-soldout-banner{grid-template-columns:1fr;padding:24px}
+      .fq-partners-sec{padding:56px 0}
+    }
+  </style>
+
+  <div class="fq-partners-wrap">
+    <!-- 1,500+ Units Sold Out Milestone Showcase -->
+    <div class="fq-soldout-banner">
+      <div>
+        <span class="fq-soldout-pill"><span class="fq-soldout-dot"></span> MILESTONE ACHIEVED · 1,500+ UNITS SOLD OUT</span>
+        <h2 id="fq-partners-heading"><em>1,500+ FLYQ Drone Units Sold Out</em> &amp; Supplied Across India</h2>
+        <p>From programmable ESP32-S3 student quadcopters to autonomous AI vision research kits, FLYQ Drones (by Passion 3D World, Mumbai) supplies hardware, simulation suites, and training to <strong>20+ leading aerospace companies, defense/space research centers, and premier universities</strong>.</p>
+      </div>
+      <div class="fq-stats-grid">
+        <div class="fq-stat-box highlight">
+          <strong>1,500+</strong>
+          <span>FLYQ Drone Units Sold Out Across India</span>
+        </div>
+        <div class="fq-stat-box">
+          <strong>20+ Partners</strong>
+          <span>Aerospace Firms, Labs &amp; Institutions Supplied</span>
+        </div>
+        <div class="fq-stat-box">
+          <strong>55+ Campuses</strong>
+          <span>IITs, NITs, Universities &amp; Atal Tinkering Labs</span>
+        </div>
+        <div class="fq-stat-box">
+          <strong>4.9 / 5.0 ★</strong>
+          <span>Verified Hardware &amp; Bootcamp Rating</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="fq-partners-head">
+      <span class="fq-partners-eyebrow">⇄ 20+ DRONE SUPPLY, RESEARCH &amp; ECOSYSTEM PARTNERS (LEFT → RIGHT LIVE SHOWCASE)</span>
+      <h3>Trusted by Leading Aerospace Companies, Research Labs &amp; Universities</h3>
+      <p>Supplying indigenous programmable quadcopters, ESP32-S3 flight controllers, and hands-on UAV training across India’s drone ecosystem.</p>
+    </div>
+  </div>
+
+  <!-- Continuous Left-to-Right Marquee of 20 Company & Organization Logos -->
+  <div class="fq-marquee-shell" role="region" aria-label="20 Companies and Institutions Supplied by FLYQ Drones">
+    <div class="fq-marquee-row row-1">
+      ${track1Html}
+    </div>
+    <div class="fq-marquee-row row-2">
+      ${track2Html}
+    </div>
+  </div>
+</section>`;
+}
+
+export function applyMainSiteSoldOutBadges(html) {
+  if (!html || typeof html !== 'string') return html;
+  let out = html;
+  if (!out.includes('fq-inline-sold-badge')) {
+    out = out.replace(
+      '<div class="price">₹9,999<small>Listed on the official FLYQ store</small></div>',
+      '<div class="price">₹9,999<small>Listed on the official FLYQ store</small><span class="fq-inline-sold-badge" style="display:inline-flex;align-items:center;gap:6px;background:#fef2f2;border:1px solid #fecaca;color:#b91c1c;font-size:11.5px;font-weight:800;padding:4px 10px;border-radius:99px;margin-top:8px">🔥 1,500+ Units Sold Out · Batch 4 Shipping Now</span></div>'
+    );
+    out = out.replace(
+      '<div class="price">₹19,999<small>Listed on the official FLYQ store</small></div>',
+      '<div class="price">₹19,999<small>Listed on the official FLYQ store</small><span class="fq-inline-sold-badge" style="display:inline-flex;align-items:center;gap:6px;background:#ecfdf5;border:1px solid #a7f3d0;color:#047857;font-size:11.5px;font-weight:800;padding:4px 10px;border-radius:99px;margin-top:8px">✓ 1,500+ FLYQ Units Deployed Across 20+ Partners</span></div>'
+    );
+  }
+  return out;
+}
+
 export function mainSiteTestimonialsSection() {
   return `<section class="fq-testi-sec" id="student-reviews" aria-labelledby="fq-testi-heading">
   <style>
     .fq-testi-sec{background:#f8fafc;border-top:1px solid #e2e8f0;border-bottom:1px solid #e2e8f0;padding:88px 0;font-family:'DM Sans',-apple-system,BlinkMacSystemFont,sans-serif;color:#0f172a}
     .fq-testi-sec *{box-sizing:border-box}
     .fq-testi-wrap{width:min(1200px,calc(100% - 48px));margin:0 auto}
-    .fq-testi-head{max-width:760px;margin:0 auto 52px;text-align:center}
+    .fq-testi-head{max-width:780px;margin:0 auto 52px;text-align:center}
     .fq-testi-eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#225cec;background:#eef4ff;border:1px solid #bfdbfe;padding:6px 15px;border-radius:99px;margin:0 0 16px}
     .fq-testi-head h2{font-family:Manrope,Arial,sans-serif;font-size:clamp(30px,3.6vw,46px);line-height:1.12;letter-spacing:-.03em;margin:0 0 14px;font-weight:800;color:#0f172a}
     .fq-testi-head p{color:#475569;font-size:17px;line-height:1.7;margin:0}
@@ -73,9 +342,9 @@ export function mainSiteTestimonialsSection() {
   </style>
   <div class="fq-testi-wrap">
     <div class="fq-testi-head">
-      <span class="fq-testi-eyebrow">★ RATED 4.9 / 5.0 BY INDIAN STUDENTS &amp; BUILDERS</span>
-      <h2 id="fq-testi-heading">What Students Across India Say About FLYQ Drones</h2>
-      <p>Over 1,200+ engineering and school students from Pune, Bengaluru, New Delhi, Chennai, Ahmedabad, and Mumbai have built, programmed, and flown drones with FLYQ.</p>
+      <span class="fq-testi-eyebrow">★ 1,500+ UNITS SOLD OUT · RATED 4.9 / 5.0 BY INDIAN BUILDERS</span>
+      <h2 id="fq-testi-heading">Why Engineering Students &amp; Drone Clubs Choose FLYQ Hardware</h2>
+      <p>With over <strong>1,500+ programmable drone units sold out</strong> and deployed across 20+ industry partners and 55+ Indian campuses, here is what student builders say about FLYQ Air and FLYQ Vision.</p>
     </div>
 
     <div class="fq-testi-grid">
@@ -83,16 +352,16 @@ export function mainSiteTestimonialsSection() {
         <div>
           <div class="fq-testi-top">
             <span class="fq-testi-stars" aria-label="5 out of 5 stars">★★★★★</span>
-            <span class="fq-testi-tag">ESP32-S3 &amp; Notes Pack</span>
+            <span class="fq-testi-tag">FLYQ Air Kit · IIT Bombay</span>
           </div>
-          <blockquote class="fq-testi-quote">“Best hands-on drone learning experience I’ve had in engineering! Rahul sir explained ESP32-S3 sensor fusion and PID stabilization with real FLYQ hardware on camera. I used the engineering notes and circuit diagrams directly in my 3rd-year robotics mini project.”</blockquote>
+          <blockquote class="fq-testi-quote">“We ordered three FLYQ Air kits for our aerospace society at IIT Bombay. Having direct access to the ESP32-S3 firmware, raw 6-axis IMU telemetry, and PID gains without a locked proprietary controller made our autonomous hover stabilization project a massive success.”</blockquote>
         </div>
         <div class="fq-testi-author">
-          <img class="fq-testi-avatar" src="/flyq-design/webinar/student-1.jpg" alt="Aarav Kulkarni, B.Tech Robotics Student in Pune" width="112" height="112" loading="lazy">
+          <img class="fq-testi-avatar" src="/flyq-design/webinar/main-student-1.jpg" alt="Siddharth Deshmukh, Aerospace Engineering Student at IIT Bombay" width="112" height="112" loading="lazy">
           <div>
-            <strong>Aarav Kulkarni</strong>
-            <span>B.Tech Robotics &amp; Automation · Pune</span>
-            <div class="fq-testi-verified">✓ Verified FLYQ Builder &amp; Certificate Holder</div>
+            <strong>Siddharth Deshmukh</strong>
+            <span>B.Tech Aerospace Engineering · IIT Bombay, Mumbai</span>
+            <div class="fq-testi-verified">✓ Verified FLYQ Air Hardware Owner</div>
           </div>
         </div>
       </article>
@@ -101,16 +370,16 @@ export function mainSiteTestimonialsSection() {
         <div>
           <div class="fq-testi-top">
             <span class="fq-testi-stars" aria-label="5 out of 5 stars">★★★★★</span>
-            <span class="fq-testi-tag">3D Flight Studio &amp; Bootcamp</span>
+            <span class="fq-testi-tag">FLYQ Vision · AI Camera</span>
           </div>
-          <blockquote class="fq-testi-quote">“Watching the 3D Flight Studio simulator execute autonomous takeoff and altitude-hold code live made everything click. Even before flying a physical quadcopter, you can test every Blockly and Python mission safely. The verified FLYQ certificate looks great on my LinkedIn!”</blockquote>
+          <blockquote class="fq-testi-quote">“For my final-year robotics capstone at Anna University, we needed a lightweight quadcopter capable of streaming onboard camera frames for OpenCV AprilTag landing. FLYQ Vision worked out of the box and saved our team weeks of custom PCB debugging.”</blockquote>
         </div>
         <div class="fq-testi-author">
-          <img class="fq-testi-avatar" src="/flyq-design/webinar/student-2.jpg" alt="Priya Nair, Electronics Engineering Student in Bengaluru" width="112" height="112" loading="lazy">
+          <img class="fq-testi-avatar" src="/flyq-design/webinar/main-student-2.jpg" alt="Meera Krishnan, Robotics and AI Engineering Student in Chennai" width="112" height="112" loading="lazy">
           <div>
-            <strong>Priya Nair</strong>
-            <span>B.E. Electronics &amp; Comm. · Bengaluru</span>
-            <div class="fq-testi-verified">✓ Verified FLYQ Builder &amp; Certificate Holder</div>
+            <strong>Meera Krishnan</strong>
+            <span>B.E. Robotics &amp; AI · Anna University, Chennai</span>
+            <div class="fq-testi-verified">✓ Verified FLYQ Vision Builder</div>
           </div>
         </div>
       </article>
@@ -119,16 +388,16 @@ export function mainSiteTestimonialsSection() {
         <div>
           <div class="fq-testi-top">
             <span class="fq-testi-stars" aria-label="5 out of 5 stars">★★★★★</span>
-            <span class="fq-testi-tag">FLYQ Air &amp; Telemetry</span>
+            <span class="fq-testi-tag">Campus Fleet · DTU Delhi</span>
           </div>
-          <blockquote class="fq-testi-quote">“The way FLYQ teaches Wi-Fi UDP telemetry and Python flight commands on the ESP32-S3 platform is super practical. Having both the live bootcamp recording and the 85-page engineering notes let me replay the session while writing my own flight controller code.”</blockquote>
+          <blockquote class="fq-testi-quote">“Our UAV club tested the 3D Flight Studio simulator first and then deployed the exact same Python waypoint script onto our physical FLYQ Air quadcopter. Crash-resistant guards and modular plug-and-play motors make it the toughest training drone in India.”</blockquote>
         </div>
         <div class="fq-testi-author">
-          <img class="fq-testi-avatar" src="/flyq-design/webinar/student-3.jpg" alt="Rohan Verma, ECE Student in New Delhi" width="112" height="112" loading="lazy">
+          <img class="fq-testi-avatar" src="/flyq-design/webinar/main-student-3.jpg" alt="Vikramaditya Singhania, Mechanical and UAV Club Lead at DTU New Delhi" width="112" height="112" loading="lazy">
           <div>
-            <strong>Rohan Verma</strong>
-            <span>B.Tech ECE (3rd Year) · New Delhi</span>
-            <div class="fq-testi-verified">✓ Verified FLYQ Builder &amp; Certificate Holder</div>
+            <strong>Vikramaditya Singhania</strong>
+            <span>Mechanical &amp; UAV Club · DTU, New Delhi</span>
+            <div class="fq-testi-verified">✓ Verified Campus Lab Deployment</div>
           </div>
         </div>
       </article>
@@ -137,16 +406,16 @@ export function mainSiteTestimonialsSection() {
         <div>
           <div class="fq-testi-top">
             <span class="fq-testi-stars" aria-label="5 out of 5 stars">★★★★★</span>
-            <span class="fq-testi-tag">FLYQ Vision &amp; AI Camera</span>
+            <span class="fq-testi-tag">ESP32-S3 Telemetry · COEP</span>
           </div>
-          <blockquote class="fq-testi-quote">“Coming from a Computer Science background, I never understood how quadcopter motors, MOSFET drivers, and IMUs actually talk to code. The FLYQ hardware breakdown and AI camera vision demo gave our college hackathon team a complete project roadmap.”</blockquote>
+          <blockquote class="fq-testi-quote">“As an Electronics &amp; Telecommunication student, I loved how transparent the FLYQ architecture is. From MOSFET motor drivers to real-time Wi-Fi UDP packet logs, every circuit is documented clearly so you genuinely understand how flight control works.”</blockquote>
         </div>
         <div class="fq-testi-author">
-          <img class="fq-testi-avatar" src="/flyq-design/webinar/student-4.jpg" alt="Ananya Iyer, Computer Science Student in Chennai" width="112" height="112" loading="lazy">
+          <img class="fq-testi-avatar" src="/flyq-design/webinar/main-student-4.jpg" alt="Tanvi Joshi, Electronics and Telecommunication Student at COEP Pune" width="112" height="112" loading="lazy">
           <div>
-            <strong>Ananya Iyer</strong>
-            <span>B.Tech Computer Science · Chennai</span>
-            <div class="fq-testi-verified">✓ Verified FLYQ Builder &amp; Certificate Holder</div>
+            <strong>Tanvi Joshi</strong>
+            <span>B.Tech Electronics &amp; Telecomm. · COEP, Pune</span>
+            <div class="fq-testi-verified">✓ Verified FLYQ Air &amp; Bootcamp Graduate</div>
           </div>
         </div>
       </article>
@@ -155,26 +424,27 @@ export function mainSiteTestimonialsSection() {
         <div>
           <div class="fq-testi-top">
             <span class="fq-testi-stars" aria-label="5 out of 5 stars">★★★★★</span>
-            <span class="fq-testi-tag">Campus Aero Club</span>
+            <span class="fq-testi-tag">Python SDK · Hyderabad</span>
           </div>
-          <blockquote class="fq-testi-quote">“Six of us from our college aeromodelling club joined the Monday 6–9 PM live bootcamp and grabbed the ₹499 notes bundle. The bench-testing checklist, CW/CCW propeller pairing guide, and LiPo safety notes saved us from burning out motors on our quadcopter build!”</blockquote>
+          <blockquote class="fq-testi-quote">“We won 1st Runner-Up at our inter-college autonomous drone hackathon in Hyderabad using a FLYQ Vision kit! Being able to prototype in Blockly and switch seamlessly to Python + OpenCV gave our software team a huge edge.”</blockquote>
         </div>
         <div class="fq-testi-author">
-          <img class="fq-testi-avatar" src="/flyq-design/webinar/student-5.jpg" alt="Devansh Patel, Mechanical and Aerospace Club Student in Ahmedabad" width="112" height="112" loading="lazy">
+          <img class="fq-testi-avatar" src="/flyq-design/webinar/main-student-5.jpg" alt="Karthik Reddy, Computer Science and Autonomous Systems Student in Hyderabad" width="112" height="112" loading="lazy">
           <div>
-            <strong>Devansh Patel</strong>
-            <span>Aero &amp; Mechanical Club Lead · Ahmedabad</span>
-            <div class="fq-testi-verified">✓ Verified FLYQ Builder &amp; Certificate Holder</div>
+            <strong>Karthik Reddy</strong>
+            <span>B.Tech CSE &amp; Autonomous Systems · Hyderabad</span>
+            <div class="fq-testi-verified">✓ Verified Hackathon Winner &amp; FLYQ Owner</div>
           </div>
         </div>
       </article>
 
       <article class="fq-testi-card" style="background:linear-gradient(145deg,#0f172a,#1e3a8a);color:#fff;border-color:#1e3a8a;justify-content:center;text-align:center">
         <div>
-          <div style="font-size:44px;font-weight:800;font-family:Manrope,Arial,sans-serif;color:#4ade80;line-height:1">4.9 / 5.0</div>
+          <div style="display:inline-block;background:rgba(74,222,128,.18);border:1px solid rgba(74,222,128,.45);color:#86efac;font-size:11px;font-weight:800;padding:4px 12px;border-radius:99px;letter-spacing:.08em;margin-bottom:10px">🔥 1,500+ DRONE UNITS SOLD OUT</div>
+          <div style="font-size:42px;font-weight:800;font-family:Manrope,Arial,sans-serif;color:#4ade80;line-height:1">4.9 / 5.0</div>
           <div style="color:#fde047;font-size:20px;letter-spacing:3px;margin:8px 0">★★★★★</div>
-          <h3 style="font-family:Manrope,Arial,sans-serif;font-size:22px;margin:10px 0;color:#fff">Start Building with FLYQ</h3>
-          <p style="font-size:14.5px;color:#cbd5e1;line-height:1.65;margin:0 0 20px">Join this Monday’s 3-Hour Live Drone Bootcamp for just <strong style="color:#4ade80">₹99</strong> (with Free Certificate) or explore programmable FLYQ drone kits.</p>
+          <h3 style="font-family:Manrope,Arial,sans-serif;font-size:21px;margin:8px 0;color:#fff">Join India’s #1 Student Drone Community</h3>
+          <p style="font-size:14px;color:#cbd5e1;line-height:1.62;margin:0 0 18px">Attend this Monday’s 3-Hour Live Drone Bootcamp for just <strong style="color:#4ade80">₹99</strong> (with Free Certificate) or order your programmable FLYQ kit.</p>
           <div style="display:grid;gap:10px">
             <a href="/webinar" style="display:inline-flex;align-items:center;justify-content:center;background:#225cec;color:#fff;font-family:Manrope,Arial,sans-serif;font-weight:800;font-size:14.5px;padding:13px 18px;border-radius:10px;text-decoration:none">Join Monday ₹99 Live Webinar →</a>
             <a href="/products" style="display:inline-flex;align-items:center;justify-content:center;background:rgba(255,255,255,.12);color:#fff;font-family:Manrope,Arial,sans-serif;font-weight:700;font-size:13.5px;padding:11px 18px;border-radius:10px;text-decoration:none;border:1px solid rgba(255,255,255,.22)">Explore FLYQ Air &amp; Vision Kits ↗</a>
@@ -633,8 +903,8 @@ export function webinarContent() {
 
           <div class="wb-showcase-footer">
             <div>
-              <strong style="display:block;font-family:Manrope,sans-serif;font-size:15px;color:#0f172a">Rated 4.9/5 by 1,200+ Indian Students</strong>
-              <span style="font-size:13px;color:#475569">No prior coding or hardware kit required to attend live</span>
+              <strong style="display:block;font-family:Manrope,sans-serif;font-size:15px;color:#0f172a">1,500+ Drone Units Sold Out · Rated 4.9/5 ★</strong>
+              <span style="font-size:13px;color:#475569">Supplied to 20+ Aerospace &amp; Defense/Campus Partners across India</span>
             </div>
             <a href="#testimonials" style="color:#225cec;font-weight:800;font-size:13.5px;text-decoration:underline">Read Student Reviews ↓</a>
           </div>
@@ -642,6 +912,8 @@ export function webinarContent() {
       </div>
     </div>
   </section>
+
+  ${partnerLogosAndSoldOutSection()}
 
   <!-- Section 1: Real Hardware & Workshop Photo Gallery -->
   <section class="wb-section" id="photos">

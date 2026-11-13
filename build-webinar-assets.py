@@ -4,31 +4,59 @@ import io
 import json
 
 sources = {
+    # Webinar page student portraits (Set A)
     "/flyq-design/webinar/student-1.jpg": (
         r"C:\Users\PROFESSORHULK\.gemini\antigravity\brain\2a52ed4d-c7f5-444a-b906-e3a15058312a\student_1_1794558728764.jpg",
-        (360, 360),
-        84,
+        (320, 320),
+        82,
     ),
     "/flyq-design/webinar/student-2.jpg": (
         r"C:\Users\PROFESSORHULK\.gemini\antigravity\brain\2a52ed4d-c7f5-444a-b906-e3a15058312a\student_2_1794558746251.jpg",
-        (360, 360),
-        84,
+        (320, 320),
+        82,
     ),
     "/flyq-design/webinar/student-3.jpg": (
         r"C:\Users\PROFESSORHULK\.gemini\antigravity\brain\2a52ed4d-c7f5-444a-b906-e3a15058312a\student_3_1794558766586.jpg",
-        (360, 360),
-        84,
+        (320, 320),
+        82,
     ),
     "/flyq-design/webinar/student-4.jpg": (
         r"C:\Users\PROFESSORHULK\.gemini\antigravity\brain\2a52ed4d-c7f5-444a-b906-e3a15058312a\student_4_1794558784516.jpg",
-        (360, 360),
-        84,
+        (320, 320),
+        82,
     ),
     "/flyq-design/webinar/student-5.jpg": (
         r"C:\Users\PROFESSORHULK\.gemini\antigravity\brain\2a52ed4d-c7f5-444a-b906-e3a15058312a\student_5_1794558802010.jpg",
-        (360, 360),
-        84,
+        (320, 320),
+        82,
     ),
+    # Main Website student portraits (Set B - completely distinct!)
+    "/flyq-design/webinar/main-student-1.jpg": (
+        r"C:\Users\PROFESSORHULK\.gemini\antigravity\brain\2a52ed4d-c7f5-444a-b906-e3a15058312a\main_student_1_1794568391851.jpg",
+        (320, 320),
+        82,
+    ),
+    "/flyq-design/webinar/main-student-2.jpg": (
+        r"C:\Users\PROFESSORHULK\.gemini\antigravity\brain\2a52ed4d-c7f5-444a-b906-e3a15058312a\main_student_2_1794568420451.jpg",
+        (320, 320),
+        82,
+    ),
+    "/flyq-design/webinar/main-student-3.jpg": (
+        r"C:\Users\PROFESSORHULK\.gemini\antigravity\brain\2a52ed4d-c7f5-444a-b906-e3a15058312a\main_student_3_1794568438659.jpg",
+        (320, 320),
+        82,
+    ),
+    "/flyq-design/webinar/main-student-4.jpg": (
+        r"C:\Users\PROFESSORHULK\.gemini\antigravity\brain\2a52ed4d-c7f5-444a-b906-e3a15058312a\main_student_4_1794568458658.jpg",
+        (320, 320),
+        82,
+    ),
+    "/flyq-design/webinar/main-student-5.jpg": (
+        r"C:\Users\PROFESSORHULK\.gemini\antigravity\brain\2a52ed4d-c7f5-444a-b906-e3a15058312a\main_student_5_1794568478210.jpg",
+        (320, 320),
+        82,
+    ),
+    # Hardware photos
     "/flyq-design/webinar/components.jpg": (
         r"C:\Users\PROFESSORHULK\Downloads\FLYQ-PRIVATE-CLOUDFLARE\FLYQ-PRIVATE-CLOUDFLARE\app\public\images\components.png",
         (600, 600),
@@ -64,7 +92,7 @@ for route, (src_path, max_size, quality) in sources.items():
 
 print(f"Total compressed image payload: {total_bytes} bytes")
 
-mjs_code = f"""// Optimized Webinar Visual Assets (Indian Student Portraits & Hardware Photos)
+mjs_code = f"""// Optimized Webinar & Main Website Visual Assets (10 Indian Student Portraits + Hardware Photos)
 const ASSETS = {json.dumps(out_map, indent=2)};
 
 const CACHE = new Map();

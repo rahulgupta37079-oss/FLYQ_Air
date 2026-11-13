@@ -9,6 +9,8 @@ import {
   KIT_GUIDE_PDF_PATH,
   applyWebinarNav,
   webinarHomepageBanner,
+  partnerLogosAndSoldOutSection,
+  applyMainSiteSoldOutBadges,
   mainSiteTestimonialsSection,
   webinarContent,
   webinarScript
@@ -99,8 +101,29 @@ export default {
     ) {
       let html = await response.text();
       html = applyWebinarNav(html, path);
+      html = applyMainSiteSoldOutBadges(html);
       if (path === '/' && !html.includes('aria-label="Live Drone Bootcamp Webinar"')) {
         html = html.replace('<main id="main">', '<main id="main">' + webinarHomepageBanner());
+      }
+      if ((path === '/' || path === '/products' || path === '/about') && !html.includes('id="drone-supply-partners"')) {
+        if (html.includes('<section class="section flight-demo-section"')) {
+          html = html.replace(
+            '<section class="section flight-demo-section"',
+            partnerLogosAndSoldOutSection() + '<section class="section flight-demo-section"'
+          );
+        } else if (html.includes('<section class="section grey"><div class="wrap faq">')) {
+          html = html.replace(
+            '<section class="section grey"><div class="wrap faq">',
+            partnerLogosAndSoldOutSection() + '<section class="section grey"><div class="wrap faq">'
+          );
+        } else if (html.includes('<div class="wrap"><section class="cta-band">')) {
+          html = html.replace(
+            '<div class="wrap"><section class="cta-band">',
+            partnerLogosAndSoldOutSection() + '<div class="wrap"><section class="cta-band">'
+          );
+        } else if (html.includes('</main>')) {
+          html = html.replace('</main>', partnerLogosAndSoldOutSection() + '</main>');
+        }
       }
       if ((path === '/' || path === '/products' || path === '/about') && !html.includes('id="student-reviews"')) {
         if (html.includes('<section class="section grey"><div class="wrap faq">')) {
