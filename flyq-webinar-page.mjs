@@ -1754,12 +1754,16 @@ export const webinarScript = `(() => {
     });
   });
 
-  // 3. Direct Online Payment Gateway Initiator (/api/payment/initiate -> PayU)
-  async function startOnlinePayment(amount, userDetails) {
-    const productTitle = amount === 499
-      ? 'FLYQ 3-Hour Live Drone Bootcamp + HD Recordings & Engineering Notes Bundle'
-      : 'FLYQ 3-Hour Live Drone Bootcamp + Free Certificate Pass';
+  // 3. Direct Online Payment Gateway Initiator (/api/workshops/webinar/payu-initiate -> PayU)
+  if (window.location.search.includes('payment=failed')) {
+    const statusEl = $('#wb-form-status');
+    if (statusEl) {
+      statusEl.style.color = '#dc2626';
+      statusEl.textContent = 'Your previous PayU payment did not complete. Please enter your details and try again, or pay via WhatsApp UPI.';
+    }
+  }
 
+  async function startOnlinePayment(amount, userDetails) {
     const name = (userDetails && userDetails.name) || ($('#wb-name') && $('#wb-name').value.trim()) || '';
     const email = (userDetails && userDetails.email) || ($('#wb-email') && $('#wb-email').value.trim()) || '';
     const phone = (userDetails && userDetails.phone) || ($('#wb-phone') && $('#wb-phone').value.trim()) || '';
@@ -1772,7 +1776,7 @@ export const webinarScript = `(() => {
       const statusEl = $('#wb-form-status');
       if (statusEl) {
         statusEl.style.color = '#1d4ed8';
-        statusEl.textContent = 'Please enter your Name, Email & WhatsApp number below to launch the ₹' + amount + ' online payment link.';
+        statusEl.textContent = 'Please enter your Name, Email & WhatsApp number below to launch the ₹' + amount + ' PayU online payment link.';
       }
       if ($('#wb-name') && !name) $('#wb-name').focus();
       return;
@@ -1782,19 +1786,53 @@ export const webinarScript = `(() => {
     const origLabel = gwBtn ? gwBtn.textContent : '';
     if (gwBtn) {
       gwBtn.disabled = true;
-      gwBtn.textContent = 'Opening Secure ₹' + amount + ' Payment Gateway...';
+      gwBtn.textContent = 'Opening Secure ₹' + amount + ' PayU Gateway...';
+    }
+
+    let regId = ($('#wb-utr-reg-id') && $('#wb-utr-reg-id').value) || '';
+    let regCode = ($('#wb-utr-reg-code') && $('#wb-utr-reg-code').value) || '';
+
+    if (!regId && !regCode) {
+      try {
+        const regRes = await fetch('/api/workshops/webinar/register', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name,
+            email,
+            phone,
+            city,
+            profile: ($('#wb-profile') && $('#wb-profile').value) || 'college_student',
+            institution: ($('#wb-institution') && $('#wb-institution').value.trim()) || '',
+            question: ($('#wb-question') && $('#wb-question').value.trim()) || '',
+            session_date: ($('#wb-session-date-input') && $('#wb-session-date-input').value) || 'Monday · 6:00 PM – 9:00 PM IST',
+            plan_type: amount === 499 ? 'bundle_499' : 'live_99',
+            amount_inr: amount,
+            website: '',
+            consent: true
+          })
+        });
+        const regData = await regRes.json().catch(() => ({}));
+        if (regData && regData.id) regId = regData.id;
+        if (regData && regData.reg_code) regCode = regData.reg_code;
+      } catch (e) {
+        console.warn('Pre-payment registration skipped:', e);
+      }
     }
 
     try {
-      const resp = await fetch('/api/payment/initiate', {
+      const resp = await fetch('/api/workshops/webinar/payu-initiate', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
+          id: regId,
+          reg_code: regCode,
           name,
           email,
           phone,
-          address: city + ', India',
-          cart: [{ name: productTitle, price: amount, quantity: 1 }]
+          city,
+          amount_inr: amount,
+          plan_type: amount === 499 ? 'bundle_499' : 'live_99'
         })
       });
       const data = await resp.json().catch(() => ({}));

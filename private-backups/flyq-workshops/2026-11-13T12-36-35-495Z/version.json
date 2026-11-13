@@ -1,0 +1,77 @@
+{
+  "id": "0579cdde-2cba-41b6-915c-864d6b1b3b22",
+  "number": 10,
+  "metadata": {
+    "created_on": "2026-11-13T12:34:53.212763Z",
+    "source": "wrangler",
+    "author_id": "5cca3b6ab7a45417ac53c963404276d6",
+    "author_email": "rahulgupta37079@gmail.com",
+    "has_preview": false
+  },
+  "annotations": {
+    "workers/triggered_by": "secret"
+  },
+  "resources": {
+    "script": {
+      "etag": "87c2c24582f2f049e9768089e63d37abcdc9236b906fc932095871d6dde4c179",
+      "handlers": [
+        "fetch",
+        "scheduled"
+      ],
+      "last_deployed_from": "api"
+    },
+    "script_runtime": {
+      "assets": {
+        "serve_directly": false,
+        "raw_run_worker_first": true,
+        "base_path": "/"
+      },
+      "compatibility_date": "2025-12-07",
+      "usage_model": "standard"
+    },
+    "bindings": [
+      {
+        "name": "ADMIN_EMAIL",
+        "text": "rahulgupta37079@gmail.com",
+        "type": "plain_text"
+      },
+      {
+        "name": "ASSETS",
+        "type": "assets"
+      },
+      {
+        "database_id": "126b679d-beaa-488d-bb99-e01c3c0e1997",
+        "id": "126b679d-beaa-488d-bb99-e01c3c0e1997",
+        "name": "DB",
+        "type": "d1"
+      },
+      {
+        "name": "EMAIL_FROM",
+        "text": "FLYQ drones <orders@flyqdrone.in>",
+        "type": "plain_text"
+      },
+      {
+        "name": "PAYU_KEY",
+        "type": "secret_text"
+      },
+      {
+        "name": "PAYU_SALT",
+        "type": "secret_text"
+      },
+      {
+        "name": "RESEND_API_KEY",
+        "type": "secret_text"
+      },
+      {
+        "name": "WORKSHOP_NOTIFY_EMAIL",
+        "text": "rahulgupta37079@gmail.com",
+        "type": "plain_text"
+      },
+      {
+        "name": "WORKSHOP_PUBLIC_URL",
+        "text": "https://flyqdrone.in",
+        "type": "plain_text"
+      }
+    ]
+  }
+}

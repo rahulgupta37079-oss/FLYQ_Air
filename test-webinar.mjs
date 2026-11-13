@@ -93,7 +93,7 @@ assert.ok(updatedNav.includes('₹99 Live Drone Webinar'));
 
 const banner = webinarHomepageBanner();
 assert.ok(banner.includes('₹499 with Notes + Recordings'));
-assert.ok(webinarScript.includes('/api/payment/initiate'));
+assert.ok(webinarScript.includes('/api/workshops/webinar/payu-initiate'));
 assert.ok(webinarScript.includes('/api/workshops/webinar/register'));
 
 console.log('ALL LOCAL WEBINAR, ₹499 BUNDLE, PAYMENT LINK & 5 STUDENT IMAGE TESTS PASSED ✓');

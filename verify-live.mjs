@@ -64,12 +64,36 @@ async function check() {
   assert.ok(pdf.headers.get('content-type')?.includes('application/pdf'));
   console.log('   ✓ Bonus PDF guide verified');
 
-  console.log('6. Checking https://flyqdrone.in/api/workshops/webinar/health ...');
+  console.log('6. Checking https://flyqdrone.in/api/workshops/webinar/health & PayU Checkout ...');
   const apiHealth = await fetch('https://flyqdrone.in/api/workshops/webinar/health');
   assert.equal(apiHealth.status, 200);
   const healthJson = await apiHealth.json();
   assert.equal(healthJson.ready, true);
-  console.log('   ✓ Webinar D1 Database & API verified:', JSON.stringify(healthJson));
+  assert.equal(healthJson.payu_configured, true, 'PayU gateway must be configured');
+  console.log('   ✓ Webinar D1 Database & PayU Health verified:', JSON.stringify(healthJson));
+
+  const payuInit = await fetch('https://flyqdrone.in/api/workshops/webinar/payu-initiate', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Origin': 'https://flyqdrone.in'
+    },
+    body: JSON.stringify({
+      name: 'Test Builder',
+      email: 'test@flyqdrone.in',
+      phone: '9137361474',
+      amount_inr: 99,
+      reg_code: 'FLYQ-W99-TEST'
+    })
+  });
+  assert.equal(payuInit.status, 200, 'PayU initiate must return HTTP 200');
+  const payuJson = await payuInit.json();
+  assert.equal(payuJson.success, true);
+  assert.equal(payuJson.paymentData.url, 'https://secure.payu.in/_payment');
+  assert.equal(payuJson.paymentData.key, 'fBaHJl');
+  assert.equal(payuJson.paymentData.amount, '99.00');
+  assert.ok(payuJson.paymentData.hash && payuJson.paymentData.hash.length === 128, 'Valid SHA-512 PayU hash must be generated');
+  console.log('   ✓ Live PayU Hosted Checkout verified (Key: fBaHJl, SHA-512 hash generated, SURL/FURL active)');
 
   console.log('7. Checking https://flyqdrone.in/workshops/webinar-admin ...');
   const adminPage = await fetch('https://flyqdrone.in/workshops/webinar-admin');

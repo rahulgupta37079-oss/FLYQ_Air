@@ -16,6 +16,11 @@ async function sha256Hex(value) {
   return Array.from(new Uint8Array(buf), b => b.toString(16).padStart(2, '0')).join('');
 }
 
+async function sha512Hex(value) {
+  const buf = await crypto.subtle.digest('SHA-512', new TextEncoder().encode(String(value)));
+  return Array.from(new Uint8Array(buf), b => b.toString(16).padStart(2, '0')).join('');
+}
+
 function randomToken(bytes = 16) {
   return Array.from(crypto.getRandomValues(new Uint8Array(bytes)), b => b.toString(16).padStart(2, '0')).join('');
 }
@@ -353,7 +358,8 @@ export default {
 
     // 3. Webinar Public & Admin API routes (/api/workshops/webinar/* and /api/workshops/admin/webinar*)
     if (path.startsWith('/api/workshops/webinar') || path.startsWith('/api/workshops/admin/webinar')) {
-      if (!['GET', 'HEAD'].includes(request.method)) {
+      const isPayuCallback = path === '/api/workshops/webinar/payu-callback';
+      if (!['GET', 'HEAD'].includes(request.method) && !isPayuCallback) {
         if (request.headers.get('Origin') !== url.origin) {
           return jsonResponse({ error: 'Request origin is not allowed.' }, 403);
         }
@@ -372,8 +378,132 @@ export default {
         return jsonResponse({
           ready: true,
           registrations: c?.n || 0,
-          email_configured: Boolean(env.RESEND_API_KEY)
+          email_configured: Boolean(env.RESEND_API_KEY),
+          payu_configured: Boolean(env.PAYU_KEY && env.PAYU_SALT)
         });
+      }
+
+      // POST /api/workshops/webinar/payu-initiate
+      if (path === '/api/workshops/webinar/payu-initiate' && request.method === 'POST') {
+        if (!env.PAYU_KEY || !env.PAYU_SALT) {
+          return jsonResponse({ error: 'PayU gateway is not configured.' }, 503);
+        }
+        let b;
+        try {
+          b = await request.json();
+        } catch {
+          return jsonResponse({ error: 'Invalid payment request.' }, 400);
+        }
+        const amountNum = Number(b?.amount_inr) === 499 ? 499 : 99;
+        const amount = amountNum.toFixed(2);
+        const productinfo =
+          amountNum === 499
+            ? 'FLYQ Drone Bootcamp Notes and Recording Bundle'
+            : 'FLYQ 3-Hour Live Drone Bootcamp Pass';
+        const firstname = String(b?.name || 'Student').trim().replace(/[|\r\n]+/g, ' ').slice(0, 60) || 'Student';
+        const email = String(b?.email || '').trim().toLowerCase().slice(0, 254);
+        const rawDigits = String(b?.phone || '').replace(/[^\d]/g, '');
+        const phone = rawDigits.length >= 10 ? rawDigits.slice(-10) : '9137361474';
+        if (!safeEmail(email)) {
+          return jsonResponse({ error: 'Valid email is required for PayU payment.' }, 400);
+        }
+        const udf1 = String(b?.reg_code || '').trim().slice(0, 50);
+        const udf2 = String(b?.id || '').trim().slice(0, 50);
+        const udf3 = '';
+        const udf4 = '';
+        const udf5 = '';
+        const txnid = ('FLYQ' + Date.now().toString(36).toUpperCase() + randomToken(3).toUpperCase()).slice(0, 24);
+        const key = String(env.PAYU_KEY).trim();
+        const salt = String(env.PAYU_SALT).trim();
+        const hashStr = `${key}|${txnid}|${amount}|${productinfo}|${firstname}|${email}|${udf1}|${udf2}|${udf3}|${udf4}|${udf5}||||||${salt}`;
+        const hash = await sha512Hex(hashStr);
+        const origin = url.origin;
+        return jsonResponse({
+          success: true,
+          paymentData: {
+            url: 'https://secure.payu.in/_payment',
+            key,
+            txnid,
+            amount,
+            productinfo,
+            firstname,
+            email,
+            phone,
+            udf1,
+            udf2,
+            udf3,
+            udf4,
+            udf5,
+            surl: origin + '/api/workshops/webinar/payu-callback',
+            furl: origin + '/api/workshops/webinar/payu-callback',
+            hash
+          }
+        });
+      }
+
+      // POST /api/workshops/webinar/payu-callback (PayU SURL / FURL redirect)
+      if (isPayuCallback && request.method === 'POST') {
+        try {
+          const fd = await request.formData();
+          const status = String(fd.get('status') || '').trim();
+          const txnid = String(fd.get('txnid') || '').trim();
+          const amount = String(fd.get('amount') || '').trim();
+          const productinfo = String(fd.get('productinfo') || '').trim();
+          const firstname = String(fd.get('firstname') || '').trim();
+          const email = String(fd.get('email') || '').trim();
+          const udf1 = String(fd.get('udf1') || '').trim();
+          const udf2 = String(fd.get('udf2') || '').trim();
+          const udf3 = String(fd.get('udf3') || '').trim();
+          const udf4 = String(fd.get('udf4') || '').trim();
+          const udf5 = String(fd.get('udf5') || '').trim();
+          const mihpayid = String(fd.get('mihpayid') || txnid).trim();
+          const postedHash = String(fd.get('hash') || '').trim().toLowerCase();
+          const additionalCharges = String(fd.get('additionalCharges') || '').trim();
+
+          const key = String(env.PAYU_KEY || '').trim();
+          const salt = String(env.PAYU_SALT || '').trim();
+          const baseRev = `${salt}|${status}||||||${udf5}|${udf4}|${udf3}|${udf2}|${udf1}|${email}|${firstname}|${productinfo}|${amount}|${txnid}|${key}`;
+          const revStr = additionalCharges ? `${additionalCharges}|${baseRev}` : baseRev;
+          const expectedHash = (await sha512Hex(revStr)).toLowerCase();
+
+          if (postedHash && postedHash === expectedHash && status.toLowerCase() === 'success') {
+            let row = null;
+            if (udf2) {
+              row = await env.DB.prepare('SELECT * FROM webinar_registrations WHERE id=?').bind(udf2).first();
+            }
+            if (!row && udf1) {
+              row = await env.DB.prepare('SELECT * FROM webinar_registrations WHERE reg_code=?').bind(udf1).first();
+            }
+            if (row) {
+              await env.DB.prepare(
+                "UPDATE webinar_registrations SET payment_status='paid', utr_number=?, updated_at=? WHERE id=?"
+              )
+                .bind(mihpayid, now(), row.id)
+                .run();
+              const updatedRow = { ...row, payment_status: 'paid', utr_number: mihpayid };
+              if (ctx && typeof ctx.waitUntil === 'function') {
+                ctx.waitUntil(sendWebinarEmail(env, updatedRow, true));
+              }
+            }
+
+            const displayRegCode = udf1 || row?.reg_code || 'CONFIRMED';
+            const displayAmt = Number(amount) >= 400 ? '499' : '99';
+            const waConfirmUrl =
+              'https://wa.me/919137361474?text=' +
+              encodeURIComponent(
+                `Hi FLYQ Drones! I just completed my ₹${displayAmt} PayU payment for the Monday Live Drone Bootcamp. Reg ID: ${displayRegCode}, PayU Ref: ${mihpayid}. Please share my joining link!`
+              );
+
+            const successHtml = `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Payment Confirmed | FLYQ Drones</title><style>body{margin:0;background:#070f20;color:#fff;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;display:flex;align-items:center;justify-content:center;min-height:100vh;padding:24px}.card{max-width:600px;width:100%;background:#0f172a;border:1.5px solid #34d399;border-radius:22px;padding:36px;box-shadow:0 24px 60px rgba(0,0,0,.45)}.pill{display:inline-block;background:rgba(16,185,129,.2);border:1px solid #34d399;color:#6ee7b7;font-size:12px;font-weight:800;padding:5px 14px;border-radius:99px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:14px}h1{margin:0 0 10px;font-size:30px;line-height:1.15}p{color:#cbd5e1;font-size:15.5px;line-height:1.65}.box{background:rgba(255,255,255,.05);border:1px solid rgba(148,163,184,.25);border-radius:14px;padding:18px;margin:20px 0;font-size:14.5px;line-height:1.8}.btn{display:inline-block;background:#16a34a;color:#fff;text-decoration:none;font-weight:800;padding:13px 20px;border-radius:10px;margin:6px 10px 6px 0}.btn2{display:inline-block;background:#225cec;color:#fff;text-decoration:none;font-weight:800;padding:13px 20px;border-radius:10px;margin:6px 0}</style></head><body><div class="card"><span class="pill">✓ PAYU PAYMENT VERIFIED</span><h1>Your Seat is Confirmed!</h1><p>Thank you, <strong>${escapeHtml(firstname)}</strong>. Your <strong>₹${escapeHtml(displayAmt)}</strong> payment via PayU has been verified and recorded.</p><div class="box"><strong>Registration ID:</strong> ${escapeHtml(displayRegCode)}<br><strong>PayU Transaction ID:</strong> ${escapeHtml(mihpayid)}<br><strong>Live Session:</strong> Monday · 6:00 PM – 9:00 PM IST<br><strong>Certificate:</strong> Free Verified Certificate Included</div><div><a class="btn" href="${escapeHtml(waConfirmUrl)}" target="_blank" rel="noopener">💬 Get Joining Link on WhatsApp ↗</a><a class="btn2" href="/brochures/FLYQ-Drone-Kit-Guide.pdf" download>Download Kit Guide PDF ↓</a></div><p style="margin-top:20px;font-size:13.5px"><a href="/webinar" style="color:#93c5fd">← Return to Webinar Page</a></p></div></body></html>`;
+            return new Response(successHtml, {
+              status: 200,
+              headers: { 'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'private, no-store' }
+            });
+          }
+        } catch {
+          // Fall through to failure redirect
+        }
+        return Response.redirect(new URL('/webinar?payment=failed#register', url.origin), 303);
       }
 
       // POST /api/workshops/webinar/register
