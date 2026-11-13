@@ -1,0 +1,71 @@
+{
+  "id": "a9734349-0d18-4114-b0fa-329ae2a5ffe6",
+  "number": 3,
+  "metadata": {
+    "created_on": "2026-11-13T08:19:11.216023Z",
+    "source": "api",
+    "author_id": "5cca3b6ab7a45417ac53c963404276d6",
+    "author_email": "rahulgupta37079@gmail.com",
+    "has_preview": true
+  },
+  "annotations": {
+    "workers/message": "FLYQ ₹99 Live Drone Webinar + SEO + Logo + Admin Desk release",
+    "workers/tag": "flyq-webinar-2026-11-13-v1",
+    "workers/triggered_by": "version_upload"
+  },
+  "resources": {
+    "script": {
+      "etag": "f591c3a88a8518e97b56a3bedf71ddd52f34be230c5a2f09f8b769b47686da92",
+      "handlers": [
+        "fetch",
+        "scheduled"
+      ],
+      "last_deployed_from": "api"
+    },
+    "script_runtime": {
+      "assets": {
+        "serve_directly": false,
+        "raw_run_worker_first": true,
+        "base_path": "/"
+      },
+      "compatibility_date": "2025-12-07",
+      "usage_model": "standard"
+    },
+    "bindings": [
+      {
+        "name": "ADMIN_EMAIL",
+        "text": "rahulgupta37079@gmail.com",
+        "type": "plain_text"
+      },
+      {
+        "name": "ASSETS",
+        "type": "assets"
+      },
+      {
+        "database_id": "126b679d-beaa-488d-bb99-e01c3c0e1997",
+        "id": "126b679d-beaa-488d-bb99-e01c3c0e1997",
+        "name": "DB",
+        "type": "d1"
+      },
+      {
+        "name": "EMAIL_FROM",
+        "text": "FLYQ drones <orders@flyqdrone.in>",
+        "type": "plain_text"
+      },
+      {
+        "name": "RESEND_API_KEY",
+        "type": "secret_text"
+      },
+      {
+        "name": "WORKSHOP_NOTIFY_EMAIL",
+        "text": "rahulgupta37079@gmail.com",
+        "type": "plain_text"
+      },
+      {
+        "name": "WORKSHOP_PUBLIC_URL",
+        "text": "https://flyqdrone.in",
+        "type": "plain_text"
+      }
+    ]
+  }
+}

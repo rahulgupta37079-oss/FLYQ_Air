@@ -1,0 +1,50 @@
+{
+  "id": "fa38cd9e-5498-477d-99a0-220e35cd2d04",
+  "number": 22,
+  "metadata": {
+    "created_on": "2026-11-02T08:23:51.634585Z",
+    "source": "api",
+    "author_id": "5cca3b6ab7a45417ac53c963404276d6",
+    "author_email": "rahulgupta37079@gmail.com",
+    "has_preview": true
+  },
+  "annotations": {
+    "workers/message": "FLYQ logo only: preserve all deployed modules, assets, bindings and routes.",
+    "workers/tag": "flyq-logo-2026-11-02-v1",
+    "workers/triggered_by": "version_upload"
+  },
+  "resources": {
+    "script": {
+      "etag": "99b48a0a5e1a62875dd77fe8e996157dbc1d8b78fb0d2c7f9746854d83933df8",
+      "handlers": [
+        "fetch"
+      ],
+      "last_deployed_from": "api"
+    },
+    "script_runtime": {
+      "assets": {
+        "serve_directly": false,
+        "raw_run_worker_first": true,
+        "base_path": "/"
+      },
+      "compatibility_date": "2025-12-07",
+      "usage_model": "standard"
+    },
+    "bindings": [
+      {
+        "name": "ASSETS",
+        "type": "assets"
+      },
+      {
+        "name": "LEGACY_ORIGIN",
+        "text": "https://flyq-air.pages.dev",
+        "type": "plain_text"
+      },
+      {
+        "name": "PLATFORM_ORIGIN",
+        "text": "https://flyq-platform.rahulgupta37079.workers.dev",
+        "type": "plain_text"
+      }
+    ]
+  }
+}
